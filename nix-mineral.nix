@@ -4,11 +4,14 @@
 
 # Additionally sourced is privsec's Desktop Linux Hardening:
 # URL: https://privsec.dev/posts/linux/desktop-linux-hardening/
-# Archive: https://web.archive.org/web/20240302143511/https://privsec.dev/posts/linux/desktop-linux-hardening/
+# Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
 
 # Bluetooth configuration and module blacklist was borrowed from Kicksecure's 
 # security-misc:
 # URL: https://github.com/Kicksecure/security-misc
+
+# Supplement to module blacklisting borrowed from secureblue config:
+https://github.com/secureblue/secureblue/blob/live/config/files/usr/etc/modprobe.d/blacklist.conf
 
 # Chrony configuration was borrowed from GrapheneOS server infrastructure:
 # URL: https://github.com/GrapheneOS/infrastructure
@@ -287,7 +290,7 @@
         '';
       };
 
-      # Borrow Kicksecure module blacklist.
+      # Borrow Kicksecure and secureblue module blacklist.
       # "install "foobar" /bin/not-existent" prevents the module from being
       # loaded at all. "blacklist "foobar"" prevents the module from being
       # loaded automatically at boot, but it can still be loaded afterwards.
@@ -442,6 +445,45 @@
           #install sr_mod /bin/disabled-cdrom-by-security-misc
           blacklist cdrom
           blacklist sr_mod
+
+
+
+          ## Following blacklisted modules were pulled from secureblue
+
+          # firewire and thunderbolt
+          install firewire-net /bin/false
+
+          # unused filesystems
+          install squashfs /bin/false
+          install reiserfs /bin/false
+          install kafs /bin/false
+          install orangefs /bin/false
+          install 9p /bin/false
+          install adfs /bin/false
+          install affs /bin/false
+          install afs /bin/false
+          install befs /bin/false
+          install ceph /bin/false
+          install coda /bin/false
+          install ecryptfs /bin/false
+          install erofs /bin/false
+          install jfs /bin/false
+          install minix /bin/false
+          install netfs /bin/false
+          install nilfs2 /bin/false
+          install ocfs2 /bin/false
+          install romfs /bin/false
+          install ubifs /bin/false
+          install udf /bin/false
+          install zonefs /bin/false
+
+          # disable GNSS
+          install gnss /bin/false
+          install gnss-mtk /bin/false
+          install gnss-serial /bin/false
+          install gnss-sirf /bin/false
+          install gnss-usb /bin/false
+          install gnss-ubx /bin/false
         '';
       };
     };
