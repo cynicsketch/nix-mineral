@@ -122,8 +122,8 @@
         # overall network performance.
         # Set to 0 to avoid leaking system time.
         # Read more about the issue here:
-        # URL (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
-        # URL (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
+        # URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
+        # URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
         "net.ipv4.tcp_timestamps" = "1";
 
         "dev.tty.ldisc_autoload" = "0";
@@ -166,7 +166,7 @@
         "vm.mmap_rnd_bits" = "32";
         "vm.mmap_rnd_compat_bits" = "16";
         "vm.unprivileged_userfaultfd" = "0";
-        "net.ipv4.icmp_ignore_bogus_error_responses = "1";
+        "net.ipv4.icmp_ignore_bogus_error_responses" = "1";
       };
     };
 
