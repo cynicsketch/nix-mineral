@@ -11,7 +11,7 @@
 # URL: https://github.com/Kicksecure/security-misc
 
 # Supplement to module blacklisting borrowed from secureblue config:
-https://github.com/secureblue/secureblue/blob/live/config/files/usr/etc/modprobe.d/blacklist.conf
+# URL: https://github.com/secureblue/secureblue/blob/live/config/files/usr/etc/modprobe.d/blacklist.conf
 
 # Chrony configuration was borrowed from GrapheneOS server infrastructure:
 # URL: https://github.com/GrapheneOS/infrastructure
