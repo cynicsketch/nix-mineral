@@ -13,6 +13,9 @@
 # Supplement to module blacklisting borrowed from secureblue config:
 # URL: https://github.com/secureblue/secureblue/blob/live/config/files/usr/etc/modprobe.d/blacklist.conf
 
+# Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts:
+# URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf
+
 # Chrony configuration was borrowed from GrapheneOS server infrastructure:
 # URL: https://github.com/GrapheneOS/infrastructure
 
@@ -85,14 +88,11 @@
         # rootless podman, Flatpak, and other tools using the feature.
         "kernel.unprivileged_userns_clone" = "1";
         
-        # NOTABLE REGRESSION!!!
         # Yama restricts ptrace, which allows processes to read and modify the
         # memory of other processes. This has obvious security implications.
-        # Set to 1 to restrict ptrace, so only child processes may be ptraced.
-        # Setting to 2 restricts ptrace to require admin privileges.
-        # Setting to 3 disables ptrace altogether. 
-        # If possible, set to 2, or optimally 3, to further restrict.
-        "kernel.yama.ptrace_scope" = "1";
+        # Most desktop software works fine with ptrace disabled (value "3"),
+        # but if breakage occurs, set to 2 or 1 to relax restrictions.
+        "kernel.yama.ptrace_scope" = "3";
 
         # Decreasing swappiness can reduce the risk of writing sensitive data
         # to disk. If you are running a zram only setup, which compresses
@@ -105,6 +105,26 @@
         # Disables magic sysrq key. Set to 4 if you intend on properly using
         # the Secure Attention Key
         "kernel.sysrq" = "0";
+
+        # Change to 1 if you use Roseta, as this prevents it from working.
+        "fs.binfmt_misc.status" = "0";
+
+        # Disable io_uring. May be desired for Proxmox, but is responsible
+        # for many vulnerabilities and is disabled on Android + ChromeOS.
+        "kernel.io_uring_disabled" = "2";
+
+        # Enable ip forwarding if you need it only, e.g VM networking.
+        # "net.ipv4.ip_forward" = "1";
+        # "net.ipv6.conf.all.forwarding" = "1";
+
+        # Privacy/security split.
+        # Set to 1 to protect against wrapped sequence numbers and improve
+        # overall network performance.
+        # Set to 0 to avoid leaking system time.
+        # Read more about the issue here:
+        # URL (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
+        # URL (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
+        "net.ipv4.tcp_timestamps" = "1";
 
         "dev.tty.ldisc_autoload" = "0";
         "fs.protected_fifos" = "2";
@@ -130,22 +150,23 @@
         "net.ipv4.conf.default.secure_redirects" = "0";
         "net.ipv4.conf.default.send_redirects" = "0";
         "net.ipv4.icmp_echo_ignore_all" = "1";
+        "net.ipv6.icmp_echo_ignore_all" = "1";
         "net.ipv4.tcp_dsack" = "0";
         "net.ipv4.tcp_fack" = "0";
         "net.ipv4.tcp_rfc1337" = "1";
         "net.ipv4.tcp_sack" = "0";
         "net.ipv4.tcp_syncookies" = "1";
-        "net.ipv4.tcp_timestamps" = "0";
         "net.ipv6.conf.all.accept_ra" = "0";
         "net.ipv6.conf.all.accept_redirects" = "0";
         "net.ipv6.conf.all.accept_source_route" = "0";
         "net.ipv6.conf.default.accept_redirects" = "0";
         "net.ipv6.conf.default.accept_source_route" = "0";
         "net.ipv6.default.accept_ra" = "0";
-        "syskernel.core_pattern" = "|/bin/false";
+        "kernel.core_pattern" = "|/bin/false";
         "vm.mmap_rnd_bits" = "32";
         "vm.mmap_rnd_compat_bits" = "16";
         "vm.unprivileged_userfaultfd" = "0";
+        "net.ipv4.icmp_ignore_bogus_error_responses = "1";
       };
     };
 
