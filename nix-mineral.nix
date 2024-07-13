@@ -391,21 +391,22 @@
 
           ## Blacklist automatic loading of miscellaneous modules
           ## https://git.launchpad.net/ubuntu/+source/kmod/tree/debian/modprobe.d/blacklist.conf?h=ubuntu/disco
-          blacklist evbug
-          blacklist usbmouse
-          blacklist usbkbd
-          blacklist eepro100
-          blacklist de4x5
-          blacklist eth1394
-          blacklist snd_intel8x0m
-          blacklist snd_aw2
-          blacklist prism54
-          blacklist bcm43xx
-          blacklist garmin_gps
-          blacklist asus_acpi
-          blacklist snd_pcsp
-          blacklist pcspkr
+          blacklist ath_pci
           blacklist amd76x_edac
+          blacklist asus_acpi
+          blacklist bcm43xx
+          blacklist eepro100
+          blacklist eth1394
+          blacklist evbug
+          blacklist de4x5
+          blacklist garmin_gps
+          blacklist pcspkr
+          blacklist prism54
+          blacklist snd_aw2
+          blacklist snd_intel8x0m
+          blacklist snd_pcsp
+          blacklist usbkbd
+          blacklist usbmouse
 
           ## Blacklist automatic loading of framebuffer drivers
           ## https://git.launchpad.net/ubuntu/+source/kmod/tree/debian/modprobe.d/blacklist-framebuffer.conf?h=ubuntu/disco
