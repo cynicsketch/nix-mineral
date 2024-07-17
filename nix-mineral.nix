@@ -641,7 +641,6 @@ imports = [ ./nm-overrides.nix ];
     # attacks, which are not addressed here.
 
     usbguard = {   
-      dbus = { enable = true; }; # Needed only for GNOME Shell integration.
       enable = true;
     };
   };
