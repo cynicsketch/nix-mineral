@@ -62,68 +62,59 @@
 # 21.4 (Non-declarative setup, experimental)
 
 # ABOUT THE DEFAULTS:
-# The default config harms performance, usability, and features in many
-# ways, and makes concessions in regards to security in other ways. It is
-# essential that you read through and configure this according to your needs.
+# The default config harms performance and usability in many ways, focusing
+# almost entirely on hardening alone.
 #
-# There are also some software substitutions and additions which may conflict,
-# significantly with user needs including, but not limited to:
+# There are also some software substitutions and additions which may conflict
+# with user needs including, but not limited to:
 #
 # sudo ---> doas (For reduced attack surface; although less audited)
 # systemd-timesyncd ---> chrony (For NTS support)
 # USBGuard (Prevent BadUSB attacks, may cause inconvenience due to need to
 # manually whitelist etc.)
 # 
-# These should be addressed accordingly.
+# All of this can, and should be addressed using the overrides file.
+# "nm-overrides.nix"
 
 ({ config, lib, pkgs, ... }:
+
 (with lib; {
+
+# Imports the overrides file, which should be in the same directory as this.
+imports = [ ./nm-overrides.nix ];
+
   boot = {
    kernel = {
       sysctl = {
-        # NOTABLE REGRESSION!!!
         # Unprivileged userns has a large attack surface and has been the cause
-        # of many privilege escalation vulnerabilities Set to 0 if you don't
-        # need it. The reason this isn't done by default is because it breaks
-        # rootless podman, Flatpak, and other tools using the feature.
-        "kernel.unprivileged_userns_clone" = "1";
+        # of many privilege escalation vulnerabilities, but can cause breakage.
+        # See overrides.
+        "kernel.unprivileged_userns_clone" = "0";
         
         # Yama restricts ptrace, which allows processes to read and modify the
         # memory of other processes. This has obvious security implications.
-        # Most desktop software works fine with ptrace disabled (value "3"),
-        # but if breakage occurs, set to 2 or 1 to relax restrictions.
+        # See overrides.
         "kernel.yama.ptrace_scope" = "3";
 
-        # Decreasing swappiness can reduce the risk of writing sensitive data
-        # to disk. If you are running a zram only setup, which compresses
-        # data in volatile memory instead, that issue is sidestepped and you
-        # probably wouldn't want to reduce swappiness, as nothing is being
-        # written to disk and you'd only be reducing performance with no
-        # security benefit.
-        # "vm.swappiness" = "1";
-
-        # Disables magic sysrq key. Set to 4 if you intend on properly using
-        # the Secure Attention Key
+        # Disables magic sysrq key. See overrides file regarding SAK (Secure
+        # attention key).
         "kernel.sysrq" = "0";
 
-        # Change to 1 if you use Roseta, as this prevents it from working.
+        # Disable binfmt. Breaks Roseta, see overrides file.
         "fs.binfmt_misc.status" = "0";
 
         # Disable io_uring. May be desired for Proxmox, but is responsible
         # for many vulnerabilities and is disabled on Android + ChromeOS.
+        # See overrides file.
         "kernel.io_uring_disabled" = "2";
 
-        # Enable ip forwarding if you need it only, e.g VM networking.
-        # "net.ipv4.ip_forward" = "1";
-        # "net.ipv6.conf.all.forwarding" = "1";
+        # Disable ip forwarding to reduce attack surface. May be needed for
+        # VM networking. See overrides file.
+        "net.ipv4.ip_forward" = "1";
+        "net.ipv6.conf.all.forwarding" = "0";
 
         # Privacy/security split.
-        # Set to 1 to protect against wrapped sequence numbers and improve
-        # overall network performance.
-        # Set to 0 to avoid leaking system time.
-        # Read more about the issue here:
-        # URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
-        # URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
+        # See overrides file for details.
         "net.ipv4.tcp_timestamps" = "1";
 
         "dev.tty.ldisc_autoload" = "0";
@@ -170,43 +161,41 @@
       };
     };
 
-    # linux_hardened patchset breaks hibernation. Hibernation is only important
-    # on battery operated systems.
+    # linux_hardened patchset decreases overall kernel attack surface, but it
+    # breaks hibernation. See overrides.
     kernelPackages = (pkgs).linuxPackages_hardened;
     
     kernelParams = [
       # Requires all kernel modules to be signed. This prevents out-of-tree
-      # kernel modules from working unless signed, incl. DKMS, so some drivers,
-      # such as Nvidia and VirtualBox drivers, may need to be signed.
+      # kernel modules from working unless signed. See overrides.
       ("module.sig_enforce=1")
       
       # May break some drivers, same reason as the above. Also breaks
-      # hibernation. Hibernation is only useful on battery operated systems.
+      # hibernation. See overrides.
       ("lockdown=confidentiality")
 
-      # May prevent some systems from booting.
+      # May prevent some systems from booting. See overrides.
       ("efi=disable_early_pci_dma") 
 
-      # GPU passthrough to VMs will not work with this.
+      # Forces DMA to go through IOMMU to mitigate some DMA attacks. See
+      # overrides.
       ("iommu.passthrough=0") 
 
       # Apply relevant CPU exploit mitigations, and disable symmetric 
-      # multithreading. Remove "nosmt" to get back SMT, which may improve
-      # performance, but may make your system more vulnerable to certain
-      # exploits. Removing all mitigations completely can improve performance,
-      # but isn't recommended due to harming security even further.
+      # multithreading. May harm performance. See overrides.
       ("mitigations=auto,nosmt") 
 
-      # Mitigates Meltdown, some KASLR bypasses. Hurts performance.
+      # Mitigates Meltdown, some KASLR bypasses. Hurts performance. See
+      # overrides.
       ("pti=on")
       
       # Gather more entropy on boot. Only works with the linux_hardened
-      # patchset. Slows down boot time by a bit.
+      # patchset, but does nothing if using another kernel. Slows down boot
+      # time by a bit. 
       ("extra_latent_entropy")
 
       # Disables multilib/32 bit applications to reduce attack surface.
-      # Set to 1 if you have a use case for multilib applications, particularly
-      # in regards to certain desktop applications.
+      # See overrides.
       ("ia32_emulation=0")
 
       ("slab_nomerge")
@@ -235,26 +224,7 @@
     loader = { systemd-boot = { editor = false; }; };
 
   };
-  environment = {
-    # NOTABLE REGRESSION!!!
-    # Alternative memory allocators can be more secure. graphene-hardened would
-    # be most ideal for security. 
-    #
-    # WARNING: Using graphene-hardened as a system memory allocator is likely
-    # to cause significant breakage, use at your own risk!.
-    # memoryAllocator = { provider = "graphene-hardened"; };
-
-    
-    # doas-sudo wrapper, only needed if using doas. rnano is restricted in
-    # functionality, which provides similar security benefits as sudoedit,
-    # although a bit less free in editor choice.
-    systemPackages = (with pkgs; [ 
-      ((pkgs.writeScriptBin "sudo" ''exec doas "$@"''))
-      ((pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"''))
-      ((pkgs.writeScriptBin "doasedit" ''exec doas rnano "$@"''))
-      nano
-    ]);
-
+  environment = {    
     etc = {
       # Empty /etc/securetty to prevent root login on tty.
       securetty = {
@@ -511,37 +481,25 @@
     };
   };
 
-  # Filesystem hardening
+  ### Filesystem hardening
+
   fileSystems = {
-    # Remove noexec if you must run executables in /home.
+    # noexec on /home can be very inconvenient for desktops. See overrides.
     "/home" = {
       device = "/home";
       options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
     };
 
-    # noexec on /tmp can break some programs, consult respective documentation
-    # for any malfunctioning apps. Particularly, Java can require an exec
-    # /tmp to function.
+    # Some applications may need to be executable in /tmp. See overrides.
     "/tmp" = { 
       device = "/tmp";
       options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
     };
 
-    # noexec may break some apps, although setting "exec" on /var/lib as seen
-    # below unbreaks software including, but not limited to: LXC, system-wide
-    # Flatpaks.
+    # noexec on /var may cause breakage. See overrides.
     "/var" = { 
       device = "/var";
       options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
-    };
-
-    # NOTABLE REGRESSION!!!
-    # Enables programs to execute in /var/lib, which unbreaks some programs
-    # such as system-wide Flatpaks and LXC. If you don't use such software,
-    # you should replace ("exec") with ("noexec") to reduce attack surface.
-    "/var/lib" = { 
-      device = "/var/lib";
-      options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
     };
 
     "/boot" = { options = [ ("nosuid") ("noexec") ("nodev") ]; };
@@ -552,7 +510,7 @@
   };
 
   # Enables firewall. You may need to tweak your firewall rules depending on
-  # your usecase. On a desktop, this shouldn't cause problems.
+  # your usecase. On a desktop, this shouldn't cause problems. 
   networking = { 
     firewall = {
       allowedTCPPorts = [ ];
@@ -616,32 +574,10 @@
         system-login = { failDelay = { delay = "4000000"; }; };
       };
     };
-
-    # These polkit rules are only needed for GNOME Shell integration. You may
-    # want to change the line "subject.isInGroup..." if you don't want to use
-    # your sudo/sudo equivalent user as your "unprivileged account." That would
-    # be recommended, but is out of scope.
-    polkit = { 
-      extraConfig = ''
-        polkit.addRule(function(action, subject) {
-            if ((action.id == "org.usbguard.Policy1.listRules" ||
-                 action.id == "org.usbguard.Policy1.appendRule" ||
-                 action.id == "org.usbguard.Policy1.removeRule" ||
-                 action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
-                 action.id == "org.usbguard.Devices1.listDevices" ||
-                 action.id == "org.usbguard1.getParameter" ||
-                 action.id == "org.usbguard1.setParameter") &&
-                subject.active == true && subject.local == true &&
-                subject.isInGroup("wheel")) {
-                    return polkit.Result.YES;
-            }
-        });
-      '';
-    };
   };
   services = {
     # Disallow root login over SSH. Doesn't matter on systems without SSH.
-    # openssh = { settings = {PermitRootLogin = "no"} };
+    openssh = { settings = { PermitRootLogin = "no"; }; };
     
     # Haveged adds entropy; it's not useless, unlike what the Arch wiki says.
     # The haveged *inspired* implementation in mainline Linux is different,
@@ -705,11 +641,6 @@
     # attacks, which are not addressed here.
 
     usbguard = {   
-      # NOTABLE REGRESSION!!!
-      # This automatically allows any USB device plugged in before the USBGuard
-      # daemon starts.
-      presentDevicePolicy = "allow"; 
-      
       dbus = { enable = true; }; # Needed only for GNOME Shell integration.
       enable = true;
     };
@@ -717,9 +648,6 @@
 
   # Disable systemd coredump to reduce available information to an attacker.
   systemd = { coredump = { enable = false; }; };
-
-  # Lock root user.
-  # users = { users = { root = { hashedPassword = "!"; }; }; };
   
   # zram allows swapping to RAM by compressing memory. This reduces the chance
   # that sensitive data is written to disk, and eliminates it if zram is used
@@ -728,5 +656,5 @@
   zramSwap = { enable = true; };
 
   # Limit access to nix to users with the "wheel" group. ("sudoers")
-  nix = { settings = { allowed-users = [ ("@wheel") ]; }; };
+  nix.settings.allowed-users = mkForce [ ("@wheel") ];
 }))
