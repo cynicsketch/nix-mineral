@@ -35,6 +35,10 @@
   # Leniency may provoke insecurity.
   # services.usbguard.presentDevicePolicy = mkForce "allow"; 
 
+  # Enable dbus service for USBGuard, needed for integration with GNOME, as
+  # seen below.
+  # services.usbguard.dbus.enable = mkForce true;
+
   # These polkit rules allow USBGuard integration for GNOME. This means that
   # while using GNOME, USBGuard will automatically blacklist all USB devices
   # while the system is locked, but automatically allow all USB devices when
