@@ -98,7 +98,9 @@
   # to run on a 64 bit system, which may be useful in regards to certain games.
   # ("ia32_emulation=1")
 
-  # May prevent some systems from booting.
+  # Disabling the busmaster bit can prevent some low resource systems from
+  # booting. This reenables the busmaster bit; but also reenables bypassing the
+  # IOMMU and certain potential DMA attacks.
   # ("efi=no_disable_early_pci_dma")
 
   # Allows DMA to bypass the IOMMU, for certain uses requiring DMA. Hurts
