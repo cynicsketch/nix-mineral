@@ -90,7 +90,7 @@ imports = [
   # Reenable unprivileged userns. Although userns is the target of many
   # exploits, it also used in the Chromium sandbox, unprivileged containers,
   # and bubblewrap among many other applications.
-  # boot.kernel.sysctl."kernel.unprivileged_userns_clone" = mkForce "1";
+  # nm-overrides.desktop.allow-unprivileged-userns.enable = true;
 
   # Enable doas-sudo wrapper, useful for scripts that use "sudo." Installs
   # nano for rnano as a "safe" method of editing text as root. 
