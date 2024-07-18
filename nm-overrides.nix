@@ -2,203 +2,216 @@
 # list of options that one may wish to override for any number of reasons.
 # 
 # The goal is primarily to provide a premade template for users to make
-# nix-mineral work with any system and use case, however,
+# nix-mineral work with any system and use case.
 
 ({ config, lib, pkgs, ... }:
 
 (with lib; {
 
-  ## Common desktop overrides/convenience
+# Import all the options, assuming the nix-overrides folder is in the same
+# folder as this file.
+imports = [
 
-  # Remove noexec if you must run executables in /home.
-  # fileSystems."/home" = mkForce {
-  #   device = "/home";
-  #   options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
-  # };
+  ./nm-overrides/compatibility/allow-unsigned-modules.nix
+  ./nm-overrides/compatibility/binfmt-misc.nix
+  ./nm-overrides/compatibility/busmaster-bit.nix
+  ./nm-overrides/compatibility/io-uring.nix
+  ./nm-overrides/compatibility/ip-forward.nix
+  ./nm-overrides/compatibility/no-lockdown.nix
 
-  # Programs may need to be executed in /tmp, consult respective documentation
-  # for any malfunctioning apps. Particularly, Java can require an exec /tmp
-  # to function.
-  # fileSystems."/tmp" = mkForce {
-  #   device = "/tmp";
-  #   options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
-  # };
-    
-  # Enables programs to execute in /var/lib, which unbreaks some programs
-  # such as system-wide Flatpaks and LXC.
-  # fileSystems."/var/lib" = mkForce { 
-  #   device = "/var/lib";
-  #   options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
-  # };
-   
-  # Automatically allow all USB devices connected at boot time in USBGuard.
-  # Leniency may provoke insecurity.
-  # services.usbguard.presentDevicePolicy = mkForce "allow"; 
+  ./nm-overrides/desktop/allow-multilib.nix
+  ./nm-overrides/desktop/allow-unprivileged-userns.nix
+  ./nm-overrides/desktop/doas-sudo-wrapper.nix
+  ./nm-overrides/desktop/home-exec.nix
+  ./nm-overrides/desktop/nix-allow-all-users.nix
+  ./nm-overrides/desktop/tmp-exec.nix
+  ./nm-overrides/desktop/usbguard-allow-at-boot.nix
+  ./nm-overrides/desktop/usbguard-disable.nix
+  ./nm-overrides/desktop/usbguard-gnome-integration.nix
+  ./nm-overrides/desktop/var-lib-exec.nix
+  ./nm-overrides/desktop/yama-relaxed.nix
 
-  # Enable dbus service for USBGuard, needed for integration with GNOME, as
-  # seen below.
-  # services.usbguard.dbus.enable = mkForce true;
+  ./nm-overrides/performance/allow-smt.nix
+  ./nm-overrides/performance/iommu-passthrough.nix
+  ./nm-overrides/performance/no-mitigations.nix
+  ./nm-overrides/performance/no-pti.nix
 
-  # These polkit rules allow USBGuard integration for GNOME. This means that
-  # while using GNOME, USBGuard will automatically blacklist all USB devices
-  # while the system is locked, but automatically allow all USB devices when
-  # unlocked, similarly to ChromeOS and GrapheneOS.
-  # security.polkit = { 
-  #   extraConfig = ''
-  #     polkit.addRule(function(action, subject) {
-  #         if ((action.id == "org.usbguard.Policy1.listRules" ||
-  #              action.id == "org.usbguard.Policy1.appendRule" ||
-  #              action.id == "org.usbguard.Policy1.removeRule" ||
-  #              action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
-  #              action.id == "org.usbguard.Devices1.listDevices" ||
-  #              action.id == "org.usbguard1.getParameter" ||
-  #              action.id == "org.usbguard1.setParameter") &&
-  #              subject.active == true && subject.local == true &&
-  #              subject.isInGroup("wheel")) {
-  #                 return polkit.Result.YES;
-  #         }
-  #     });
-  #   '';
-  # };
-  
-  # Disable USBGuard, so that one does not have to manually whitelist USB
-  # devices in the absence of GNOME Shell integration or otherwise. May create
-  # vulnerability to BadUSB attacks in the absence of other solutions.
-  # services.usbguard.enable = mkForce false;
-  
-  # Don't limit access to nix to users with the "wheel" group. ("sudoers") May
-  # be desired if using devshell as a non-wheel user.
-  # nix.settings.allowed-users = mkForce [ ("*") ];
+  ./nm-overrides/security/hardened-malloc.nix
+  ./nm-overrides/security/lock-root.nix
+  ./nm-overrides/security/minimum-swappiness.nix
+  ./nm-overrides/security/sysrq-sak.nix
+  ./nm-overrides/security/tcp-timestamp-disable.nix
 
-  # Unprivileged userns, though a significant security risk, is used
-  # in many unprivileged container software, Flatpaks, etc, and so it
-  # should be reenabled on most desktops.
+  ./nm-overrides/software-choice/doas-no-sudo.nix
+  ./nm-overrides/software-choice/hardened-kernel.nix
+  ./nm-overrides/software-choice/no-firewall.nix
+  ./nm-overrides/software-choice/secure-chrony.nix
+
+];
+
+## Compatibility
+# Options to ensure compatibility with certain usecases and hardware, at the
+# expense of overall security.
+
+  # Set boot parameter "module.sig_enforce=0" to allow loading unsigned kernel
+  # modules, which may include certain drivers. Lockdown must also be disabled,
+  # see option below this one.
+  # nm-overrides.compatibility.allow-unsigned-modules.enable = true;
+
+  # Disable Linux Kernel Lockdown to *permit* loading unsigned kernel modules
+  # and hibernation.
+  # nm-overrides.compatibility.no-lockdown.enable = true;
+
+  # Enable binfmt_misc. This is required for Roseta to function.
+  # nm-overrides.compatibility.binfmt-misc.enable = true;
+
+  # Reenable the busmaster bit at boot. This may help with low resource systems
+  # that are prevented from booting by the defaults of nix-mineral.
+  # nm-overrides.compatibility.busmaster-bit.enable = true;
+
+  # Reenable io_uring, which is the cause of many vulnerabilities. This may
+  # be desired for specific environments concerning Proxmox.
+  # nm-overrides.compatibility.io-uring.enable = true;
+
+  # Enable ip forwarding. Useful for certain VM networking and is required if
+  # the system is meant to function as a router.
+  # nm-overrides.compatibility.ip-forward.enable = true;
+
+
+
+## Desktop
+# Options that are useful to desktop experience and general convenience. Some
+# of these may also be to specific server environments, too. Most of these
+# options reduce security to a certain degree.
+
+  # Reenable multilib, may be useful to playing certain games.
+  # nm-overrides.desktop.allow-multilib.enable = true;
+
+  # Reenable unprivileged userns. Although userns is the target of many
+  # exploits, it also used in the Chromium sandbox, unprivileged containers,
+  # and bubblewrap among many other applications.
   # boot.kernel.sysctl."kernel.unprivileged_userns_clone" = mkForce "1";
-        
-  # Relax Yama ptrace restrictions to accomodate for certain Linux game
-  # anticheats.
-  # boot.kernel.sysctl."kernel.yama.ptrace_scope" = mkForce "1";
 
-  boot.kernelParams = mkOverride 100 [
-  # Allow use of unsigned kernel modules, for driver support.
-  # ("module.sig_enforce=0")
-      
-  # Disable Linux kernel lockdown. Harms security, but allows use of unsigned
-  # kernel modules (must be used with above option) and allows hibernation
-  # (must also not be using hardened kernel patchset).
-  # ("lockdown=")
+  # Enable doas-sudo wrapper, useful for scripts that use "sudo." Installs
+  # nano for rnano as a "safe" method of editing text as root. 
+  # Use this when replacing sudo with doas, see "Software Choice."
+  # sudo = doas
+  # doasedit/sudoedit = doas rnano
+  # nm-overrides.desktop.doas-sudo-wrapper.enable = true;
 
-  # Reenable symmetric multithreading. May improve performance, but also may
-  # enable certain CPU vulnerabilities. Can also be set to "off" for more
-  # performance but this is an even greater security risk and only ever
-  # suggested if the system is completely unusable with mitigations.
-  # ("mitigations=auto")
+  # Allow executing binaries in /home. Highly relevant for games and other
+  # programs executing in the /home folder.
+  # nm-overrides.desktop.home-exec.enable = true;
 
-  # Disable page table isolation. May improve performance, but may also enable
-  # certain CPU vulnerabilities.
-  # ("pti=off")
+  # Allow executing binaries in /tmp. Certain applications may need to execute
+  # in /tmp, Java being one example.
+  # nm-overrides.desktop.tmp-exec.enable = true;
 
-  # Enable multilib. This may increase attack surface, but allows 32 bit apps
-  # to run on a 64 bit system, which may be useful in regards to certain games.
-  # ("ia32_emulation=1")
+  # Allow executing binaries in /var/lib. LXC, and system-wide Flatpaks are
+  # among some examples of applications that requiring executing in /var/lib.
+  # nm-overrides.desktop.var-lib-exec.enable = true;
 
-  # Disabling the busmaster bit can prevent some low resource systems from
-  # booting. This reenables the busmaster bit; but also reenables bypassing the
-  # IOMMU and certain potential DMA attacks.
-  # ("efi=no_disable_early_pci_dma")
+  # Allow all users to use nix, rather than just users of the "wheel" group.
+  # May be useful for allowing a non-wheel user to, for example, use devshell.
+  # nm-overrides.desktop.nix-allow-allow-users.enable = true;
 
-  # Allows DMA to bypass the IOMMU, for certain uses requiring DMA. Hurts
-  # security. 
-  # ("iommu.passthrough=1") 
-  ];
-   
-  # doas-sudo wrapper for convenience. rnano is restricted in functionality,
-  # which provides similar security benefits as sudoedit, although a bit less
-  # free in editor choice.
-  # environment.systemPackages = (with pkgs; [ 
-  #   ((pkgs.writeScriptBin "sudo" ''exec doas "$@"''))
-  #   ((pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"''))
-  #   ((pkgs.writeScriptBin "doasedit" ''exec doas rnano "$@"''))
-  #   nano
-  # ]);
+  # Automatically allow all connected devices at boot in USBGuard. Note that
+  # for laptop users, inbuilt speakers and bluetooth cards may be disabled
+  # by USBGuard by default, so whitelisting them manually or enabling this
+  # option may solve that.
+  # nm-overrides.desktop.usbguard-allow-at-boot.enable = true;
+
+  # Enable USBGuard dbus daemon and add polkit rules to integrate USBGuard with
+  # GNOME Shell. If you use GNOME, this means that USBGuard automatically
+  # allows all newly connected devices while unlocked, and blacklists all
+  # newly connected devices while locked. This is obviously very convenient,
+  # and is similar behavior to handling USB as ChromeOS and GrapheneOS.
+  # nm-overrides.usbguard-gnome-integration.enable = true;
+
+  # Completely disable USBGuard to avoid hassle with handling USB devices at
+  # all.
+  # nm-overrides.desktop.usbguard-disable.enable = true;
+
+  # Rather than disable ptrace entirely, restrict ptrace so that parent
+  # processes can ptrace descendants. May allow certain Linux game anticheats
+  # to function.
+  # nm-overrides.desktop.yama-relaxed.enable = true;
 
 
 
-  ### Potentially controversial default software
+## Performance
+# Options to revert some performance taxing tweaks by nix-mineral, at the cost
+# of security. In general, it's recommended not to use these unless your system
+# is otherwise unusable without tweaking these.
 
-  # Adjust firewall ports as needed. Not usually necessary on a desktop.
-  # networking.firewall.allowedTCPPorts = mkForce [ ];
-  # networking.firewall.allowedUDPPorts = mkForce [ ];
-  
-  # Disable firewall as provided by Nix. Not usually recommended, but some
-  # users may have opinions on firewall software choice.
-  # networking.firewall.enable = mkForce true;
+  # Allow symmetric multithreading and just use default CPU mitigations, to
+  # potentially improve performance.
+  # nm-overrides.performance.allow-smt.enable = true;
 
-  # doas is recommended due to fulfilling the most common usecases for sudo
-  # while having less attack surface. It is less audited, however, and some
-  # users may wish to use sudo instead. The following options disable doas
-  # and reenable sudo.
-  # security.sudo.enable = mkForce true; 
-  # security.doas.enable = mkForce false;
+  # Disable all CPU mitigations. Do not use with the above option. May improve
+  # performance further, but is even more dangerous!
+  # nm-overrides.performance.no-mitigations.enable = true;
 
-  # Although chrony is recommended due to its NTS support and is not known to
-  # generally cause issue, some users may prefer systemd-timesyncd or another
-  # NTP service regardless. This disables chrony and reenables timesyncd. 
-  # services.timesyncd.enable = mkForce true;     
-  # services.chrony.enable = mkForce false;
-  
-  # Use vanilla Linux kernel (i.e, without hardened patchset) to be able to
-  # use hibernation and potentially improve performance. Hibernation only
-  # matters on battery operated systems.
-  # boot.kernelPackages = mkForce (pkgs).linuxPackages;
+  # Enable bypassing the IOMMU for direct memory access. Could increase I/O
+  # performance on ARM64 systems, with risk. See URL: https://wiki.ubuntu.com/ARM64/performance
+  # nm-overrides.performance.iommu-passthrough.enable = true;
+
+  # Page table isolation mitigates some KASLR bypasses and the Meltdown CPU
+  # vulnerability. It may also tax performance, so this option disables it.
+  # nm-overrides.perforamcne.no-pti.enable = true;
 
 
 
-  ## Miscellaneous relevant overrides
+## Security
+# Other security related options that were not enabled by default for one
+# reason or another.
+
+  # Lock the root account. Requires another method of privilege escalation, i.e
+  # sudo or doas, and declarative accounts to work properly.
+  # nm-overrides.security.lock-root.enable = true;
+
+  # Reduce swappiness to bare minimum. May reduce risk of writing sensitive
+  # information to disk, but hampers zram performance. Also useless if you do
+  # not even use a swap file/partition, i.e zram only setup.
+  # nm-overrides.security.minimum-swappiness.enable = true;
 
   # Enable SAK (Secure Attention Key). SAK prevents keylogging, if used
   # correctly. See URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html#accessing-root-securely
-  # boot.kernel.sysctl."kernel.sysrq" = mkForce "4";
-
-  # Decrease swappiness if swapping to disk, to reduce risk of writing
-  # sensitive info to non-volatile storage. Negates any performance gains from
-  # using zram. Pointless if not using swap to disk (i.e, zram only).
-  # boot.kernel.sysctl."vm.swappiness" = mkForce "1";
-
-  # Reenable binfmt to make Roseta work again. Worsens security.
-  # boot.kernel.sysctl."fs.binfmt_misc.status" = mkForce "1";
-
-  # Reenable io_uring for some usecases in Proxmox. Worsens security
-  # significantly.
-  # boot.kernel.sysctl."kernel.io_uring_disabled" = mkForce "0";
-
-  # Enable ip forwarding if you need it, e.g VM networking.
-  # boot.kernel.sysctl."net.ipv4.ip_forward" = mkForce "1";
-  # boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = mkForce "1";
+  # nm-overrides.security.sysrq-sak.enable = true;
 
   # Privacy/security split.
-  # Set to 1 to protect against wrapped sequence numbers and improve
-  # overall network performance.
-  #
-  # Set to 0 to avoid leaking system time.
-  #
-  # Default value in nix-mineral is "1"
+  # This option disables TCP timestamps. By default, nix-mineral enables
+  # tcp-timestamps. Disabling prevents leaking system time, enabling protects
+  # against wrapped sequence numbers and improves performance.
   #
   # Read more about the issue here:
   # URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
   # URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
-  # boot.kernel.sysctl."net.ipv4.tcp_timestamps" = mkForce "0";
+  # nm-overrides.security.tcp-timestamp-disable.enable = true;
+
+  # DO NOT USE THIS OPTION ON ANY PRODUCTION SYSTEM! FOR TESTING PURPOSES ONLY!
+  # Use hardened-malloc as default memory allocator for all processes.
+  # nm-overrides.security.hardened-malloc.enable = true;
 
 
 
-  ## Excluded security options
+## Software Choice
+# Options to add (or remove) opinionated software replacements by nix-mineral.
 
-  # Use hardened memory allocator for all software run. This is not enabled by
-  # default due to its potential to completely break a system. It is included
-  # here ONLY for testing purposes! DO NOT USE ON ANY PRODUCTION SYSTEM!
-  # environment.memoryAllocator = { provider = "graphene-hardened"; };
+  # Replace sudo with doas. doas has a lower attack surface, but is less
+  # audited.
+  # nm-overrides.software-choice.doas-no-sudo.enable = true;
 
-  # Lock root user.
-  # users = { users = { root = { hashedPassword = "!"; }; }; };
+  # Replace systemd-timesyncd with chrony, for NTS support and its seccomp
+  # filter.
+  # nm-overrides.software-choice.secure-chrony.enable = true;
+
+  # Use Linux Kernel with hardened patchset. Concurs a multitude of security
+  # benefits, but prevents hibernation.
+  # nm-overrides.software-choice.hardened-kernel.enable
+
+  # Dont use the nix-mineral default firewall, if you wish to use alternate
+  # applications for the same purpose.
+  # nm-overrides.software-choice.no-firewall.enable = true;
 
 }))

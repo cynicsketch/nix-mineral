@@ -28,7 +28,9 @@
 # 2.6 (Advice)
 # 2.10 (Package is broken)
 # 7 (Advice)
-# 10.5.4 (The problem of NTP being unencrypted is fixed by using NTS instead.)
+# 10.5.4 (The problem of NTP being unencrypted is fixed by using NTS instead.
+# Note that this means using chrony, as in "Software Choice" in the overrides,
+# which is not default behavior!)
 # 15 (Implemented by default)
 # 16 (Not needed with MAC spoofing)
 # 19 (Advice)
@@ -65,13 +67,14 @@
 # The default config harms performance and usability in many ways, focusing
 # almost entirely on hardening alone.
 #
-# There are also some software substitutions and additions which may conflict
-# with user needs including, but not limited to:
+# There are also some optional software substitutions and additions in the
+# overrides that are recommended but *not enabled* by default:
 #
 # sudo ---> doas (For reduced attack surface; although less audited)
 # systemd-timesyncd ---> chrony (For NTS support)
-# USBGuard (Prevent BadUSB attacks, may cause inconvenience due to need to
-# manually whitelist etc.)
+# linux_hardened patched kernel which can reduce overall kernel attack surface.
+#
+# USBGuard is also *enabled* by default, which may inconvenience some users.
 # 
 # All of this can, and should be addressed using the overrides file.
 # "nm-overrides.nix"
@@ -160,10 +163,6 @@ imports = [ ./nm-overrides.nix ];
         "net.ipv4.icmp_ignore_bogus_error_responses" = "1";
       };
     };
-
-    # linux_hardened patchset decreases overall kernel attack surface, but it
-    # breaks hibernation. See overrides.
-    kernelPackages = (pkgs).linuxPackages_hardened;
     
     kernelParams = [
       # Requires all kernel modules to be signed. This prevents out-of-tree
@@ -533,22 +532,6 @@ imports = [ ./nm-overrides.nix ];
       enable = true;
       killUnconfinedConfinables = true;
     };
-
-    # This entire section disables sudo and replaces it with doas. This is done
-    # because doas is overall more simple than sudo, and has less attack surface.
-    # However, sudo is more well known and audited, and users may require sudo
-    # specific features in some cases, so this isn't exactly a concrete decision.
-    sudo = { enable = false; }; 
-    doas = { 
-      enable = true;
-      extraRules = [
-        ({
-          keepEnv = true;
-          persist = true;
-          users = [ ("user") ];
-        })
-      ];
-    };
     
     pam = {
       loginLimits = [
@@ -587,59 +570,7 @@ imports = [ ./nm-overrides.nix ];
     # DNS connections will fail if not using a DNS server supporting DNSSEC.
     resolved = { dnssec = "true"; }; 
 
-    # timesyncd is replaced with chrony for syncing time, due to its seccomp
-    # filter and support for NTS which secures NTP requests. 
-    timesyncd = { enable = false; }; 
-    chrony = {
-      enable = true;
-      
-      extraFlags = [ "-F 1" ]; 
-      # Enable seccomp filter for chronyd.
-            
-      enableRTCTrimming = false; 
-      # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either 
-      # this or 'rtcsync' must be disabled to complete a successful rebuild,
-      # or an error will be thrown due to these options conflicting with
-      # eachother.
-      
-      # The below config is borrowed from GrapheneOS server infrastructure.
-      # It enables NTS to secure NTP requests, among some other useful
-      # settings.
-      
-      extraConfig = ''
-        server time.cloudflare.com iburst nts
-        server ntppool1.time.nl iburst nts
-        server nts.netnod.se iburst nts
-        server ptbtime1.ptb.de iburst nts
-
-        minsources 2
-        authselectmode require
-
-        # EF
-        dscp 46
-
-        driftfile /var/lib/chrony/drift
-        ntsdumpdir /var/lib/chrony
-
-        leapsectz right/UTC
-        makestep 1.0 3
-
-        rtconutc
-        rtcsync
-
-        cmdport 0
-      '';
-    };
-
-    # By default, GNOME Shell integration is enabled for USBGuard.
-    # USB devices are blocked on lockscreen but allowed when logged in, which
-    # is similar to ChromeOS in implementation. Not needed if not using GNOME.
-    #
-    # USBGuard may potentially cause inconvenience without such integrations.
-    #
-    # There are alternative methods other than USBGuard to defeat BadUSB
-    # attacks, which are not addressed here.
-
+    # Prevent BadUSB attacks, but requires whitelisting of USB devices. 
     usbguard = {   
       enable = true;
     };
