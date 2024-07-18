@@ -208,7 +208,7 @@ imports = [
 
   # Use Linux Kernel with hardened patchset. Concurs a multitude of security
   # benefits, but prevents hibernation.
-  # nm-overrides.software-choice.hardened-kernel.enable
+  # nm-overrides.software-choice.hardened-kernel.enable = true;
 
   # Dont use the nix-mineral default firewall, if you wish to use alternate
   # applications for the same purpose.
