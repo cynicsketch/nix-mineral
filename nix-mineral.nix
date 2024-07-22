@@ -113,8 +113,11 @@ imports = [ ./nm-overrides.nix ];
 
         # Disable ip forwarding to reduce attack surface. May be needed for
         # VM networking. See overrides file.
-        "net.ipv4.ip_forward" = "1";
+        "net.ipv4.ip_forward" = "0";
+        "net.ipv4.conf.all.forwarding" = "0";
+        "net.ipv4.conf.default.forwarding" = "0";
         "net.ipv6.conf.all.forwarding" = "0";
+        "net.ipv6.conf.default.forwarding = "0";
 
         # Privacy/security split.
         # See overrides file for details.
