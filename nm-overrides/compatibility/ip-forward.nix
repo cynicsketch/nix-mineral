@@ -12,6 +12,9 @@ with lib;
 
   config = mkIf config.nm-overrides.compatibility.ip-forward.enable {
     boot.kernel.sysctl."net.ipv4.ip_forward" = mkForce "1";
+    boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = mkForce "1";
+    boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = mkForce "1";
     boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = mkForce "1";
+    boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = mkForce "1";
   };
 })
