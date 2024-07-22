@@ -117,7 +117,7 @@ imports = [ ./nm-overrides.nix ];
         "net.ipv4.conf.all.forwarding" = "0";
         "net.ipv4.conf.default.forwarding" = "0";
         "net.ipv6.conf.all.forwarding" = "0";
-        "net.ipv6.conf.default.forwarding = "0";
+        "net.ipv6.conf.default.forwarding" = "0";
 
         # Privacy/security split.
         # See overrides file for details.
