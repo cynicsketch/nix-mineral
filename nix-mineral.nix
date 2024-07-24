@@ -1,3 +1,5 @@
+# This is the main module for nix-mineral, containing the default configuration.
+
 # Primarily sourced was madaidan's Linux Hardening Guide. See for details: 
 # URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html
 # Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html 
