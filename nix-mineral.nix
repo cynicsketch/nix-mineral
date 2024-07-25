@@ -33,6 +33,8 @@
 # 10.5.4 (The problem of NTP being unencrypted is fixed by using NTS instead.
 # Note that this means using chrony, as in "Software Choice" in the overrides,
 # which is not default behavior!)
+# 11 (Partially, there seems to be no way to edit the permissions of /boot
+# whether with mount options or through tmpfiles)
 # 15 (Implemented by default)
 # 16 (Not needed with MAC spoofing)
 # 19 (Advice)
@@ -53,7 +55,9 @@
 # 10.2 (Up to user to determine timezone, locale, and keymap)
 # 10.5.3 (Not packaged)
 # 10.6 (Not packaged, inconvenient and not within threat model)
-# 11 (No option, NixOS doesn't obey FHS)
+# 11.1 (Manual removal is SUID/SGID is manual)
+# 11.2 (No known way to set umask declaratively systemwide, use your shellrc
+# or home manager to do so)
 # 14 (Rather than enforce password quality with PAM, expect user
 # to enforce their own password quality; faildelay is, however,
 # implemented here)
@@ -582,7 +586,33 @@ imports = [ ./nm-overrides.nix ];
   };
 
   # Disable systemd coredump to reduce available information to an attacker.
-  systemd = { coredump = { enable = false; }; };
+  systemd.coredump.enable = false;
+
+  systemd.tmpfiles.settings = {
+    # Restrict permissions of /home/$USER so that only the owner of the
+    # directory can access it (the user). systemd-tmpfiles also has the benefit
+    # of recursively setting permissions too, with the "Z" option as seen below.
+    "restricthome" = {
+      "/home/*" = {
+        Z = {
+          mode = "0700";
+        };
+      };
+    };
+
+    # Make all files in /etc/nixos owned by root, and only readable by root.
+    # /etc/nixos is not owned by root by default, and configuration files can
+    # on occasion end up also not owned by root. This can be hazardous as files
+    # that are included in the rebuild may be editable by unprivileged users,
+    # so this mitigates that.
+    "restrictetcnixos" = {
+      "/etc/nixos/*" = {
+        Z = {
+          mode = "0600";
+        };
+      };
+    };
+  };
   
   # zram allows swapping to RAM by compressing memory. This reduces the chance
   # that sensitive data is written to disk, and eliminates it if zram is used
