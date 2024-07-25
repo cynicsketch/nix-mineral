@@ -609,6 +609,8 @@ imports = [ ./nm-overrides.nix ];
       "/etc/nixos/*" = {
         Z = {
           mode = "0600";
+          user = "root";
+          group = "root";
         };
       };
     };
