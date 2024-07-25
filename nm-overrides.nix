@@ -207,7 +207,14 @@ imports = [
   # nm-overrides.software-choice.secure-chrony.enable = true;
 
   # Use Linux Kernel with hardened patchset. Concurs a multitude of security
-  # benefits, but prevents hibernation.
+  # benefits, but prevents hibernation.*
+  #
+  # (No longer recommended as of July 25, 2024. The patchset being behind by
+  # about a week or so is one thing, but the package as included in nixpkgs is
+  # way too infrequently updated, being several weeks or even months behind.
+  # Therefore, it is recommended to choose an LTS kernel like 5.15, 6.1, or 6.6
+  # in your own system configuration.*)
+  #
   # nm-overrides.software-choice.hardened-kernel.enable = true;
 
   # Dont use the nix-mineral default firewall, if you wish to use alternate

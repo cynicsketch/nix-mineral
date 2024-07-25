@@ -78,7 +78,13 @@
 #
 # sudo ---> doas (For reduced attack surface; although less audited)
 # systemd-timesyncd ---> chrony (For NTS support)
-# linux_hardened patched kernel which can reduce overall kernel attack surface.
+# linux_hardened kernel*
+#
+# (No longer recommended as of July 25, 2024. The patchset being behind by
+# about a week or so is one thing, but the package as included in nixpkgs is
+# way too infrequently updated, being several weeks or even months behind.
+# Therefore, it is recommended to choose an LTS kernel like 5.15, 6.1, or 6.6
+# in your own system configuration.*)
 #
 # USBGuard is also *enabled* by default, which may inconvenience some users.
 # 
