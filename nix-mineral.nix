@@ -517,9 +517,13 @@ imports = [ ./nm-overrides.nix ];
     };
 
     "/boot" = { options = [ ("nosuid") ("noexec") ("nodev") ]; };
-    "/dev/shm" = {
-      device = "/dev/shm";
-      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+  };
+
+  boot.specialFileSystems = {
+    # Use NixOS default options for /dev/shm but add noexec.
+    "/dev/shm" = { 
+      fsType = "tmpfs"; 
+      options = [ "nosuid" "nodev" "noexec" "strictatime" "mode=1777" "size=${config.boot.devShmSize}" ]; 
     };
   };
 
