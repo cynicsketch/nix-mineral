@@ -21,6 +21,9 @@
 # Chrony configuration was borrowed from GrapheneOS server infrastructure:
 # URL: https://github.com/GrapheneOS/infrastructure
 
+# Original idea to restrict nix to wheel user from Xe Iaso:
+# URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
+
 # Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:
 # 1. (Advice)
 # 2.1 (Advice)
