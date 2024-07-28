@@ -50,7 +50,6 @@
 # 22 (Advice)
 
 # Sections from madaidan's guide requiring manual user intervention:
-# 2.4 (Significant breakage)
 # 2.7 (systemd service hardening must be done manually)
 # 2.9 (Paid software)
 # 2.11 (Unique for all hardware, inconvenient)
