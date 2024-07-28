@@ -12,7 +12,7 @@ Extract the contents of the .zip provided in the releases to /etc/nixos, and imp
 
 In `configuration.nix`:
 
-    imports = [ (./hardware-configuration.nix) (./nix-mineral.nix) (./zram.nix) ];
+    imports = [ (./nix-mineral.nix) ... ];
 
 ### Example directory structure
 
