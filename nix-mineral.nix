@@ -637,7 +637,7 @@ imports = [ ./nm-overrides.nix ];
     "restrictetcnixos" = {
       "/etc/nixos/*" = {
         Z = {
-          mode = "0600";
+          mode = "0000";
           user = "root";
           group = "root";
         };
