@@ -24,6 +24,10 @@
 # Original idea to restrict nix to wheel user from Xe Iaso:
 # URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
 
+# NixOS snippet for hiding process information from anon* (obviously throwaway
+# Reddit account)
+# URL: https://www.reddit.com/r/NixOS/comments/1aqfuxq/bootloaderkernel_hardening_for_nixos/
+
 # Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:
 # 1. (Advice)
 # 2.1 (Advice)
@@ -528,7 +532,20 @@ imports = [ ./nm-overrides.nix ];
       fsType = "tmpfs"; 
       options = [ "nosuid" "nodev" "noexec" "strictatime" "mode=1777" "size=${config.boot.devShmSize}" ]; 
     };
+
+    # Hide processes from other users except root, may cause breakage.
+    # See overrides, in desktop section.
+    "/proc" = {
+      fsType = "proc";
+      device = "proc";
+      options = [ "nosuid" "nodev" "noexec" "hidepid=2" "gid=proc" ];
+    };
   };
+
+  # Add "proc" group to whitelist /proc access and allow systemd-logind to view
+  # /proc in order to unbreak it.
+  users.groups.proc = {};
+  systemd.services.systemd-logind.serviceConfig = { SupplementaryGroups = [ "proc" ]; };
 
   # Enables firewall. You may need to tweak your firewall rules depending on
   # your usecase. On a desktop, this shouldn't cause problems. 

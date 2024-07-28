@@ -30,6 +30,7 @@ imports = [
   ./nm-overrides/desktop/usbguard-gnome-integration.nix
   ./nm-overrides/desktop/var-lib-exec.nix
   ./nm-overrides/desktop/yama-relaxed.nix
+  ./nm-overrides/desktop/hideproc-relaxed.nix
 
   ./nm-overrides/performance/allow-smt.nix
   ./nm-overrides/performance/iommu-passthrough.nix
@@ -136,6 +137,10 @@ imports = [
   # processes can ptrace descendants. May allow certain Linux game anticheats
   # to function.
   # nm-overrides.desktop.yama-relaxed.enable = true;
+
+  # Allow processes that can ptrace a process to read its process information.
+  # Requires ptrace to even be allowed in the first place, see above option.
+  # nm-overrides.desktop.hideproc-relaxed.enable = true;
 
 
 
