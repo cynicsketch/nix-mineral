@@ -3,7 +3,9 @@ NixOS module for convenient system hardening.
 Rather than be named after a mineral, it's named after the word "mineral."
 
 ## Scope
-Reasonably harden NixOS in a way that can be quickly deployed by the end user. Threat model assumes non-governmental adversaries, and anonymity is not considered. If you think the Feds are out to get you specifically, it's time to smash your hard drive and disappear.
+Reasonably harden NixOS in a way that can be quickly deployed by the end user. Threat model assumes non-governmental adversaries, and anonymity is not considered.
+
+If you think the Feds are out to get you specifically, it's time to smash your hard drive and disappear.
 
 ## Usage
 Extract the contents of the .zip provided in the releases to /etc/nixos, and import "nix-mineral.nix" into your configuration. Edit "nm-overrides.nix" to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
