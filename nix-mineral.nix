@@ -374,6 +374,9 @@ imports = [ ./nm-overrides.nix ];
       # any device.
       "bluetooth/main.conf" = mkForce {
         text = ''
+          ## Copyright (C) 2023 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+          ## See the file COPYING for copying conditions.
+
           [General]
           # How long to stay in pairable mode before going back to non-discoverable
           # The value is in seconds. Default is 0.
@@ -392,7 +395,7 @@ imports = [ ./nm-overrides.nix ];
           # How long to keep temporary devices around
           # The value is in seconds. Default is 30.
           # 0 = disable timer, i.e. never keep temporary devices
-          TemporaryTimeout = 0 
+          TemporaryTimeout = 0
 
           [Policy]
           # AutoEnable defines option to enable all controllers when they are found.
@@ -403,7 +406,7 @@ imports = [ ./nm-overrides.nix ];
           # network/on: A device will only accept advertising packets from peer
           # devices that contain private addresses. It may not be compatible with some
           # legacy devices since it requires the use of RPA(s) all the time.
-          Privacy=network/on        
+          Privacy=network/on 
         '';
       };
 
