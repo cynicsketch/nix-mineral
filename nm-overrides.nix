@@ -42,6 +42,9 @@ imports = [
   ./nm-overrides/security/minimum-swappiness.nix
   ./nm-overrides/security/sysrq-sak.nix
   ./nm-overrides/security/tcp-timestamp-disable.nix
+  ./nm-overrides/security/disable-modules.nix
+  ./nm-overrides/security/disable-tcp-window-scaling.nix
+  ./nm-overrides/security/disable-bluetooth.nix
 
   ./nm-overrides/software-choice/doas-no-sudo.nix
   ./nm-overrides/software-choice/hardened-kernel.nix
@@ -193,6 +196,21 @@ imports = [
   # URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
   # URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
   # nm-overrides.security.tcp-timestamp-disable.enable = true;
+
+  # Disable loading kernel modules (except those loaded at boot via kernel
+  # commandline)
+  # Very likely to cause breakage unless you can compile a list of every module
+  # you need and add that to your boot parameters manually.
+  # nm-overrides.security.disable-modules.enable = true;
+
+  # Disable TCP window scaling. May help mitigate TCP reset DoS attacks, but
+  # may also harm network performance when at high latencies.
+  # nm-overrides.security.disable-tcp-window-scaling.enable = true;
+
+  # Disable bluetooth entirely. nix-mineral borrows a privacy preserving
+  # bluetooth configuration file by default, but if you never use bluetooth
+  # at all, this can reduce attack surface further.
+  # nm-overrides.security.disable-bluetooth.enable = true;
 
   # DO NOT USE THIS OPTION ON ANY PRODUCTION SYSTEM! FOR TESTING PURPOSES ONLY!
   # Use hardened-malloc as default memory allocator for all processes.
