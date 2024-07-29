@@ -374,6 +374,9 @@ imports = [ ./nm-overrides.nix ];
       # any device.
       "bluetooth/main.conf" = mkForce {
         text = ''
+          ### Kicksecure/security-misc
+          ### etc/bluetooth/30_security-misc.conf - Last updated July 29th, 2024
+
           ## Copyright (C) 2023 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
           ## See the file COPYING for copying conditions.
 
