@@ -117,7 +117,7 @@ imports = [
 
   # Allow all users to use nix, rather than just users of the "wheel" group.
   # May be useful for allowing a non-wheel user to, for example, use devshell.
-  # nm-overrides.desktop.nix-allow-allow-users.enable = true;
+  # nm-overrides.desktop.nix-allow-all-users.enable = true;
 
   # Automatically allow all connected devices at boot in USBGuard. Note that
   # for laptop users, inbuilt speakers and bluetooth cards may be disabled
