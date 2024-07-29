@@ -30,12 +30,17 @@ with lib;
       # settings.
       
       extraConfig = ''
+        ### GrapheneOS/infrastructure
+        ### chrony.conf - Last updated July 29, 2024
+
         server time.cloudflare.com iburst nts
         server ntppool1.time.nl iburst nts
         server nts.netnod.se iburst nts
         server ptbtime1.ptb.de iburst nts
+        server time.dfm.dk iburst nts
+        server time.cifelli.xyz iburst nts
 
-        minsources 2
+        minsources 3
         authselectmode require
 
         # EF
@@ -51,6 +56,8 @@ with lib;
         rtcsync
 
         cmdport 0
+
+        noclientlog
       '';
     };
   };
