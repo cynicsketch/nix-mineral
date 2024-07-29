@@ -683,7 +683,7 @@ imports = [ ./nm-overrides.nix ];
 
           ### Kicksecure/security-misc
           ### etc/modprobe.d/30_security-misc_blacklist.conf - Last updated July 29, 2024
-          
+
           ## Copyright (C) 2012 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
           ## See the file COPYING for copying conditions.
 
@@ -888,10 +888,8 @@ imports = [ ./nm-overrides.nix ];
     # Disallow root login over SSH. Doesn't matter on systems without SSH.
     openssh = { settings = { PermitRootLogin = "no"; }; };
     
-    # Haveged adds entropy; it's not useless, unlike what the Arch wiki says.
-    # The haveged *inspired* implementation in mainline Linux is different,
-    # haveged can still provide additional entropy.
-    haveged = { enable = true; };
+    # Get extra entropy since we disabled hardware entropy sources
+    jitterentropy-rngd = { enable = true };
      
     # DNS connections will fail if not using a DNS server supporting DNSSEC.
     resolved = { dnssec = "true"; }; 
