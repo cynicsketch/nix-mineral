@@ -411,7 +411,7 @@ imports = [ ./nm-overrides.nix ];
       # "install "foobar" /bin/not-existent" prevents the module from being
       # loaded at all. "blacklist "foobar"" prevents the module from being
       # loaded automatically at boot, but it can still be loaded afterwards.
-      "modprobe.d/nixos.conf" = {
+      "modprobe.d/nm-module-blacklist.conf" = {
         text = ''
           ## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
           ## See the file COPYING for copying conditions.
