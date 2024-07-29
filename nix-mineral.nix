@@ -28,6 +28,33 @@
 # Reddit account)
 # URL: https://www.reddit.com/r/NixOS/comments/1aqfuxq/bootloaderkernel_hardening_for_nixos/
 
+# More relevant sysctl configuration from K4YT3X's sysctl:
+# URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
+
+# sysctl omitted from K4YT3X config that are out of scope of nix-mineral and
+# hardening  but may be useful anyways to some, see their repo for details:
+# kernel.core_uses_pid = 1
+# kernel.pid_max = 4194304
+# kernel.panic = 10
+# fs.file-max = 9223372036854775807
+# fs.inotify.max_user_watches = 524288
+# net.core.netdev_max_backlog = 250000
+# net.core.rmem_default = 8388608
+# net.core.wmem_default = 8388608
+# net.core.rmem_max = 536870912
+# net.core.wmem_max = 536870912
+# net.core.optmem_max = 40960
+# net.ipv4.tcp_congestion_control = bbr
+# net.ipv4.tcp_synack_retries = 5
+# net.ipv4.ip_local_port_range = 1024 65535
+# net.ipv4.tcp_slow_start_after_idle = 0
+# net.ipv4.tcp_mtu_probing = 1
+# net.ipv4.tcp_base_mss = 1024
+# net.ipv4.tcp_rmem = 8192 262144 536870912
+# net.ipv4.tcp_wmem = 4096 16384 536870912
+# net.ipv4.tcp_adv_win_scale = -2
+# net.ipv4.tcp_notsent_lowat = 131072
+
 # Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:
 # 1. (Advice)
 # 2.1 (Advice)
@@ -43,7 +70,6 @@
 # 11 (Partially, there seems to be no way to edit the permissions of /boot
 # whether with mount options or through tmpfiles)
 # 15 (Implemented by default)
-# 16 (Not needed with MAC spoofing)
 # 19 (Advice)
 # 20 (Not relevant)
 # 21.7 (Advice, not in threat model)
@@ -182,6 +208,86 @@ imports = [ ./nm-overrides.nix ];
         "vm.mmap_rnd_compat_bits" = "16";
         "vm.unprivileged_userfaultfd" = "0";
         "net.ipv4.icmp_ignore_bogus_error_responses" = "1";
+
+         # enable ASLR
+         # turn on protection and randomize stack, vdso page and mmap + randomize brk base address
+         "kernel.randomize_va_space" = "2";
+
+         # restrict perf subsystem usage (activity) further
+         "kernel.perf_cpu_time_max_percent" = "1";
+         "kernel.perf_event_max_sample_rate" = "1";
+
+         # do not allow mmap in lower addresses
+         "vm.mmap_min_addr" = "65536";
+
+         # log packets with impossible addresses to kernel log
+         # No active security benefit, just makes it easier to spot a DDOS/DOS by giving
+         # extra logs
+         "net.ipv4.conf.default.log_martians" = "1";
+         "net.ipv4.conf.all.log_martians" = "1";
+
+         # disable sending and receiving of shared media redirects
+         # this setting overwrites net.ipv4.conf.all.secure_redirects
+         # refer to RFC1620
+         "net.ipv4.conf.default.shared_media" = "0";
+         "net.ipv4.conf.all.shared_media" = "0";
+
+         # always use the best local address for announcing local IP via ARP
+         # Seems to be most restrictive option
+         "net.ipv4.conf.default.arp_announce" = "2";
+         "net.ipv4.conf.all.arp_announce" = "2";
+
+         # reply only if the target IP address is local address configured on the incoming interface
+         "net.ipv4.conf.default.arp_ignore" = "1";
+         "net.ipv4.conf.all.arp_ignore" = "1";
+
+         # drop Gratuitous ARP frames to prevent ARP poisoning
+         # this can cause issues when ARP proxies are used in the network
+         "net.ipv4.conf.default.drop_gratuitous_arp" = "1";
+         "net.ipv4.conf.all.drop_gratuitous_arp" = "1";
+
+         # ignore all ICMP echo and timestamp requests sent to broadcast/multicast
+         "net.ipv4.icmp_echo_ignore_broadcasts" = "1";
+
+         # number of Router Solicitations to send until assuming no routers are present
+         "net.ipv6.conf.default.router_solicitations" = "0";
+         "net.ipv6.conf.all.router_solicitations" = "0";
+
+         # do not accept Router Preference from RA
+         "net.ipv6.conf.default.accept_ra_rtr_pref" = "0";
+         "net.ipv6.conf.all.accept_ra_rtr_pref" = "0";
+
+         # learn prefix information in router advertisement
+         "net.ipv6.conf.default.accept_ra_pinfo" = "0";
+         "net.ipv6.conf.all.accept_ra_pinfo" = "0";
+
+         # setting controls whether the system will accept Hop Limit settings from a router advertisement
+         "net.ipv6.conf.default.accept_ra_defrtr" = "0";
+         "net.ipv6.conf.all.accept_ra_defrtr" = "0";
+
+         # router advertisements can cause the system to assign a global unicast address to an interface
+         "net.ipv6.conf.default.autoconf" = "0";
+         "net.ipv6.conf.all.autoconf" = "0";
+
+         # number of neighbor solicitations to send out per address
+         "net.ipv6.conf.default.dad_transmits" = "0";
+         "net.ipv6.conf.all.dad_transmits" = "0";
+
+         # number of global unicast IPv6 addresses can be assigned to each interface
+         "net.ipv6.conf.default.max_addresses" = "1";
+         "net.ipv6.conf.all.max_addresses" = "1";
+
+         # enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address
+         # https://grapheneos.org/features#wifi-privacy
+         # GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
+         # extensions alongside MAC randomization, so that's why we do both
+         "net.ipv6.conf.default.use_tempaddr" = "2";
+         "net.ipv6.conf.all.use_tempaddr" = "2";
+
+         # ignore all ICMPv6 echo requests
+         "net.ipv6.icmp.echo_ignore_all" = "1";
+         "net.ipv6.icmp.echo_ignore_anycast" = "1";
+         "net.ipv6.icmp.echo_ignore_multicast" = "1";
       };
     };
     
