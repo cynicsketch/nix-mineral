@@ -895,7 +895,7 @@ imports = [ ./nm-overrides.nix ];
     openssh = { settings = { PermitRootLogin = "no"; }; };
     
     # Get extra entropy since we disabled hardware entropy sources
-    jitterentropy-rngd = { enable = true };
+    jitterentropy-rngd = { enable = true; };
      
     # DNS connections will fail if not using a DNS server supporting DNSSEC.
     resolved = { dnssec = "true"; }; 
