@@ -893,9 +893,6 @@ imports = [ ./nm-overrides.nix ];
   services = {
     # Disallow root login over SSH. Doesn't matter on systems without SSH.
     openssh = { settings = { PermitRootLogin = "no"; }; };
-    
-    # Get extra entropy since we disabled hardware entropy sources
-    jitterentropy-rngd = { enable = true; };
      
     # DNS connections will fail if not using a DNS server supporting DNSSEC.
     resolved = { dnssec = "true"; }; 
@@ -905,6 +902,10 @@ imports = [ ./nm-overrides.nix ];
       enable = true;
     };
   };
+
+  # Get extra entropy since we disabled hardware entropy sources
+  services.jitterentropy-rngd = { enable = true; };
+  boot.kernelModules = [ ("jitterentropy_rng") ];
 
   # Disable systemd coredump to reduce available information to an attacker.
   systemd.coredump.enable = false;
