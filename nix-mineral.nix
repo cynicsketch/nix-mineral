@@ -420,7 +420,7 @@ imports = [ ./nm-overrides.nix ];
       "modprobe.d/nm-module-blacklist.conf" = {
         text = ''
           ### Kicksecure/security-misc
-          ### etc/modprobe.d/30_security-misc_disable.conf - Last updated July 29th, 2024
+          ### etc/modprobe.d/30_security-misc_disable.conf - Last updated July 31st, 2024
 
           ## Copyright (C) 2012 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
           ## See the file COPYING for copying conditions.
@@ -464,7 +464,7 @@ imports = [ ./nm-overrides.nix ];
           ## https://security.stackexchange.com/questions/119712/methods-root-can-use-to-elevate-itself-to-kernel-mode
           ## https://github.com/Kicksecure/security-misc/issues/215
           ##
-          #install msr /usr/bin/disabled-miscellaneous-by-security-misc
+          install msr /usr/bin/disabled-miscellaneous-by-security-misc
 
           ## File Systems:
           ## Disable uncommon file systems to reduce attack surface.
