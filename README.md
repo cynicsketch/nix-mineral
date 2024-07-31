@@ -7,6 +7,38 @@ Reasonably harden NixOS in a way that can be quickly deployed by the end user. T
 
 If you think the Feds are out to get you specifically, it's time to smash your hard drive and disappear.
 
+## Features
+A non-comprehensive list of features in `nix-mineral`
+### Defaults
+  * Hardened sysctl
+  * Hardened boot parameters
+  * Disable editor in systemd-boot to prevent unauthorized modification of boot parameters
+  * Empty securetty and enable pam_securetty.so to prevent root login
+  * Use Whonix machine-id to reduce identifiers
+  * Use Kicksecure Bluetooth configuration to automatically turn off bluetooth when unneeded
+  * Comprehensive module blacklist to reduce attack surface, based on Kicksecure and secureblue
+  * Mount option hardening on /home, /tmp, /var, /boot, and /dev/shm
+  * hidepid on /proc to hide processes between users
+  * Enable minimal firewall and block all incoming connections on all ports
+  * Randomize MAC address in NetworkManager for increased privacy
+  * Enable AppArmor and kill all processes that have an AppArmor profile but aren't confined
+  * Disable core dumps
+  * Increase hashing rounds in /etc/shadow (for new passwords only)
+  * Require wheel to use su
+  * Enforce 4 second delay on failed logins
+  * Disallow root login in OpenSSH
+  * Enable and require DNSSEC in systemd-resolved
+  * Enable USBGuard to prevent BadUSB attacks
+  * Enable jitterentropy-rngd and jitterentropy kernel module for additional entropy
+  * Make all files in /home/$USER unreadable except by the owner
+  * Make all files in /etc/nixos unreadable and uneditable except by root, since configuration files can sometimes end up owned by unprivileged users
+  * Enable zram to reduce need to swap (potentially sensitive data) to disk
+  * Require user to be in wheel to use nix
+### Overrides
+  Optional overrides are provided to quickly tweak `nix-mineral` to conform to different environments and workloads, such as by integrating USBGuard with GNOME, relaxing restrictions to allow Linux gaming, replacing systemd-timesyncd with a secure chrony configuration, and more.
+  
+  See [nm-overrides.nix](https://github.com/cynicsketch/nix-mineral/blob/main/nm-overrides.nix)
+
 ## Usage
 Extract the contents of the .zip provided in the releases to /etc/nixos, and import "nix-mineral.nix" into your configuration. Edit "nm-overrides.nix" to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
 
@@ -15,6 +47,7 @@ In `configuration.nix`:
     imports = [ (./nix-mineral.nix) ... ];
 
 ### Example directory structure
+Some individual modules may be missing in this example, but should show roughly what `/etc/nixos/` would look like.
 
     [nix-shell:~]$ tree /etc/nixos
     /etc/nixos
