@@ -45,6 +45,7 @@ imports = [
   ./nm-overrides/security/disable-modules.nix
   ./nm-overrides/security/disable-tcp-window-scaling.nix
   ./nm-overrides/security/disable-bluetooth.nix
+  ./nm-overrides/security/disable-intelme-kmodules.nix
 
   ./nm-overrides/software-choice/doas-no-sudo.nix
   ./nm-overrides/software-choice/hardened-kernel.nix
@@ -211,6 +212,22 @@ imports = [
   # bluetooth configuration file by default, but if you never use bluetooth
   # at all, this can reduce attack surface further.
   # nm-overrides.security.disable-bluetooth.enable = true;
+
+  # Disable Intel ME related kernel modules. This is to avoid putting trust in
+  # the highly privilege ME system, but there are potentially other
+  # consequences.
+  #
+  # If you use an AMD system, you can enable this without negative consequence
+  # and reduce attack surface.
+  #
+  # Intel users should read more about the issue at the below links:
+  # https://www.kernel.org/doc/html/latest/driver-api/mei/mei.html
+  # https://en.wikipedia.org/wiki/Intel_Management_Engine#Security_vulnerabilities
+  # https://www.kicksecure.com/wiki/Out-of-band_Management_Technology#Intel_ME_Disabling_Disadvantages
+  # https://github.com/Kicksecure/security-misc/pull/236#issuecomment-2229092813
+  # https://github.com/Kicksecure/security-misc/issues/239
+  #
+  # nm-overrides.security.disable-intelme-kmodules.enable = true;
 
   # DO NOT USE THIS OPTION ON ANY PRODUCTION SYSTEM! FOR TESTING PURPOSES ONLY!
   # Use hardened-malloc as default memory allocator for all processes.
