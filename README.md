@@ -40,7 +40,7 @@ A non-comprehensive list of features in `nix-mineral`
   See [nm-overrides.nix](https://github.com/cynicsketch/nix-mineral/blob/main/nm-overrides.nix)
 
 ## Usage
-Extract the contents of the .zip provided in the releases to /etc/nixos, and import "nix-mineral.nix" into your configuration. Edit "nm-overrides.nix" to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
+Extract the contents of the .zip provided in the releases to `/etc/nixos`, and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
 
 In `configuration.nix`:
 
