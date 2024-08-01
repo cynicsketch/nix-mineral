@@ -8,8 +8,8 @@
 # URL: https://privsec.dev/posts/linux/desktop-linux-hardening/
 # Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
 
-# Bluetooth configuration and module blacklist was borrowed from Kicksecure's 
-# security-misc:
+# Bluetooth configuration and module blacklist, and many more config files were
+# borrowed from Kicksecure's security-misc:
 # URL: https://github.com/Kicksecure/security-misc
 
 # Supplement to module blacklisting borrowed from secureblue config:
