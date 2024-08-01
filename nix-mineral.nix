@@ -372,7 +372,7 @@ imports = [ ./nm-overrides.nix ];
       # Borrow Kicksecure banner/issue. 
       # Kicksecure/security-misc
       # usr/lib/issue.d/20_security-misc.issue - Last updated August 1st, 2024
-      "issue.d/nm-issue" = {
+      issue = {
         text = ''
           By continuing, you acknowledge and give consent that the owner of this system has a right to keep a log of all activity.
           Unauthorized access is strictly prohibited and may result in legal action. Do not proceed!
