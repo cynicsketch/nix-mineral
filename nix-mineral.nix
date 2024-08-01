@@ -974,6 +974,10 @@ imports = [ ./nm-overrides.nix ];
   # Disable systemd coredump to reduce available information to an attacker.
   systemd.coredump.enable = false;
 
+  systemd.network.config.networkConfig = mkDefault {
+    IPv6PrivacyExtensions = kernel;
+  };
+
   systemd.tmpfiles.settings = {
     # Restrict permissions of /home/$USER so that only the owner of the
     # directory can access it (the user). systemd-tmpfiles also has the benefit
