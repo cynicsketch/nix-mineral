@@ -861,6 +861,8 @@ imports = [ ./nm-overrides.nix ];
   # /sys (Already hardened by default in NixOS)
   # /media, /mnt, /opt (Doesn't even exist on NixOS)
   # /var/tmp, /var/log (Covered by toplevel hardening on /var,)
+  # Bind mounting /usr with nodev causes boot failure
+  # Bind mounting /boot/efi at all causes complete system failure
 
   fileSystems = {
     # noexec on /home can be very inconvenient for desktops. See overrides.
@@ -888,16 +890,6 @@ imports = [ ./nm-overrides.nix ];
     };
 
     "/boot" = { options = [ ("nosuid") ("noexec") ("nodev") ]; };
-
-    "/boot/efi" = { 
-      device = "/boot/efi";
-      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
-    };
-
-    "/usr" = { 
-      device = "/usr";
-      options = [ ("bind") ("nodev") ];
-    };
 
     "/srv" = { 
       device = "/srv";
