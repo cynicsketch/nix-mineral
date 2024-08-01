@@ -854,11 +854,24 @@ imports = [ ./nm-overrides.nix ];
   };
 
   ### Filesystem hardening
+  # Based on Kicksecure/security-misc's remount-secure
+  # Kicksecure/security-misc
+  # usr/bin/remount-secure - Last updated July 31st, 2024
+  # Inapplicable:
+  # /sys (Already hardened by default in NixOS)
+  # /media, /mnt, /opt (Doesn't even exist on NixOS)
+  # /var/tmp, /var/log (Covered by toplevel hardening on /var,)
 
   fileSystems = {
     # noexec on /home can be very inconvenient for desktops. See overrides.
     "/home" = {
       device = "/home";
+      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+    };
+
+    # You do not want to install applications here anyways.
+    "/root" = {
+      device = "/root";
       options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
     };
 
@@ -868,20 +881,49 @@ imports = [ ./nm-overrides.nix ];
       options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
     };
 
-    # noexec on /var may cause breakage. See overrides.
+    # noexec on /var(/lib) may cause breakage. See overrides.
     "/var" = { 
       device = "/var";
       options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
     };
 
     "/boot" = { options = [ ("nosuid") ("noexec") ("nodev") ]; };
+
+    "/boot/efi" = { 
+      device = "/boot/efi";
+      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+    };
+
+    "/usr" = { 
+      device = "/usr";
+      options = [ ("bind") ("nodev") ];
+    };
+
+    "/srv" = { 
+      device = "/srv";
+      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+    };
+
+    "/etc" = { 
+      device = "/etc";
+      options = [ ("bind") ("nosuid") ("nodev") ];
+    };
   };
 
+  # Harden special filesystems while maintaining NixOS defaults as outlined
+  # here:
+  # https://github.com/NixOS/nixpkgs/blob/e2dd4e18cc1c7314e24154331bae07df76eb582f/nixos/modules/tasks/filesystems.nix
   boot.specialFileSystems = {
-    # Use NixOS default options for /dev/shm but add noexec.
     "/dev/shm" = { 
-      fsType = "tmpfs"; 
-      options = [ "nosuid" "nodev" "noexec" "strictatime" "mode=1777" "size=${config.boot.devShmSize}" ]; 
+      options = pkgs.lib.mkDefault( pkgs.lib.mkBefore [ "nosuid" "nodev" "noexec" ]); 
+    };
+
+    "/run" = { 
+      options = pkgs.lib.mkDefault( pkgs.lib.mkBefore [ "nosuid" "nodev" "noexec" ]); 
+    };
+
+    "/dev" = { 
+      options = pkgs.lib.mkDefault( pkgs.lib.mkBefore [ "nosuid" "noexec" ]); 
     };
 
     # Hide processes from other users except root, may cause breakage.
