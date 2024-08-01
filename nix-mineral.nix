@@ -906,16 +906,22 @@ imports = [ ./nm-overrides.nix ];
   # here:
   # https://github.com/NixOS/nixpkgs/blob/e2dd4e18cc1c7314e24154331bae07df76eb582f/nixos/modules/tasks/filesystems.nix
   boot.specialFileSystems = {
+    # Add noexec to /dev/shm
     "/dev/shm" = { 
-      options = pkgs.lib.mkDefault( pkgs.lib.mkBefore [ "nosuid" "nodev" "noexec" ]); 
+      fsType = "tmpfs"; 
+      options = [ "nosuid" "nodev" "noexec" "strictatime" "mode=1777" "size=${config.boot.devShmSize}" ]; 
     };
 
-    "/run" = { 
-      options = pkgs.lib.mkDefault( pkgs.lib.mkBefore [ "nosuid" "nodev" "noexec" ]); 
+    # Add noexec to /run
+    "/run" = {
+      fsType = "tmpfs"; 
+      options = [ "nosuid" "nodev" "noexec" "strictatime" "mode=755" "size=${config.boot.runSize}" ];
     };
 
+    # Add noexec to /dev
     "/dev" = { 
-      options = pkgs.lib.mkDefault( pkgs.lib.mkBefore [ "nosuid" "noexec" ]); 
+      fsType = "devtmpfs"; 
+      options = [ "nosuid" "noexec" "strictatime" "mode=755" "size=${config.boot.devSize}" ]; 
     };
 
     # Hide processes from other users except root, may cause breakage.
