@@ -884,13 +884,13 @@ imports = [ ./nm-overrides.nix ];
           '';
         };
         # Enable PAM support for securetty, to prevent root login.
-        # https://wiki.gentoo.org/wiki/PAM_securetty
-        securetty = {
-          text = ''
-            auth    required                    pam_securetty.so
-            auth    [success=1 default=ignore]  pam_unix.so         nullok try_first_pass
-            auth    [default=die]               pam_faillock.so     authfail
-          '';
+        # https://unix.stackexchange.com/questions/670116/debian-bullseye-disable-console-tty-login-for-root
+        login = {
+          text = pkgs.lib.mkDefault( pkgs.lib.mkBefore ''
+            # Enable securetty support.
+            auth       requisite  pam_nologin.so
+            auth       requisite  pam_securetty.so
+          '');
         };
 
         su = { requireWheel = true; };
