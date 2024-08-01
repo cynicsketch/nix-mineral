@@ -13,7 +13,7 @@ A non-comprehensive list of features in `nix-mineral`
   * Hardened sysctl
   * Hardened boot parameters
   * Disable editor in systemd-boot to prevent unauthorized modification of boot parameters
-  * Empty securetty and enable pam_securetty.so to prevent root login
+  * Empty securetty and enable pam_securetty.so to prevent root login on TTY
   * Use Whonix machine-id to reduce identifiers
   * Use Kicksecure Bluetooth configuration to automatically turn off bluetooth when unneeded
   * Comprehensive module blacklist to reduce attack surface, based on Kicksecure and secureblue
