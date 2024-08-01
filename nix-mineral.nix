@@ -981,8 +981,10 @@ imports = [ ./nm-overrides.nix ];
   services.jitterentropy-rngd = { enable = true; };
   boot.kernelModules = [ ("jitterentropy_rng") ];
 
-  # Disable systemd coredump to reduce available information to an attacker.
-  systemd.coredump.enable = false;
+  # Don't store coredumps from systemd-coredump.
+  systemd.coredump.extraConfig = mkDefault ''
+    Storage=none
+  '';
 
   # Enable IPv6 privacy extensions for systemd-networkd.
   systemd.network.config.networkConfig = mkDefault {
