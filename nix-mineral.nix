@@ -902,6 +902,10 @@ imports = [ ./nm-overrides.nix ];
         macAddress = "random";
         scanRandMacAddress = true;
       };
+      # Enable IPv6 privacy extensions in NetworkManager.
+      connectionConfig = mkDefault {
+        "ipv6.ip6-privacy" = 2;
+      };
     };
   };
   
