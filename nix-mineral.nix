@@ -129,8 +129,9 @@
   pkgs,
   ...
 }:
-
-with lib;
+let
+  l = lib // builtins;
+in
 {
 
   # Imports the overrides file, which should be in the same directory as this.
@@ -287,8 +288,8 @@ with lib;
         # https://grapheneos.org/features#wifi-privacy
         # GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
         # extensions alongside MAC randomization, so that's why we do both
-        "net.ipv6.conf.default.use_tempaddr" = mkForce "2";
-        "net.ipv6.conf.all.use_tempaddr" = mkForce "2";
+        "net.ipv6.conf.default.use_tempaddr" = l.mkForce "2";
+        "net.ipv6.conf.all.use_tempaddr" = l.mkForce "2";
 
         # ignore all ICMPv6 echo requests
         "net.ipv6.icmp.echo_ignore_all" = "1";
@@ -440,7 +441,7 @@ with lib;
       # Borrow Kicksecure bluetooth configuration for better bluetooth privacy
       # and security. Disables bluetooth automatically when not connected to
       # any device.
-      "bluetooth/main.conf" = mkForce {
+      "bluetooth/main.conf" = l.mkForce {
         text = ''
           ### Kicksecure/security-misc
           ### etc/bluetooth/30_security-misc.conf - Last updated July 29th, 2024
@@ -1028,7 +1029,7 @@ with lib;
         scanRandMacAddress = true;
       };
       # Enable IPv6 privacy extensions in NetworkManager.
-      connectionConfig = mkDefault { "ipv6.ip6-privacy" = 2; };
+      connectionConfig = l.mkDefault { "ipv6.ip6-privacy" = 2; };
     };
   };
 
@@ -1061,8 +1062,8 @@ with lib;
         # Enable PAM support for securetty, to prevent root login.
         # https://unix.stackexchange.com/questions/670116/debian-bullseye-disable-console-tty-login-for-root
         login = {
-          text = pkgs.lib.mkDefault (
-            pkgs.lib.mkBefore ''
+          text = l.mkDefault (
+            l.mkBefore ''
               # Enable securetty support.
               auth       requisite  pam_nologin.so
               auth       requisite  pam_securetty.so
@@ -1113,12 +1114,12 @@ with lib;
   boot.kernelModules = [ "jitterentropy_rng" ];
 
   # Don't store coredumps from systemd-coredump.
-  systemd.coredump.extraConfig = mkDefault ''
+  systemd.coredump.extraConfig = l.mkDefault ''
     Storage=none
   '';
 
   # Enable IPv6 privacy extensions for systemd-networkd.
-  systemd.network.config.networkConfig = mkDefault { IPv6PrivacyExtensions = kernel; };
+  systemd.network.config.networkConfig = l.mkDefault { IPv6PrivacyExtensions = kernel; };
 
   systemd.tmpfiles.settings = {
     # Restrict permissions of /home/$USER so that only the owner of the
@@ -1157,5 +1158,5 @@ with lib;
   };
 
   # Limit access to nix to users with the "wheel" group. ("sudoers")
-  nix.settings.allowed-users = mkForce [ "@wheel" ];
+  nix.settings.allowed-users = l.mkForce [ "@wheel" ];
 }
