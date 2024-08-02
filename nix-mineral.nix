@@ -123,21 +123,27 @@
 # All of this can, and should be addressed using the overrides file.
 # "nm-overrides.nix"
 
-({ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-(with lib; {
+with lib;
+{
 
-# Imports the overrides file, which should be in the same directory as this.
-imports = [ ./nm-overrides.nix ];
+  # Imports the overrides file, which should be in the same directory as this.
+  imports = [ ./nm-overrides.nix ];
 
   boot = {
-   kernel = {
+    kernel = {
       sysctl = {
         # Unprivileged userns has a large attack surface and has been the cause
         # of many privilege escalation vulnerabilities, but can cause breakage.
         # See overrides.
         "kernel.unprivileged_userns_clone" = "0";
-        
+
         # Yama restricts ptrace, which allows processes to read and modify the
         # memory of other processes. This has obvious security implications.
         # See overrides.
@@ -177,7 +183,7 @@ imports = [ ./nm-overrides.nix ];
         "kernel.kexec_load_disabled" = "1";
         "kernel.kptr_restrict" = "2";
         "kernel.perf_event_paranoid" = "3";
-        "kernel.printk" = "3 3 3 3";      
+        "kernel.printk" = "3 3 3 3";
         "kernel.unprivileged_bpf_disabled" = "1";
         "net.core.bpf_jit_harden" = "2";
         "net.ipv4.conf.all.accept_redirects" = "0";
@@ -209,137 +215,137 @@ imports = [ ./nm-overrides.nix ];
         "vm.unprivileged_userfaultfd" = "0";
         "net.ipv4.icmp_ignore_bogus_error_responses" = "1";
 
-         # enable ASLR
-         # turn on protection and randomize stack, vdso page and mmap + randomize brk base address
-         "kernel.randomize_va_space" = "2";
+        # enable ASLR
+        # turn on protection and randomize stack, vdso page and mmap + randomize brk base address
+        "kernel.randomize_va_space" = "2";
 
-         # restrict perf subsystem usage (activity) further
-         "kernel.perf_cpu_time_max_percent" = "1";
-         "kernel.perf_event_max_sample_rate" = "1";
+        # restrict perf subsystem usage (activity) further
+        "kernel.perf_cpu_time_max_percent" = "1";
+        "kernel.perf_event_max_sample_rate" = "1";
 
-         # do not allow mmap in lower addresses
-         "vm.mmap_min_addr" = "65536";
+        # do not allow mmap in lower addresses
+        "vm.mmap_min_addr" = "65536";
 
-         # log packets with impossible addresses to kernel log
-         # No active security benefit, just makes it easier to spot a DDOS/DOS by giving
-         # extra logs
-         "net.ipv4.conf.default.log_martians" = "1";
-         "net.ipv4.conf.all.log_martians" = "1";
+        # log packets with impossible addresses to kernel log
+        # No active security benefit, just makes it easier to spot a DDOS/DOS by giving
+        # extra logs
+        "net.ipv4.conf.default.log_martians" = "1";
+        "net.ipv4.conf.all.log_martians" = "1";
 
-         # disable sending and receiving of shared media redirects
-         # this setting overwrites net.ipv4.conf.all.secure_redirects
-         # refer to RFC1620
-         "net.ipv4.conf.default.shared_media" = "0";
-         "net.ipv4.conf.all.shared_media" = "0";
+        # disable sending and receiving of shared media redirects
+        # this setting overwrites net.ipv4.conf.all.secure_redirects
+        # refer to RFC1620
+        "net.ipv4.conf.default.shared_media" = "0";
+        "net.ipv4.conf.all.shared_media" = "0";
 
-         # always use the best local address for announcing local IP via ARP
-         # Seems to be most restrictive option
-         "net.ipv4.conf.default.arp_announce" = "2";
-         "net.ipv4.conf.all.arp_announce" = "2";
+        # always use the best local address for announcing local IP via ARP
+        # Seems to be most restrictive option
+        "net.ipv4.conf.default.arp_announce" = "2";
+        "net.ipv4.conf.all.arp_announce" = "2";
 
-         # reply only if the target IP address is local address configured on the incoming interface
-         "net.ipv4.conf.default.arp_ignore" = "1";
-         "net.ipv4.conf.all.arp_ignore" = "1";
+        # reply only if the target IP address is local address configured on the incoming interface
+        "net.ipv4.conf.default.arp_ignore" = "1";
+        "net.ipv4.conf.all.arp_ignore" = "1";
 
-         # drop Gratuitous ARP frames to prevent ARP poisoning
-         # this can cause issues when ARP proxies are used in the network
-         "net.ipv4.conf.default.drop_gratuitous_arp" = "1";
-         "net.ipv4.conf.all.drop_gratuitous_arp" = "1";
+        # drop Gratuitous ARP frames to prevent ARP poisoning
+        # this can cause issues when ARP proxies are used in the network
+        "net.ipv4.conf.default.drop_gratuitous_arp" = "1";
+        "net.ipv4.conf.all.drop_gratuitous_arp" = "1";
 
-         # ignore all ICMP echo and timestamp requests sent to broadcast/multicast
-         "net.ipv4.icmp_echo_ignore_broadcasts" = "1";
+        # ignore all ICMP echo and timestamp requests sent to broadcast/multicast
+        "net.ipv4.icmp_echo_ignore_broadcasts" = "1";
 
-         # number of Router Solicitations to send until assuming no routers are present
-         "net.ipv6.conf.default.router_solicitations" = "0";
-         "net.ipv6.conf.all.router_solicitations" = "0";
+        # number of Router Solicitations to send until assuming no routers are present
+        "net.ipv6.conf.default.router_solicitations" = "0";
+        "net.ipv6.conf.all.router_solicitations" = "0";
 
-         # do not accept Router Preference from RA
-         "net.ipv6.conf.default.accept_ra_rtr_pref" = "0";
-         "net.ipv6.conf.all.accept_ra_rtr_pref" = "0";
+        # do not accept Router Preference from RA
+        "net.ipv6.conf.default.accept_ra_rtr_pref" = "0";
+        "net.ipv6.conf.all.accept_ra_rtr_pref" = "0";
 
-         # learn prefix information in router advertisement
-         "net.ipv6.conf.default.accept_ra_pinfo" = "0";
-         "net.ipv6.conf.all.accept_ra_pinfo" = "0";
+        # learn prefix information in router advertisement
+        "net.ipv6.conf.default.accept_ra_pinfo" = "0";
+        "net.ipv6.conf.all.accept_ra_pinfo" = "0";
 
-         # setting controls whether the system will accept Hop Limit settings from a router advertisement
-         "net.ipv6.conf.default.accept_ra_defrtr" = "0";
-         "net.ipv6.conf.all.accept_ra_defrtr" = "0";
+        # setting controls whether the system will accept Hop Limit settings from a router advertisement
+        "net.ipv6.conf.default.accept_ra_defrtr" = "0";
+        "net.ipv6.conf.all.accept_ra_defrtr" = "0";
 
-         # router advertisements can cause the system to assign a global unicast address to an interface
-         "net.ipv6.conf.default.autoconf" = "0";
-         "net.ipv6.conf.all.autoconf" = "0";
+        # router advertisements can cause the system to assign a global unicast address to an interface
+        "net.ipv6.conf.default.autoconf" = "0";
+        "net.ipv6.conf.all.autoconf" = "0";
 
-         # number of neighbor solicitations to send out per address
-         "net.ipv6.conf.default.dad_transmits" = "0";
-         "net.ipv6.conf.all.dad_transmits" = "0";
+        # number of neighbor solicitations to send out per address
+        "net.ipv6.conf.default.dad_transmits" = "0";
+        "net.ipv6.conf.all.dad_transmits" = "0";
 
-         # number of global unicast IPv6 addresses can be assigned to each interface
-         "net.ipv6.conf.default.max_addresses" = "1";
-         "net.ipv6.conf.all.max_addresses" = "1";
+        # number of global unicast IPv6 addresses can be assigned to each interface
+        "net.ipv6.conf.default.max_addresses" = "1";
+        "net.ipv6.conf.all.max_addresses" = "1";
 
-         # enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address
-         # https://grapheneos.org/features#wifi-privacy
-         # GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
-         # extensions alongside MAC randomization, so that's why we do both
-         "net.ipv6.conf.default.use_tempaddr" = mkForce "2";
-         "net.ipv6.conf.all.use_tempaddr" = mkForce "2";
+        # enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address
+        # https://grapheneos.org/features#wifi-privacy
+        # GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
+        # extensions alongside MAC randomization, so that's why we do both
+        "net.ipv6.conf.default.use_tempaddr" = mkForce "2";
+        "net.ipv6.conf.all.use_tempaddr" = mkForce "2";
 
-         # ignore all ICMPv6 echo requests
-         "net.ipv6.icmp.echo_ignore_all" = "1";
-         "net.ipv6.icmp.echo_ignore_anycast" = "1";
-         "net.ipv6.icmp.echo_ignore_multicast" = "1";
+        # ignore all ICMPv6 echo requests
+        "net.ipv6.icmp.echo_ignore_all" = "1";
+        "net.ipv6.icmp.echo_ignore_anycast" = "1";
+        "net.ipv6.icmp.echo_ignore_multicast" = "1";
       };
     };
-    
+
     kernelParams = [
       # Requires all kernel modules to be signed. This prevents out-of-tree
       # kernel modules from working unless signed. See overrides.
-      ("module.sig_enforce=1")
-      
+      "module.sig_enforce=1"
+
       # May break some drivers, same reason as the above. Also breaks
       # hibernation. See overrides.
-      ("lockdown=confidentiality")
+      "lockdown=confidentiality"
 
       # May prevent some systems from booting. See overrides.
-      ("efi=disable_early_pci_dma") 
+      "efi=disable_early_pci_dma"
 
       # Forces DMA to go through IOMMU to mitigate some DMA attacks. See
       # overrides.
-      ("iommu.passthrough=0") 
+      "iommu.passthrough=0"
 
       # Apply relevant CPU exploit mitigations, and disable symmetric 
       # multithreading. May harm performance. See overrides.
-      ("mitigations=auto,nosmt") 
+      "mitigations=auto,nosmt"
 
       # Mitigates Meltdown, some KASLR bypasses. Hurts performance. See
       # overrides.
-      ("pti=on")
-      
+      "pti=on"
+
       # Gather more entropy on boot. Only works with the linux_hardened
       # patchset, but does nothing if using another kernel. Slows down boot
       # time by a bit. 
-      ("extra_latent_entropy")
+      "extra_latent_entropy"
 
       # Disables multilib/32 bit applications to reduce attack surface.
       # See overrides.
-      ("ia32_emulation=0")
+      "ia32_emulation=0"
 
-      ("slab_nomerge")
-      ("init_on_alloc=1")
-      ("init_on_free=1")
-      ("page_alloc.shuffle=1")
-      ("randomize_kstack_offset=on")      
-      ("vsyscall=none")
-      ("debugfs=off")
-      ("oops=panic")
-      ("quiet")
-      ("loglevel=0")
-      ("random.trust_cpu=off")
-      ("random.trust_bootloader=off")
-      ("intel_iommu=on")
-      ("amd_iommu=force_isolation")
-      ("iommu=force")
-      ("iommu.strict=1")
+      "slab_nomerge"
+      "init_on_alloc=1"
+      "init_on_free=1"
+      "page_alloc.shuffle=1"
+      "randomize_kstack_offset=on"
+      "vsyscall=none"
+      "debugfs=off"
+      "oops=panic"
+      "quiet"
+      "loglevel=0"
+      "random.trust_cpu=off"
+      "random.trust_bootloader=off"
+      "intel_iommu=on"
+      "amd_iommu=force_isolation"
+      "iommu=force"
+      "iommu.strict=1"
     ];
 
     # Disable the editor in systemd-boot, the default bootloader for NixOS.
@@ -347,10 +353,14 @@ imports = [ ./nm-overrides.nix ];
     # security by tampering with boot parameters. If you use a different
     # boatloader, this does not provide anything. You may also want to
     # consider disabling similar functions in your choice of bootloader.
-    loader = { systemd-boot = { editor = false; }; };
+    loader = {
+      systemd-boot = {
+        editor = false;
+      };
+    };
 
   };
-  environment = {    
+  environment = {
     etc = {
       # Empty /etc/securetty to prevent root login on tty.
       securetty = {
@@ -868,37 +878,72 @@ imports = [ ./nm-overrides.nix ];
     # noexec on /home can be very inconvenient for desktops. See overrides.
     "/home" = {
       device = "/home";
-      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+      options = [
+        "bind"
+        "nosuid"
+        "noexec"
+        "nodev"
+      ];
     };
 
     # You do not want to install applications here anyways.
     "/root" = {
       device = "/root";
-      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+      options = [
+        "bind"
+        "nosuid"
+        "noexec"
+        "nodev"
+      ];
     };
 
     # Some applications may need to be executable in /tmp. See overrides.
-    "/tmp" = { 
+    "/tmp" = {
       device = "/tmp";
-      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+      options = [
+        "bind"
+        "nosuid"
+        "noexec"
+        "nodev"
+      ];
     };
 
     # noexec on /var(/lib) may cause breakage. See overrides.
-    "/var" = { 
+    "/var" = {
       device = "/var";
-      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+      options = [
+        "bind"
+        "nosuid"
+        "noexec"
+        "nodev"
+      ];
     };
 
-    "/boot" = { options = [ ("nosuid") ("noexec") ("nodev") ]; };
+    "/boot" = {
+      options = [
+        "nosuid"
+        "noexec"
+        "nodev"
+      ];
+    };
 
-    "/srv" = { 
+    "/srv" = {
       device = "/srv";
-      options = [ ("bind") ("nosuid") ("noexec") ("nodev") ];
+      options = [
+        "bind"
+        "nosuid"
+        "noexec"
+        "nodev"
+      ];
     };
 
-    "/etc" = { 
+    "/etc" = {
       device = "/etc";
-      options = [ ("bind") ("nosuid") ("nodev") ];
+      options = [
+        "bind"
+        "nosuid"
+        "nodev"
+      ];
     };
   };
 
@@ -907,21 +952,41 @@ imports = [ ./nm-overrides.nix ];
   # https://github.com/NixOS/nixpkgs/blob/e2dd4e18cc1c7314e24154331bae07df76eb582f/nixos/modules/tasks/filesystems.nix
   boot.specialFileSystems = {
     # Add noexec to /dev/shm
-    "/dev/shm" = { 
-      fsType = "tmpfs"; 
-      options = [ "nosuid" "nodev" "noexec" "strictatime" "mode=1777" "size=${config.boot.devShmSize}" ]; 
+    "/dev/shm" = {
+      fsType = "tmpfs";
+      options = [
+        "nosuid"
+        "nodev"
+        "noexec"
+        "strictatime"
+        "mode=1777"
+        "size=${config.boot.devShmSize}"
+      ];
     };
 
     # Add noexec to /run
     "/run" = {
-      fsType = "tmpfs"; 
-      options = [ "nosuid" "nodev" "noexec" "strictatime" "mode=755" "size=${config.boot.runSize}" ];
+      fsType = "tmpfs";
+      options = [
+        "nosuid"
+        "nodev"
+        "noexec"
+        "strictatime"
+        "mode=755"
+        "size=${config.boot.runSize}"
+      ];
     };
 
     # Add noexec to /dev
-    "/dev" = { 
-      fsType = "devtmpfs"; 
-      options = [ "nosuid" "noexec" "strictatime" "mode=755" "size=${config.boot.devSize}" ]; 
+    "/dev" = {
+      fsType = "devtmpfs";
+      options = [
+        "nosuid"
+        "noexec"
+        "strictatime"
+        "mode=755"
+        "size=${config.boot.devSize}"
+      ];
     };
 
     # Hide processes from other users except root, may cause breakage.
@@ -929,58 +994,66 @@ imports = [ ./nm-overrides.nix ];
     "/proc" = {
       fsType = "proc";
       device = "proc";
-      options = [ "nosuid" "nodev" "noexec" "hidepid=2" "gid=proc" ];
+      options = [
+        "nosuid"
+        "nodev"
+        "noexec"
+        "hidepid=2"
+        "gid=proc"
+      ];
     };
   };
 
   # Add "proc" group to whitelist /proc access and allow systemd-logind to view
   # /proc in order to unbreak it.
-  users.groups.proc = {};
-  systemd.services.systemd-logind.serviceConfig = { SupplementaryGroups = [ "proc" ]; };
+  users.groups.proc = { };
+  systemd.services.systemd-logind.serviceConfig = {
+    SupplementaryGroups = [ "proc" ];
+  };
 
   # Enables firewall. You may need to tweak your firewall rules depending on
   # your usecase. On a desktop, this shouldn't cause problems. 
-  networking = { 
+  networking = {
     firewall = {
       allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
       enable = true;
     };
     networkmanager = {
-      ethernet = { macAddress = "random"; };
+      ethernet = {
+        macAddress = "random";
+      };
       wifi = {
         macAddress = "random";
         scanRandMacAddress = true;
       };
       # Enable IPv6 privacy extensions in NetworkManager.
-      connectionConfig = mkDefault {
-        "ipv6.ip6-privacy" = 2;
-      };
+      connectionConfig = mkDefault { "ipv6.ip6-privacy" = 2; };
     };
   };
-  
+
   # Enabling MAC doesn't magically make your system secure. You need to set up
   # policies yourself for it to be effective.
-  security = { 
+  security = {
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
     };
-    
+
     pam = {
       loginLimits = [
-        ({
+        {
           domain = "*";
           item = "core";
           type = "hard";
           value = "0";
-        })
+        }
       ];
       services = {
         # Increase hashing rounds for /etc/shadow; this doesn't automatically
         # rehash your passwords, you'll need to set passwords for your accounts
         # again for this to work.
-        passwd = { 
+        passwd = {
           text = ''
             password required pam_unix.so sha512 shadow nullok rounds=65536
           '';
@@ -988,28 +1061,44 @@ imports = [ ./nm-overrides.nix ];
         # Enable PAM support for securetty, to prevent root login.
         # https://unix.stackexchange.com/questions/670116/debian-bullseye-disable-console-tty-login-for-root
         login = {
-          text = pkgs.lib.mkDefault( pkgs.lib.mkBefore ''
-            # Enable securetty support.
-            auth       requisite  pam_nologin.so
-            auth       requisite  pam_securetty.so
-          '');
+          text = pkgs.lib.mkDefault (
+            pkgs.lib.mkBefore ''
+              # Enable securetty support.
+              auth       requisite  pam_nologin.so
+              auth       requisite  pam_securetty.so
+            ''
+          );
         };
 
-        su = { requireWheel = true; };
-        su-l = { requireWheel = true; };
-        system-login = { failDelay = { delay = "4000000"; }; };
+        su = {
+          requireWheel = true;
+        };
+        su-l = {
+          requireWheel = true;
+        };
+        system-login = {
+          failDelay = {
+            delay = "4000000";
+          };
+        };
       };
     };
   };
   services = {
     # Disallow root login over SSH. Doesn't matter on systems without SSH.
-    openssh = { settings = { PermitRootLogin = "no"; }; };
-     
+    openssh = {
+      settings = {
+        PermitRootLogin = "no";
+      };
+    };
+
     # DNS connections will fail if not using a DNS server supporting DNSSEC.
-    resolved = { dnssec = "true"; }; 
+    resolved = {
+      dnssec = "true";
+    };
 
     # Prevent BadUSB attacks, but requires whitelisting of USB devices. 
-    usbguard = {   
+    usbguard = {
       enable = true;
     };
   };
@@ -1018,8 +1107,10 @@ imports = [ ./nm-overrides.nix ];
   # Read more about why at the following URLs:
   # https://github.com/smuellerDD/jitterentropy-rngd/issues/27
   # https://blogs.oracle.com/linux/post/rngd1
-  services.jitterentropy-rngd = { enable = true; };
-  boot.kernelModules = [ ("jitterentropy_rng") ];
+  services.jitterentropy-rngd = {
+    enable = true;
+  };
+  boot.kernelModules = [ "jitterentropy_rng" ];
 
   # Don't store coredumps from systemd-coredump.
   systemd.coredump.extraConfig = mkDefault ''
@@ -1027,9 +1118,7 @@ imports = [ ./nm-overrides.nix ];
   '';
 
   # Enable IPv6 privacy extensions for systemd-networkd.
-  systemd.network.config.networkConfig = mkDefault {
-    IPv6PrivacyExtensions = kernel;
-  };
+  systemd.network.config.networkConfig = mkDefault { IPv6PrivacyExtensions = kernel; };
 
   systemd.tmpfiles.settings = {
     # Restrict permissions of /home/$USER so that only the owner of the
@@ -1058,13 +1147,15 @@ imports = [ ./nm-overrides.nix ];
       };
     };
   };
-  
+
   # zram allows swapping to RAM by compressing memory. This reduces the chance
   # that sensitive data is written to disk, and eliminates it if zram is used
   # to completely replace swap to disk. Generally *improves* storage lifespan
   # and performance, there usually isn't a need to disable this.
-  zramSwap = { enable = true; };
+  zramSwap = {
+    enable = true;
+  };
 
   # Limit access to nix to users with the "wheel" group. ("sudoers")
-  nix.settings.allowed-users = mkForce [ ("@wheel") ];
-}))
+  nix.settings.allowed-users = mkForce [ "@wheel" ];
+}
