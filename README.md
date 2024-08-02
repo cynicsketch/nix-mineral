@@ -96,3 +96,35 @@ Some individual modules may be missing in this example, but should show roughly 
     7 directories, 36 files
     
     [nix-shell:~]$ 
+
+## Usage with flakes
+
+While you can use the above method with flakes, it may be a little easier (and allow for easier updates and version pinning) by using this method.
+
+Add nix-mineral as a non-flake input to your flake:
+
+```nix
+{
+  inputs = {
+    # ...
+    nix-mineral = {
+      url = "github:cynicsketch/nix-mineral";
+      flake = false;
+    };
+    # ...
+  };
+}
+```
+
+Import nix-mineral.nix from the repository:
+
+```nix
+{
+  imports = [
+    "${inputs.nix-mineral}/nix-mineral.nix"
+  ];
+  # ...
+}
+```
+
+With this method, you can use the `nm-overrides` config option.
