@@ -1082,6 +1082,13 @@ in
             delay = "4000000";
           };
         };
+        login.text = l.mkDefault (
+          l.mkBefore ''
+            # Enable securetty support.
+            auth       requisite  pam_nologin.so
+            auth       requisite  pam_securetty.so
+          ''
+        );
       };
     };
   };
