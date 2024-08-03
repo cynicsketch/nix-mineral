@@ -42,7 +42,7 @@ A non-comprehensive list of features in `nix-mineral`
 ## Usage
 
 ### Automatic Installation (fetchgit) 
-(Can be used with flake and non-flake configurations, but if you are using flakes the next flake specific method is objectively simpler and better for you in every way.)
+(Can be used with flake and non-flake configurations, but if you are using flakes the next, flake specific method is objectively simpler and better for you in every way.)
 
 You can also use fetchFromGithub, fetchTarball or fetchUrl to your preference.
 
