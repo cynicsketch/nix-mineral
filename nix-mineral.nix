@@ -131,6 +131,33 @@
 }:
 let
   l = lib // builtins;
+  sources = l.fromTOML (l.readFile ./sources.toml);
+  /*
+    helper function to fetch a file from a github repository
+
+    example usage to fetch https://raw.githubusercontent.com/Kicksecure/security-misc/de6f3ea74a5a1408e4351c955ecb7010825364c5/usr/lib/issue.d/20_security-misc.issue
+
+    fetchGhFile {
+      user = "Kicksecure";
+      repo = "security-misc";
+      rev = "de6f3ea74a5a1408e4351c955ecb7010825364c5";
+      file = "usr/lib/issue.d/20_security-misc.issue";
+      sha256 = "00ilswn1661h8rwfrq4w3j945nr7dqd1g519d3ckfkm0dr49f26b";
+    }
+  */
+  fetchGhFile =
+    {
+      user,
+      repo,
+      rev,
+      file,
+      sha256,
+      ...
+    }:
+    builtins.fetchurl {
+      url = "https://raw.githubusercontent.com/${user}/${repo}/${rev}/${file}";
+      inherit sha256;
+    };
 in
 {
 
@@ -371,478 +398,22 @@ in
     '';
 
     # Borrow Kicksecure banner/issue. 
-    # Kicksecure/security-misc
-    # usr/lib/issue.d/20_security-misc.issue - Last updated August 1st, 2024
-    issue.text = ''
-      By continuing, you acknowledge and give consent that the owner of this system has a right to keep a log of all activity.
-      Unauthorized access is strictly prohibited and may result in legal action. Do not proceed!
-    '';
+    issue.source = fetchGhFile sources.issue;
 
     # Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
     # by default for better git security.
-    gitconfig.text = ''
-      ### Kicksecure/security-misc
-      ### etc/gitconfig - Last updated August 1st, 2024
-
-      ## Copyright (C) 2024 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
-      ## See the file COPYING for copying conditions.
-
-      ## Lines starting with a hash symbol ('#') are comments.
-      ## https://github.com/Kicksecure/security-misc/issues/225
-
-      [core]
-      ## https://github.com/git/git/security/advisories/GHSA-8prw-h3cq-mghm
-        symlinks = false
-
-      ## https://forums.whonix.org/t/git-users-enable-fsck-by-default-for-better-security/2066
-      [transfer]
-        fsckobjects = true
-      [fetch]
-        fsckobjects = true
-      [receive]
-        fsckobjects = true
-
-      ## Generally a good idea but too intrusive to enable by default.
-      ## Listed here as suggestions what users should put into their ~/.gitconfig
-      ## file.
-
-      ## Not enabled by default because it requires essential knowledge about OpenPG
-      ## and an already existing local signing key. Otherwise would prevent all new
-      ## commits.
-      #[commit]
-      #	gpgsign = true
-
-      ## Not enabled by default because it would break the 'git merge' command for
-      ## unsigned commits and require the '--no-verify-signature' command line
-      ## option.
-      #[merge]
-      #	verifySignatures = true
-
-      ## Not enabled by default because it would break for users who are not having
-      ## an account at the git server and having added a SSH public key.
-      #[url "ssh://git@github.com/"]
-      #	insteadOf = https://github.com/
-    '';
+    gitconfig.source = fetchGhFile sources.gitconfig;
 
     # Borrow Kicksecure bluetooth configuration for better bluetooth privacy
     # and security. Disables bluetooth automatically when not connected to
     # any device.
-    "bluetooth/main.conf".text = l.mkForce ''
-      ### Kicksecure/security-misc
-      ### etc/bluetooth/30_security-misc.conf - Last updated July 29th, 2024
-
-      ## Copyright (C) 2023 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
-      ## See the file COPYING for copying conditions.
-
-      [General]
-      # How long to stay in pairable mode before going back to non-discoverable
-      # The value is in seconds. Default is 0.
-      # 0 = disable timer, i.e. stay pairable forever
-      PairableTimeout = 30
-
-      # How long to stay in discoverable mode before going back to non-discoverable
-      # The value is in seconds. Default is 180, i.e. 3 minutes.
-      # 0 = disable timer, i.e. stay discoverable forever
-      DiscoverableTimeout = 30
-
-      # Maximum number of controllers allowed to be exposed to the system.
-      # Default=0 (unlimited)
-      MaxControllers=1
-
-      # How long to keep temporary devices around
-      # The value is in seconds. Default is 30.
-      # 0 = disable timer, i.e. never keep temporary devices
-      TemporaryTimeout = 0
-
-      [Policy]
-      # AutoEnable defines option to enable all controllers when they are found.
-      # This includes adapters present on start as well as adapters that are plugged
-      # in later on. Defaults to 'true'.
-      AutoEnable=false
-
-      # network/on: A device will only accept advertising packets from peer
-      # devices that contain private addresses. It may not be compatible with some
-      # legacy devices since it requires the use of RPA(s) all the time.
-      Privacy=network/on 
-    '';
+    "bluetooth/main.conf".source = l.mkForce (fetchGhFile sources.bluetooth);
 
     # Borrow Kicksecure and secureblue module blacklist.
     # "install "foobar" /bin/not-existent" prevents the module from being
     # loaded at all. "blacklist "foobar"" prevents the module from being
     # loaded automatically at boot, but it can still be loaded afterwards.
-    "modprobe.d/nm-module-blacklist.conf".text = ''
-      ### Kicksecure/security-misc
-      ### etc/modprobe.d/30_security-misc_disable.conf - Last updated July 31st, 2024
-
-      ## Copyright (C) 2012 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
-      ## See the file COPYING for copying conditions.
-
-      ## See the following links for a community discussion and overview regarding the selections.
-      ## https://forums.whonix.org/t/blacklist-more-kernel-modules-to-reduce-attack-surface/7989
-      ## https://madaidans-insecurities.github.io/guides/linux-hardening.html#kasr-kernel-modules
-
-      ## Blacklisting prevents kernel modules from automatically starting.
-      ## Disabling prohibits kernel modules from starting.
-
-      ## Bluetooth:
-      ## Disable Bluetooth to reduce attack surface due to extended history of security vulnerabilities.
-      ##
-      ## https://en.wikipedia.org/wiki/Bluetooth#History_of_security_concerns
-      ##
-      ## Now replaced by a privacy and security preserving default Bluetooth configuration for better usability.
-      ## https://github.com/Kicksecure/security-misc/pull/145
-      ##
-      #install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
-      #install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
-      #install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
-      #install btbcm /usr/bin/disabled-bluetooth-by-security-misc
-      #install btintel /usr/bin/disabled-bluetooth-by-security-misc
-      #install btmrvl /usr/bin/disabled-bluetooth-by-security-misc
-      #install btmrvl_sdio /usr/bin/disabled-bluetooth-by-security-misc
-      #install btmtk /usr/bin/disabled-bluetooth-by-security-misc
-      #install btmtksdio /usr/bin/disabled-bluetooth-by-security-misc
-      #install btmtkuart /usr/bin/disabled-bluetooth-by-security-misc
-      #install btnxpuart /usr/bin/disabled-bluetooth-by-security-misc
-      #install btqca /usr/bin/disabled-bluetooth-by-security-misc
-      #install btrsi /usr/bin/disabled-bluetooth-by-security-misc
-      #install btrtl /usr/bin/disabled-bluetooth-by-security-misc
-      #install btsdio /usr/bin/disabled-bluetooth-by-security-misc
-      #install btusb /usr/bin/disabled-bluetooth-by-security-misc
-      #install virtio_bt /usr/bin/disabled-bluetooth-by-security-misc
-
-      ## CPU Model-Specific Registers (MSRs):
-      ## Disable CPU MSRs as they can be abused to write to arbitrary memory.
-      ##
-      ## https://security.stackexchange.com/questions/119712/methods-root-can-use-to-elevate-itself-to-kernel-mode
-      ## https://github.com/Kicksecure/security-misc/issues/215
-      ##
-      install msr /usr/bin/disabled-miscellaneous-by-security-misc
-
-      ## File Systems:
-      ## Disable uncommon file systems to reduce attack surface.
-      ## HFS/HFS+ are legacy Apple file systems that may be required depending on the EFI partition format.
-      ##
-      install cramfs /usr/bin/disabled-filesys-by-security-misc
-      install freevxfs /usr/bin/disabled-filesys-by-security-misc
-      install hfs /usr/bin/disabled-filesys-by-security-misc
-      install hfsplus /usr/bin/disabled-filesys-by-security-misc
-      install jffs2 /usr/bin/disabled-filesys-by-security-misc
-      install jfs /usr/bin/disabled-filesys-by-security-misc
-      install reiserfs /usr/bin/disabled-filesys-by-security-misc
-      install udf /usr/bin/disabled-filesys-by-security-misc
-
-      ## FireWire (IEEE 1394):
-      ## Disable IEEE 1394 (FireWire/i.LINK/Lynx) modules to prevent some DMA attacks.
-      ##
-      ## https://en.wikipedia.org/wiki/IEEE_1394#Security_issues
-      ##
-      install dv1394 /usr/bin/disabled-firewire-by-security-misc
-      install firewire-core /usr/bin/disabled-firewire-by-security-misc
-      install firewire-ohci /usr/bin/disabled-firewire-by-security-misc
-      install firewire-net /usr/bin/disabled-firewire-by-security-misc
-      install firewire-sbp2 /usr/bin/disabled-firewire-by-security-misc
-      install ohci1394 /usr/bin/disabled-firewire-by-security-misc
-      install raw1394 /usr/bin/disabled-firewire-by-security-misc
-      install sbp2 /usr/bin/disabled-firewire-by-security-misc
-      install video1394 /usr/bin/disabled-firewire-by-security-misc
-
-      ## Global Positioning Systems (GPS):
-      ## Disable GPS-related modules like GNSS (Global Navigation Satellite System).
-      ##
-      install garmin_gps /usr/bin/disabled-gps-by-security-misc
-      install gnss /usr/bin/disabled-gps-by-security-misc
-      install gnss-mtk /usr/bin/disabled-gps-by-security-misc
-      install gnss-serial /usr/bin/disabled-gps-by-security-misc
-      install gnss-sirf /usr/bin/disabled-gps-by-security-misc
-      install gnss-ubx /usr/bin/disabled-gps-by-security-misc
-      install gnss-usb /usr/bin/disabled-gps-by-security-misc
-
-      ## Intel Management Engine (ME):
-      ## Partially disable the Intel ME interface with the OS.
-      ## ME functionality has increasing become more intertwined with basic Intel system operation.
-      ## Disabling may lead to breakages in places such as security, power management, display, and DRM.
-      ##
-      ## https://www.kernel.org/doc/html/latest/driver-api/mei/mei.html
-      ## https://en.wikipedia.org/wiki/Intel_Management_Engine#Security_vulnerabilities
-      ## https://www.kicksecure.com/wiki/Out-of-band_Management_Technology#Intel_ME_Disabling_Disadvantages
-      ## https://github.com/Kicksecure/security-misc/pull/236#issuecomment-2229092813
-      ## https://github.com/Kicksecure/security-misc/issues/239
-      ##
-      #install mei /usr/bin/disabled-intelme-by-security-misc
-      #install mei-gsc /usr/bin/disabled-intelme-by-security-misc
-      #install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
-      #install mei_hdcp /usr/bin/disabled-intelme-by-security-misc
-      #install mei-me /usr/bin/disabled-intelme-by-security-misc
-      #install mei_phy /usr/bin/disabled-intelme-by-security-misc
-      #install mei_pxp /usr/bin/disabled-intelme-by-security-misc
-      #install mei-txe /usr/bin/disabled-intelme-by-security-misc
-      #install mei-vsc /usr/bin/disabled-intelme-by-security-misc
-      #install mei-vsc-hw /usr/bin/disabled-intelme-by-security-misc
-      #install mei_wdt /usr/bin/disabled-intelme-by-security-misc
-      #install microread_mei /usr/bin/disabled-intelme-by-security-misc
-
-      ## Intel Platform Monitoring Technology Telemetry (PMT):
-      ## Disable some functionality of the Intel PMT components.
-      ##
-      ## https://github.com/intel/Intel-PMT
-      ##
-      install pmt_class /usr/bin/disabled-intelpmt-by-security-misc
-      install pmt_crashlog /usr/bin/disabled-intelpmt-by-security-misc
-      install pmt_telemetry /usr/bin/disabled-intelpmt-by-security-misc
-
-      ## Network File Systems:
-      ## Disable uncommon network file systems to reduce attack surface.
-      ##
-      install gfs2 /usr/bin/disabled-netfilesys-by-security-misc
-      install ksmbd /usr/bin/disabled-netfilesys-by-security-misc
-      ##
-      ## Common Internet File System (CIFS):
-      ##
-      install cifs /usr/bin/disabled-netfilesys-by-security-misc
-      install cifs_arc4 /usr/bin/disabled-netfilesys-by-security-misc
-      install cifs_md4 /usr/bin/disabled-netfilesys-by-security-misc
-      ##
-      ## Network File System (NFS):
-      ##
-      install nfs /usr/bin/disabled-netfilesys-by-security-misc
-      install nfs_acl /usr/bin/disabled-netfilesys-by-security-misc
-      install nfs_layout_nfsv41_files /usr/bin/disabled-netfilesys-by-security-misc
-      install nfs_layout_flexfiles /usr/bin/disabled-netfilesys-by-security-misc
-      install nfsd /usr/bin/disabled-netfilesys-by-security-misc
-      install nfsv2 /usr/bin/disabled-netfilesys-by-security-misc
-      install nfsv3 /usr/bin/disabled-netfilesys-by-security-misc
-      install nfsv4 /usr/bin/disabled-netfilesys-by-security-misc
-
-      ## Network Protocols:
-      ## Disables rare and unneeded network protocols that are a common source of unknown vulnerabilities.
-      ## Previously had blacklisted eepro100 and eth1394.
-      ##
-      ## https://tails.boum.org/blueprint/blacklist_modules/
-      ## https://fedoraproject.org/wiki/Security_Features_Matrix#Blacklist_Rare_Protocols
-      ## https://git.launchpad.net/ubuntu/+source/kmod/tree/debian/modprobe.d/blacklist-rare-network.conf?h=ubuntu/disco
-      ## https://github.com/Kicksecure/security-misc/pull/234#issuecomment-2230732015
-      ##
-      install af_802154 /usr/bin/disabled-network-by-security-misc
-      install appletalk /usr/bin/disabled-network-by-security-misc
-      install ax25 /usr/bin/disabled-network-by-security-misc
-      #install brcm80211 /usr/bin/disabled-network-by-security-misc
-      install decnet /usr/bin/disabled-network-by-security-misc
-      install dccp /usr/bin/disabled-network-by-security-misc
-      install econet /usr/bin/disabled-network-by-security-misc
-      install eepro100 /usr/bin/disabled-network-by-security-misc
-      install eth1394 /usr/bin/disabled-network-by-security-misc
-      install ipx /usr/bin/disabled-network-by-security-misc
-      install n-hdlc /usr/bin/disabled-network-by-security-misc
-      install netrom /usr/bin/disabled-network-by-security-misc
-      install p8022 /usr/bin/disabled-network-by-security-misc
-      install p8023 /usr/bin/disabled-network-by-security-misc
-      install psnap /usr/bin/disabled-network-by-security-misc
-      install rose /usr/bin/disabled-network-by-security-misc
-      install x25 /usr/bin/disabled-network-by-security-misc
-      ##
-      ## Asynchronous Transfer Mode (ATM):
-      ##
-      install atm /usr/bin/disabled-network-by-security-misc
-      install ueagle-atm /usr/bin/disabled-network-by-security-misc
-      install usbatm /usr/bin/disabled-network-by-security-misc
-      install xusbatm /usr/bin/disabled-network-by-security-misc
-      ##
-      ## Controller Area Network (CAN) Protocol:
-      ##
-      install c_can /usr/bin/disabled-network-by-security-misc
-      install c_can_pci /usr/bin/disabled-network-by-security-misc
-      install c_can_platform /usr/bin/disabled-network-by-security-misc
-      install can /usr/bin/disabled-network-by-security-misc
-      install can-bcm /usr/bin/disabled-network-by-security-misc
-      install can-dev /usr/bin/disabled-network-by-security-misc
-      install can-gw /usr/bin/disabled-network-by-security-misc
-      install can-isotp /usr/bin/disabled-network-by-security-misc
-      install can-raw /usr/bin/disabled-network-by-security-misc
-      install can-j1939 /usr/bin/disabled-network-by-security-misc
-      install can327 /usr/bin/disabled-network-by-security-misc
-      install ifi_canfd /usr/bin/disabled-network-by-security-misc
-      install janz-ican3 /usr/bin/disabled-network-by-security-misc
-      install m_can /usr/bin/disabled-network-by-security-misc
-      install m_can_pci /usr/bin/disabled-network-by-security-misc
-      install m_can_platform /usr/bin/disabled-network-by-security-misc
-      install phy-can-transceiver /usr/bin/disabled-network-by-security-misc
-      install slcan /usr/bin/disabled-network-by-security-misc
-      install ucan /usr/bin/disabled-network-by-security-misc
-      install vxcan /usr/bin/disabled-network-by-security-misc
-      install vcan /usr/bin/disabled-network-by-security-misc
-      ##
-      ## Transparent Inter Process Communication (TIPC):
-      ##
-      install tipc /usr/bin/disabled-network-by-security-misc
-      install tipc_diag /usr/bin/disabled-network-by-security-misc
-      ##
-      ## Reliable Datagram Sockets (RDS):
-      ##
-      install rds /usr/bin/disabled-network-by-security-misc
-      install rds_rdma /usr/bin/disabled-network-by-security-misc
-      install rds_tcp /usr/bin/disabled-network-by-security-misc
-      ##
-      ## Stream Control Transmission Protocol (SCTP):
-      ##
-      install sctp /usr/bin/disabled-network-by-security-misc
-      install sctp_diag /usr/bin/disabled-network-by-security-misc
-
-      ## Miscellaneous:
-      ##
-      ## Amateur Radios:
-      ##
-      install hamradio /usr/bin/disabled-miscellaneous-by-security-misc
-      ##
-      ## Floppy Disks:
-      ##
-      install floppy /usr/bin/disabled-miscellaneous-by-security-misc
-      ##
-      ## Vivid:
-      ## Disables the vivid kernel module since it has been the cause of multiple vulnerabilities.
-      ##
-      ## https://forums.whonix.org/t/kernel-recompilation-for-better-hardening/7598/233
-      ## https://www.openwall.com/lists/oss-security/2019/11/02/1
-      ## https://github.com/a13xp0p0v/kconfig-hardened-check/commit/981bd163fa19fccbc5ce5d4182e639d67e484475
-      ##
-      install vivid /usr/bin/disabled-miscellaneous-by-security-misc
-
-      ## Thunderbolt:
-      ## Disables Thunderbolt modules to prevent some DMA attacks.
-      ##
-      ## https://en.wikipedia.org/wiki/Thunderbolt_(interface)#Security_vulnerabilities
-      ##
-      install intel-wmi-thunderbolt /usr/bin/disabled-thunderbolt-by-security-misc
-      install thunderbolt /usr/bin/disabled-thunderbolt-by-security-misc
-      install thunderbolt_net /usr/bin/disabled-thunderbolt-by-security-misc
-
-      ## USB Video Device Class:
-      ## Disables the USB-based video streaming driver for devices like some webcams and digital camcorders.
-      ##
-      #install uvcvideo /usr/bin/disabled-miscellaneous-by-security-misc
-
-
-
-      ### Kicksecure/security-misc
-      ### etc/modprobe.d/30_security-misc_conntrack.conf - Last updated July 29, 2024
-
-      ## Copyright (C) 2012 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
-      ## See the file COPYING for copying conditions.
-
-      ## Conntrack:
-      ## Disable Netfilter's automatic connection tracking helper assignment.
-      ## Increases kernel attack surface by enabling superfluous functionality such as IRC parsing in the kernel.
-      ##
-      ## https://conntrack-tools.netfilter.org/manual.html
-      ## https://forums.whonix.org/t/disable-conntrack-helper/18917
-      ##
-      options nf_conntrack nf_conntrack_helper=0
-
-
-
-      ### Kicksecure/security-misc
-      ### etc/modprobe.d/30_security-misc_blacklist.conf - Last updated July 29, 2024
-
-      ## Copyright (C) 2012 - 2024 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
-      ## See the file COPYING for copying conditions.
-
-      ## See the following links for a community discussion and overview regarding the selections.
-      ## https://forums.whonix.org/t/blacklist-more-kernel-modules-to-reduce-attack-surface/7989
-      ## https://madaidans-insecurities.github.io/guides/linux-hardening.html#kasr-kernel-modules
-
-      ## Blacklisting prevents kernel modules from automatically starting.
-      ## Disabling prohibits kernel modules from starting.
-
-      ## CD-ROM/DVD:
-      ## Blacklist CD-ROM and DVD modules.
-      ## Do not disable by default for potential future ISO plans.
-      ##
-      ## https://nvd.nist.gov/vuln/detail/CVE-2018-11506
-      ## https://forums.whonix.org/t/blacklist-more-kernel-modules-to-reduce-attack-surface/7989/31
-      ##
-      blacklist cdrom
-      blacklist sr_mod
-      ##
-      #install cdrom /usr/bin/disabled-cdrom-by-security-misc
-      #install sr_mod /usr/bin/disabled-cdrom-by-security-misc
-
-      ## Framebuffer Drivers:
-      ##
-      ## https://git.launchpad.net/ubuntu/+source/kmod/tree/debian/modprobe.d/blacklist-framebuffer.conf?h=ubuntu/disco
-      ##
-      blacklist aty128fb
-      blacklist atyfb
-      blacklist cirrusfb
-      blacklist cyber2000fb
-      blacklist cyblafb
-      blacklist gx1fb
-      blacklist hgafb
-      blacklist i810fb
-      blacklist intelfb
-      blacklist kyrofb
-      blacklist lxfb
-      blacklist matroxfb_bases
-      blacklist neofb
-      blacklist nvidiafb
-      blacklist pm2fb
-      blacklist radeonfb
-      blacklist rivafb
-      blacklist s1d13xxxfb
-      blacklist savagefb
-      blacklist sisfb
-      blacklist sstfb
-      blacklist tdfxfb
-      blacklist tridentfb
-      blacklist vesafb
-      blacklist vfb
-      blacklist viafb
-      blacklist vt8623fb
-      blacklist udlfb
-
-      ## Miscellaneous:
-      ##
-      ## https://git.launchpad.net/ubuntu/+source/kmod/tree/debian/modprobe.d/blacklist.conf?h=ubuntu/disco
-      ## https://git.launchpad.net/ubuntu/+source/kmod/tree/debian/modprobe.d/blacklist-ath_pci.conf?h=ubuntu/disco
-      ##
-      blacklist ath_pci
-      blacklist amd76x_edac
-      blacklist asus_acpi
-      blacklist bcm43xx
-      blacklist evbug
-      blacklist de4x5
-      blacklist pcspkr
-      blacklist prism54
-      blacklist snd_aw2
-      blacklist snd_intel8x0m
-      blacklist snd_pcsp
-      blacklist usbkbd
-      blacklist usbmouse
-
-
-
-      ### secureblue/secureblue
-      ### files/system/usr/etc/modprobe.d/blacklist.conf - Last updated July 29, 2024
-
-      # unused filesystems
-      install squashfs /bin/false
-      install kafs /bin/false
-      install orangefs /bin/false
-      install 9p /bin/false
-      install adfs /bin/false
-      install affs /bin/false
-      install afs /bin/false
-      install befs /bin/false
-      install ceph /bin/false
-      install coda /bin/false
-      install ecryptfs /bin/false
-      install erofs /bin/false
-      install minix /bin/false
-      install netfs /bin/false
-      install nilfs2 /bin/false
-      install ocfs2 /bin/false
-      install romfs /bin/false
-      install ubifs /bin/false
-      install zonefs /bin/false
-    '';
+    "modprobe.d/nm-module-blacklist.conf".source = fetchGhFile sources.module-blacklist;
   };
 
   ### Filesystem hardening
