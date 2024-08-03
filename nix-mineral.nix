@@ -1074,7 +1074,7 @@ in
   '';
 
   # Enable IPv6 privacy extensions for systemd-networkd.
-  systemd.network.config.networkConfig.IPv6PrivacyExtensions = l.mkDefault kernel;
+  systemd.network.config.networkConfig.IPv6PrivacyExtensions = l.mkDefault "kernel";
 
   systemd.tmpfiles.settings = {
     # Restrict permissions of /home/$USER so that only the owner of the
