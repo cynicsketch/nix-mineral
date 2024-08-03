@@ -46,7 +46,7 @@ A non-comprehensive list of features in `nix-mineral`
 
 You may want to use this method if you prefer to be in control of your own configuration, or if you need to direcly edit `nix-mineral.nix` to remove/add your own options, however, this method requires manual updates if anything is changed in this repository. You could also fork this repository and use your fork with the automatic options to acheive the same effect.
 
-Extract the contents of the .zip provided in the releases to `/etc/nixos` (or download from master using the  `<> Code` -> `Download Zip` dropdown), and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
+Extract the contents of the .zip provided in the releases to `/etc/nixos` (or download from main using the  `<> Code` -> `Download Zip` dropdown), and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
 
 In `configuration.nix`:
 
