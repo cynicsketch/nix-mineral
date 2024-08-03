@@ -40,16 +40,31 @@ A non-comprehensive list of features in `nix-mineral`
   See [nm-overrides.nix](https://github.com/cynicsketch/nix-mineral/blob/main/nm-overrides.nix)
 
 ## Usage
-Extract the contents of the .zip provided in the releases to `/etc/nixos`, and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
+
+### Manual Installation
+(Can be used with flake and non-flake configurations)
+
+You may want to use this method if you prefer to be in control of your own configuration, or if you need to direcly edit `nix-mineral.nix` to remove/add your own options, however, this method requires manual updates if anything is changed in this repository. You could also fork this repository and use your fork with the automatic options to acheive the same effect.
+
+Extract the contents of the .zip provided in the releases to `/etc/nixos` (or download from master using the  `<> Code` -> `Download Zip` dropdown), and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
 
 In `configuration.nix`:
 
-    imports = [ (./nix-mineral.nix) ... ];
+```nix
+{
+  imports = [ 
+    ./nix-mineral.nix 
+    # Other imports ...
+  ];
+  # The rest of your configuration ...
+}
+```
 
-### Example directory structure
-Some individual modules may be missing in this example, but should show roughly what `/etc/nixos/` would look like.
+#### Example directory structure
+Some individual modules may be missing in this example, but should show roughly what `/etc/nixos/` would look like. 
 
-    [nix-shell:~]$ tree /etc/nixos
+    $ tree /etc/nixos
+
     /etc/nixos
     ├── configuration.nix
     ├── hardware-configuration.nix
@@ -93,13 +108,12 @@ Some individual modules may be missing in this example, but should show roughly 
     │       └── secure-chrony.nix
     └── nm-overrides.nix
     
-    7 directories, 36 files
-    
-    [nix-shell:~]$ 
 
 ## Usage with flakes
 
-While you can use the above method with flakes, it may be a little easier (and allow for easier updates and version pinning) by using this method.
+### Usage With Flakes
+
+While you can use both of the above methods with flakes, it may be a little easier (and allow for easier updates and version pinning) by using this method.
 
 Add nix-mineral as a non-flake input to your flake:
 
@@ -118,15 +132,16 @@ Add nix-mineral as a non-flake input to your flake:
 }
 ```
 
-Import nix-mineral.nix from the repository:
+Import nix-mineral.nix from the repository path:
 
 ```nix
 {
   imports = [
     "${inputs.nix-mineral}/nix-mineral.nix"
+    # Other imports ...
   ];
-  # ...
+  # The rest of your configuration ...
 }
 ```
 
-With this method, you can use the `nm-overrides` config option.
+You can then use the `nm-overrides` config option to tweak the overrides to your liking.
