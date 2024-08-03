@@ -152,6 +152,7 @@ let
       rev,
       file,
       sha256,
+      ...
     }:
     builtins.fetchurl {
       url = "https://raw.githubusercontent.com/${user}/${repo}/${rev}/${file}";
