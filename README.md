@@ -107,9 +107,42 @@ Some individual modules may be missing in this example, but should show roughly 
     │       ├── no-firewall.nix
     │       └── secure-chrony.nix
     └── nm-overrides.nix
-    
 
-## Usage with flakes
+### Automatic Installation (fetchgit) 
+(Can be used with flake and non-flake configurations, but if you are using flakes the next flake specific method is objectively simpler and better for you in every way.)
+
+You can also use fetchFromGithub, fetchTarball or fetchUrl to your preference.
+
+Example with fetchgit:
+```nix
+{ pkgs, ... }:
+let
+  nix-mineral = pkgs.fetchgit {
+    url = "https://github.com/cynicsketch/nix-mineral.git";
+
+    # now add one of the following:
+    # a specific tag 
+    ref = "refs/tags/v0.1.6-alpha"; # Modify this tag as desired. Tags can be found here: https://github.com/cynicsketch/nix-mineral/tags. You will have to manually change this to the latest tagged release when/if you want to update.
+    # or a specific commit hash
+    rev = "cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61";  
+    # or the HEAD
+    ref = "HEAD"; # This will always fetch from the head of main, however this does not garuntee successful configuration evaluation in future - if we change something and you rebuild purely, your evaluation will fail because the sha256 hash will have changed (so may require manually changing every time you evaluate, to get a successful evaluation).
+
+    # After changing any of the above, you to update the hash. 
+
+    # Now the sha256 hash of the repository. This can be found with the nix-prefetch-url command, or (the simpler method) you can place an incorrect, but valid hash here, and nix will fail to evaluate and tell you the hash it expected (which you can then change this value to).
+    # NOTE: this can be ommitted if you are evaluating/building impurely.
+    sha256 = "1mac9cnywpc4a0x1f5n45yn4yhady1affdmkimt2lg8rcw65ajh2";
+  };
+in
+{
+  imports = [
+    "${nix-mineral}/nix-mineral.nix"
+    # Other imports ...
+  ];
+  # The rest of your configuration ...
+}
+```
 
 ### Usage With Flakes
 
