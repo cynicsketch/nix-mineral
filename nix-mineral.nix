@@ -131,6 +131,31 @@
 }:
 let
   l = lib // builtins;
+  /*
+    helper function to fetch a file from a github repository
+
+    example usage to fetch https://raw.githubusercontent.com/Kicksecure/security-misc/de6f3ea74a5a1408e4351c955ecb7010825364c5/usr/lib/issue.d/20_security-misc.issue
+
+    fetchGhFile {
+      user = "Kicksecure";
+      repo = "security-misc";
+      rev = "de6f3ea74a5a1408e4351c955ecb7010825364c5";
+      file = "usr/lib/issue.d/20_security-misc.issue";
+      sha256 = "00ilswn1661h8rwfrq4w3j945nr7dqd1g519d3ckfkm0dr49f26b";
+    }
+  */
+  fetchGhFile =
+    {
+      user,
+      repo,
+      rev,
+      file,
+      sha256,
+    }:
+    builtins.fetchurl {
+      url = "https://raw.githubusercontent.com/${user}/${repo}/${rev}/${file}";
+      inherit sha256;
+    };
 in
 {
 
