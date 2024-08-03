@@ -131,6 +131,7 @@
 }:
 let
   l = lib // builtins;
+  sources = l.fromTOML (l.readFile ./sources.toml);
   /*
     helper function to fetch a file from a github repository
 
@@ -396,50 +397,22 @@ in
     '';
 
     # Borrow Kicksecure banner/issue. 
-    # Last updated August 2nd, 2024
-    issue.source = fetchGhFile {
-      user = "Kicksecure";
-      repo = "security-misc";
-      rev = "de6f3ea74a5a1408e4351c955ecb7010825364c5";
-      file = "usr/lib/issue.d/20_security-misc.issue";
-      sha256 = "00ilswn1661h8rwfrq4w3j945nr7dqd1g519d3ckfkm0dr49f26b";
-    };
+    issue.source = fetchGhFile sources.issue;
 
     # Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
     # by default for better git security.
-    # Last updated August 2nd, 2024
-    gitconfig.source = fetchGhFile {
-      user = "Kicksecure";
-      repo = "security-misc";
-      rev = "de6f3ea74a5a1408e4351c955ecb7010825364c5";
-      file = "etc/gitconfig";
-      sha256 = "1p3adrbmv7fvy84v3i3m3xrzbc2zdrxzn6prac8f6418vwrdmyp7";
-    };
+    gitconfig.source = fetchGhFile sources.gitconfig;
 
     # Borrow Kicksecure bluetooth configuration for better bluetooth privacy
     # and security. Disables bluetooth automatically when not connected to
     # any device.
-    # Last updated August 2nd, 2024
-    "bluetooth/main.conf".source = l.mkForce (fetchGhFile {
-      user = "Kicksecure";
-      repo = "security-misc";
-      rev = "de6f3ea74a5a1408e4351c955ecb7010825364c5";
-      file = "etc/bluetooth/30_security-misc.conf";
-      sha256 = "0xyvvgmm0dhf0dfhfj4hdbyf2ma30bpd1m5zx6xnjdfvy2fr44na";
-    });
+    "bluetooth/main.conf".source = l.mkForce (fetchGhFile sources.bluetooth);
 
     # Borrow Kicksecure and secureblue module blacklist.
     # "install "foobar" /bin/not-existent" prevents the module from being
     # loaded at all. "blacklist "foobar"" prevents the module from being
     # loaded automatically at boot, but it can still be loaded afterwards.
-    # Last updated August 2nd, 2024
-    "modprobe.d/nm-module-blacklist.conf".source = fetchGhFile {
-      user = "Kicksecure";
-      repo = "security-misc";
-      rev = "de6f3ea74a5a1408e4351c955ecb7010825364c5";
-      file = "etc/modprobe.d/30_security-misc_disable.conf";
-      sha256 = "1mab9cnnwpc4a0x1f5n45yn4yhhdy1affdmmimmslg8rcw65ajh2";
-    };
+    "modprobe.d/nm-module-blacklist.conf".source = fetchGhFile sources.module-blacklist;
   };
 
   ### Filesystem hardening
