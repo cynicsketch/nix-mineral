@@ -40,16 +40,101 @@ A non-comprehensive list of features in `nix-mineral`
   See [nm-overrides.nix](https://github.com/cynicsketch/nix-mineral/blob/main/nm-overrides.nix)
 
 ## Usage
-Extract the contents of the .zip provided in the releases to `/etc/nixos`, and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
+
+### Automatic Installation (fetchgit) 
+(Can be used with flake and non-flake configurations, but if you are using flakes the next, flake specific method is objectively simpler and better for you in every way.)
+
+You can also use fetchFromGithub, fetchTarball or fetchUrl to your preference.
+
+Example with fetchgit:
+```nix
+{ pkgs, ... }:
+let
+  nix-mineral = pkgs.fetchgit {
+    url = "https://github.com/cynicsketch/nix-mineral.git";
+
+    # now add one of the following:
+    # a specific tag 
+    ref = "refs/tags/v0.1.6-alpha"; # Modify this tag as desired. Tags can be found here: https://github.com/cynicsketch/nix-mineral/tags. You will have to manually change this to the latest tagged release when/if you want to update.
+    # or a specific commit hash
+    rev = "cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61";  
+    # or the HEAD
+    ref = "HEAD"; # This will always fetch from the head of main, however this does not garuntee successful configuration evaluation in future - if we change something and you rebuild purely, your evaluation will fail because the sha256 hash will have changed (so may require manually changing every time you evaluate, to get a successful evaluation).
+
+    # After changing any of the above, you to update the hash. 
+
+    # Now the sha256 hash of the repository. This can be found with the nix-prefetch-url command, or (the simpler method) you can place an incorrect, but valid hash here, and nix will fail to evaluate and tell you the hash it expected (which you can then change this value to).
+    # NOTE: this can be ommitted if you are evaluating/building impurely.
+    sha256 = "1mac9cnywpc4a0x1f5n45yn4yhady1affdmkimt2lg8rcw65ajh2";
+  };
+in
+{
+  imports = [
+    "${nix-mineral}/nix-mineral.nix"
+    # Other imports ...
+  ];
+  # The rest of your configuration ...
+}
+```
+### Usage With Flakes
+
+While you can use both of the other methods with flakes, it may be a little easier (and allow for easier updates and version pinning) by using this method.
+
+Add nix-mineral as a non-flake input to your flake:
+
+```nix
+{
+  inputs = {
+    # ...
+    nix-mineral = {
+      url = "github:cynicsketch/nix-mineral"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update" 
+      # url = "github:cynicsketch/nix-mineral/v0.1.6-alpha" # Refers to a specific tag and follows that tag until you change it 
+      # url = "github:cynicsketch/nix-mineral/cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61" # Refers to a specific commit and follows that until you change it 
+      flake = false;
+    };
+    # ...
+  };
+}
+```
+
+Import nix-mineral.nix from the repository path:
+
+```nix
+{
+  imports = [
+    "${inputs.nix-mineral}/nix-mineral.nix"
+    # Other imports ...
+  ];
+  # The rest of your configuration ...
+}
+```
+
+You can then use the `nm-overrides` config option to tweak the overrides to your liking.
+
+### Manual Installation
+(Can be used with flake and non-flake configurations)
+
+You may want to use this method if you prefer to be in control of your own configuration, or if you need to direcly edit `nix-mineral.nix` to remove/add your own options, however, this method requires manual updates if anything is changed in this repository. You could also fork this repository and use your fork with the automatic options to acheive the same effect.
+
+Extract the contents of the .zip provided in the releases to `/etc/nixos` (or download from main using the  `<> Code` -> `Download Zip` dropdown), and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
 
 In `configuration.nix`:
 
-    imports = [ (./nix-mineral.nix) ... ];
+```nix
+{
+  imports = [ 
+    ./nix-mineral.nix 
+    # Other imports ...
+  ];
+  # The rest of your configuration ...
+}
+```
 
-### Example directory structure
-Some individual modules may be missing in this example, but should show roughly what `/etc/nixos/` would look like.
+#### Example directory structure
+Some individual modules may be missing in this example, but should show roughly what `/etc/nixos/` would look like. 
 
-    [nix-shell:~]$ tree /etc/nixos
+    $ tree /etc/nixos
+
     /etc/nixos
     ├── configuration.nix
     ├── hardware-configuration.nix
@@ -92,39 +177,4 @@ Some individual modules may be missing in this example, but should show roughly 
     │       ├── no-firewall.nix
     │       └── secure-chrony.nix
     └── nm-overrides.nix
-    
-    7 directories, 36 files
-    
-    [nix-shell:~]$ 
 
-## Usage with flakes
-
-While you can use the above method with flakes, it may be a little easier (and allow for easier updates and version pinning) by using this method.
-
-Add nix-mineral as a non-flake input to your flake:
-
-```nix
-{
-  inputs = {
-    # ...
-    nix-mineral = {
-      url = "github:cynicsketch/nix-mineral";
-      flake = false;
-    };
-    # ...
-  };
-}
-```
-
-Import nix-mineral.nix from the repository:
-
-```nix
-{
-  imports = [
-    "${inputs.nix-mineral}/nix-mineral.nix"
-  ];
-  # ...
-}
-```
-
-With this method, you can use the `nm-overrides` config option.
