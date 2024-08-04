@@ -222,9 +222,51 @@ options.nix-mineral = {
         Reenable support for 32 bit applications.
         '';
       };
+      allow-unprivileged-userns = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Allow unprivileged userns.
+        '';
+      };
+      doas-sudo-wrapper = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Enable doas-sudo wrapper, with nano to utilize rnano as a "safe"
+        editor for editing as root.
+        '';
+      };
     };
     performance = {
-
+      allow-smt = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Reenable symmetric multithreading.
+        '';
+      };
+      iommu-passthrough = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Enable bypassing the IOMMU for direct memory access.
+        '';
+      };
+      no-mitigations = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable all CPU vulnerability mitigations.
+        '';
+      };
+      no-pti = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable page table isolation.
+        '';
+      };
     };
     security = {
 
@@ -273,9 +315,18 @@ config = l.mkMerge [
     boot.kernelParams = mkOverride 100 [ ("ia32_emulation=1") ];
   })
 
-  ()
+  (mkIf config.nix-mineral.overrides.desktop.allow-unprivileged-userns.enable {
+    boot.kernel.sysctl."kernel.unprivileged_userns_clone" = mkForce "1";
+  })
   
-  ()
+  (mkIf config.nix-mineral.overrides.desktop.doas-sudo-wrapper {
+    environment.systemPackages = (with pkgs; [ 
+      ((pkgs.writeScriptBin "sudo" ''exec doas "$@"''))
+      ((pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"''))
+      ((pkgs.writeScriptBin "doasedit" ''exec doas rnano "$@"''))
+      nano
+    ]);
+  })
 
   ()
 
@@ -297,13 +348,21 @@ config = l.mkMerge [
 
   # Performance
 
-  ()
+  (mkIf config.nix-mineral.overrides.performance.allow-smt {
+    boot.kernelParams = mkOverride 100 [ ("mitigations=auto") ];
+  })
 
-  ()
+  (mkIf config.nix-mineral.overrides.performance.iommu-passthrough {
+    boot.kernelParams = mkOverride 100 [ ("iommu.passthrough=1")  ];
+  })
 
-  ()
+  (mkIf config.nix-mineral.overrides.performance.no-mitigations {
+    boot.kernelParams = mkOverride 100 [ ("mitigations=off") ];
+  })
 
-  ()
+  (mkIf config.nix-mineral.overrides.performance.no-pti {
+    boot.kernelParams = mkOverride 100 [ ("pti=off") ];
+  })
 
   # Security
 
