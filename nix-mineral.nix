@@ -169,61 +169,69 @@ options.nix-mineral = {
     Enable all nix-mineral defaults.
     '';
   };
-  compatibility = {
-    allow-unsigned-modules = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Allow loading unsigned kernel modules.
-      '';
+  overrides = {
+    compatibility = {
+      allow-unsigned-modules = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Allow loading unsigned kernel modules.
+        '';
+      };
+      allow-binfmt-misc = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Reenable binfmt_misc.
+        '';
+      };
+      allow-busmaster-bit = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Reenable the busmaster bit at boot.
+        '';
+      };
+      allow-io-uring = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Reenable io_uring.
+        '';
+      };
+      allow-ip-forward = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Reenable ip forwarding.
+        '';
+      };
+      no-lockdown = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable Linux Kernel Lockdown.
+        '';
+      };  
     };
-    allow-binfmt-misc = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Reenable binfmt_misc.
-      '';
+    desktop = { 
+      allow-multilib = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Reenable support for 32 bit applications.
+        '';
+      };
     };
-    allow-busmaster-bit = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Reenable the busmaster bit at boot.
-      '';
-    };
-    allow-io-uring = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Reenable io_uring.
-      '';
-    };
-    allow-ip-forward = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Reenable ip forwarding.
-      '';
-    };
-    no-lockdown = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Disable Linux Kernel Lockdown.
-      '';
-    };  
-  };
-  desktop = { 
+    performance = {
 
-  };
-  performance = {
+    };
+    security = {
 
-  };
-  security = {
+    };
+    software-choice = {
 
-  };
-  software-choice = {
-
+    };
   };
 };
 
@@ -231,23 +239,23 @@ config = l.mkMerge [
   
   # Compatibility
 
-  (mkIf config.nm-overrides.compatibility.allow-unsigned-modules {
+  (mkIf config.nix-mineral.overrides.compatibility.allow-unsigned-modules {
     boot.kernelParams = mkOverride 100 [ ("module.sig_enforce=0") ];
   })
 
-  (mkIf config.nm-overrides.compatibility.allow-binfmt-misc {
+  (mkIf config.nix-mineral.overrides.compatibility.allow-binfmt-misc {
     boot.kernel.sysctl."fs.binfmt_misc.status" = mkForce "1";
   })
 
-  (mkIf config.nm-overrides.compatibility.allow-busmaster-bit {
+  (mkIf config.nix-mineral.overrides.compatibility.allow-busmaster-bit {
     boot.kernelParams = mkOverride 100 [ ("efi=no_disable_early_pci_dma") ];
   })
 
-  (mkIf config.nm-overrides.compatibility.allow-io-uring {
+  (mkIf config.nix-mineral.overrides.compatibility.allow-io-uring {
     boot.kernel.sysctl."kernel.io_uring_disabled" = mkForce "0";
   })
 
-  (mkIf config.nm-overrides.compatibility.allow-ip-forward {
+  (mkIf config.nix-mineral.overrides.compatibility.allow-ip-forward {
     boot.kernel.sysctl."net.ipv4.ip_forward" = mkForce "1";
     boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = mkForce "1";
     boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = mkForce "1";
@@ -255,13 +263,15 @@ config = l.mkMerge [
     boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = mkForce "1";
   })
 
-  (mkIf config.nm-overrides.compatibility.no-lockdown {
+  (mkIf config.nix-mineral.overrides.compatibility.no-lockdown {
     boot.kernelParams = mkOverride 100 [ ("lockdown=") ];
   })
 
   # Desktop
 
-  ()
+  (mkIf config.nix-mineral.overrides.desktop.allow-multilib {
+    boot.kernelParams = mkOverride 100 [ ("ia32_emulation=1") ];
+  })
 
   ()
   
