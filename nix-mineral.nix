@@ -171,42 +171,42 @@ options.nix-mineral = {
   };
   overrides = {
     compatibility = {
-      allow-unsigned-modules = mkOption {
+      allow-unsigned-modules = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Allow loading unsigned kernel modules.
         '';
       };
-      allow-binfmt-misc = mkOption {
+      allow-binfmt-misc = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Reenable binfmt_misc.
         '';
       };
-      allow-busmaster-bit = mkOption {
+      allow-busmaster-bit = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Reenable the busmaster bit at boot.
         '';
       };
-      allow-io-uring = mkOption {
+      allow-io-uring = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Reenable io_uring.
         '';
       };
-      allow-ip-forward = mkOption {
+      allow-ip-forward = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Reenable ip forwarding.
         '';
       };
-      no-lockdown = mkOption {
+      no-lockdown = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
@@ -215,21 +215,21 @@ options.nix-mineral = {
       };  
     };
     desktop = { 
-      allow-multilib = mkOption {
+      allow-multilib = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Reenable support for 32 bit applications.
         '';
       };
-      allow-unprivileged-userns = mkOption {
+      allow-unprivileged-userns = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Allow unprivileged userns.
         '';
       };
-      doas-sudo-wrapper = mkOption {
+      doas-sudo-wrapper = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
@@ -239,28 +239,28 @@ options.nix-mineral = {
       };
     };
     performance = {
-      allow-smt = mkOption {
+      allow-smt = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Reenable symmetric multithreading.
         '';
       };
-      iommu-passthrough = mkOption {
+      iommu-passthrough = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Enable bypassing the IOMMU for direct memory access.
         '';
       };
-      no-mitigations = mkOption {
+      no-mitigations = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
         Disable all CPU vulnerability mitigations.
         '';
       };
-      no-pti = mkOption {
+      no-pti = l.mkOption {
         type = types.bool;
         default = false;
         description = ''
