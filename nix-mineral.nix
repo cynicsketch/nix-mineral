@@ -725,6 +725,7 @@ config = l.mkMerge [
       };
 
       "/boot" = {
+        device = "/boot";
         options = [
           "nosuid"
           "noexec"
