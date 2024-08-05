@@ -163,7 +163,7 @@ in
 
 options.nix-mineral = { 
   enable = l.mkOption {
-    type = types.bool;
+    type = l.types.bool;
     default = false;
     description = ''
     Enable all nix-mineral defaults.
@@ -172,42 +172,42 @@ options.nix-mineral = {
   overrides = {
     compatibility = {
       allow-unsigned-modules = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Allow loading unsigned kernel modules.
         '';
       };
       allow-binfmt-misc = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Reenable binfmt_misc.
         '';
       };
       allow-busmaster-bit = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Reenable the busmaster bit at boot.
         '';
       };
       allow-io-uring = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Reenable io_uring.
         '';
       };
       allow-ip-forward = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Reenable ip forwarding.
         '';
       };
       no-lockdown = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable Linux Kernel Lockdown.
@@ -216,21 +216,21 @@ options.nix-mineral = {
     };
     desktop = { 
       allow-multilib = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Reenable support for 32 bit applications.
         '';
       };
       allow-unprivileged-userns = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Allow unprivileged userns.
         '';
       };
       doas-sudo-wrapper = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Enable doas-sudo wrapper, with nano to utilize rnano as a "safe"
@@ -238,7 +238,7 @@ options.nix-mineral = {
         '';
       };
       hideproc-ptraceable = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Allow processes that can ptrace a process to read its corresponding /proc
@@ -246,42 +246,42 @@ options.nix-mineral = {
         '';
       };
       home-exec = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Allow programs to execute in /home.
         '';
       };
       nix-allow-all = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Allow all users to use nix.
         '';
       };
       tmp-exec.enable = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Allow executing programs in /tmp.
         '';
       };
       usbguard-allow-at-boot = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Automatically whitelist all USB devices at boot in USBGuard.
         '';
       };
       disable-usbguard = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable USBGuard entirely. 
         '';
       };
       usbguard-gnome-integration = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
           Enable USBGuard dbus daemon and polkit rules for integration with GNOME
@@ -289,14 +289,14 @@ options.nix-mineral = {
         '';
       };
       var-lib-exec = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Allow executing programs in /var/lib.
         '';
       };
       yama-relaxed = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Instead of disabling ptrace, restrict only so that parent processes can
@@ -306,28 +306,28 @@ options.nix-mineral = {
     };
     performance = {
       allow-smt = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Reenable symmetric multithreading.
         '';
       };
       iommu-passthrough = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Enable bypassing the IOMMU for direct memory access.
         '';
       };
       no-mitigations = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable all CPU vulnerability mitigations.
         '';
       };
       no-pti = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable page table isolation.
@@ -336,35 +336,35 @@ options.nix-mineral = {
     };
     security = {
       disable-bluetooth-kmodules = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable bluetooth related kernel modules.
         '';
       };
       disable-intelme-kmodules = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable Intel ME related kernel modules and partially disable ME interface.
         '';
       };
       disable-module-loading = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable loading kernel modules.
         '';
       };
       disable-tcp-window-scaling = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable TCP window scaling.
         '';
       };
       hardened-malloc-systemwide = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Use hardened-malloc as the default memory allocator for all running
@@ -372,28 +372,28 @@ options.nix-mineral = {
         '';
       };
       lock-root = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Lock the root user.
         '';
       };
       minimize-swapping = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Reduce frequency of swapping to bare minimum.
         '';
       };
       sysrq-sak = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Enable Secure Attention Key with the sysrq key.
         '';
       };
-      disable-tcp-timestamp = mkOption {
-        type = types.bool;
+      disable-tcp-timestamp = l.mkOption {
+        type = l.types.bool;
         default = false;
         description = ''
         Disable TCP timestamps to avoid leaking system time, as opposed to enabling
@@ -404,28 +404,28 @@ options.nix-mineral = {
     };
     software-choice = {
       doas-no-sudo = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Replace sudo with doas.
         '';
       };
       use-hardened-kernel = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Use Linux kernel with hardened patchset.
         '';
       };
       no-firewall = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Disable default firewall as chosen by nix-mineral.
         '';
       };
       secure-chrony = l.mkOption {
-        type = types.bool;
+        type = l.types.bool;
         default = false;
         description = ''
         Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
