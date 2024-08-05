@@ -616,7 +616,7 @@ config = l.mkMerge [
   })
 
   (l.mkIf config.nix-mineral.overrides.security.disable-module-loading {
-    boot.kernel.sysctl."kernel.modules_disabled" = ml.kForce "1";
+    boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
   })
 
   (l.mkIf config.nix-mineral.overrides.security.disable-tcp-window-scaling {
