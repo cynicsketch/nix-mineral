@@ -237,6 +237,72 @@ options.nix-mineral = {
         editor for editing as root.
         '';
       };
+      hideproc-ptraceable = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Allow processes that can ptrace a process to read its corresponding /proc
+        information.
+        '';
+      };
+      home-exec = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Allow programs to execute in /home.
+        '';
+      };
+      nix-allow-all = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Allow all users to use nix.
+        '';
+      };
+      tmp-exec.enable = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Allow executing programs in /tmp.
+        '';
+      };
+      usbguard-allow-at-boot = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Automatically whitelist all USB devices at boot in USBGuard.
+        '';
+      };
+      disable-usbguard = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable USBGuard entirely. 
+        '';
+      };
+      usbguard-gnome-integration = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Enable USBGuard dbus daemon and polkit rules for integration with GNOME
+          Shell.
+        '';
+      };
+      var-lib-exec = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Allow executing programs in /var/lib.
+        '';
+      };
+      yama-relaxed = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Instead of disabling ptrace, restrict only so that parent processes can
+        ptrace descendants.
+        '';
+      };
     };
     performance = {
       allow-smt = l.mkOption {
@@ -269,7 +335,72 @@ options.nix-mineral = {
       };
     };
     security = {
-
+      disable-bluetooth-kmodules = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable bluetooth related kernel modules.
+        '';
+      };
+      disable-intelme-kmodules = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable Intel ME related kernel modules and partially disable ME interface.
+        '';
+      };
+      disable-module-loading = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable loading kernel modules.
+        '';
+      };
+      disable-tcp-window-scaling = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable TCP window scaling.
+        '';
+      };
+      hardened-malloc-systemwide = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Use hardened-malloc as the default memory allocator for all running
+        processes.
+        '';
+      };
+      lock-root = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Lock the root user.
+        '';
+      };
+      minimize-swapping = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Reduce frequency of swapping to bare minimum.
+        '';
+      };
+      sysrq-sak = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Enable Secure Attention Key with the sysrq key.
+        '';
+      };
+      disable-tcp-timestamp = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable TCP timestamps to avoid leaking system time, as opposed to enabling
+        it by default to protect against wrapped sequence numbers/improve
+        performance
+        '';
+      };
     };
     software-choice = {
       doas-no-sudo = l.mkOption {
@@ -279,21 +410,29 @@ options.nix-mineral = {
         Replace sudo with doas.
         '';
       };
-    };
-    use-hardened-kernel = l.mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Use Linux kernel with hardened patchset.
-      '';
-    };
-    no-firewall = l.mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-      Disable default firewall as chosen by nix-mineral.
-      '';
-    };
+      use-hardened-kernel = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Use Linux kernel with hardened patchset.
+        '';
+      };
+      no-firewall = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Disable default firewall as chosen by nix-mineral.
+        '';
+      };
+      secure-chrony = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
+        and to use the seccomp filter for security.
+        '';
+      };
+    };  
   };
 };
 
@@ -301,23 +440,23 @@ config = l.mkMerge [
   
   # Compatibility
 
-  (mkIf config.nix-mineral.overrides.compatibility.allow-unsigned-modules {
+  (l.mkIf config.nix-mineral.overrides.compatibility.allow-unsigned-modules {
     boot.kernelParams = l.mkOverride 100 [ ("module.sig_enforce=0") ];
   })
 
-  (mkIf config.nix-mineral.overrides.compatibility.allow-binfmt-misc {
+  (l.mkIf config.nix-mineral.overrides.compatibility.allow-binfmt-misc {
     boot.kernel.sysctl."fs.binfmt_misc.status" = l.mkForce "1";
   })
 
-  (mkIf config.nix-mineral.overrides.compatibility.allow-busmaster-bit {
+  (l.mkIf config.nix-mineral.overrides.compatibility.allow-busmaster-bit {
     boot.kernelParams = l.mkOverride 100 [ ("efi=no_disable_early_pci_dma") ];
   })
 
-  (mkIf config.nix-mineral.overrides.compatibility.allow-io-uring {
+  (l.mkIf config.nix-mineral.overrides.compatibility.allow-io-uring {
     boot.kernel.sysctl."kernel.io_uring_disabled" = l.mkForce "0";
   })
 
-  (mkIf config.nix-mineral.overrides.compatibility.allow-ip-forward {
+  (l.mkIf config.nix-mineral.overrides.compatibility.allow-ip-forward {
     boot.kernel.sysctl."net.ipv4.ip_forward" = l.mkForce "1";
     boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = l.mkForce "1";
     boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = l.mkForce "1";
@@ -325,22 +464,22 @@ config = l.mkMerge [
     boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = l.mkForce "1";
   })
 
-  (mkIf config.nix-mineral.overrides.compatibility.no-lockdown {
+  (l.mkIf config.nix-mineral.overrides.compatibility.no-lockdown {
     boot.kernelParams = l.mkOverride 100 [ ("lockdown=") ];
   })
 
   # Desktop
 
-  (mkIf config.nix-mineral.overrides.desktop.allow-multilib {
+  (l.mkIf config.nix-mineral.overrides.desktop.allow-multilib {
     boot.kernelParams = l.mkOverride 100 [ ("ia32_emulation=1") ];
   })
 
-  (mkIf config.nix-mineral.overrides.desktop.allow-unprivileged-userns.enable {
+  (l.mkIf config.nix-mineral.overrides.desktop.allow-unprivileged-userns.enable {
     boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.
     l.mkForce "1";
   })
   
-  (mkIf config.nix-mineral.overrides.desktop.doas-sudo-wrapper {
+  (l.mkIf config.nix-mineral.overrides.desktop.doas-sudo-wrapper {
     environment.systemPackages = (with pkgs; [ 
       ((pkgs.writeScriptBin "sudo" ''exec doas "$@"''))
       ((pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"''))
@@ -349,47 +488,164 @@ config = l.mkMerge [
     ]);
   })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.hideproc-ptraceable.enable {
+    boot.specialFileSystems."/proc" = l.mkForce {
+      fsType = "proc";
+      device = "proc";
+      options = [ "nosuid" "nodev" "noexec" "hidepid=4" "gid=proc" ];
+    };
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.home-exec {
+    fileSystems."/home" = l.mkForce {
+      device = "/home";
+      options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
+    };
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.nix-allow-all {
+    nix.settings.allowed-users = l.mkForce [ ("*") ];
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.tmp-exec {
+    fileSystems."/tmp" = l.mkForce {
+      device = "/tmp";
+      options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
+    };
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.usbguard-allow-at-boot {
+    services.usbguard.presentDevicePolicy = l.mkForce "allow"; 
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.disable-usbguard {
+    services.usbguard.enable = l.mkForce false;
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.usbguard-gnome-integration {
+    services.usbguard.dbus.enable = l.mkForce true;
+    security.polkit = { 
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          if ((action.id == "org.usbguard.Policy1.listRules" ||
+               action.id == "org.usbguard.Policy1.appendRule" ||
+               action.id == "org.usbguard.Policy1.removeRule" ||
+               action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
+               action.id == "org.usbguard.Devices1.listDevices" ||
+               action.id == "org.usbguard1.getParameter" ||
+               action.id == "org.usbguard1.setParameter") &&
+               subject.active == true && subject.local == true &&
+               subject.isInGroup("wheel")) { return polkit.Result.YES; }
+        });
+      '';
+    };
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.var-lib-exec {
+    fileSystems."/var/lib" = l.mkForce { 
+      device = "/var/lib";
+      options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
+    };
+  })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.desktop.yama-relaxed {
+    boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce "1";
+  })
 
   # Performance
 
-  (mkIf config.nix-mineral.overrides.performance.allow-smt {
+  (l.mkIf config.nix-mineral.overrides.performance.allow-smt {
     boot.kernelParams = l.mkOverride 100 [ ("mitigations=auto") ];
   })
 
-  (mkIf config.nix-mineral.overrides.performance.iommu-passthrough {
+  (l.mkIf config.nix-mineral.overrides.performance.iommu-passthrough {
     boot.kernelParams = l.mkOverride 100 [ ("iommu.passthrough=1")  ];
   })
 
-  (mkIf config.nix-mineral.overrides.performance.no-mitigations {
+  (l.mkIf config.nix-mineral.overrides.performance.no-mitigations {
     boot.kernelParams = l.mkOverride 100 [ ("mitigations=off") ];
   })
 
-  (mkIf config.nix-mineral.overrides.performance.no-pti {
+  (l.mkIf config.nix-mineral.overrides.performance.no-pti {
     boot.kernelParams = l.mkOverride 100 [ ("pti=off") ];
   })
 
   # Security
 
+  (l.mkIf config.nix-mineral.overrides.security.disable-bluetooth-kmodules {
+    environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
+      text = ''
+        install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
+        install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
+        install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
+        install btbcm /usr/bin/disabled-bluetooth-by-security-misc
+        install btintel /usr/bin/disabled-bluetooth-by-security-misc
+        install btmrvl /usr/bin/disabled-bluetooth-by-security-misc
+        install btmrvl_sdio /usr/bin/disabled-bluetooth-by-security-misc
+        install btmtk /usr/bin/disabled-bluetooth-by-security-misc
+        install btmtksdio /usr/bin/disabled-bluetooth-by-security-misc
+        install btmtkuart /usr/bin/disabled-bluetooth-by-security-misc
+        install btnxpuart /usr/bin/disabled-bluetooth-by-security-misc
+        install btqca /usr/bin/disabled-bluetooth-by-security-misc
+        install btrsi /usr/bin/disabled-bluetooth-by-security-misc
+        install btrtl /usr/bin/disabled-bluetooth-by-security-misc
+        install btsdio /usr/bin/disabled-bluetooth-by-security-misc
+        install btusb /usr/bin/disabled-bluetooth-by-security-misc
+        install virtio_bt /usr/bin/disabled-bluetooth-by-security-misc
+      '';
+    };
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.disable-intelme-kmodules {
+    environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
+      text = ''
+          install mei /usr/bin/disabled-intelme-by-security-misc
+          install mei-gsc /usr/bin/disabled-intelme-by-security-misc
+          install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
+          install mei_hdcp /usr/bin/disabled-intelme-by-security-misc
+          install mei-me /usr/bin/disabled-intelme-by-security-misc
+          install mei_phy /usr/bin/disabled-intelme-by-security-misc
+          install mei_pxp /usr/bin/disabled-intelme-by-security-misc
+          install mei-txe /usr/bin/disabled-intelme-by-security-misc
+          install mei-vsc /usr/bin/disabled-intelme-by-security-misc
+          install mei-vsc-hw /usr/bin/disabled-intelme-by-security-misc
+          install mei_wdt /usr/bin/disabled-intelme-by-security-misc
+          install microread_mei /usr/bin/disabled-intelme-by-security-misc
+      '';
+    };
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.disable-module-loading {
+    boot.kernel.sysctl."kernel.modules_disabled" = ml.kForce "1";
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.disable-tcp-window-scaling {
+    boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.hardened-malloc-systemwide {
+    environment.memoryAllocator = { provider = "graphene-hardened"; };
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.lock-root {
+    users = { users = { root = { hashedPassword = "!"; }; }; };
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.minimize-swapping {
+    boot.kernel.sysctl."vm.swappiness" = l.mkForce "1";
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.sysrq-sak {
+    boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4";
+  })
+
+  (l.mkIf config.nix-mineral.overrides.security.disable-tcp-timestamp {
+    boot.kernel.sysctl."net.ipv4.tcp_timestamps" = l.mkForce "0";
+  })
+
   # Software Choice
 
-  (mkIf config.nix-mineral.overrides.software-choice.doas-no-sudo {
+  (l.mkIf config.nix-mineral.overrides.software-choice.doas-no-sudo {
     security.sudo = { enable = false; }; 
     security.doas = { 
       enable = true;
@@ -403,19 +659,39 @@ config = l.mkMerge [
     };
   })
 
-  (mkIf config.nix-mineral.overrides.software-choice.use-hardened-kernel {
+  (l.mkIf config.nix-mineral.overrides.software-choice.use-hardened-kernel {
     boot.kernelPackages = l.mkForce (pkgs).linuxPackages_hardened;
   })
 
-  (mkIf config.nix-mineral.overrides.software-choice.no-firewall {
+  (l.mkIf config.nix-mineral.overrides.software-choice.no-firewall {
     networking.firewall.enable = l.mkForce false;
   })
 
-  ()
+  (l.mkIf config.nix-mineral.overrides.software-choice.secure-chrony.enable {
+    services.timesyncd = { enable = false; }; 
+    services.chrony = {
+      enable = true;
+      
+      extraFlags = [ "-F 1" ]; 
+      # Enable seccomp filter for chronyd.
+            
+      enableRTCTrimming = false; 
+      # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either 
+      # this or 'rtcsync' must be disabled to complete a successful rebuild,
+      # or an error will be thrown due to these options conflicting with
+      # eachother.
+      
+      # The below config is borrowed from GrapheneOS server infrastructure.
+      # It enables NTS to secure NTP requests, among some other useful
+      # settings.
+      
+      extraConfig.source = fetchGhFile sources.chrony;
+    };
+  })
 
   # Main module
 
-  (mkIf config.nix-mineral.enable {
+  (l.mkIf config.nix-mineral.enable {
     boot = {
       kernel = {
         sysctl = {
