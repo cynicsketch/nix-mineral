@@ -272,7 +272,27 @@ options.nix-mineral = {
 
     };
     software-choice = {
-
+      doas-no-sudo = l.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        Replace sudo with doas.
+        '';
+      };
+    };
+    use-hardened-kernel = l.mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+      Use Linux kernel with hardened patchset.
+      '';
+    };
+    no-firewall = l.mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+      Disable default firewall as chosen by nix-mineral.
+      '';
     };
   };
 };
@@ -282,41 +302,42 @@ config = l.mkMerge [
   # Compatibility
 
   (mkIf config.nix-mineral.overrides.compatibility.allow-unsigned-modules {
-    boot.kernelParams = mkOverride 100 [ ("module.sig_enforce=0") ];
+    boot.kernelParams = l.mkOverride 100 [ ("module.sig_enforce=0") ];
   })
 
   (mkIf config.nix-mineral.overrides.compatibility.allow-binfmt-misc {
-    boot.kernel.sysctl."fs.binfmt_misc.status" = mkForce "1";
+    boot.kernel.sysctl."fs.binfmt_misc.status" = l.mkForce "1";
   })
 
   (mkIf config.nix-mineral.overrides.compatibility.allow-busmaster-bit {
-    boot.kernelParams = mkOverride 100 [ ("efi=no_disable_early_pci_dma") ];
+    boot.kernelParams = l.mkOverride 100 [ ("efi=no_disable_early_pci_dma") ];
   })
 
   (mkIf config.nix-mineral.overrides.compatibility.allow-io-uring {
-    boot.kernel.sysctl."kernel.io_uring_disabled" = mkForce "0";
+    boot.kernel.sysctl."kernel.io_uring_disabled" = l.mkForce "0";
   })
 
   (mkIf config.nix-mineral.overrides.compatibility.allow-ip-forward {
-    boot.kernel.sysctl."net.ipv4.ip_forward" = mkForce "1";
-    boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = mkForce "1";
-    boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = mkForce "1";
-    boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = mkForce "1";
-    boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = mkForce "1";
+    boot.kernel.sysctl."net.ipv4.ip_forward" = l.mkForce "1";
+    boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = l.mkForce "1";
+    boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = l.mkForce "1";
+    boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = l.mkForce "1";
+    boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = l.mkForce "1";
   })
 
   (mkIf config.nix-mineral.overrides.compatibility.no-lockdown {
-    boot.kernelParams = mkOverride 100 [ ("lockdown=") ];
+    boot.kernelParams = l.mkOverride 100 [ ("lockdown=") ];
   })
 
   # Desktop
 
   (mkIf config.nix-mineral.overrides.desktop.allow-multilib {
-    boot.kernelParams = mkOverride 100 [ ("ia32_emulation=1") ];
+    boot.kernelParams = l.mkOverride 100 [ ("ia32_emulation=1") ];
   })
 
   (mkIf config.nix-mineral.overrides.desktop.allow-unprivileged-userns.enable {
-    boot.kernel.sysctl."kernel.unprivileged_userns_clone" = mkForce "1";
+    boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.
+    l.mkForce "1";
   })
   
   (mkIf config.nix-mineral.overrides.desktop.doas-sudo-wrapper {
@@ -349,22 +370,48 @@ config = l.mkMerge [
   # Performance
 
   (mkIf config.nix-mineral.overrides.performance.allow-smt {
-    boot.kernelParams = mkOverride 100 [ ("mitigations=auto") ];
+    boot.kernelParams = l.mkOverride 100 [ ("mitigations=auto") ];
   })
 
   (mkIf config.nix-mineral.overrides.performance.iommu-passthrough {
-    boot.kernelParams = mkOverride 100 [ ("iommu.passthrough=1")  ];
+    boot.kernelParams = l.mkOverride 100 [ ("iommu.passthrough=1")  ];
   })
 
   (mkIf config.nix-mineral.overrides.performance.no-mitigations {
-    boot.kernelParams = mkOverride 100 [ ("mitigations=off") ];
+    boot.kernelParams = l.mkOverride 100 [ ("mitigations=off") ];
   })
 
   (mkIf config.nix-mineral.overrides.performance.no-pti {
-    boot.kernelParams = mkOverride 100 [ ("pti=off") ];
+    boot.kernelParams = l.mkOverride 100 [ ("pti=off") ];
   })
 
   # Security
+
+  # Software Choice
+
+  (mkIf config.nix-mineral.overrides.software-choice.doas-no-sudo {
+    security.sudo = { enable = false; }; 
+    security.doas = { 
+      enable = true;
+      extraRules = [
+        ({
+          keepEnv = true;
+          persist = true;
+          users = [ ("user") ];
+        })
+      ];
+    };
+  })
+
+  (mkIf config.nix-mineral.overrides.software-choice.use-hardened-kernel {
+    boot.kernelPackages = l.mkForce (pkgs).linuxPackages_hardened;
+  })
+
+  (mkIf config.nix-mineral.overrides.software-choice.no-firewall {
+    networking.firewall.enable = l.mkForce false;
+  })
+
+  ()
 
   # Main module
 
