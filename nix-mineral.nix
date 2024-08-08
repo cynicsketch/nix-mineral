@@ -483,9 +483,9 @@ config = l.mkMerge [
   
   (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
     environment.systemPackages = with pkgs; [ 
-      (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
-      (pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"'')
-      (pkgs.writeScriptBin "doasedit" ''exec doas rnano "$@"'')
+      (writeScriptBin "sudo" ''exec doas "$@"'')
+      (writeScriptBin "sudoedit" ''exec doas rnano "$@"'')
+      (writeScriptBin "doasedit" ''exec doas rnano "$@"'')
       nano
     ];
   })
