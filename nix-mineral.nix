@@ -259,7 +259,7 @@ options.nix-mineral = {
         Allow all users to use nix.
         '';
       };
-      tmp-exec.enable = l.mkOption {
+      tmp-exec = l.mkOption {
         type = l.types.bool;
         default = false;
         description = ''
@@ -474,7 +474,7 @@ config = l.mkMerge [
     boot.kernelParams = l.mkOverride 100 [ ("ia32_emulation=1") ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.allow-unprivileged-userns.enable {
+  (l.mkIf config.nix-mineral.overrides.desktop.allow-unprivileged-userns {
     boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.
     l.mkForce "1";
   })
@@ -488,7 +488,7 @@ config = l.mkMerge [
     ]);
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.hideproc-ptraceable.enable {
+  (l.mkIf config.nix-mineral.overrides.desktop.hideproc-ptraceable {
     boot.specialFileSystems."/proc" = l.mkForce {
       fsType = "proc";
       device = "proc";
@@ -522,7 +522,7 @@ config = l.mkMerge [
     services.usbguard.enable = l.mkForce false;
   })
 
-  (l.mkIf config.nix-mineral.overrides.usbguard-gnome-integration {
+  (l.mkIf config.nix-mineral.overrides.desktop.usbguard-gnome-integration {
     services.usbguard.dbus.enable = l.mkForce true;
     security.polkit = { 
       extraConfig = ''
@@ -667,7 +667,7 @@ config = l.mkMerge [
     networking.firewall.enable = l.mkForce false;
   })
 
-  (l.mkIf config.nix-mineral.overrides.software-choice.secure-chrony.enable {
+  (l.mkIf config.nix-mineral.overrides.software-choice.secure-chrony {
     services.timesyncd = { enable = false; }; 
     services.chrony = {
       enable = true;
