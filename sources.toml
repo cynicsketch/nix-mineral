@@ -30,3 +30,10 @@ file = "etc/modprobe.d/30_security-misc_disable.conf"
 sha256 = "1mab9cnnwpc4a0x1f5n45yn4yhhdy1affdmmimmslg8rcw65ajh2"
 modified = "2024/08/02"
 
+[chrony]
+user = "GrapheneOS"
+repo = "infrastructure"
+rev = "27bd153454f6d8b452b36f2df964a0153c7efd0a"
+file = "chrony.conf"
+sha256 = "placeholder"
+modified = "2024/08/05"
