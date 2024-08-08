@@ -158,6 +158,8 @@ let
       url = "https://raw.githubusercontent.com/${user}/${repo}/${rev}/${file}";
       inherit sha256;
     };
+
+  cfg = config.nix-mineral;
 in
 {
 
