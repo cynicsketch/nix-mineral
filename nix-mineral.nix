@@ -442,23 +442,23 @@ config = l.mkMerge [
   
   # Compatibility
 
-  (l.mkIf config.nix-mineral.overrides.compatibility.allow-unsigned-modules {
+  (l.mkIf cfg.overrides.compatibility.allow-unsigned-modules {
     boot.kernelParams = l.mkOverride 100 [ ("module.sig_enforce=0") ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.compatibility.allow-binfmt-misc {
+  (l.mkIf cfg.overrides.compatibility.allow-binfmt-misc {
     boot.kernel.sysctl."fs.binfmt_misc.status" = l.mkForce "1";
   })
 
-  (l.mkIf config.nix-mineral.overrides.compatibility.allow-busmaster-bit {
+  (l.mkIf cfg.overrides.compatibility.allow-busmaster-bit {
     boot.kernelParams = l.mkOverride 100 [ ("efi=no_disable_early_pci_dma") ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.compatibility.allow-io-uring {
+  (l.mkIf cfg.overrides.compatibility.allow-io-uring {
     boot.kernel.sysctl."kernel.io_uring_disabled" = l.mkForce "0";
   })
 
-  (l.mkIf config.nix-mineral.overrides.compatibility.allow-ip-forward {
+  (l.mkIf cfg.overrides.compatibility.allow-ip-forward {
     boot.kernel.sysctl."net.ipv4.ip_forward" = l.mkForce "1";
     boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = l.mkForce "1";
     boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = l.mkForce "1";
@@ -466,22 +466,22 @@ config = l.mkMerge [
     boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = l.mkForce "1";
   })
 
-  (l.mkIf config.nix-mineral.overrides.compatibility.no-lockdown {
+  (l.mkIf cfg.overrides.compatibility.no-lockdown {
     boot.kernelParams = l.mkOverride 100 [ ("lockdown=") ];
   })
 
   # Desktop
 
-  (l.mkIf config.nix-mineral.overrides.desktop.allow-multilib {
+  (l.mkIf cfg.overrides.desktop.allow-multilib {
     boot.kernelParams = l.mkOverride 100 [ ("ia32_emulation=1") ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.allow-unprivileged-userns {
+  (l.mkIf cfg.overrides.desktop.allow-unprivileged-userns {
     boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.
     l.mkForce "1";
   })
   
-  (l.mkIf config.nix-mineral.overrides.desktop.doas-sudo-wrapper {
+  (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
     environment.systemPackages = (with pkgs; [ 
       ((pkgs.writeScriptBin "sudo" ''exec doas "$@"''))
       ((pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"''))
@@ -490,7 +490,7 @@ config = l.mkMerge [
     ]);
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.hideproc-ptraceable {
+  (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
     boot.specialFileSystems."/proc" = l.mkForce {
       fsType = "proc";
       device = "proc";
@@ -498,33 +498,33 @@ config = l.mkMerge [
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.home-exec {
+  (l.mkIf cfg.overrides.desktop.home-exec {
     fileSystems."/home" = l.mkForce {
       device = "/home";
       options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.nix-allow-all {
+  (l.mkIf cfg.overrides.desktop.nix-allow-all {
     nix.settings.allowed-users = l.mkForce [ ("*") ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.tmp-exec {
+  (l.mkIf cfg.overrides.desktop.tmp-exec {
     fileSystems."/tmp" = l.mkForce {
       device = "/tmp";
       options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.usbguard-allow-at-boot {
+  (l.mkIf cfg.overrides.desktop.usbguard-allow-at-boot {
     services.usbguard.presentDevicePolicy = l.mkForce "allow"; 
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.disable-usbguard {
+  (l.mkIf cfg.overrides.desktop.disable-usbguard {
     services.usbguard.enable = l.mkForce false;
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.usbguard-gnome-integration {
+  (l.mkIf cfg.overrides.desktop.usbguard-gnome-integration {
     services.usbguard.dbus.enable = l.mkForce true;
     security.polkit = { 
       extraConfig = ''
@@ -543,38 +543,38 @@ config = l.mkMerge [
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.var-lib-exec {
+  (l.mkIf cfg.overrides.desktop.var-lib-exec {
     fileSystems."/var/lib" = l.mkForce { 
       device = "/var/lib";
       options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.desktop.yama-relaxed {
+  (l.mkIf cfg.overrides.desktop.yama-relaxed {
     boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce "1";
   })
 
   # Performance
 
-  (l.mkIf config.nix-mineral.overrides.performance.allow-smt {
+  (l.mkIf cfg.overrides.performance.allow-smt {
     boot.kernelParams = l.mkOverride 100 [ ("mitigations=auto") ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.performance.iommu-passthrough {
+  (l.mkIf cfg.overrides.performance.iommu-passthrough {
     boot.kernelParams = l.mkOverride 100 [ ("iommu.passthrough=1")  ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.performance.no-mitigations {
+  (l.mkIf cfg.overrides.performance.no-mitigations {
     boot.kernelParams = l.mkOverride 100 [ ("mitigations=off") ];
   })
 
-  (l.mkIf config.nix-mineral.overrides.performance.no-pti {
+  (l.mkIf cfg.overrides.performance.no-pti {
     boot.kernelParams = l.mkOverride 100 [ ("pti=off") ];
   })
 
   # Security
 
-  (l.mkIf config.nix-mineral.overrides.security.disable-bluetooth-kmodules {
+  (l.mkIf cfg.overrides.security.disable-bluetooth-kmodules {
     environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
       text = ''
         install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
@@ -598,7 +598,7 @@ config = l.mkMerge [
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.disable-intelme-kmodules {
+  (l.mkIf cfg.overrides.security.disable-intelme-kmodules {
     environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
       text = ''
           install mei /usr/bin/disabled-intelme-by-security-misc
@@ -617,37 +617,37 @@ config = l.mkMerge [
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.disable-module-loading {
+  (l.mkIf cfg.overrides.security.disable-module-loading {
     boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.disable-tcp-window-scaling {
+  (l.mkIf cfg.overrides.security.disable-tcp-window-scaling {
     boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.hardened-malloc-systemwide {
+  (l.mkIf cfg.overrides.security.hardened-malloc-systemwide {
     environment.memoryAllocator = { provider = "graphene-hardened"; };
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.lock-root {
+  (l.mkIf cfg.overrides.security.lock-root {
     users = { users = { root = { hashedPassword = "!"; }; }; };
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.minimize-swapping {
+  (l.mkIf cfg.overrides.security.minimize-swapping {
     boot.kernel.sysctl."vm.swappiness" = l.mkForce "1";
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.sysrq-sak {
+  (l.mkIf cfg.overrides.security.sysrq-sak {
     boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4";
   })
 
-  (l.mkIf config.nix-mineral.overrides.security.disable-tcp-timestamp {
+  (l.mkIf cfg.overrides.security.disable-tcp-timestamp {
     boot.kernel.sysctl."net.ipv4.tcp_timestamps" = l.mkForce "0";
   })
 
   # Software Choice
 
-  (l.mkIf config.nix-mineral.overrides.software-choice.doas-no-sudo {
+  (l.mkIf cfg.overrides.software-choice.doas-no-sudo {
     security.sudo = { enable = false; }; 
     security.doas = { 
       enable = true;
@@ -661,15 +661,15 @@ config = l.mkMerge [
     };
   })
 
-  (l.mkIf config.nix-mineral.overrides.software-choice.use-hardened-kernel {
+  (l.mkIf cfg.overrides.software-choice.use-hardened-kernel {
     boot.kernelPackages = l.mkForce (pkgs).linuxPackages_hardened;
   })
 
-  (l.mkIf config.nix-mineral.overrides.software-choice.no-firewall {
+  (l.mkIf cfg.overrides.software-choice.no-firewall {
     networking.firewall.enable = l.mkForce false;
   })
 
-  (l.mkIf config.nix-mineral.overrides.software-choice.secure-chrony {
+  (l.mkIf cfg.overrides.software-choice.secure-chrony {
     services.timesyncd = { enable = false; }; 
     services.chrony = {
       enable = true;
@@ -693,7 +693,7 @@ config = l.mkMerge [
 
   # Main module
 
-  (l.mkIf config.nix-mineral.enable {
+  (l.mkIf cfg.enable {
     boot = {
       kernel = {
         sysctl = {
