@@ -443,7 +443,7 @@ config = l.mkMerge [
   # Compatibility
 
   (l.mkIf cfg.overrides.compatibility.allow-unsigned-modules {
-    boot.kernelParams = l.mkOverride 100 [ ("module.sig_enforce=0") ];
+    boot.kernelParams = l.mkOverride 100 [ "module.sig_enforce=0" ];
   })
 
   (l.mkIf cfg.overrides.compatibility.allow-binfmt-misc {
@@ -451,7 +451,7 @@ config = l.mkMerge [
   })
 
   (l.mkIf cfg.overrides.compatibility.allow-busmaster-bit {
-    boot.kernelParams = l.mkOverride 100 [ ("efi=no_disable_early_pci_dma") ];
+    boot.kernelParams = l.mkOverride 100 [ "efi=no_disable_early_pci_dma" ];
   })
 
   (l.mkIf cfg.overrides.compatibility.allow-io-uring {
@@ -467,13 +467,13 @@ config = l.mkMerge [
   })
 
   (l.mkIf cfg.overrides.compatibility.no-lockdown {
-    boot.kernelParams = l.mkOverride 100 [ ("lockdown=") ];
+    boot.kernelParams = l.mkOverride 100 [ "lockdown=" ];
   })
 
   # Desktop
 
   (l.mkIf cfg.overrides.desktop.allow-multilib {
-    boot.kernelParams = l.mkOverride 100 [ ("ia32_emulation=1") ];
+    boot.kernelParams = l.mkOverride 100 [ "ia32_emulation=1" ];
   })
 
   (l.mkIf cfg.overrides.desktop.allow-unprivileged-userns {
@@ -482,12 +482,12 @@ config = l.mkMerge [
   })
   
   (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
-    environment.systemPackages = (with pkgs; [ 
-      ((pkgs.writeScriptBin "sudo" ''exec doas "$@"''))
-      ((pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"''))
-      ((pkgs.writeScriptBin "doasedit" ''exec doas rnano "$@"''))
+    environment.systemPackages = with pkgs; [ 
+      (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
+      (pkgs.writeScriptBin "sudoedit" ''exec doas rnano "$@"'')
+      (pkgs.writeScriptBin "doasedit" ''exec doas rnano "$@"'')
       nano
-    ]);
+    ];
   })
 
   (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
@@ -501,18 +501,18 @@ config = l.mkMerge [
   (l.mkIf cfg.overrides.desktop.home-exec {
     fileSystems."/home" = l.mkForce {
       device = "/home";
-      options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
+      options = [ "bind" "nosuid" "exec" "nodev" ];
     };
   })
 
   (l.mkIf cfg.overrides.desktop.nix-allow-all {
-    nix.settings.allowed-users = l.mkForce [ ("*") ];
+    nix.settings.allowed-users = l.mkForce [ "*" ];
   })
 
   (l.mkIf cfg.overrides.desktop.tmp-exec {
     fileSystems."/tmp" = l.mkForce {
       device = "/tmp";
-      options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
+      options = [ "bind" "nosuid" "exec" "nodev" ];
     };
   })
 
@@ -546,7 +546,7 @@ config = l.mkMerge [
   (l.mkIf cfg.overrides.desktop.var-lib-exec {
     fileSystems."/var/lib" = l.mkForce { 
       device = "/var/lib";
-      options = [ ("bind") ("nosuid") ("exec") ("nodev") ];
+      options = [ "bind" "nosuid" "exec" "nodev" ];
     };
   })
 
@@ -557,19 +557,19 @@ config = l.mkMerge [
   # Performance
 
   (l.mkIf cfg.overrides.performance.allow-smt {
-    boot.kernelParams = l.mkOverride 100 [ ("mitigations=auto") ];
+    boot.kernelParams = l.mkOverride 100 [ "mitigations=auto" ];
   })
 
   (l.mkIf cfg.overrides.performance.iommu-passthrough {
-    boot.kernelParams = l.mkOverride 100 [ ("iommu.passthrough=1")  ];
+    boot.kernelParams = l.mkOverride 100 [ "iommu.passthrough=1"  ];
   })
 
   (l.mkIf cfg.overrides.performance.no-mitigations {
-    boot.kernelParams = l.mkOverride 100 [ ("mitigations=off") ];
+    boot.kernelParams = l.mkOverride 100 [ "mitigations=off" ];
   })
 
   (l.mkIf cfg.overrides.performance.no-pti {
-    boot.kernelParams = l.mkOverride 100 [ ("pti=off") ];
+    boot.kernelParams = l.mkOverride 100 [ "pti=off" ];
   })
 
   # Security
@@ -648,21 +648,21 @@ config = l.mkMerge [
   # Software Choice
 
   (l.mkIf cfg.overrides.software-choice.doas-no-sudo {
-    security.sudo = { enable = false; }; 
+    security.sudo.enable = false; 
     security.doas = { 
       enable = true;
       extraRules = [
-        ({
+        {
           keepEnv = true;
           persist = true;
-          users = [ ("user") ];
-        })
+          users = [ "user" ];
+        }
       ];
     };
   })
 
   (l.mkIf cfg.overrides.software-choice.use-hardened-kernel {
-    boot.kernelPackages = l.mkForce (pkgs).linuxPackages_hardened;
+    boot.kernelPackages = l.mkForce pkgs.linuxPackages_hardened;
   })
 
   (l.mkIf cfg.overrides.software-choice.no-firewall {
