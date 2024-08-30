@@ -402,7 +402,7 @@ in
 
     # Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
     # by default for better git security.
-    gitconfig.source = fetchGhFile sources.gitconfig;
+    gitconfig.source = lib.mkDefault (fetchGhFile sources.gitconfig);
 
     # Borrow Kicksecure bluetooth configuration for better bluetooth privacy
     # and security. Disables bluetooth automatically when not connected to
