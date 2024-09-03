@@ -864,8 +864,9 @@ in
             # https://grapheneos.org/features#wifi-privacy
             # GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
             # extensions alongside MAC randomization, so that's why we do both
-            "net.ipv6.conf.default.use_tempaddr" = l.mkForce "2";
-            "net.ipv6.conf.all.use_tempaddr" = l.mkForce "2";
+            # Commented, as this is already explicitly defined by default in NixOS
+            # "net.ipv6.conf.default.use_tempaddr" = l.mkForce "2";
+            # "net.ipv6.conf.all.use_tempaddr" = l.mkForce "2";
 
             # ignore all ICMPv6 echo requests
             "net.ipv6.icmp.echo_ignore_all" = "1";
