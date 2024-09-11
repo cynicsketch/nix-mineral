@@ -477,7 +477,7 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.allow-unprivileged-userns {
-      boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.l.mkForce "1";
+      boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.mkForce "1";
     })
 
     (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
