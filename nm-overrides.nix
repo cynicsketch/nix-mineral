@@ -144,7 +144,9 @@ imports = [
 
   # Allow processes that can ptrace a process to read its process information.
   # Requires ptrace to even be allowed in the first place, see above option.
-  # Note: hideproc may still break Wayland on GNOME, see: https://github.com/NixOS/nixpkgs/issues/111629
+  # Note: While nix-mineral has made provisions to unbreak systemd, it is
+  # not supported by upstream, and breakage may still occur:
+  # https://github.com/systemd/systemd/issues/12955
   # nm-overrides.desktop.hideproc-relaxed.enable = true;
 
 
