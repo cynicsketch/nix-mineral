@@ -8,52 +8,6 @@
 
 (with lib; {
 
-# Import all the options, assuming the nix-overrides folder is in the same
-# folder as this file.
-imports = [
-
-  ./nm-overrides/compatibility/allow-unsigned-modules.nix
-  ./nm-overrides/compatibility/binfmt-misc.nix
-  ./nm-overrides/compatibility/busmaster-bit.nix
-  ./nm-overrides/compatibility/io-uring.nix
-  ./nm-overrides/compatibility/ip-forward.nix
-  ./nm-overrides/compatibility/no-lockdown.nix
-
-  ./nm-overrides/desktop/allow-multilib.nix
-  ./nm-overrides/desktop/allow-unprivileged-userns.nix
-  ./nm-overrides/desktop/doas-sudo-wrapper.nix
-  ./nm-overrides/desktop/home-exec.nix
-  ./nm-overrides/desktop/nix-allow-all-users.nix
-  ./nm-overrides/desktop/tmp-exec.nix
-  ./nm-overrides/desktop/usbguard-allow-at-boot.nix
-  ./nm-overrides/desktop/usbguard-disable.nix
-  ./nm-overrides/desktop/usbguard-gnome-integration.nix
-  ./nm-overrides/desktop/var-lib-exec.nix
-  ./nm-overrides/desktop/yama-relaxed.nix
-  ./nm-overrides/desktop/hideproc-relaxed.nix
-
-  ./nm-overrides/performance/allow-smt.nix
-  ./nm-overrides/performance/iommu-passthrough.nix
-  ./nm-overrides/performance/no-mitigations.nix
-  ./nm-overrides/performance/no-pti.nix
-
-  ./nm-overrides/security/hardened-malloc.nix
-  ./nm-overrides/security/lock-root.nix
-  ./nm-overrides/security/minimum-swappiness.nix
-  ./nm-overrides/security/sysrq-sak.nix
-  ./nm-overrides/security/tcp-timestamp-disable.nix
-  ./nm-overrides/security/disable-modules.nix
-  ./nm-overrides/security/disable-tcp-window-scaling.nix
-  ./nm-overrides/security/disable-bluetooth.nix
-  ./nm-overrides/security/disable-intelme-kmodules.nix
-
-  ./nm-overrides/software-choice/doas-no-sudo.nix
-  ./nm-overrides/software-choice/hardened-kernel.nix
-  ./nm-overrides/software-choice/no-firewall.nix
-  ./nm-overrides/software-choice/secure-chrony.nix
-
-];
-
 ## Compatibility
 # Options to ensure compatibility with certain usecases and hardware, at the
 # expense of overall security.
