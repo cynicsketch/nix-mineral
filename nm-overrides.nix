@@ -144,6 +144,7 @@ imports = [
 
   # Allow processes that can ptrace a process to read its process information.
   # Requires ptrace to even be allowed in the first place, see above option.
+  # Note: hideproc may still break Wayland on GNOME, see: https://github.com/NixOS/nixpkgs/issues/111629
   # nm-overrides.desktop.hideproc-relaxed.enable = true;
 
 
