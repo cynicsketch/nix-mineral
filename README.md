@@ -2,6 +2,9 @@
 NixOS module for convenient system hardening.
 Rather than be named after a mineral, it's named after the word "mineral."
 
+## WARNING
+`nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
+
 ## Scope
 Reasonably harden NixOS in a way that can be quickly deployed by the end user. Threat model assumes non-governmental adversaries, and anonymity is not considered.
 
