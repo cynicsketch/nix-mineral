@@ -1113,7 +1113,7 @@ in
       # See https://github.com/systemd/systemd/issues/12955, and https://github.com/Kicksecure/security-misc/issues/208
       users.groups.proc = { };
       systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = [ "proc" ];
-      systemd.services.user@.serviceConfig.SupplementaryGroups = [ "proc" ];
+      systemd.services."user@".serviceConfig.SupplementaryGroups = [ "proc" ];
 
       # Enables firewall. You may need to tweak your firewall rules depending on
       # your usecase. On a desktop, this shouldn't cause problems. 
