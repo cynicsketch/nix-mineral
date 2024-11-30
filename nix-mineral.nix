@@ -1204,7 +1204,7 @@ in
         # Restrict permissions of /home/$USER so that only the owner of the
         # directory can access it (the user). systemd-tmpfiles also has the benefit
         # of recursively setting permissions too, with the "Z" option as seen below.
-        "restricthome"."/home/*".Z.mode = "0700";
+        "restricthome"."/home/*".Z.mode = "~0700";
 
         # Make all files in /etc/nixos owned by root, and only readable by root.
         # /etc/nixos is not owned by root by default, and configuration files can
