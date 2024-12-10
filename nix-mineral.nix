@@ -1023,7 +1023,6 @@ in
         };
 
         "/boot" = {
-          device = "/boot";
           options = [
             "nosuid"
             "noexec"
