@@ -497,7 +497,7 @@ in
           "nodev"
           "noexec"
           "hidepid=4"
-          "gid=proc"
+          "gid=${toString config.users.groups.proc.gid}"
         ];
       };
     })
@@ -1102,7 +1102,7 @@ in
             "nodev"
             "noexec"
             "hidepid=2"
-            "gid=proc"
+            "gid=${toString config.users.groups.proc.gid}"
           ];
         };
       };
@@ -1110,7 +1110,7 @@ in
       # Add "proc" group to whitelist /proc access and allow systemd-logind to view
       # /proc in order to unbreak it, as well as to user@ for similar reasons.
       # See https://github.com/systemd/systemd/issues/12955, and https://github.com/Kicksecure/security-misc/issues/208
-      users.groups.proc = { };
+      users.groups.proc.gid = config.ids.gids.proc;
       systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = [ "proc" ];
       systemd.services."user@".serviceConfig.SupplementaryGroups = [ "proc" ];
 
