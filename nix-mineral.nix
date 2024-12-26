@@ -112,11 +112,12 @@
 # systemd-timesyncd ---> chrony (For NTS support)
 # linux_hardened kernel*
 #
-# (No longer recommended as of July 25, 2024. The patchset being behind by
-# about a week or so is one thing, but the package as included in nixpkgs is
-# way too infrequently updated, being several weeks or even months behind.
-# Therefore, it is recommended to choose an LTS kernel like 5.15, 6.1, or 6.6
-# in your own system configuration.*)
+# As of Decemeber 26, 2024, linux_hardened is up to date with mainline linux in
+# unstable NixOS. However, it is cautioned that users regularly check the
+# status of the linux_hardened package in NixOS, because it has been left
+# unupdated for long periods of time in the past, which would be a severe
+# security risk since an outdated kernel means the existence of many known
+# vulnerabilities in the most privileged component of the operating system.
 #
 # USBGuard is also *enabled* by default, which may inconvenience some users.
 # 
