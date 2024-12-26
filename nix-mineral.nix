@@ -481,18 +481,18 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
-      environment.systemPackages = with pkgs; [
+      environment.systemPackages = l.mkDefault (with pkgs; [
         (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
         (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
         (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-      ];
+      ])
     })
 
     (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
       boot.specialFileSystems."/proc" = l.mkForce {
-        fsType = "proc";
-        device = "proc";
-        options = [
+        fsType = l.mkDefault "proc";
+        device = l.mkDefault "proc";
+        options = l.mkDefault [
           "nosuid"
           "nodev"
           "noexec"
@@ -504,8 +504,8 @@ in
 
     (l.mkIf cfg.overrides.desktop.home-exec {
       fileSystems."/home" = l.mkForce {
-        device = "/home";
-        options = [
+        device = l.mkDefault "/home";
+        options = l.mkDefault [
           "bind"
           "nosuid"
           "exec"
@@ -518,8 +518,8 @@ in
 
     (l.mkIf cfg.overrides.desktop.tmp-exec {
       fileSystems."/tmp" = l.mkForce {
-        device = "/tmp";
-        options = [
+        device = l.mkDefault "/tmp";
+        options = l.mkDefault [
           "bind"
           "nosuid"
           "exec"
@@ -536,8 +536,8 @@ in
 
     (l.mkIf cfg.overrides.desktop.usbguard-gnome-integration {
       services.usbguard.dbus.enable = l.mkForce true;
-      security.polkit = {
-        extraConfig = ''
+      security.polkit = l.mkDefault {
+        extraConfig = l.mkDefault ''
           polkit.addRule(function(action, subject) {
             if ((action.id == "org.usbguard.Policy1.listRules" ||
                  action.id == "org.usbguard.Policy1.appendRule" ||
@@ -555,8 +555,8 @@ in
 
     (l.mkIf cfg.overrides.desktop.var-lib-exec {
       fileSystems."/var/lib" = l.mkForce {
-        device = "/var/lib";
-        options = [
+        device = l.mkDefault "/var/lib";
+        options = l.mkDefault [
           "bind"
           "nosuid"
           "exec"
@@ -588,8 +588,8 @@ in
     # Security
 
     (l.mkIf cfg.overrides.security.disable-bluetooth-kmodules {
-      environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
-        text = ''
+      environment.etc."modprobe.d/nm-disable-bluetooth.conf" = l.mkDefault {
+        text = l.mkDefault ''
           install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
           install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
           install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
@@ -612,8 +612,8 @@ in
     })
 
     (l.mkIf cfg.overrides.security.disable-intelme-kmodules {
-      environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
-        text = ''
+      environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = l.mkDefault {
+        text = l.mkDefault ''
           install mei /usr/bin/disabled-intelme-by-security-misc
           install mei-gsc /usr/bin/disabled-intelme-by-security-misc
           install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
@@ -639,16 +639,16 @@ in
     })
 
     (l.mkIf cfg.overrides.security.hardened-malloc-systemwide {
-      environment.memoryAllocator = {
-        provider = "graphene-hardened";
+      environment.memoryAllocator = l.mkDefault {
+        provider = l.mkDefault "graphene-hardened";
       };
     })
 
     (l.mkIf cfg.overrides.security.lock-root {
-      users = {
-        users = {
-          root = {
-            hashedPassword = "!";
+      users = l.mkDefault {
+        users = l.mkDefault {
+          root = l.mkDefault {
+            hashedPassword = l.mkDefault "!";
           };
         };
       };
@@ -667,14 +667,14 @@ in
     # Software Choice
 
     (l.mkIf cfg.overrides.software-choice.doas-no-sudo {
-      security.sudo.enable = false;
-      security.doas = {
-        enable = true;
-        extraRules = [
+      security.sudo.enable = l.mkDefault false;
+      security.doas = l.mkDefault {
+        enable = l.mkDefault true;
+        extraRules = l.mkDefault [
           {
-            keepEnv = true;
-            persist = true;
-            users = [ "user" ];
+            keepEnv = l.mkDefault true;
+            persist = l.mkDefault true;
+            users = l.mkDefault [ "user" ];
           }
         ];
       };
@@ -687,16 +687,16 @@ in
     (l.mkIf cfg.overrides.software-choice.no-firewall { networking.firewall.enable = l.mkForce false; })
 
     (l.mkIf cfg.overrides.software-choice.secure-chrony {
-      services.timesyncd = {
-        enable = false;
+      services.timesyncd = l.mkDefault {
+        enable = l.mkDefault false;
       };
       services.chrony = {
-        enable = true;
+        enable = l.mkDefault true;
 
-        extraFlags = [ "-F 1" ];
+        extraFlags = l.mkDefault [ "-F 1" ];
         # Enable seccomp filter for chronyd.
 
-        enableRTCTrimming = false;
+        enableRTCTrimming = l.mkDefault false;
         # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either 
         # this or 'rtcsync' must be disabled to complete a successful rebuild,
         # or an error will be thrown due to these options conflicting with
@@ -706,159 +706,159 @@ in
         # It enables NTS to secure NTP requests, among some other useful
         # settings.
 
-        extraConfig.source = fetchGhFile sources.chrony;
+        extraConfig.source = l.mkDefault fetchGhFile sources.chrony;
       };
     })
 
     # Main module
 
     (l.mkIf cfg.enable {
-      boot = {
-        kernel = {
-          sysctl = {
+      boot = l.mkDefault {
+        kernel = l.mkDefault {
+          sysctl = l.mkDefault {
             # Unprivileged userns has a large attack surface and has been the cause
             # of many privilege escalation vulnerabilities, but can cause breakage.
             # See overrides.
-            "kernel.unprivileged_userns_clone" = "0";
+            "kernel.unprivileged_userns_clone" = l.mkDefault "0";
 
             # Yama restricts ptrace, which allows processes to read and modify the
             # memory of other processes. This has obvious security implications.
             # See overrides.
-            "kernel.yama.ptrace_scope" = "3";
+            "kernel.yama.ptrace_scope" = l.mkDefault "3";
 
             # Disables magic sysrq key. See overrides file regarding SAK (Secure
             # attention key).
-            "kernel.sysrq" = "0";
+            "kernel.sysrq" = l.mkDefault "0";
 
             # Disable binfmt. Breaks Roseta, see overrides file.
-            "fs.binfmt_misc.status" = "0";
+            "fs.binfmt_misc.status" = l.mkDefault "0";
 
             # Disable io_uring. May be desired for Proxmox, but is responsible
             # for many vulnerabilities and is disabled on Android + ChromeOS.
             # See overrides file.
-            "kernel.io_uring_disabled" = "2";
+            "kernel.io_uring_disabled" = l.mkDefault "2";
 
             # Disable ip forwarding to reduce attack surface. May be needed for
             # VM networking. See overrides file.
-            "net.ipv4.ip_forward" = "0";
-            "net.ipv4.conf.all.forwarding" = "0";
-            "net.ipv4.conf.default.forwarding" = "0";
-            "net.ipv6.conf.all.forwarding" = "0";
-            "net.ipv6.conf.default.forwarding" = "0";
+            "net.ipv4.ip_forward" = l.mkDefault "0";
+            "net.ipv4.conf.all.forwarding" = l.mkDefault "0";
+            "net.ipv4.conf.default.forwarding" = l.mkDefault "0";
+            "net.ipv6.conf.all.forwarding" = l.mkDefault "0";
+            "net.ipv6.conf.default.forwarding" = l.mkDefault "0";
 
             # Privacy/security split.
             # See overrides file for details.
-            "net.ipv4.tcp_timestamps" = "1";
+            "net.ipv4.tcp_timestamps" = l.mkDefault "1";
 
-            "dev.tty.ldisc_autoload" = "0";
-            "fs.protected_fifos" = "2";
-            "fs.protected_hardlinks" = "1";
-            "fs.protected_regular" = "2";
-            "fs.protected_symlinks" = "1";
-            "fs.suid_dumpable" = "0";
-            "kernel.dmesg_restrict" = "1";
-            "kernel.kexec_load_disabled" = "1";
-            "kernel.kptr_restrict" = "2";
-            "kernel.perf_event_paranoid" = "3";
-            "kernel.printk" = "3 3 3 3";
-            "kernel.unprivileged_bpf_disabled" = "1";
-            "net.core.bpf_jit_harden" = "2";
-            "net.ipv4.conf.all.accept_redirects" = "0";
-            "net.ipv4.conf.all.accept_source_route" = "0";
-            "net.ipv4.conf.all.rp_filter" = "1";
-            "net.ipv4.conf.all.secure_redirects" = "0";
-            "net.ipv4.conf.all.send_redirects" = "0";
-            "net.ipv4.conf.default.accept_redirects" = "0";
-            "net.ipv4.conf.default.accept_source_route" = "0";
-            "net.ipv4.conf.default.rp_filter" = "1";
-            "net.ipv4.conf.default.secure_redirects" = "0";
-            "net.ipv4.conf.default.send_redirects" = "0";
-            "net.ipv4.icmp_echo_ignore_all" = "1";
-            "net.ipv6.icmp_echo_ignore_all" = "1";
-            "net.ipv4.tcp_dsack" = "0";
-            "net.ipv4.tcp_fack" = "0";
-            "net.ipv4.tcp_rfc1337" = "1";
-            "net.ipv4.tcp_sack" = "0";
-            "net.ipv4.tcp_syncookies" = "1";
-            "net.ipv6.conf.all.accept_ra" = "0";
-            "net.ipv6.conf.all.accept_redirects" = "0";
-            "net.ipv6.conf.all.accept_source_route" = "0";
-            "net.ipv6.conf.default.accept_redirects" = "0";
-            "net.ipv6.conf.default.accept_source_route" = "0";
-            "net.ipv6.default.accept_ra" = "0";
-            "kernel.core_pattern" = "|/bin/false";
-            "vm.mmap_rnd_bits" = "32";
-            "vm.mmap_rnd_compat_bits" = "16";
-            "vm.unprivileged_userfaultfd" = "0";
-            "net.ipv4.icmp_ignore_bogus_error_responses" = "1";
+            "dev.tty.ldisc_autoload" = l.mkDefault "0";
+            "fs.protected_fifos" = l.mkDefault "2";
+            "fs.protected_hardlinks" = l.mkDefault "1";
+            "fs.protected_regular" = l.mkDefault "2";
+            "fs.protected_symlinks" = l.mkDefault "1";
+            "fs.suid_dumpable" = l.mkDefault "0";
+            "kernel.dmesg_restrict" = l.mkDefault "1";
+            "kernel.kexec_load_disabled" = l.mkDefault "1";
+            "kernel.kptr_restrict" = l.mkDefault "2";
+            "kernel.perf_event_paranoid" = l.mkDefault "3";
+            "kernel.printk" = l.mkDefault "3 3 3 3";
+            "kernel.unprivileged_bpf_disabled" = l.mkDefault "1";
+            "net.core.bpf_jit_harden" = l.mkDefault "2";
+            "net.ipv4.conf.all.accept_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.all.accept_source_route" = l.mkDefault "0";
+            "net.ipv4.conf.all.rp_filter" = l.mkDefault "1";
+            "net.ipv4.conf.all.secure_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.all.send_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.default.accept_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.default.accept_source_route" = l.mkDefault "0";
+            "net.ipv4.conf.default.rp_filter" = l.mkDefault "1";
+            "net.ipv4.conf.default.secure_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.default.send_redirects" = l.mkDefault "0";
+            "net.ipv4.icmp_echo_ignore_all" = l.mkDefault "1";
+            "net.ipv6.icmp_echo_ignore_all" = l.mkDefault "1";
+            "net.ipv4.tcp_dsack" = l.mkDefault "0";
+            "net.ipv4.tcp_fack" = l.mkDefault "0";
+            "net.ipv4.tcp_rfc1337" = l.mkDefault "1";
+            "net.ipv4.tcp_sack" = l.mkDefault "0";
+            "net.ipv4.tcp_syncookies" = l.mkDefault "1";
+            "net.ipv6.conf.all.accept_ra" = l.mkDefault "0";
+            "net.ipv6.conf.all.accept_redirects" = l.mkDefault "0";
+            "net.ipv6.conf.all.accept_source_route" = l.mkDefault "0";
+            "net.ipv6.conf.default.accept_redirects" = l.mkDefault "0";
+            "net.ipv6.conf.default.accept_source_route" = l.mkDefault "0";
+            "net.ipv6.default.accept_ra" = l.mkDefault "0";
+            "kernel.core_pattern" = l.mkDefault "|/bin/false";
+            "vm.mmap_rnd_bits" = l.mkDefault "32";
+            "vm.mmap_rnd_compat_bits" = l.mkDefault "16";
+            "vm.unprivileged_userfaultfd" = l.mkDefault "0";
+            "net.ipv4.icmp_ignore_bogus_error_responses" = l.mkDefault "1";
 
             # enable ASLR
             # turn on protection and randomize stack, vdso page and mmap + randomize brk base address
-            "kernel.randomize_va_space" = "2";
+            "kernel.randomize_va_space" = l.mkDefault "2";
 
             # restrict perf subsystem usage (activity) further
-            "kernel.perf_cpu_time_max_percent" = "1";
-            "kernel.perf_event_max_sample_rate" = "1";
+            "kernel.perf_cpu_time_max_percent" = l.mkDefault "1";
+            "kernel.perf_event_max_sample_rate" = l.mkDefault "1";
 
             # do not allow mmap in lower addresses
-            "vm.mmap_min_addr" = "65536";
+            "vm.mmap_min_addr" = l.mkDefault "65536";
 
             # log packets with impossible addresses to kernel log
             # No active security benefit, just makes it easier to spot a DDOS/DOS by giving
             # extra logs
-            "net.ipv4.conf.default.log_martians" = "1";
-            "net.ipv4.conf.all.log_martians" = "1";
+            "net.ipv4.conf.default.log_martians" = l.mkDefault "1";
+            "net.ipv4.conf.all.log_martians" = l.mkDefault "1";
 
             # disable sending and receiving of shared media redirects
             # this setting overwrites net.ipv4.conf.all.secure_redirects
             # refer to RFC1620
-            "net.ipv4.conf.default.shared_media" = "0";
-            "net.ipv4.conf.all.shared_media" = "0";
+            "net.ipv4.conf.default.shared_media" = l.mkDefault "0";
+            "net.ipv4.conf.all.shared_media" = l.mkDefault "0";
 
             # always use the best local address for announcing local IP via ARP
             # Seems to be most restrictive option
-            "net.ipv4.conf.default.arp_announce" = "2";
-            "net.ipv4.conf.all.arp_announce" = "2";
+            "net.ipv4.conf.default.arp_announce" = l.mkDefault "2";
+            "net.ipv4.conf.all.arp_announce" = l.mkDefault "2";
 
             # reply only if the target IP address is local address configured on the incoming interface
-            "net.ipv4.conf.default.arp_ignore" = "1";
-            "net.ipv4.conf.all.arp_ignore" = "1";
+            "net.ipv4.conf.default.arp_ignore" = l.mkDefault "1";
+            "net.ipv4.conf.all.arp_ignore" = l.mkDefault "1";
 
             # drop Gratuitous ARP frames to prevent ARP poisoning
             # this can cause issues when ARP proxies are used in the network
-            "net.ipv4.conf.default.drop_gratuitous_arp" = "1";
-            "net.ipv4.conf.all.drop_gratuitous_arp" = "1";
+            "net.ipv4.conf.default.drop_gratuitous_arp" = l.mkDefault "1";
+            "net.ipv4.conf.all.drop_gratuitous_arp" = l.mkDefault "1";
 
             # ignore all ICMP echo and timestamp requests sent to broadcast/multicast
-            "net.ipv4.icmp_echo_ignore_broadcasts" = "1";
+            "net.ipv4.icmp_echo_ignore_broadcasts" = l.mkDefault "1";
 
             # number of Router Solicitations to send until assuming no routers are present
-            "net.ipv6.conf.default.router_solicitations" = "0";
-            "net.ipv6.conf.all.router_solicitations" = "0";
+            "net.ipv6.conf.default.router_solicitations" = l.mkDefault "0";
+            "net.ipv6.conf.all.router_solicitations" = l.mkDefault "0";
 
             # do not accept Router Preference from RA
-            "net.ipv6.conf.default.accept_ra_rtr_pref" = "0";
-            "net.ipv6.conf.all.accept_ra_rtr_pref" = "0";
+            "net.ipv6.conf.default.accept_ra_rtr_pref" = l.mkDefault "0";
+            "net.ipv6.conf.all.accept_ra_rtr_pref" = l.mkDefault "0";
 
             # learn prefix information in router advertisement
-            "net.ipv6.conf.default.accept_ra_pinfo" = "0";
-            "net.ipv6.conf.all.accept_ra_pinfo" = "0";
+            "net.ipv6.conf.default.accept_ra_pinfo" = l.mkDefault "0";
+            "net.ipv6.conf.all.accept_ra_pinfo" = l.mkDefault "0";
 
             # setting controls whether the system will accept Hop Limit settings from a router advertisement
-            "net.ipv6.conf.default.accept_ra_defrtr" = "0";
-            "net.ipv6.conf.all.accept_ra_defrtr" = "0";
+            "net.ipv6.conf.default.accept_ra_defrtr" = l.mkDefault "0";
+            "net.ipv6.conf.all.accept_ra_defrtr" = l.mkDefault "0";
 
             # router advertisements can cause the system to assign a global unicast address to an interface
-            "net.ipv6.conf.default.autoconf" = "0";
-            "net.ipv6.conf.all.autoconf" = "0";
+            "net.ipv6.conf.default.autoconf" = l.mkDefault "0";
+            "net.ipv6.conf.all.autoconf" = l.mkDefault "0";
 
             # number of neighbor solicitations to send out per address
-            "net.ipv6.conf.default.dad_transmits" = "0";
-            "net.ipv6.conf.all.dad_transmits" = "0";
+            "net.ipv6.conf.default.dad_transmits" = l.mkDefault "0";
+            "net.ipv6.conf.all.dad_transmits" = l.mkDefault "0";
 
             # number of global unicast IPv6 addresses can be assigned to each interface
-            "net.ipv6.conf.default.max_addresses" = "1";
-            "net.ipv6.conf.all.max_addresses" = "1";
+            "net.ipv6.conf.default.max_addresses" = l.mkDefault "1";
+            "net.ipv6.conf.all.max_addresses" = l.mkDefault "1";
 
             # enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address
             # https://grapheneos.org/features#wifi-privacy
@@ -869,13 +869,13 @@ in
             # "net.ipv6.conf.all.use_tempaddr" = l.mkForce "2";
 
             # ignore all ICMPv6 echo requests
-            "net.ipv6.icmp.echo_ignore_all" = "1";
-            "net.ipv6.icmp.echo_ignore_anycast" = "1";
-            "net.ipv6.icmp.echo_ignore_multicast" = "1";
+            "net.ipv6.icmp.echo_ignore_all" = l.mkDefault "1";
+            "net.ipv6.icmp.echo_ignore_anycast" = l.mkDefault "1";
+            "net.ipv6.icmp.echo_ignore_multicast" = l.mkDefault "1";
           };
         };
 
-        kernelParams = [
+        kernelParams = l.mkDefault [
           # Requires all kernel modules to be signed. This prevents out-of-tree
           # kernel modules from working unless signed. See overrides.
           "module.sig_enforce=1"
@@ -931,11 +931,11 @@ in
         # security by tampering with boot parameters. If you use a different
         # boatloader, this does not provide anything. You may also want to
         # consider disabling similar functions in your choice of bootloader.
-        loader.systemd-boot.editor = false;
+        loader.systemd-boot.editor = l.mkDefault false;
       };
-      environment.etc = {
+      environment.etc = l.mkDefault {
         # Empty /etc/securetty to prevent root login on tty.
-        securetty.text = ''
+        securetty.text = l.mkDefault ''
           # /etc/securetty: list of terminals on which root is allowed to login.
           # See securetty(5) and login(1).
         '';
@@ -943,12 +943,12 @@ in
         # Set machine-id to the Kicksecure machine-id, for privacy reasons.
         # /var/lib/dbus/machine-id doesn't exist on dbus enabled NixOS systems,
         # so we don't have to worry about that.
-        machine-id.text = ''
+        machine-id.text = l.mkDefault ''
           b08dfa6083e7567a1921a715000001fb
         '';
 
         # Borrow Kicksecure banner/issue. 
-        issue.source = fetchGhFile sources.issue;
+        issue.source = l.mkDefault (fetchGhFile sources.issue);
 
         # Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
         # by default for better git security.
@@ -963,7 +963,7 @@ in
         # "install "foobar" /bin/not-existent" prevents the module from being
         # loaded at all. "blacklist "foobar"" prevents the module from being
         # loaded automatically at boot, but it can still be loaded afterwards.
-        "modprobe.d/nm-module-blacklist.conf".source = fetchGhFile sources.module-blacklist;
+        "modprobe.d/nm-module-blacklist.conf".source = l.mkDefault (fetchGhFile sources.module-blacklist);
       };
 
       ### Filesystem hardening
@@ -979,9 +979,9 @@ in
 
       fileSystems = {
         # noexec on /home can be very inconvenient for desktops. See overrides.
-        "/home" = {
-          device = "/home";
-          options = [
+        "/home" = l.mkDefault {
+          device = l.mkDefault "/home";
+          options = l.mkDefault [
             "bind"
             "nosuid"
             "noexec"
@@ -990,9 +990,9 @@ in
         };
 
         # You do not want to install applications here anyways.
-        "/root" = {
-          device = "/root";
-          options = [
+        "/root" = l.mkDefault {
+          device = l.mkDefault "/root";
+          options = l.mkDefault [
             "bind"
             "nosuid"
             "noexec"
@@ -1001,9 +1001,9 @@ in
         };
 
         # Some applications may need to be executable in /tmp. See overrides.
-        "/tmp" = {
-          device = "/tmp";
-          options = [
+        "/tmp" = l.mkDefault {
+          device = l.mkDefault "/tmp";
+          options = l.mkDefault [
             "bind"
             "nosuid"
             "noexec"
@@ -1012,9 +1012,9 @@ in
         };
 
         # noexec on /var(/lib) may cause breakage. See overrides.
-        "/var" = {
-          device = "/var";
-          options = [
+        "/var" = l.mkDefault {
+          device = l.mkDefault "/var";
+          options = l.mkDefault [
             "bind"
             "nosuid"
             "noexec"
@@ -1022,17 +1022,17 @@ in
           ];
         };
 
-        "/boot" = {
-          options = [
+        "/boot" = l.mkDefault {
+          options = l.mkDefault [
             "nosuid"
             "noexec"
             "nodev"
           ];
         };
 
-        "/srv" = {
-          device = "/srv";
-          options = [
+        "/srv" = l.mkDefault {
+          device = l.mkDefault "/srv";
+          options = l.mkDefault [
             "bind"
             "nosuid"
             "noexec"
@@ -1040,9 +1040,9 @@ in
           ];
         };
 
-        "/etc" = {
-          device = "/etc";
-          options = [
+        "/etc" = l.mkDefault {
+          device = l.mkDefault "/etc";
+          options = l.mkDefault [
             "bind"
             "nosuid"
             "nodev"
@@ -1053,11 +1053,11 @@ in
       # Harden special filesystems while maintaining NixOS defaults as outlined
       # here:
       # https://github.com/NixOS/nixpkgs/blob/e2dd4e18cc1c7314e24154331bae07df76eb582f/nixos/modules/tasks/filesystems.nix
-      boot.specialFileSystems = {
+      boot.specialFileSystems = l.mkDefault {
         # Add noexec to /dev/shm
-        "/dev/shm" = {
-          fsType = "tmpfs";
-          options = [
+        "/dev/shm" = l.mkDefault {
+          fsType = l.mkDefault "tmpfs";
+          options = l.mkDefault [
             "nosuid"
             "nodev"
             "noexec"
@@ -1068,9 +1068,9 @@ in
         };
 
         # Add noexec to /run
-        "/run" = {
-          fsType = "tmpfs";
-          options = [
+        "/run" = l.mkDefault {
+          fsType = l.mkDefault "tmpfs";
+          options = l.mkDefault [
             "nosuid"
             "nodev"
             "noexec"
@@ -1081,9 +1081,9 @@ in
         };
 
         # Add noexec to /dev
-        "/dev" = {
-          fsType = "devtmpfs";
-          options = [
+        "/dev" = l.mkDefault {
+          fsType = l.mkDefault "devtmpfs";
+          options = l.mkDefault [
             "nosuid"
             "noexec"
             "strictatime"
@@ -1094,10 +1094,10 @@ in
 
         # Hide processes from other users except root, may cause breakage.
         # See overrides, in desktop section.
-        "/proc" = {
-          fsType = "proc";
-          device = "proc";
-          options = [
+        "/proc" = l.mkDefault {
+          fsType = l.mkDefault "proc";
+          device = l.mkDefault "proc";
+          options = l.mkDefault [
             "nosuid"
             "nodev"
             "noexec"
@@ -1110,23 +1110,23 @@ in
       # Add "proc" group to whitelist /proc access and allow systemd-logind to view
       # /proc in order to unbreak it, as well as to user@ for similar reasons.
       # See https://github.com/systemd/systemd/issues/12955, and https://github.com/Kicksecure/security-misc/issues/208
-      users.groups.proc.gid = config.ids.gids.proc;
-      systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = [ "proc" ];
-      systemd.services."user@".serviceConfig.SupplementaryGroups = [ "proc" ];
+      users.groups.proc.gid = l.mkDefault config.ids.gids.proc;
+      systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = l.mkDefault [ "proc" ];
+      systemd.services."user@".serviceConfig.SupplementaryGroups = l.mkDefault [ "proc" ];
 
       # Enables firewall. You may need to tweak your firewall rules depending on
       # your usecase. On a desktop, this shouldn't cause problems. 
-      networking = {
-        firewall = {
-          allowedTCPPorts = [ ];
-          allowedUDPPorts = [ ];
-          enable = true;
+      networking = l.mkDefault {
+        firewall = l.mkDefault {
+          allowedTCPPorts = l.mkDefault [ ];
+          allowedUDPPorts = l.mkDefault [ ];
+          enable = l.mkDefault true;
         };
-        networkmanager = {
-          ethernet.macAddress = "random";
-          wifi = {
-            macAddress = "random";
-            scanRandMacAddress = true;
+        networkmanager = l.mkDefault {
+          ethernet.macAddress = l.mkDefault "random";
+          wifi = l.mkDefault {
+            macAddress = l.mkDefault "random";
+            scanRandMacAddress = l.mkDefault true;
           };
           # Enable IPv6 privacy extensions in NetworkManager.
           connectionConfig."ipv6.ip6-privacy" = l.mkDefault 2;
@@ -1135,26 +1135,26 @@ in
 
       # Enabling MAC doesn't magically make your system secure. You need to set up
       # policies yourself for it to be effective.
-      security = {
-        apparmor = {
-          enable = true;
-          killUnconfinedConfinables = true;
+      security = l.mkDefault {
+        apparmor = l.mkDefault {
+          enable = l.mkDefault true;
+          killUnconfinedConfinables = l.mkDefault true;
         };
 
-        pam = {
-          loginLimits = [
+        pam = l.mkDefault {
+          loginLimits = l.mkDefault [
             {
-              domain = "*";
-              item = "core";
-              type = "hard";
-              value = "0";
+              domain = l.mkDefault "*";
+              item = l.mkDefault "core";
+              type = l.mkDefault "hard";
+              value = l.mkDefault "0";
             }
           ];
-          services = {
+          services = l.mkDefault {
             # Increase hashing rounds for /etc/shadow; this doesn't automatically
             # rehash your passwords, you'll need to set passwords for your accounts
             # again for this to work.
-            passwd.text = ''
+            passwd.text = l.mkDefault ''
               password required pam_unix.so sha512 shadow nullok rounds=65536
             '';
             # Enable PAM support for securetty, to prevent root login.
@@ -1167,29 +1167,29 @@ in
               ''
             );
 
-            su.requireWheel = true;
-            su-l.requireWheel = true;
-            system-login.failDelay.delay = "4000000";
+            su.requireWheel = l.mkDefault true;
+            su-l.requireWheel = l.mkDefault true;
+            system-login.failDelay.delay = l.mkDefault "4000000";
           };
         };
       };
-      services = {
+      services = l.mkDefault {
         # Disallow root login over SSH. Doesn't matter on systems without SSH.
-        openssh.settings.PermitRootLogin = "no";
+        openssh.settings.PermitRootLogin = l.mkDefault "no";
 
         # DNS connections will fail if not using a DNS server supporting DNSSEC.
-        resolved.dnssec = "true";
+        resolved.dnssec = l.mkDefault "true";
 
         # Prevent BadUSB attacks, but requires whitelisting of USB devices. 
-        usbguard.enable = true;
+        usbguard.enable = l.mkDefault true;
       };
 
       # Get extra entropy since we disabled hardware entropy sources
       # Read more about why at the following URLs:
       # https://github.com/smuellerDD/jitterentropy-rngd/issues/27
       # https://blogs.oracle.com/linux/post/rngd1
-      services.jitterentropy-rngd.enable = true;
-      boot.kernelModules = [ "jitterentropy_rng" ];
+      services.jitterentropy-rngd.enable = l.mkDefault true;
+      boot.kernelModules = l.mkDefault [ "jitterentropy_rng" ];
 
       # Don't store coredumps from systemd-coredump.
       systemd.coredump.extraConfig = l.mkDefault ''
@@ -1199,21 +1199,21 @@ in
       # Enable IPv6 privacy extensions for systemd-networkd.
       systemd.network.config.networkConfig.IPv6PrivacyExtensions = l.mkDefault "kernel";
 
-      systemd.tmpfiles.settings = {
+      systemd.tmpfiles.settings = l.mkDefault {
         # Restrict permissions of /home/$USER so that only the owner of the
         # directory can access it (the user). systemd-tmpfiles also has the benefit
         # of recursively setting permissions too, with the "Z" option as seen below.
-        "restricthome"."/home/*".Z.mode = "~0700";
+        "restricthome"."/home/*".Z.mode = l.mkDefault "~0700";
 
         # Make all files in /etc/nixos owned by root, and only readable by root.
         # /etc/nixos is not owned by root by default, and configuration files can
         # on occasion end up also not owned by root. This can be hazardous as files
         # that are included in the rebuild may be editable by unprivileged users,
         # so this mitigates that.
-        "restrictetcnixos"."/etc/nixos/*".Z = {
-          mode = "0000";
-          user = "root";
-          group = "root";
+        "restrictetcnixos"."/etc/nixos/*".Z = l.mkDefault {
+          mode = l.mkDefault "0000";
+          user = l.mkDefault "root";
+          group = l.mkDefault "root";
         };
       };
 
@@ -1221,10 +1221,10 @@ in
       # that sensitive data is written to disk, and eliminates it if zram is used
       # to completely replace swap to disk. Generally *improves* storage lifespan
       # and performance, there usually isn't a need to disable this.
-      zramSwap.enable = true;
+      zramSwap.enable = l.mkDefault true;
 
       # Limit access to nix to users with the "wheel" group. ("sudoers")
-      nix.settings.allowed-users = l.mkForce [ "@wheel" ];
+      nix.settings.allowed-users = l.mkDefault [ "@wheel" ];
     })
   ];
 }
