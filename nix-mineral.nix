@@ -486,7 +486,7 @@ in
         (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
         (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
         (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-      ])
+      ]);
     })
 
     (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
