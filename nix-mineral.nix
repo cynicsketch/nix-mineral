@@ -980,7 +980,7 @@ in
         # noexec on /home can be very inconvenient for desktops. See overrides.
         "/home" = {
           device = l.mkDefault "/home";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -991,7 +991,7 @@ in
         # You do not want to install applications here anyways.
         "/root" = {
           device = l.mkDefault "/root";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1002,7 +1002,7 @@ in
         # Some applications may need to be executable in /tmp. See overrides.
         "/tmp" = {
           device = l.mkDefault "/tmp";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1013,7 +1013,7 @@ in
         # noexec on /var(/lib) may cause breakage. See overrides.
         "/var" = {
           device = l.mkDefault "/var";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1022,7 +1022,7 @@ in
         };
 
         "/boot" = {
-          options = l.mkDefault [
+          options = [
             "nosuid"
             "noexec"
             "nodev"
@@ -1031,7 +1031,7 @@ in
 
         "/srv" = {
           device = l.mkDefault "/srv";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1041,7 +1041,7 @@ in
 
         "/etc" = {
           device = l.mkDefault "/etc";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "nodev"
@@ -1077,7 +1077,7 @@ in
         # Hide processes from other users except root, may cause breakage.
         # See overrides, in desktop section.
         "/proc" = {
-          device = "proc";
+          device = l.mkDefault "proc";
           options = [
             "hidepid=2"
             "gid=${toString config.users.groups.proc.gid}"
