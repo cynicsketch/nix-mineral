@@ -714,7 +714,7 @@ in
     # Main module
 
     (l.mkIf cfg.enable {
-      boot = l.mkDefault {
+      boot = {
         kernel = l.mkDefault {
           sysctl = l.mkDefault {
             # Unprivileged userns has a large attack surface and has been the cause
@@ -1174,7 +1174,7 @@ in
           };
         };
       };
-      services = l.mkDefault {
+      services = {
         # Disallow root login over SSH. Doesn't matter on systems without SSH.
         openssh.settings.PermitRootLogin = l.mkDefault "no";
 
