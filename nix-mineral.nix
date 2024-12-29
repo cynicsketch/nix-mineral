@@ -490,10 +490,10 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
-      boot.specialFileSystems."/proc" = l.mkForce {
-        fsType = l.mkDefault "proc";
-        device = l.mkDefault "proc";
-        options = l.mkDefault [
+      boot.specialFileSystems."/proc" = {
+        fsType = l.mkForce "proc";
+        device = l.mkForce "proc";
+        options = l.mkForce [
           "nosuid"
           "nodev"
           "noexec"
@@ -504,9 +504,9 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.home-exec {
-      fileSystems."/home" = l.mkForce {
-        device = l.mkDefault "/home";
-        options = l.mkDefault [
+      fileSystems."/home" = {
+        device = l.mkForce "/home";
+        options = l.mkForce [
           "bind"
           "nosuid"
           "exec"
@@ -518,9 +518,9 @@ in
     (l.mkIf cfg.overrides.desktop.nix-allow-all { nix.settings.allowed-users = l.mkForce [ "*" ]; })
 
     (l.mkIf cfg.overrides.desktop.tmp-exec {
-      fileSystems."/tmp" = l.mkForce {
-        device = l.mkDefault "/tmp";
-        options = l.mkDefault [
+      fileSystems."/tmp" = {
+        device = l.mkForce "/tmp";
+        options = l.mkForce [
           "bind"
           "nosuid"
           "exec"
@@ -555,9 +555,9 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.var-lib-exec {
-      fileSystems."/var/lib" = l.mkForce {
-        device = l.mkDefault "/var/lib";
-        options = l.mkDefault [
+      fileSystems."/var/lib" = {
+        device = l.mkForce "/var/lib";
+        options = l.mkForce [
           "bind"
           "nosuid"
           "exec"
