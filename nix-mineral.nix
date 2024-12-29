@@ -491,8 +491,6 @@ in
 
     (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
       boot.specialFileSystems."/proc" = {
-        fsType = l.mkForce "proc";
-        device = l.mkForce "proc";
         options = l.mkForce [
           "nosuid"
           "nodev"
@@ -1057,51 +1055,30 @@ in
       boot.specialFileSystems = {
         # Add noexec to /dev/shm
         "/dev/shm" = {
-          fsType = l.mkDefault "tmpfs";
-          options = l.mkDefault [
-            "nosuid"
-            "nodev"
+          options = [
             "noexec"
-            "strictatime"
-            "mode=1777"
-            "size=${config.boot.devShmSize}"
           ];
         };
 
         # Add noexec to /run
         "/run" = {
-          fsType = l.mkDefault "tmpfs";
-          options = l.mkDefault [
-            "nosuid"
-            "nodev"
+          options = [
             "noexec"
-            "strictatime"
-            "mode=755"
-            "size=${config.boot.runSize}"
           ];
         };
 
         # Add noexec to /dev
         "/dev" = {
-          fsType = l.mkDefault "devtmpfs";
-          options = l.mkDefault [
-            "nosuid"
+          options = [
             "noexec"
-            "strictatime"
-            "mode=755"
-            "size=${config.boot.devSize}"
           ];
         };
 
         # Hide processes from other users except root, may cause breakage.
         # See overrides, in desktop section.
         "/proc" = {
-          fsType = l.mkDefault "proc";
-          device = l.mkDefault "proc";
-          options = l.mkDefault [
-            "nosuid"
-            "nodev"
-            "noexec"
+          device = "proc";
+          options = [
             "hidepid=2"
             "gid=${toString config.users.groups.proc.gid}"
           ];
