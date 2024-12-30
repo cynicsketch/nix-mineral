@@ -441,274 +441,6 @@ in
 
   config = l.mkMerge [
 
-    # Compatibility
-
-    (l.mkIf cfg.overrides.compatibility.allow-unsigned-modules {
-      boot.kernelParams = l.mkOverride 100 [ "module.sig_enforce=0" ];
-    })
-
-    (l.mkIf cfg.overrides.compatibility.allow-binfmt-misc {
-      boot.kernel.sysctl."fs.binfmt_misc.status" = l.mkForce "1";
-    })
-
-    (l.mkIf cfg.overrides.compatibility.allow-busmaster-bit {
-      boot.kernelParams = l.mkOverride 100 [ "efi=no_disable_early_pci_dma" ];
-    })
-
-    (l.mkIf cfg.overrides.compatibility.allow-io-uring {
-      boot.kernel.sysctl."kernel.io_uring_disabled" = l.mkForce "0";
-    })
-
-    (l.mkIf cfg.overrides.compatibility.allow-ip-forward {
-      boot.kernel.sysctl."net.ipv4.ip_forward" = l.mkForce "1";
-      boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = l.mkForce "1";
-      boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = l.mkForce "1";
-      boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = l.mkForce "1";
-      boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = l.mkForce "1";
-    })
-
-    (l.mkIf cfg.overrides.compatibility.no-lockdown {
-      boot.kernelParams = l.mkOverride 100 [ "lockdown=" ];
-    })
-
-    # Desktop
-
-    (l.mkIf cfg.overrides.desktop.allow-multilib {
-      boot.kernelParams = l.mkOverride 100 [ "ia32_emulation=1" ];
-    })
-
-    (l.mkIf cfg.overrides.desktop.allow-unprivileged-userns {
-      boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.mkForce "1";
-    })
-
-    (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
-      environment.systemPackages = (with pkgs; [
-        (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
-        (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-        (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-      ]);
-    })
-
-    (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
-      boot.specialFileSystems."/proc" = {
-        options = l.mkForce [
-          "nosuid"
-          "nodev"
-          "noexec"
-          "hidepid=4"
-          "gid=${toString config.users.groups.proc.gid}"
-        ];
-      };
-    })
-
-    (l.mkIf cfg.overrides.desktop.home-exec {
-      fileSystems."/home" = {
-        device = l.mkForce "/home";
-        options = l.mkForce [
-          "bind"
-          "nosuid"
-          "exec"
-          "nodev"
-        ];
-      };
-    })
-
-    (l.mkIf cfg.overrides.desktop.nix-allow-all { nix.settings.allowed-users = l.mkForce [ "*" ]; })
-
-    (l.mkIf cfg.overrides.desktop.tmp-exec {
-      fileSystems."/tmp" = {
-        device = l.mkForce "/tmp";
-        options = l.mkForce [
-          "bind"
-          "nosuid"
-          "exec"
-          "nodev"
-        ];
-      };
-    })
-
-    (l.mkIf cfg.overrides.desktop.usbguard-allow-at-boot {
-      services.usbguard.presentDevicePolicy = l.mkForce "allow";
-    })
-
-    (l.mkIf cfg.overrides.desktop.disable-usbguard { services.usbguard.enable = l.mkForce false; })
-
-    (l.mkIf cfg.overrides.desktop.usbguard-gnome-integration {
-      services.usbguard.dbus.enable = l.mkForce true;
-      security.polkit = {
-        extraConfig = ''
-          polkit.addRule(function(action, subject) {
-            if ((action.id == "org.usbguard.Policy1.listRules" ||
-                 action.id == "org.usbguard.Policy1.appendRule" ||
-                 action.id == "org.usbguard.Policy1.removeRule" ||
-                 action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
-                 action.id == "org.usbguard.Devices1.listDevices" ||
-                 action.id == "org.usbguard1.getParameter" ||
-                 action.id == "org.usbguard1.setParameter") &&
-                 subject.active == true && subject.local == true &&
-                 subject.isInGroup("wheel")) { return polkit.Result.YES; }
-          });
-        '';
-      };
-    })
-
-    (l.mkIf cfg.overrides.desktop.var-lib-exec {
-      fileSystems."/var/lib" = {
-        device = l.mkForce "/var/lib";
-        options = l.mkForce [
-          "bind"
-          "nosuid"
-          "exec"
-          "nodev"
-        ];
-      };
-    })
-
-    (l.mkIf cfg.overrides.desktop.yama-relaxed {
-      boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce "1";
-    })
-
-    # Performance
-
-    (l.mkIf cfg.overrides.performance.allow-smt {
-      boot.kernelParams = l.mkOverride 100 [ "mitigations=auto" ];
-    })
-
-    (l.mkIf cfg.overrides.performance.iommu-passthrough {
-      boot.kernelParams = l.mkOverride 100 [ "iommu.passthrough=1" ];
-    })
-
-    (l.mkIf cfg.overrides.performance.no-mitigations {
-      boot.kernelParams = l.mkOverride 100 [ "mitigations=off" ];
-    })
-
-    (l.mkIf cfg.overrides.performance.no-pti { boot.kernelParams = l.mkOverride 100 [ "pti=off" ]; })
-
-    # Security
-
-    (l.mkIf cfg.overrides.security.disable-bluetooth-kmodules {
-      environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
-        text = ''
-          install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
-          install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
-          install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
-          install btbcm /usr/bin/disabled-bluetooth-by-security-misc
-          install btintel /usr/bin/disabled-bluetooth-by-security-misc
-          install btmrvl /usr/bin/disabled-bluetooth-by-security-misc
-          install btmrvl_sdio /usr/bin/disabled-bluetooth-by-security-misc
-          install btmtk /usr/bin/disabled-bluetooth-by-security-misc
-          install btmtksdio /usr/bin/disabled-bluetooth-by-security-misc
-          install btmtkuart /usr/bin/disabled-bluetooth-by-security-misc
-          install btnxpuart /usr/bin/disabled-bluetooth-by-security-misc
-          install btqca /usr/bin/disabled-bluetooth-by-security-misc
-          install btrsi /usr/bin/disabled-bluetooth-by-security-misc
-          install btrtl /usr/bin/disabled-bluetooth-by-security-misc
-          install btsdio /usr/bin/disabled-bluetooth-by-security-misc
-          install btusb /usr/bin/disabled-bluetooth-by-security-misc
-          install virtio_bt /usr/bin/disabled-bluetooth-by-security-misc
-        '';
-      };
-    })
-
-    (l.mkIf cfg.overrides.security.disable-intelme-kmodules {
-      environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
-        text = ''
-          install mei /usr/bin/disabled-intelme-by-security-misc
-          install mei-gsc /usr/bin/disabled-intelme-by-security-misc
-          install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
-          install mei_hdcp /usr/bin/disabled-intelme-by-security-misc
-          install mei-me /usr/bin/disabled-intelme-by-security-misc
-          install mei_phy /usr/bin/disabled-intelme-by-security-misc
-          install mei_pxp /usr/bin/disabled-intelme-by-security-misc
-          install mei-txe /usr/bin/disabled-intelme-by-security-misc
-          install mei-vsc /usr/bin/disabled-intelme-by-security-misc
-          install mei-vsc-hw /usr/bin/disabled-intelme-by-security-misc
-          install mei_wdt /usr/bin/disabled-intelme-by-security-misc
-          install microread_mei /usr/bin/disabled-intelme-by-security-misc
-        '';
-      };
-    })
-
-    (l.mkIf cfg.overrides.security.disable-module-loading {
-      boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
-    })
-
-    (l.mkIf cfg.overrides.security.disable-tcp-window-scaling {
-      boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
-    })
-
-    (l.mkIf cfg.overrides.security.hardened-malloc-systemwide {
-      environment.memoryAllocator = {
-        provider = l.mkDefault "graphene-hardened";
-      };
-    })
-
-    (l.mkIf cfg.overrides.security.lock-root {
-      users = {
-        users = {
-          root = {
-            hashedPassword = l.mkDefault "!";
-          };
-        };
-      };
-    })
-
-    (l.mkIf cfg.overrides.security.minimize-swapping {
-      boot.kernel.sysctl."vm.swappiness" = l.mkForce "1";
-    })
-
-    (l.mkIf cfg.overrides.security.sysrq-sak { boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4"; })
-
-    (l.mkIf cfg.overrides.security.disable-tcp-timestamp {
-      boot.kernel.sysctl."net.ipv4.tcp_timestamps" = l.mkForce "0";
-    })
-
-    # Software Choice
-
-    (l.mkIf cfg.overrides.software-choice.doas-no-sudo {
-      security.sudo.enable = l.mkDefault false;
-      security.doas = {
-        enable = l.mkDefault true;
-        extraRules = [
-          {
-            keepEnv = l.mkDefault true;
-            persist = l.mkDefault true;
-            users = l.mkDefault [ "user" ];
-          }
-        ];
-      };
-    })
-
-    (l.mkIf cfg.overrides.software-choice.use-hardened-kernel {
-      boot.kernelPackages = l.mkForce pkgs.linuxPackages_hardened;
-    })
-
-    (l.mkIf cfg.overrides.software-choice.no-firewall { networking.firewall.enable = l.mkForce false; })
-
-    (l.mkIf cfg.overrides.software-choice.secure-chrony {
-      services.timesyncd = {
-        enable = l.mkDefault false;
-      };
-      services.chrony = {
-        enable = l.mkDefault true;
-
-        extraFlags = l.mkDefault [ "-F 1" ];
-        # Enable seccomp filter for chronyd.
-
-        enableRTCTrimming = l.mkDefault false;
-        # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either 
-        # this or 'rtcsync' must be disabled to complete a successful rebuild,
-        # or an error will be thrown due to these options conflicting with
-        # eachother.
-
-        # The below config is borrowed from GrapheneOS server infrastructure.
-        # It enables NTS to secure NTP requests, among some other useful
-        # settings.
-
-        extraConfig.source = fetchGhFile sources.chrony;
-      };
-    })
-
     # Main module
 
     (l.mkIf cfg.enable {
@@ -1203,6 +935,274 @@ in
 
       # Limit access to nix to users with the "wheel" group. ("sudoers")
       nix.settings.allowed-users = l.mkDefault [ "@wheel" ];
+    })
+
+    # Compatibility
+
+    (l.mkIf cfg.overrides.compatibility.allow-unsigned-modules {
+      boot.kernelParams = l.mkOverride 100 [ "module.sig_enforce=0" ];
+    })
+
+    (l.mkIf cfg.overrides.compatibility.allow-binfmt-misc {
+      boot.kernel.sysctl."fs.binfmt_misc.status" = l.mkForce "1";
+    })
+
+    (l.mkIf cfg.overrides.compatibility.allow-busmaster-bit {
+      boot.kernelParams = l.mkOverride 100 [ "efi=no_disable_early_pci_dma" ];
+    })
+
+    (l.mkIf cfg.overrides.compatibility.allow-io-uring {
+      boot.kernel.sysctl."kernel.io_uring_disabled" = l.mkForce "0";
+    })
+
+    (l.mkIf cfg.overrides.compatibility.allow-ip-forward {
+      boot.kernel.sysctl."net.ipv4.ip_forward" = l.mkForce "1";
+      boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = l.mkForce "1";
+      boot.kernel.sysctl."net.ipv4.conf.default.forwarding" = l.mkForce "1";
+      boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = l.mkForce "1";
+      boot.kernel.sysctl."net.ipv6.conf.default.forwarding" = l.mkForce "1";
+    })
+
+    (l.mkIf cfg.overrides.compatibility.no-lockdown {
+      boot.kernelParams = l.mkOverride 100 [ "lockdown=" ];
+    })
+
+    # Desktop
+
+    (l.mkIf cfg.overrides.desktop.allow-multilib {
+      boot.kernelParams = l.mkOverride 100 [ "ia32_emulation=1" ];
+    })
+
+    (l.mkIf cfg.overrides.desktop.allow-unprivileged-userns {
+      boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.mkForce "1";
+    })
+
+    (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
+      environment.systemPackages = (with pkgs; [
+        (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
+        (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
+        (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
+      ]);
+    })
+
+    (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
+      boot.specialFileSystems."/proc" = {
+        options = l.mkForce [
+          "nosuid"
+          "nodev"
+          "noexec"
+          "hidepid=4"
+          "gid=${toString config.users.groups.proc.gid}"
+        ];
+      };
+    })
+
+    (l.mkIf cfg.overrides.desktop.home-exec {
+      fileSystems."/home" = {
+        device = l.mkForce "/home";
+        options = l.mkForce [
+          "bind"
+          "nosuid"
+          "exec"
+          "nodev"
+        ];
+      };
+    })
+
+    (l.mkIf cfg.overrides.desktop.nix-allow-all { nix.settings.allowed-users = l.mkForce [ "*" ]; })
+
+    (l.mkIf cfg.overrides.desktop.tmp-exec {
+      fileSystems."/tmp" = {
+        device = l.mkForce "/tmp";
+        options = l.mkForce [
+          "bind"
+          "nosuid"
+          "exec"
+          "nodev"
+        ];
+      };
+    })
+
+    (l.mkIf cfg.overrides.desktop.usbguard-allow-at-boot {
+      services.usbguard.presentDevicePolicy = l.mkForce "allow";
+    })
+
+    (l.mkIf cfg.overrides.desktop.disable-usbguard { services.usbguard.enable = l.mkForce false; })
+
+    (l.mkIf cfg.overrides.desktop.usbguard-gnome-integration {
+      services.usbguard.dbus.enable = l.mkForce true;
+      security.polkit = {
+        extraConfig = ''
+          polkit.addRule(function(action, subject) {
+            if ((action.id == "org.usbguard.Policy1.listRules" ||
+                 action.id == "org.usbguard.Policy1.appendRule" ||
+                 action.id == "org.usbguard.Policy1.removeRule" ||
+                 action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
+                 action.id == "org.usbguard.Devices1.listDevices" ||
+                 action.id == "org.usbguard1.getParameter" ||
+                 action.id == "org.usbguard1.setParameter") &&
+                 subject.active == true && subject.local == true &&
+                 subject.isInGroup("wheel")) { return polkit.Result.YES; }
+          });
+        '';
+      };
+    })
+
+    (l.mkIf cfg.overrides.desktop.var-lib-exec {
+      fileSystems."/var/lib" = {
+        device = l.mkForce "/var/lib";
+        options = l.mkForce [
+          "bind"
+          "nosuid"
+          "exec"
+          "nodev"
+        ];
+      };
+    })
+
+    (l.mkIf cfg.overrides.desktop.yama-relaxed {
+      boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce "1";
+    })
+
+    # Performance
+
+    (l.mkIf cfg.overrides.performance.allow-smt {
+      boot.kernelParams = l.mkOverride 100 [ "mitigations=auto" ];
+    })
+
+    (l.mkIf cfg.overrides.performance.iommu-passthrough {
+      boot.kernelParams = l.mkOverride 100 [ "iommu.passthrough=1" ];
+    })
+
+    (l.mkIf cfg.overrides.performance.no-mitigations {
+      boot.kernelParams = l.mkOverride 100 [ "mitigations=off" ];
+    })
+
+    (l.mkIf cfg.overrides.performance.no-pti { boot.kernelParams = l.mkOverride 100 [ "pti=off" ]; })
+
+    # Security
+
+    (l.mkIf cfg.overrides.security.disable-bluetooth-kmodules {
+      environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
+        text = ''
+          install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
+          install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
+          install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
+          install btbcm /usr/bin/disabled-bluetooth-by-security-misc
+          install btintel /usr/bin/disabled-bluetooth-by-security-misc
+          install btmrvl /usr/bin/disabled-bluetooth-by-security-misc
+          install btmrvl_sdio /usr/bin/disabled-bluetooth-by-security-misc
+          install btmtk /usr/bin/disabled-bluetooth-by-security-misc
+          install btmtksdio /usr/bin/disabled-bluetooth-by-security-misc
+          install btmtkuart /usr/bin/disabled-bluetooth-by-security-misc
+          install btnxpuart /usr/bin/disabled-bluetooth-by-security-misc
+          install btqca /usr/bin/disabled-bluetooth-by-security-misc
+          install btrsi /usr/bin/disabled-bluetooth-by-security-misc
+          install btrtl /usr/bin/disabled-bluetooth-by-security-misc
+          install btsdio /usr/bin/disabled-bluetooth-by-security-misc
+          install btusb /usr/bin/disabled-bluetooth-by-security-misc
+          install virtio_bt /usr/bin/disabled-bluetooth-by-security-misc
+        '';
+      };
+    })
+
+    (l.mkIf cfg.overrides.security.disable-intelme-kmodules {
+      environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
+        text = ''
+          install mei /usr/bin/disabled-intelme-by-security-misc
+          install mei-gsc /usr/bin/disabled-intelme-by-security-misc
+          install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
+          install mei_hdcp /usr/bin/disabled-intelme-by-security-misc
+          install mei-me /usr/bin/disabled-intelme-by-security-misc
+          install mei_phy /usr/bin/disabled-intelme-by-security-misc
+          install mei_pxp /usr/bin/disabled-intelme-by-security-misc
+          install mei-txe /usr/bin/disabled-intelme-by-security-misc
+          install mei-vsc /usr/bin/disabled-intelme-by-security-misc
+          install mei-vsc-hw /usr/bin/disabled-intelme-by-security-misc
+          install mei_wdt /usr/bin/disabled-intelme-by-security-misc
+          install microread_mei /usr/bin/disabled-intelme-by-security-misc
+        '';
+      };
+    })
+
+    (l.mkIf cfg.overrides.security.disable-module-loading {
+      boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
+    })
+
+    (l.mkIf cfg.overrides.security.disable-tcp-window-scaling {
+      boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
+    })
+
+    (l.mkIf cfg.overrides.security.hardened-malloc-systemwide {
+      environment.memoryAllocator = {
+        provider = l.mkDefault "graphene-hardened";
+      };
+    })
+
+    (l.mkIf cfg.overrides.security.lock-root {
+      users = {
+        users = {
+          root = {
+            hashedPassword = l.mkDefault "!";
+          };
+        };
+      };
+    })
+
+    (l.mkIf cfg.overrides.security.minimize-swapping {
+      boot.kernel.sysctl."vm.swappiness" = l.mkForce "1";
+    })
+
+    (l.mkIf cfg.overrides.security.sysrq-sak { boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4"; })
+
+    (l.mkIf cfg.overrides.security.disable-tcp-timestamp {
+      boot.kernel.sysctl."net.ipv4.tcp_timestamps" = l.mkForce "0";
+    })
+
+    # Software Choice
+
+    (l.mkIf cfg.overrides.software-choice.doas-no-sudo {
+      security.sudo.enable = l.mkDefault false;
+      security.doas = {
+        enable = l.mkDefault true;
+        extraRules = [
+          {
+            keepEnv = l.mkDefault true;
+            persist = l.mkDefault true;
+            users = l.mkDefault [ "user" ];
+          }
+        ];
+      };
+    })
+
+    (l.mkIf cfg.overrides.software-choice.use-hardened-kernel {
+      boot.kernelPackages = l.mkForce pkgs.linuxPackages_hardened;
+    })
+
+    (l.mkIf cfg.overrides.software-choice.no-firewall { networking.firewall.enable = l.mkForce false; })
+
+    (l.mkIf cfg.overrides.software-choice.secure-chrony {
+      services.timesyncd = {
+        enable = l.mkDefault false;
+      };
+      services.chrony = {
+        enable = l.mkDefault true;
+
+        extraFlags = l.mkDefault [ "-F 1" ];
+        # Enable seccomp filter for chronyd.
+
+        enableRTCTrimming = l.mkDefault false;
+        # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either 
+        # this or 'rtcsync' must be disabled to complete a successful rebuild,
+        # or an error will be thrown due to these options conflicting with
+        # eachother.
+
+        # The below config is borrowed from GrapheneOS server infrastructure.
+        # It enables NTS to secure NTP requests, among some other useful
+        # settings.
+
+        extraConfig.source = fetchGhFile sources.chrony;
+      };
     })
   ];
 }
