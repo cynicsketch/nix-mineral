@@ -482,7 +482,7 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
-      environment.systemPackages = l.mkDefault (with pkgs; [
+      environment.systemPackages = (with pkgs; [
         (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
         (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
         (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
@@ -490,10 +490,8 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.hideproc-ptraceable {
-      boot.specialFileSystems."/proc" = l.mkForce {
-        fsType = l.mkDefault "proc";
-        device = l.mkDefault "proc";
-        options = l.mkDefault [
+      boot.specialFileSystems."/proc" = {
+        options = l.mkForce [
           "nosuid"
           "nodev"
           "noexec"
@@ -504,9 +502,9 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.home-exec {
-      fileSystems."/home" = l.mkForce {
-        device = l.mkDefault "/home";
-        options = l.mkDefault [
+      fileSystems."/home" = {
+        device = l.mkForce "/home";
+        options = l.mkForce [
           "bind"
           "nosuid"
           "exec"
@@ -518,9 +516,9 @@ in
     (l.mkIf cfg.overrides.desktop.nix-allow-all { nix.settings.allowed-users = l.mkForce [ "*" ]; })
 
     (l.mkIf cfg.overrides.desktop.tmp-exec {
-      fileSystems."/tmp" = l.mkForce {
-        device = l.mkDefault "/tmp";
-        options = l.mkDefault [
+      fileSystems."/tmp" = {
+        device = l.mkForce "/tmp";
+        options = l.mkForce [
           "bind"
           "nosuid"
           "exec"
@@ -537,8 +535,8 @@ in
 
     (l.mkIf cfg.overrides.desktop.usbguard-gnome-integration {
       services.usbguard.dbus.enable = l.mkForce true;
-      security.polkit = l.mkDefault {
-        extraConfig = l.mkDefault ''
+      security.polkit = {
+        extraConfig = ''
           polkit.addRule(function(action, subject) {
             if ((action.id == "org.usbguard.Policy1.listRules" ||
                  action.id == "org.usbguard.Policy1.appendRule" ||
@@ -555,9 +553,9 @@ in
     })
 
     (l.mkIf cfg.overrides.desktop.var-lib-exec {
-      fileSystems."/var/lib" = l.mkForce {
-        device = l.mkDefault "/var/lib";
-        options = l.mkDefault [
+      fileSystems."/var/lib" = {
+        device = l.mkForce "/var/lib";
+        options = l.mkForce [
           "bind"
           "nosuid"
           "exec"
@@ -589,8 +587,8 @@ in
     # Security
 
     (l.mkIf cfg.overrides.security.disable-bluetooth-kmodules {
-      environment.etc."modprobe.d/nm-disable-bluetooth.conf" = l.mkDefault {
-        text = l.mkDefault ''
+      environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
+        text = ''
           install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
           install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
           install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
@@ -613,8 +611,8 @@ in
     })
 
     (l.mkIf cfg.overrides.security.disable-intelme-kmodules {
-      environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = l.mkDefault {
-        text = l.mkDefault ''
+      environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
+        text = ''
           install mei /usr/bin/disabled-intelme-by-security-misc
           install mei-gsc /usr/bin/disabled-intelme-by-security-misc
           install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
@@ -640,15 +638,15 @@ in
     })
 
     (l.mkIf cfg.overrides.security.hardened-malloc-systemwide {
-      environment.memoryAllocator = l.mkDefault {
+      environment.memoryAllocator = {
         provider = l.mkDefault "graphene-hardened";
       };
     })
 
     (l.mkIf cfg.overrides.security.lock-root {
-      users = l.mkDefault {
-        users = l.mkDefault {
-          root = l.mkDefault {
+      users = {
+        users = {
+          root = {
             hashedPassword = l.mkDefault "!";
           };
         };
@@ -669,9 +667,9 @@ in
 
     (l.mkIf cfg.overrides.software-choice.doas-no-sudo {
       security.sudo.enable = l.mkDefault false;
-      security.doas = l.mkDefault {
+      security.doas = {
         enable = l.mkDefault true;
-        extraRules = l.mkDefault [
+        extraRules = [
           {
             keepEnv = l.mkDefault true;
             persist = l.mkDefault true;
@@ -688,7 +686,7 @@ in
     (l.mkIf cfg.overrides.software-choice.no-firewall { networking.firewall.enable = l.mkForce false; })
 
     (l.mkIf cfg.overrides.software-choice.secure-chrony {
-      services.timesyncd = l.mkDefault {
+      services.timesyncd = {
         enable = l.mkDefault false;
       };
       services.chrony = {
@@ -707,16 +705,16 @@ in
         # It enables NTS to secure NTP requests, among some other useful
         # settings.
 
-        extraConfig.source = l.mkDefault fetchGhFile sources.chrony;
+        extraConfig.source = fetchGhFile sources.chrony;
       };
     })
 
     # Main module
 
     (l.mkIf cfg.enable {
-      boot = l.mkDefault {
-        kernel = l.mkDefault {
-          sysctl = l.mkDefault {
+      boot = {
+        kernel = {
+          sysctl = {
             # Unprivileged userns has a large attack surface and has been the cause
             # of many privilege escalation vulnerabilities, but can cause breakage.
             # See overrides.
@@ -876,7 +874,7 @@ in
           };
         };
 
-        kernelParams = l.mkDefault [
+        kernelParams = [
           # Requires all kernel modules to be signed. This prevents out-of-tree
           # kernel modules from working unless signed. See overrides.
           "module.sig_enforce=1"
@@ -934,9 +932,9 @@ in
         # consider disabling similar functions in your choice of bootloader.
         loader.systemd-boot.editor = l.mkDefault false;
       };
-      environment.etc = l.mkDefault {
+      environment.etc = {
         # Empty /etc/securetty to prevent root login on tty.
-        securetty.text = l.mkDefault ''
+        securetty.text = ''
           # /etc/securetty: list of terminals on which root is allowed to login.
           # See securetty(5) and login(1).
         '';
@@ -944,16 +942,16 @@ in
         # Set machine-id to the Kicksecure machine-id, for privacy reasons.
         # /var/lib/dbus/machine-id doesn't exist on dbus enabled NixOS systems,
         # so we don't have to worry about that.
-        machine-id.text = l.mkDefault ''
+        machine-id.text = ''
           b08dfa6083e7567a1921a715000001fb
         '';
 
         # Borrow Kicksecure banner/issue. 
-        issue.source = l.mkDefault (fetchGhFile sources.issue);
+        issue.source = (fetchGhFile sources.issue);
 
         # Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
         # by default for better git security.
-        gitconfig.source = l.mkDefault (fetchGhFile sources.gitconfig);
+        gitconfig.source = (fetchGhFile sources.gitconfig);
 
         # Borrow Kicksecure bluetooth configuration for better bluetooth privacy
         # and security. Disables bluetooth automatically when not connected to
@@ -964,7 +962,7 @@ in
         # "install "foobar" /bin/not-existent" prevents the module from being
         # loaded at all. "blacklist "foobar"" prevents the module from being
         # loaded automatically at boot, but it can still be loaded afterwards.
-        "modprobe.d/nm-module-blacklist.conf".source = l.mkDefault (fetchGhFile sources.module-blacklist);
+        "modprobe.d/nm-module-blacklist.conf".source = (fetchGhFile sources.module-blacklist);
       };
 
       ### Filesystem hardening
@@ -980,9 +978,9 @@ in
 
       fileSystems = {
         # noexec on /home can be very inconvenient for desktops. See overrides.
-        "/home" = l.mkDefault {
+        "/home" = {
           device = l.mkDefault "/home";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -991,9 +989,9 @@ in
         };
 
         # You do not want to install applications here anyways.
-        "/root" = l.mkDefault {
+        "/root" = {
           device = l.mkDefault "/root";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1002,9 +1000,9 @@ in
         };
 
         # Some applications may need to be executable in /tmp. See overrides.
-        "/tmp" = l.mkDefault {
+        "/tmp" = {
           device = l.mkDefault "/tmp";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1013,9 +1011,9 @@ in
         };
 
         # noexec on /var(/lib) may cause breakage. See overrides.
-        "/var" = l.mkDefault {
+        "/var" = {
           device = l.mkDefault "/var";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1023,17 +1021,17 @@ in
           ];
         };
 
-        "/boot" = l.mkDefault {
-          options = l.mkDefault [
+        "/boot" = {
+          options = [
             "nosuid"
             "noexec"
             "nodev"
           ];
         };
 
-        "/srv" = l.mkDefault {
+        "/srv" = {
           device = l.mkDefault "/srv";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "noexec"
@@ -1041,9 +1039,9 @@ in
           ];
         };
 
-        "/etc" = l.mkDefault {
+        "/etc" = {
           device = l.mkDefault "/etc";
-          options = l.mkDefault [
+          options = [
             "bind"
             "nosuid"
             "nodev"
@@ -1054,54 +1052,33 @@ in
       # Harden special filesystems while maintaining NixOS defaults as outlined
       # here:
       # https://github.com/NixOS/nixpkgs/blob/e2dd4e18cc1c7314e24154331bae07df76eb582f/nixos/modules/tasks/filesystems.nix
-      boot.specialFileSystems = l.mkDefault {
+      boot.specialFileSystems = {
         # Add noexec to /dev/shm
-        "/dev/shm" = l.mkDefault {
-          fsType = l.mkDefault "tmpfs";
-          options = l.mkDefault [
-            "nosuid"
-            "nodev"
+        "/dev/shm" = {
+          options = [
             "noexec"
-            "strictatime"
-            "mode=1777"
-            "size=${config.boot.devShmSize}"
           ];
         };
 
         # Add noexec to /run
-        "/run" = l.mkDefault {
-          fsType = l.mkDefault "tmpfs";
-          options = l.mkDefault [
-            "nosuid"
-            "nodev"
+        "/run" = {
+          options = [
             "noexec"
-            "strictatime"
-            "mode=755"
-            "size=${config.boot.runSize}"
           ];
         };
 
         # Add noexec to /dev
-        "/dev" = l.mkDefault {
-          fsType = l.mkDefault "devtmpfs";
-          options = l.mkDefault [
-            "nosuid"
+        "/dev" = {
+          options = [
             "noexec"
-            "strictatime"
-            "mode=755"
-            "size=${config.boot.devSize}"
           ];
         };
 
         # Hide processes from other users except root, may cause breakage.
         # See overrides, in desktop section.
-        "/proc" = l.mkDefault {
-          fsType = l.mkDefault "proc";
+        "/proc" = {
           device = l.mkDefault "proc";
-          options = l.mkDefault [
-            "nosuid"
-            "nodev"
-            "noexec"
+          options = [
             "hidepid=2"
             "gid=${toString config.users.groups.proc.gid}"
           ];
@@ -1112,20 +1089,20 @@ in
       # /proc in order to unbreak it, as well as to user@ for similar reasons.
       # See https://github.com/systemd/systemd/issues/12955, and https://github.com/Kicksecure/security-misc/issues/208
       users.groups.proc.gid = l.mkDefault config.ids.gids.proc;
-      systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = l.mkDefault [ "proc" ];
-      systemd.services."user@".serviceConfig.SupplementaryGroups = l.mkDefault [ "proc" ];
+      systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = [ "proc" ];
+      systemd.services."user@".serviceConfig.SupplementaryGroups = [ "proc" ];
 
       # Enables firewall. You may need to tweak your firewall rules depending on
       # your usecase. On a desktop, this shouldn't cause problems. 
-      networking = l.mkDefault {
-        firewall = l.mkDefault {
+      networking = {
+        firewall = {
           allowedTCPPorts = l.mkDefault [ ];
           allowedUDPPorts = l.mkDefault [ ];
           enable = l.mkDefault true;
         };
-        networkmanager = l.mkDefault {
+        networkmanager = {
           ethernet.macAddress = l.mkDefault "random";
-          wifi = l.mkDefault {
+          wifi = {
             macAddress = l.mkDefault "random";
             scanRandMacAddress = l.mkDefault true;
           };
@@ -1136,14 +1113,14 @@ in
 
       # Enabling MAC doesn't magically make your system secure. You need to set up
       # policies yourself for it to be effective.
-      security = l.mkDefault {
-        apparmor = l.mkDefault {
+      security = {
+        apparmor = {
           enable = l.mkDefault true;
           killUnconfinedConfinables = l.mkDefault true;
         };
 
-        pam = l.mkDefault {
-          loginLimits = l.mkDefault [
+        pam = {
+          loginLimits = [
             {
               domain = l.mkDefault "*";
               item = l.mkDefault "core";
@@ -1151,16 +1128,16 @@ in
               value = l.mkDefault "0";
             }
           ];
-          services = l.mkDefault {
+          services = {
             # Increase hashing rounds for /etc/shadow; this doesn't automatically
             # rehash your passwords, you'll need to set passwords for your accounts
             # again for this to work.
-            passwd.text = l.mkDefault ''
+            passwd.text = ''
               password required pam_unix.so sha512 shadow nullok rounds=65536
             '';
             # Enable PAM support for securetty, to prevent root login.
             # https://unix.stackexchange.com/questions/670116/debian-bullseye-disable-console-tty-login-for-root
-            login.text = l.mkDefault (
+            login.text = (
               l.mkBefore ''
                 # Enable securetty support.
                 auth       requisite  pam_nologin.so
@@ -1174,7 +1151,7 @@ in
           };
         };
       };
-      services = l.mkDefault {
+      services = {
         # Disallow root login over SSH. Doesn't matter on systems without SSH.
         openssh.settings.PermitRootLogin = l.mkDefault "no";
 
@@ -1190,17 +1167,17 @@ in
       # https://github.com/smuellerDD/jitterentropy-rngd/issues/27
       # https://blogs.oracle.com/linux/post/rngd1
       services.jitterentropy-rngd.enable = l.mkDefault true;
-      boot.kernelModules = l.mkDefault [ "jitterentropy_rng" ];
+      boot.kernelModules = [ "jitterentropy_rng" ];
 
       # Don't store coredumps from systemd-coredump.
-      systemd.coredump.extraConfig = l.mkDefault ''
+      systemd.coredump.extraConfig = ''
         Storage=none
       '';
 
       # Enable IPv6 privacy extensions for systemd-networkd.
       systemd.network.config.networkConfig.IPv6PrivacyExtensions = l.mkDefault "kernel";
 
-      systemd.tmpfiles.settings = l.mkDefault {
+      systemd.tmpfiles.settings = {
         # Restrict permissions of /home/$USER so that only the owner of the
         # directory can access it (the user). systemd-tmpfiles also has the benefit
         # of recursively setting permissions too, with the "Z" option as seen below.
@@ -1211,7 +1188,7 @@ in
         # on occasion end up also not owned by root. This can be hazardous as files
         # that are included in the rebuild may be editable by unprivileged users,
         # so this mitigates that.
-        "restrictetcnixos"."/etc/nixos/*".Z = l.mkDefault {
+        "restrictetcnixos"."/etc/nixos/*".Z = {
           mode = l.mkDefault "0000";
           user = l.mkDefault "root";
           group = l.mkDefault "root";
