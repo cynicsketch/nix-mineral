@@ -866,18 +866,23 @@ in
             # Increase hashing rounds for /etc/shadow; this doesn't automatically
             # rehash your passwords, you'll need to set passwords for your accounts
             # again for this to work.
-            passwd.text = ''
-              password required pam_unix.so sha512 shadow nullok rounds=65536
-            '';
+            passwd.rules.password."unix".settings.rounds = l.mkDefault 65536;
             # Enable PAM support for securetty, to prevent root login.
             # https://unix.stackexchange.com/questions/670116/debian-bullseye-disable-console-tty-login-for-root
-            login.text = (
-              l.mkBefore ''
-                # Enable securetty support.
-                auth       requisite  pam_nologin.so
-                auth       requisite  pam_securetty.so
-              ''
-            );
+            login.rules.auth = { 
+              "nologin" = {
+                enable = l.mkDefault true;
+                order = l.mkDefault 0;
+                control = l.mkDefault "requisite";
+                modulePath = l.mkDefault "${config.security.pam.package}/lib/security/pam_nologin.so";
+              };
+              "securetty" = {
+                enable = l.mkDefault true;
+                order = l.mkDefault 1;
+                control = l.mkDefault "requisite";
+                modulePath = l.mkDefault "${config.security.pam.package}/lib/security/pam_securetty.so";
+              };
+            };
 
             su.requireWheel = l.mkDefault true;
             su-l.requireWheel = l.mkDefault true;
