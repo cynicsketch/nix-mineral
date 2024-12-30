@@ -447,6 +447,8 @@ in
       boot = {
         kernel = {
           sysctl = {
+            # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
+
             # Unprivileged userns has a large attack surface and has been the cause
             # of many privilege escalation vulnerabilities, but can cause breakage.
             # See overrides.
@@ -472,7 +474,7 @@ in
             # Disable ip forwarding to reduce attack surface. May be needed for
             # VM networking. See overrides file.
             "net.ipv4.ip_forward" = l.mkDefault "0";
-            "net.ipv4.conf.all.forwarding" = l.mkDefault "0";
+            "net.ipv4.conf.all.forwarding" = l.mkOverride 900 "0";
             "net.ipv4.conf.default.forwarding" = l.mkDefault "0";
             "net.ipv6.conf.all.forwarding" = l.mkDefault "0";
             "net.ipv6.conf.default.forwarding" = l.mkDefault "0";
@@ -489,9 +491,9 @@ in
             "fs.suid_dumpable" = l.mkDefault "0";
             "kernel.dmesg_restrict" = l.mkDefault "1";
             "kernel.kexec_load_disabled" = l.mkDefault "1";
-            "kernel.kptr_restrict" = l.mkDefault "2";
+            "kernel.kptr_restrict" = l.mkOverride 900 "2";
             "kernel.perf_event_paranoid" = l.mkDefault "3";
-            "kernel.printk" = l.mkDefault "3 3 3 3";
+            "kernel.printk" = l.mkOverride 900 "3 3 3 3";
             "kernel.unprivileged_bpf_disabled" = l.mkDefault "1";
             "net.core.bpf_jit_harden" = l.mkDefault "2";
             "net.ipv4.conf.all.accept_redirects" = l.mkDefault "0";
