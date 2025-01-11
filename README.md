@@ -6,7 +6,11 @@ Rather than be named after a mineral, it's named after the word "mineral."
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
 
 ## Scope
-Reasonably harden NixOS in a way that can be quickly deployed by the end user. Threat model assumes non-governmental adversaries, and anonymity is not considered.
+Reasonably harden NixOS in a way that can be quickly deployed by the end user.
+
+`nix-mineral` primarily aims to configure, *not* install additional software unless the user explcitly does so (with the exception of AppArmor, since its not known to cause any issues and has no functioning alternatives on NixOS). Although some replacements to commonly used applications could be considered more "secure" due to improved memory safety among other metrics, we avoid replacing such applications by default to help preserve user freedom.
+
+Threat model assumes non-governmental adversaries, and anonymity is not considered.
 
 If you think the Feds are out to get you specifically, it's time to smash your hard drive and disappear.
 
