@@ -8,7 +8,7 @@ Rather than be named after a mineral, it's named after the word "mineral."
 ## Scope
 Reasonably harden NixOS in a way that can be quickly deployed by the end user.
 
-`nix-mineral` primarily aims to configure, *not* install additional software unless the user explcitly does so (with the exception of AppArmor, since its not known to cause any issues and has no functioning alternatives on NixOS). Although some replacements to commonly used applications could be considered more "secure" due to improved memory safety among other metrics, we avoid replacing such applications by default to help preserve user freedom.
+`nix-mineral` primarily aims to configure, *not* install additional software unless the user explcitly does so (with the exception of AppArmor, since it's not known to cause any issues and has no functioning alternatives on NixOS). Although some alternate software could be considered more "secure" due to improved memory safety among other metrics, we avoid automatic replacements by default to help preserve user freedom.
 
 Threat model assumes non-governmental adversaries, and anonymity is not considered.
 
