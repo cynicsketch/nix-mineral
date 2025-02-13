@@ -1204,6 +1204,17 @@ in
         # or an error will be thrown due to these options conflicting with
         # eachother.
 
+        servers = l.mkDefault [ ];
+        # Since servers are declared by the fetched chrony config, set the
+        # NixOS option to [ ] to prevent the default values from interfering.
+
+        initstepslew.enabled = l.mkDefault false;
+        # Initstepslew "is deprecated in favour of the makestep directive"
+        # according to:
+        # https://chrony-project.org/doc/4.6/chrony.conf.html#initstepslew.
+        # The fetched chrony config already has makestep enabled, so
+        # initstepslew is disabled (it is enabled by default).
+
         # The below config is borrowed from GrapheneOS server infrastructure.
         # It enables NTS to secure NTP requests, among some other useful
         # settings.
