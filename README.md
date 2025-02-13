@@ -1,6 +1,6 @@
 # nix-mineral
 NixOS module for convenient system hardening.
-Rather than be named after a mineral, it's named after the word "mineral."
+Rather than be named after a mineral, it's named after the word "mineral".
 
 ## WARNING
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
@@ -49,7 +49,7 @@ A non-comprehensive list of features in `nix-mineral`
 ## Usage
 
 ### Automatic Installation (fetchgit) 
-(Can be used with flake and non-flake configurations, but if you are using flakes the next, flake specific method is objectively simpler and better for you in every way.)
+(Can be used with flake and non-flake configurations, but if you are using flakes, the next flake specific method is objectively simpler and better for you in every way).
 
 You can also use fetchFromGithub, fetchTarball or fetchUrl to your preference.
 
