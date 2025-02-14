@@ -1,6 +1,6 @@
 # nix-mineral
 NixOS module for convenient system hardening.
-Rather than be named after a mineral, it's named after the word "mineral."
+Rather than be named after a mineral, it's named after the word "mineral".
 
 ## WARNING
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
@@ -8,7 +8,7 @@ Rather than be named after a mineral, it's named after the word "mineral."
 ## Scope
 Reasonably harden NixOS in a way that can be quickly deployed by the end user.
 
-`nix-mineral` primarily aims to configure, *not* install additional software unless the user explcitly does so (with the exception of AppArmor, since it's not known to cause any issues and has no functioning alternatives on NixOS). Although some alternate software could be considered more "secure" due to improved memory safety among other metrics, we avoid automatic replacements by default to help preserve user freedom.
+`nix-mineral` primarily aims to configure, *not* install additional software unless the user explicitly does so (with the exception of AppArmor, since it's not known to cause any issues and has no functioning alternatives on NixOS). Although some alternate software could be considered more "secure" due to improved memory safety among other metrics, we avoid automatic replacements by default to help preserve user freedom.
 
 Threat model assumes non-governmental adversaries, and anonymity is not considered.
 
@@ -49,7 +49,7 @@ A non-comprehensive list of features in `nix-mineral`
 ## Usage
 
 ### Automatic Installation (fetchgit) 
-(Can be used with flake and non-flake configurations, but if you are using flakes the next, flake specific method is objectively simpler and better for you in every way.)
+(Can be used with flake and non-flake configurations, but if you are using flakes, the next flake specific method is objectively simpler and better for you in every way).
 
 You can also use fetchFromGithub, fetchTarball or fetchUrl to your preference.
 
@@ -66,12 +66,12 @@ let
     # or a specific commit hash
     rev = "cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61";  
     # or the HEAD
-    ref = "HEAD"; # This will always fetch from the head of main, however this does not garuntee successful configuration evaluation in future - if we change something and you rebuild purely, your evaluation will fail because the sha256 hash will have changed (so may require manually changing every time you evaluate, to get a successful evaluation).
+    ref = "HEAD"; # This will always fetch from the head of main, however this does not guarantee successful configuration evaluation in future - if we change something and you rebuild purely, your evaluation will fail because the sha256 hash will have changed (so may require manually changing every time you evaluate, to get a successful evaluation).
 
     # After changing any of the above, you to update the hash. 
 
     # Now the sha256 hash of the repository. This can be found with the nix-prefetch-url command, or (the simpler method) you can place an incorrect, but valid hash here, and nix will fail to evaluate and tell you the hash it expected (which you can then change this value to).
-    # NOTE: this can be ommitted if you are evaluating/building impurely.
+    # NOTE: this can be omitted if you are evaluating/building impurely.
     sha256 = "1mac9cnywpc4a0x1f5n45yn4yhady1affdmkimt2lg8rcw65ajh2";
   };
 in
@@ -121,7 +121,7 @@ You can then use the `nm-overrides` config option to tweak the overrides to your
 ### Manual Installation
 (Can be used with flake and non-flake configurations)
 
-You may want to use this method if you prefer to be in control of your own configuration, or if you need to direcly edit `nix-mineral.nix` to remove/add your own options, however, this method requires manual updates if anything is changed in this repository. You could also fork this repository and use your fork with the automatic options to acheive the same effect.
+You may want to use this method if you prefer to be in control of your own configuration, or if you need to directly edit `nix-mineral.nix` to remove/add your own options, however, this method requires manual updates if anything is changed in this repository. You could also fork this repository and use your fork with the automatic options to achieve the same effect.
 
 Extract the contents of the .zip provided in the releases to `/etc/nixos` (or download from main using the  `<> Code` -> `Download Zip` dropdown), and import `nix-mineral.nix` into your configuration. Edit `nm-overrides.nix` to suit your use case or add the options to your configuration elsewhere, as the defaults are unlikely to be adequate.
 
