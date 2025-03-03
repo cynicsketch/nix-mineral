@@ -366,6 +366,14 @@ in
             Disable TCP window scaling.
           '';
         };
+        disable-amd-iommu-forced-isolation = l.mkOption {
+          type = l.types.bool;
+          default = false;
+          description = ''
+            Do not set amd_iommu=force_isolation kernel parameter.
+            Workaround hanging issue on linux kernel 6.13.
+          '';
+        };
         hardened-malloc-systemwide = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -654,10 +662,10 @@ in
           "random.trust_cpu=off"
           "random.trust_bootloader=off"
           "intel_iommu=on"
-          "amd_iommu=force_isolation"
           "iommu=force"
           "iommu.strict=1"
-        ];
+        ] ++ lib.optional (!cfg.overrides.security.disable-amd-iommu-forced-isolation)
+          "amd_iommu=force_isolation";
 
         # Disable the editor in systemd-boot, the default bootloader for NixOS.
         # This prevents access to the root shell or otherwise weakening
