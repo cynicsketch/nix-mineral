@@ -498,22 +498,22 @@ in
             "fs.protected_symlinks" = l.mkDefault "1";
             "fs.suid_dumpable" = l.mkDefault "0";
             "kernel.dmesg_restrict" = l.mkDefault "1";
-            "kernel.kexec_load_disabled" = l.mkDefault "1";
+            "kernel.kexec_load_disabled" = l.mkOverride 900 "1";
             "kernel.kptr_restrict" = l.mkOverride 900 "2";
             "kernel.perf_event_paranoid" = l.mkDefault "3";
             "kernel.printk" = l.mkOverride 900 "3 3 3 3";
             "kernel.unprivileged_bpf_disabled" = l.mkDefault "1";
             "net.core.bpf_jit_harden" = l.mkDefault "2";
-            "net.ipv4.conf.all.accept_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.all.accept_redirects" = l.mkOverride 900 "0";
             "net.ipv4.conf.all.accept_source_route" = l.mkDefault "0";
-            "net.ipv4.conf.all.rp_filter" = l.mkDefault "1";
-            "net.ipv4.conf.all.secure_redirects" = l.mkDefault "0";
-            "net.ipv4.conf.all.send_redirects" = l.mkDefault "0";
-            "net.ipv4.conf.default.accept_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.all.rp_filter" = l.mkOverride 900 "1";
+            "net.ipv4.conf.all.secure_redirects" = l.mkOverride 900 "0";
+            "net.ipv4.conf.all.send_redirects" = l.mkOverride 900 "0";
+            "net.ipv4.conf.default.accept_redirects" = l.mkOverride 900 "0";
             "net.ipv4.conf.default.accept_source_route" = l.mkDefault "0";
-            "net.ipv4.conf.default.rp_filter" = l.mkDefault "1";
-            "net.ipv4.conf.default.secure_redirects" = l.mkDefault "0";
-            "net.ipv4.conf.default.send_redirects" = l.mkDefault "0";
+            "net.ipv4.conf.default.rp_filter" = l.mkOverride 900 "1";
+            "net.ipv4.conf.default.secure_redirects" = l.mkOverride 900 "0";
+            "net.ipv4.conf.default.send_redirects" = l.mkOverride 900 "0";
             "net.ipv4.icmp_echo_ignore_all" = l.mkDefault "1";
             "net.ipv6.icmp_echo_ignore_all" = l.mkDefault "1";
             "net.ipv4.tcp_dsack" = l.mkDefault "0";
@@ -522,9 +522,9 @@ in
             "net.ipv4.tcp_sack" = l.mkDefault "0";
             "net.ipv4.tcp_syncookies" = l.mkDefault "1";
             "net.ipv6.conf.all.accept_ra" = l.mkDefault "0";
-            "net.ipv6.conf.all.accept_redirects" = l.mkDefault "0";
+            "net.ipv6.conf.all.accept_redirects" = l.mkOverride 900 "0";
             "net.ipv6.conf.all.accept_source_route" = l.mkDefault "0";
-            "net.ipv6.conf.default.accept_redirects" = l.mkDefault "0";
+            "net.ipv6.conf.default.accept_redirects" = l.mkOverride 900 "0";
             "net.ipv6.conf.default.accept_source_route" = l.mkDefault "0";
             "net.ipv6.default.accept_ra" = l.mkDefault "0";
             "kernel.core_pattern" = l.mkDefault "|/bin/false";
@@ -547,8 +547,8 @@ in
             # log packets with impossible addresses to kernel log
             # No active security benefit, just makes it easier to spot a DDOS/DOS by giving
             # extra logs
-            "net.ipv4.conf.default.log_martians" = l.mkDefault "1";
-            "net.ipv4.conf.all.log_martians" = l.mkDefault "1";
+            "net.ipv4.conf.default.log_martians" = l.mkOverride 900 "1";
+            "net.ipv4.conf.all.log_martians" = l.mkOverride 900 "1";
 
             # disable sending and receiving of shared media redirects
             # this setting overwrites net.ipv4.conf.all.secure_redirects
@@ -571,7 +571,7 @@ in
             "net.ipv4.conf.all.drop_gratuitous_arp" = l.mkDefault "1";
 
             # ignore all ICMP echo and timestamp requests sent to broadcast/multicast
-            "net.ipv4.icmp_echo_ignore_broadcasts" = l.mkDefault "1";
+            "net.ipv4.icmp_echo_ignore_broadcasts" = l.mkOverride 900 "1";
 
             # number of Router Solicitations to send until assuming no routers are present
             "net.ipv6.conf.default.router_solicitations" = l.mkDefault "0";
