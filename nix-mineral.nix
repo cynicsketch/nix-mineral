@@ -255,6 +255,14 @@ in
             Allow programs to execute in /home.
           '';
         };
+        skip-restrict-home-permission = l.mkOption {
+          type = l.types.bool;
+          default = false;
+          description = ''
+            Disable recursively restricting permisions of /home directories,
+            as this can takes several minutes on large home directories.
+          '';
+        };
         nix-allow-all = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -925,11 +933,6 @@ in
       systemd.network.config.networkConfig.IPv6PrivacyExtensions = l.mkDefault "kernel";
 
       systemd.tmpfiles.settings = {
-        # Restrict permissions of /home/$USER so that only the owner of the
-        # directory can access it (the user). systemd-tmpfiles also has the benefit
-        # of recursively setting permissions too, with the "Z" option as seen below.
-        "restricthome"."/home/*".Z.mode = l.mkDefault "~0700";
-
         # Make all files in /etc/nixos owned by root, and only readable by root.
         # /etc/nixos is not owned by root by default, and configuration files can
         # on occasion end up also not owned by root. This can be hazardous as files
@@ -940,6 +943,11 @@ in
           user = l.mkDefault "root";
           group = l.mkDefault "root";
         };
+      } // lib.optionalAttrs (!cfg.overrides.desktop.skip-restrict-home-permission) {
+        # Restrict permissions of /home/$USER so that only the owner of the
+        # directory can access it (the user). systemd-tmpfiles also has the benefit
+        # of recursively setting permissions too, with the "Z" option as seen below.
+        "restricthome"."/home/*".Z.mode = l.mkDefault "~0700";
       };
 
       # zram allows swapping to RAM by compressing memory. This reduces the chance
