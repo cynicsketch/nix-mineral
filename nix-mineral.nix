@@ -771,7 +771,7 @@ in
           ];
         };
 
-        "/boot" = {
+        "/boot" = lib.mkIf (!config.boot.isContainer) {
           options = [
             "nosuid"
             "noexec"
@@ -789,7 +789,7 @@ in
           ];
         };
 
-        "/etc" = {
+        "/etc" = lib.mkIf (!config.boot.isContainer) {
           device = l.mkDefault "/etc";
           options = [
             "bind"
@@ -914,14 +914,14 @@ in
         resolved.dnssec = l.mkDefault "true";
 
         # Prevent BadUSB attacks, but requires whitelisting of USB devices. 
-        usbguard.enable = l.mkDefault true;
+        usbguard.enable = l.mkDefault (!config.boot.isContainer);
       };
 
       # Get extra entropy since we disabled hardware entropy sources
       # Read more about why at the following URLs:
       # https://github.com/smuellerDD/jitterentropy-rngd/issues/27
       # https://blogs.oracle.com/linux/post/rngd1
-      services.jitterentropy-rngd.enable = l.mkDefault true;
+      services.jitterentropy-rngd.enable = l.mkDefault (!config.boot.isContainer);
       boot.kernelModules = [ "jitterentropy_rng" ];
 
       # Don't store coredumps from systemd-coredump.
