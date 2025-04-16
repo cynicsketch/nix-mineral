@@ -1220,7 +1220,7 @@ in
         # chronyd configuration.
 
         enableRTCTrimming = l.mkDefault false;
-        # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either 
+        # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either
         # this or 'rtcsync' must be disabled to complete a successful rebuild,
         # or an error will be thrown due to these options conflicting with
         # eachother.
