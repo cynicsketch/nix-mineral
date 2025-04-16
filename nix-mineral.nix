@@ -1240,7 +1240,13 @@ in
         # It enables NTS to secure NTP requests, among some other useful
         # settings.
 
-        extraConfig.source = fetchGhFile sources.chrony;
+        extraConfig = ''
+          ${builtins.readFile (fetchGhFile sources.chrony)}
+          leapseclist ${pkgs.tzdata}/share/zoneinfo/leap-seconds.list
+        '';
+        # Override the leapseclist path with the NixOS-compatible path to
+        # leap-seconds.list using the tzdata package. This is necessary because
+        # NixOS doesn't use standard FHS paths like /usr/share/zoneinfo.
       };
     })
   ];
