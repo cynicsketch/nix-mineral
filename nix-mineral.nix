@@ -1211,8 +1211,13 @@ in
       services.chrony = {
         enable = l.mkDefault true;
 
-        extraFlags = l.mkDefault [ "-F 1" ];
-        # Enable seccomp filter for chronyd.
+        extraFlags = l.mkDefault [
+          "-F 1"
+          "-r"
+        ];
+        # Enable seccomp filter for chronyd (-F 1) and reload server history on
+        # restart (-r). The -r flag is added to match GrapheneOS's original
+        # chronyd configuration.
 
         enableRTCTrimming = l.mkDefault false;
         # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either 
