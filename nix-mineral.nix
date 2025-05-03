@@ -87,7 +87,7 @@
 # 10.2 (Up to user to determine timezone, locale, and keymap)
 # 10.5.3 (Not packaged)
 # 10.6 (Not packaged, inconvenient and not within threat model)
-# 11.1 (Manual removal is SUID/SGID is manual)
+# 11.1 (Manual removal of SUID/SGID is manual)
 # 11.2 (No known way to set umask declaratively systemwide, use your shellrc
 # or home manager to do so)
 # 14 (Rather than enforce password quality with PAM, expect user
