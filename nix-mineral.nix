@@ -12,9 +12,6 @@
 # borrowed from Kicksecure's security-misc:
 # URL: https://github.com/Kicksecure/security-misc
 
-# Supplement to module blacklisting borrowed from secureblue config:
-# URL: https://github.com/secureblue/secureblue/blob/live/config/files/usr/etc/modprobe.d/blacklist.conf
-
 # Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts:
 # URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf
 
@@ -708,7 +705,7 @@ in
         # any device.
         "bluetooth/main.conf".source = l.mkForce (fetchGhFile sources.bluetooth);
 
-        # Borrow Kicksecure and secureblue module blacklist.
+        # Borrow Kicksecure module blacklist.
         # "install "foobar" /bin/not-existent" prevents the module from being
         # loaded at all. "blacklist "foobar"" prevents the module from being
         # loaded automatically at boot, but it can still be loaded afterwards.
