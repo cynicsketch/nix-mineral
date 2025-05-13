@@ -245,6 +245,14 @@ in
             information.
           '';
         };
+        hideproc-off = l.mkOption {
+          type = l.types.bool;
+          default = false;
+          description = ''
+            Disable access restriction on /proc.
+            Fix Gnome/Wayland.
+          '';
+        };
         home-exec = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -1012,6 +1020,17 @@ in
           "nodev"
           "noexec"
           "hidepid=4"
+          "gid=${toString config.users.groups.proc.gid}"
+        ];
+      };
+    })
+
+    (l.mkIf cfg.overrides.desktop.hideproc-off {
+      boot.specialFileSystems."/proc" = {
+        options = l.mkForce [
+          "nosuid"
+          "nodev"
+          "noexec"
           "gid=${toString config.users.groups.proc.gid}"
         ];
       };
