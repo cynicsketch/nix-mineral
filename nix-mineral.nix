@@ -478,11 +478,11 @@ in
     };
   };
 
-  config = l.mkMerge [
+  config = l.mkIf cfg.enable (l.mkMerge [
 
     # Main module
 
-    (l.mkIf cfg.enable {
+    {
       boot = {
         kernel = {
           sysctl = {
@@ -981,7 +981,7 @@ in
 
       # Limit access to nix to users with the "wheel" group. ("sudoers")
       nix.settings.allowed-users = l.mkDefault [ "@wheel" ];
-    })
+    }
 
     # Compatibility
 
@@ -1283,5 +1283,5 @@ in
         # NixOS doesn't use standard FHS paths like /usr/share/zoneinfo.
       };
     })
-  ];
+  ]);
 }
