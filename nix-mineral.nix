@@ -307,13 +307,6 @@ in
             Automatically whitelist all USB devices at boot in USBGuard.
           '';
         };
-        disable-usbguard = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Disable USBGuard entirely. 
-          '';
-        };
         usbguard-gnome-integration = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -935,9 +928,6 @@ in
 
         # DNS connections will fail if not using a DNS server supporting DNSSEC.
         resolved.dnssec = l.mkDefault "true";
-
-        # Prevent BadUSB attacks, but requires whitelisting of USB devices. 
-        usbguard.enable = l.mkDefault (!config.boot.isContainer);
       };
 
       # Get extra entropy since we disabled hardware entropy sources
@@ -1083,8 +1073,6 @@ in
     (l.mkIf cfg.overrides.desktop.usbguard-allow-at-boot {
       services.usbguard.presentDevicePolicy = l.mkForce "allow";
     })
-
-    (l.mkIf cfg.overrides.desktop.disable-usbguard { services.usbguard.enable = l.mkForce false; })
 
     (l.mkIf cfg.overrides.desktop.usbguard-gnome-integration {
       services.usbguard.dbus.enable = l.mkForce true;
