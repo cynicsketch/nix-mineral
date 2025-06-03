@@ -300,13 +300,6 @@ in
             Allow executing programs in /tmp.
           '';
         };
-        usbguard-allow-at-boot = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Automatically whitelist all USB devices at boot in USBGuard.
-          '';
-        };
         usbguard-gnome-integration = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -396,14 +389,6 @@ in
           description = ''
             Do not set amd_iommu=force_isolation kernel parameter.
             Workaround hanging issue on linux kernel 6.13.
-          '';
-        };
-        hardened-malloc-systemwide = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Use hardened-malloc as the default memory allocator for all running
-            processes.
           '';
         };
         lock-root = l.mkOption {
@@ -1070,10 +1055,6 @@ in
       };
     })
 
-    (l.mkIf cfg.overrides.desktop.usbguard-allow-at-boot {
-      services.usbguard.presentDevicePolicy = l.mkForce "allow";
-    })
-
     (l.mkIf cfg.overrides.desktop.usbguard-gnome-integration {
       services.usbguard.dbus.enable = l.mkForce true;
       security.polkit = {
@@ -1176,12 +1157,6 @@ in
 
     (l.mkIf cfg.overrides.security.disable-tcp-window-scaling {
       boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
-    })
-
-    (l.mkIf cfg.overrides.security.hardened-malloc-systemwide {
-      environment.memoryAllocator = {
-        provider = l.mkDefault "graphene-hardened";
-      };
     })
 
     (l.mkIf cfg.overrides.security.lock-root {
