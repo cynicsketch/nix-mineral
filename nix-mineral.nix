@@ -500,16 +500,25 @@ in
             "kernel.printk" = l.mkOverride 900 "3 3 3 3";
             "kernel.unprivileged_bpf_disabled" = l.mkDefault "1";
             "net.core.bpf_jit_harden" = l.mkDefault "2";
+
+            # Disable ICMP redirects to prevent some MITM attacks
+            # See https://askubuntu.com/questions/118273/what-are-icmp-redirects-and-should-they-be-blocked
             "net.ipv4.conf.all.accept_redirects" = l.mkOverride 900 "0";
+            "net.ipv4.conf.default.accept_redirects" = l.mkOverride 900 "0";
+            "net.ipv4.conf.all.send_redirects" = l.mkOverride 900 "0";
+            "net.ipv4.conf.default.send_redirects" = l.mkOverride 900 "0";
+            "net.ipv6.conf.all.accept_redirects" = l.mkOverride 900 "0";
+            "net.ipv6.conf.default.accept_redirects" = l.mkOverride 900 "0";
+
+            # Use secure ICMP redirects by default. Helpful if ICMP redirects are
+            # reenabled only.
+            "net.ipv4.conf.all.secure_redirects" = l.mkOverride 900 "1";
+            "net.ipv4.conf.default.secure_redirects" = l.mkOverride 900 "1";
+
             "net.ipv4.conf.all.accept_source_route" = l.mkDefault "0";
             "net.ipv4.conf.all.rp_filter" = l.mkOverride 900 "1";
-            "net.ipv4.conf.all.secure_redirects" = l.mkOverride 900 "0";
-            "net.ipv4.conf.all.send_redirects" = l.mkOverride 900 "0";
-            "net.ipv4.conf.default.accept_redirects" = l.mkOverride 900 "0";
             "net.ipv4.conf.default.accept_source_route" = l.mkDefault "0";
-            "net.ipv4.conf.default.rp_filter" = l.mkOverride 900 "1";
-            "net.ipv4.conf.default.secure_redirects" = l.mkOverride 900 "0";
-            "net.ipv4.conf.default.send_redirects" = l.mkOverride 900 "0";
+            "net.ipv4.conf.default.rp_filter" = l.mkOverride 900 "1"
             "net.ipv4.icmp_echo_ignore_all" = l.mkDefault "1";
             "net.ipv6.icmp_echo_ignore_all" = l.mkDefault "1";
             "net.ipv4.tcp_dsack" = l.mkDefault "0";
@@ -518,9 +527,7 @@ in
             "net.ipv4.tcp_sack" = l.mkDefault "0";
             "net.ipv4.tcp_syncookies" = l.mkDefault "1";
             "net.ipv6.conf.all.accept_ra" = l.mkDefault "0";
-            "net.ipv6.conf.all.accept_redirects" = l.mkOverride 900 "0";
             "net.ipv6.conf.all.accept_source_route" = l.mkDefault "0";
-            "net.ipv6.conf.default.accept_redirects" = l.mkOverride 900 "0";
             "net.ipv6.conf.default.accept_source_route" = l.mkDefault "0";
             "net.ipv6.default.accept_ra" = l.mkDefault "0";
             "kernel.core_pattern" = l.mkDefault "|/bin/false";
