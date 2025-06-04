@@ -240,13 +240,6 @@ in
             Reenable support for 32 bit applications.
           '';
         };
-        allow-unprivileged-userns = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Allow unprivileged userns.
-          '';
-        };
         doas-sudo-wrapper = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -450,11 +443,6 @@ in
         kernel = {
           sysctl = {
             # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
-
-            # Unprivileged userns has a large attack surface and has been the cause
-            # of many privilege escalation vulnerabilities, but can cause breakage.
-            # See overrides.
-            "kernel.unprivileged_userns_clone" = l.mkDefault "0";
 
             # Yama restricts ptrace, which allows processes to read and modify the
             # memory of other processes. This has obvious security implications.
@@ -986,10 +974,6 @@ in
 
     (l.mkIf cfg.overrides.desktop.allow-multilib {
       boot.kernelParams = l.mkOverride 100 [ "ia32_emulation=1" ];
-    })
-
-    (l.mkIf cfg.overrides.desktop.allow-unprivileged-userns {
-      boot.kernel.sysctl."kernel.unprivileged_userns_clone" = l.mkForce "1";
     })
 
     (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
