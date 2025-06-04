@@ -314,15 +314,7 @@ in
           description = ''
             Allow executing programs in /var/lib.
           '';
-        };
-        yama-relaxed = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Instead of disabling ptrace, restrict only so that parent processes can
-            ptrace descendants.
-          '';
-        };
+        }
       };
       performance = {
         allow-smt = l.mkOption {
@@ -466,8 +458,10 @@ in
 
             # Yama restricts ptrace, which allows processes to read and modify the
             # memory of other processes. This has obvious security implications.
+            # Default value is 1, to only allow parent processes to ptrace child
+            # processes. May be modified to restrict ptrace further.
             # See overrides.
-            "kernel.yama.ptrace_scope" = l.mkDefault "3";
+            "kernel.yama.ptrace_scope" = l.mkDefault "1";
 
             # Disables magic sysrq key. See overrides file regarding SAK (Secure
             # attention key).
@@ -1077,10 +1071,6 @@ in
           "nodev"
         ];
       };
-    })
-
-    (l.mkIf cfg.overrides.desktop.yama-relaxed {
-      boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce "1";
     })
 
     # Performance
