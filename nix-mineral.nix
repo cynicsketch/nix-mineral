@@ -430,13 +430,6 @@ in
             Replace sudo with doas.
           '';
         };
-        use-hardened-kernel = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Use Linux kernel with hardened patchset.
-          '';
-        };
         no-firewall = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -1193,10 +1186,6 @@ in
           }
         ];
       };
-    })
-
-    (l.mkIf cfg.overrides.software-choice.use-hardened-kernel {
-      boot.kernelPackages = l.mkForce pkgs.linuxPackages_hardened;
     })
 
     (l.mkIf cfg.overrides.software-choice.no-firewall { networking.firewall.enable = l.mkForce false; })
