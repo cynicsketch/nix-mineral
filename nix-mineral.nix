@@ -307,7 +307,7 @@ in
           description = ''
             Allow executing programs in /var/lib.
           '';
-        }
+        };
       };
       performance = {
         allow-smt = l.mkOption {
@@ -506,7 +506,7 @@ in
             "net.ipv4.conf.all.accept_source_route" = l.mkDefault "0";
             "net.ipv4.conf.all.rp_filter" = l.mkOverride 900 "1";
             "net.ipv4.conf.default.accept_source_route" = l.mkDefault "0";
-            "net.ipv4.conf.default.rp_filter" = l.mkOverride 900 "1"
+            "net.ipv4.conf.default.rp_filter" = l.mkOverride 900 "1";
             "net.ipv4.icmp_echo_ignore_all" = l.mkDefault "1";
             "net.ipv6.icmp_echo_ignore_all" = l.mkDefault "1";
             "net.ipv4.tcp_dsack" = l.mkDefault "0";
