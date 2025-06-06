@@ -397,15 +397,6 @@ in
             Enable Secure Attention Key with the sysrq key.
           '';
         };
-        disable-tcp-timestamp = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Disable TCP timestamps to avoid leaking system time, as opposed to enabling
-            it by default to protect against wrapped sequence numbers/improve
-            performance
-          '';
-        };
       };
       software-choice = {
         doas-no-sudo = l.mkOption {
@@ -472,7 +463,13 @@ in
             "net.ipv6.conf.default.forwarding" = l.mkDefault "0";
 
             # Privacy/security split.
-            # See overrides file for details.
+            # By default, nix-mineral enables
+            # tcp-timestamps. Disabling prevents leaking system time, enabling protects
+            # against wrapped sequence numbers and improves performance.
+            #
+            # Read more about the issue here:
+            # URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
+            # URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
             "net.ipv4.tcp_timestamps" = l.mkDefault "1";
 
             "dev.tty.ldisc_autoload" = l.mkDefault "0";
@@ -1148,10 +1145,6 @@ in
     })
 
     (l.mkIf cfg.overrides.security.sysrq-sak { boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4"; })
-
-    (l.mkIf cfg.overrides.security.disable-tcp-timestamp {
-      boot.kernel.sysctl."net.ipv4.tcp_timestamps" = l.mkForce "0";
-    })
 
     # Software Choice
 
