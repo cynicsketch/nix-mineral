@@ -354,20 +354,6 @@ in
             Disable Intel ME related kernel modules and partially disable ME interface.
           '';
         };
-        disable-module-loading = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Disable loading kernel modules.
-          '';
-        };
-        disable-tcp-window-scaling = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Disable TCP window scaling.
-          '';
-        };
         disable-amd-iommu-forced-isolation = l.mkOption {
           type = l.types.bool;
           default = false;
@@ -1120,14 +1106,6 @@ in
           install microread_mei /usr/bin/disabled-intelme-by-security-misc
         '';
       };
-    })
-
-    (l.mkIf cfg.overrides.security.disable-module-loading {
-      boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
-    })
-
-    (l.mkIf cfg.overrides.security.disable-tcp-window-scaling {
-      boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
     })
 
     (l.mkIf cfg.overrides.security.lock-root {
