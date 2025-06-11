@@ -196,25 +196,11 @@ in
             Allow loading unsigned kernel modules.
           '';
         };
-        allow-binfmt-misc = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Reenable binfmt_misc.
-          '';
-        };
         allow-busmaster-bit = l.mkOption {
           type = l.types.bool;
           default = false;
           description = ''
             Reenable the busmaster bit at boot.
-          '';
-        };
-        allow-io-uring = l.mkOption {
-          type = l.types.bool;
-          default = false;
-          description = ''
-            Reenable io_uring.
           '';
         };
         allow-ip-forward = l.mkOption {
@@ -929,16 +915,8 @@ in
       boot.kernelParams = l.mkOverride 100 [ "module.sig_enforce=0" ];
     })
 
-    (l.mkIf cfg.overrides.compatibility.allow-binfmt-misc {
-      boot.kernel.sysctl."fs.binfmt_misc.status" = l.mkForce "1";
-    })
-
     (l.mkIf cfg.overrides.compatibility.allow-busmaster-bit {
       boot.kernelParams = l.mkOverride 100 [ "efi=no_disable_early_pci_dma" ];
-    })
-
-    (l.mkIf cfg.overrides.compatibility.allow-io-uring {
-      boot.kernel.sysctl."kernel.io_uring_disabled" = l.mkForce "0";
     })
 
     (l.mkIf cfg.overrides.compatibility.allow-ip-forward {
