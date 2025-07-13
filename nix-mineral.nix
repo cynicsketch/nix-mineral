@@ -418,7 +418,8 @@ in
             # attention key).
             "kernel.sysrq" = l.mkDefault "0";
 
-            # Disable binfmt. Breaks Roseta, see overrides file.
+            # Disable binfmt. Breaks Roseta, among other applications.
+            # See overrides file and https://en.wikipedia.org/wiki/Binfmt_misc for more info.
             "fs.binfmt_misc.status" = l.mkDefault "0";
 
             # Disable io_uring. May be desired for Proxmox, but is responsible
