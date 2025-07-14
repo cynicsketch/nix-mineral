@@ -606,10 +606,6 @@ in
           # time by a bit. 
           "extra_latent_entropy"
 
-          # Disables multilib/32 bit applications to reduce attack surface.
-          # See overrides.
-          "ia32_emulation=0"
-
           "slab_nomerge"
           "init_on_alloc=1"
           "init_on_free=1"
