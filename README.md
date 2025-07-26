@@ -191,31 +191,31 @@ Have any ideas for the project? Want to help improve it by writing code or docum
 ### Credits
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
 
-Original basis for hardening, of which many of the below have themselves derived from:
-URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html
-Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html 
+Original basis for hardening, of which many of the below have themselves derived from:  
+URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html  
+Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html  
 
-Additionally used is privsec's Desktop Linux Hardening:
-URL: https://privsec.dev/posts/linux/desktop-linux-hardening/
-Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
+Additionally used is privsec's Desktop Linux Hardening:  
+URL: https://privsec.dev/posts/linux/desktop-linux-hardening/  
+Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel  
 
-Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc:
-URL: https://github.com/Kicksecure/security-misc
+Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc:  
+URL: https://github.com/Kicksecure/security-misc  
 
-Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts:
-URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf
+Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts:  
+URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf  
 
-Optional chrony configuration was borrowed from GrapheneOS server infrastructure:
-URL: https://github.com/GrapheneOS/infrastructure
+Optional chrony configuration was borrowed from GrapheneOS server infrastructure:  
+URL: https://github.com/GrapheneOS/infrastructure  
 
-Original idea to restrict nix to wheel user from Xe Iaso:
-URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
+Original idea to restrict nix to wheel user from Xe Iaso:  
+URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/  
 
-Various security-relevant sysctl configuration from K4YT3X's sysctl:
-URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
+Various security-relevant sysctl configuration from K4YT3X's sysctl:  
+URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf  
 
-The `hardened.nix` profile upstream, which inspired this project:
-URL: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
+The `hardened.nix` profile upstream, which inspired this project:  
+URL: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix  
 
-nix-bitcoin's hardening, which have also inspired this project:
-URL: https://github.com/fort-nix/nix-bitcoin
+nix-bitcoin's hardening, which have also inspired this project:  
+URL: https://github.com/fort-nix/nix-bitcoin  
