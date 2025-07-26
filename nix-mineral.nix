@@ -18,6 +18,7 @@
 
 # This is the main module for nix-mineral, containing the default configuration.
 
+### CREDITS ###
 # Primarily sourced was madaidan's Linux Hardening Guide. See for details: 
 # URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html
 # Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html 
@@ -45,6 +46,8 @@
 
 # More relevant sysctl configuration from K4YT3X's sysctl:
 # URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
+
+
 
 # sysctl omitted from K4YT3X config that are out of scope of nix-mineral and
 # hardening  but may be useful anyways to some, see their repo for details:
