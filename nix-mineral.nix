@@ -269,6 +269,11 @@ in
                 information to disk, but hampers zram performance. Also useless if you do
                 not even use a swap file/partition, i.e zram only setup.
               '' false;
+
+              sysrq-sak = mkBoolOption ''
+                Enable SAK (Secure Attention Key). SAK prevents keylogging, if used
+                correctly. See URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html#accessing-root-securely
+              '' false;
             };
           };
         };
@@ -425,6 +430,10 @@ in
 
       (l.mkIf cfg.settings.system.minimize-swapping {
         boot.kernel.sysctl."vm.swappiness" = l.mkForce "1";
+      })
+
+      (l.mkIf cfg.settings.system.sysrq-sak {
+        boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4";
       })
 
       # Network configurations
