@@ -212,6 +212,11 @@ in
                   ];
                 };
               };
+
+              pti = mkBoolOption ''
+                Enable Page Table Isolation (PTI) to mitigate some KASLR bypasses and
+                the Meltdown CPU vulnerability. It may also tax performance.
+              '' true;
             };
           };
         };
@@ -308,6 +313,12 @@ in
           }"
         ];
       }
+
+      (lib.mkIf cfg.settings.kernel.pti {
+        boot.kernelParams = [
+          "pti=on"
+        ];
+      })
 
       # System configurations
       (lib.mkIf (!cfg.settings.system.multilib) {
