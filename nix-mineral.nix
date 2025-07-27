@@ -222,6 +222,12 @@ in
                 Enable binfmt_misc, (https://en.wikipedia.org/wiki/Binfmt_misc).
                 if false, breaks Roseta, among other applications.
               '' false;
+
+              io-uring = mkBoolOption ''
+                Enable io_uring, is the cause of many vulnerabilities,
+                and is disabled on Android + ChromeOS.
+                This may be desired for specific environments concerning Proxmox.
+              '' false;
             };
           };
         };
@@ -328,6 +334,12 @@ in
       (lib.mkIf (!cfg.settings.kernel.binfmt-misc) {
         boot.kernel.sysctl = {
           "fs.binfmt_misc.status" = lib.mkDefault "0";
+        };
+      })
+
+      (lib.mkIf (!cfg.settings.kernel.io-uring) {
+        boot.kernel.sysctl = {
+          "kernel.io_uring_disabled" = lib.mkDefault "2";
         };
       })
 
