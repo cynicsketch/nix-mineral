@@ -186,6 +186,12 @@ in
                 Enable busmaster bit at boot.
                 if false, this may prevent low resource systems from booting.
               '' false;
+
+              iommu-passthrough = mkBoolOption ''
+                Enable bypassing the IOMMU for direct memory access. Could increase I/O
+                performance on ARM64 systems, with risk.
+                if false, forces DMA to go through IOMMU to mitigate some DMA attacks.
+              '' false;
             };
           };
         };
@@ -261,6 +267,12 @@ in
       (lib.mkIf (!cfg.settings.kernel.busmaster-bit) {
         boot.kernelParams = [
           "efi=disable_early_pci_dma"
+        ];
+      })
+
+      (lib.mkIf (!cfg.settings.kernel.iommu-passthrough) {
+        boot.kernelParams = [
+          "iommu.passthrough=0"
         ];
       })
 
