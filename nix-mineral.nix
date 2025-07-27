@@ -243,6 +243,14 @@ in
                 Enable multilib support, allowing 32-bit libraries and applications to run.
                 if false, this may cause issues with certain games that still require 32-bit libraries.
               '' false;
+
+              unprivileged-userns = mkBoolOption ''
+                Enable unprivileged user namespaces, is a large attack surface
+                and has been the cause of many privilege escalation vulnerabilities,
+                but can cause breakage. It is used in the Chromium sandbox, unprivileged containers,
+                and bubblewrap among many other applications.
+                if false, this may break some applications that rely on user namespaces.
+              '' false;
             };
           };
         };
@@ -348,6 +356,12 @@ in
         boot.kernelParams = [
           "ia32_emulation=0"
         ];
+      })
+
+      (lib.mkIf (!cfg.settings.system.unprivileged-userns) {
+        boot.kernel.sysctl = {
+          "kernel.unprivileged_userns_clone" = "0";
+        };
       })
 
       # Network configurations
