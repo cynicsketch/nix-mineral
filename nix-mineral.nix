@@ -258,6 +258,11 @@ in
                 Limit access to nix commands to users with the "wheel" group. ("sudoers")
                 if false, may be useful for allowing a non-wheel user to, for example, use devshell.
               '' true;
+
+              lock-root = mkBoolOption ''
+                Lock the root account. Requires another method of privilege escalation, i.e
+                sudo or doas, and declarative accounts to work properly.
+              '' false;
             };
           };
         };
@@ -406,6 +411,10 @@ in
 
       (l.mkIf cfg.settings.system.nix-allow-only-wheel {
         nix.settings.allowed-users = l.mkDefault [ "@wheel" ];
+      })
+
+      (l.mkIf cfg.settings.system.lock-root {
+        users.users.root.hashedPassword = l.mkDefault "!";
       })
 
       # Network configurations
