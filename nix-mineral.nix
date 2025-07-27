@@ -263,6 +263,12 @@ in
                 Lock the root account. Requires another method of privilege escalation, i.e
                 sudo or doas, and declarative accounts to work properly.
               '' false;
+
+              minimize-swapping = mkBoolOption ''
+                Reduce swappiness to bare minimum. May reduce risk of writing sensitive
+                information to disk, but hampers zram performance. Also useless if you do
+                not even use a swap file/partition, i.e zram only setup.
+              '' false;
             };
           };
         };
@@ -415,6 +421,10 @@ in
 
       (l.mkIf cfg.settings.system.lock-root {
         users.users.root.hashedPassword = l.mkDefault "!";
+      })
+
+      (l.mkIf cfg.settings.system.minimize-swapping {
+        boot.kernel.sysctl."vm.swappiness" = l.mkForce "1";
       })
 
       # Network configurations
