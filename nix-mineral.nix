@@ -163,49 +163,81 @@ in
       enable = lib.mkEnableOption "the nix-mineral module";
 
       settings = {
-        kernel = {
-          only-signed-modules = mkBoolOption ''
-            Requires all kernel modules to be signed. This prevents out-of-tree
-            kernel modules from working unless signed.
+        kernel = lib.mkOption {
+          description = ''
+            Settings meant to harden the linux kernel.
+          '';
+          default = { };
+          type = lib.types.submodule {
+            options = {
+              only-signed-modules = mkBoolOption ''
+                Requires all kernel modules to be signed. This prevents out-of-tree
+                kernel modules from working unless signed.
 
-            (if false, `${options.nix-mineral.settings.kernel.lockdown}` must also be false)
-          '' true;
+                (if false, `${options.nix-mineral.settings.kernel.lockdown}` must also be false)
+              '' true;
 
-          lockdown = mkBoolOption ''
-            Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
-            and breaks hibernation.
-          '' true;
+              lockdown = mkBoolOption ''
+                Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
+                and breaks hibernation.
+              '' true;
 
-          busmaster-bit = mkBoolOption ''
-            Enable busmaster bit at boot.
-            if false, this may prevent low resource systems from booting.
-          '' false;
+              busmaster-bit = mkBoolOption ''
+                Enable busmaster bit at boot.
+                if false, this may prevent low resource systems from booting.
+              '' false;
+            };
+          };
         };
 
-        system = {
-          multilib = mkBoolOption ''
-            Enable support for 32-bit libraries and applications.
-            if false, this may cause issues with certain games that still require 32-bit libraries.
-          '' false;
+        system = lib.mkOption {
+          description = ''
+            Settings for the system.
+          '';
+          default = { };
+          type = lib.types.submodule {
+            options = {
+              multilib = mkBoolOption ''
+                Enable multilib support, allowing 32-bit libraries and applications to run.
+                if false, this may cause issues with certain games that still require 32-bit libraries.
+              '' false;
+            };
+          };
         };
 
-        network = {
-          ip-forwarding = mkBoolOption ''
-            Enable IP forwarding.
-            if false, this causes issues with certain VM networking,
-            and must be true if the system is meant to function as a router.
-          '' false;
+        network = lib.mkOption {
+          description = ''
+            Settings for the network.
+          '';
+          default = { };
+          type = lib.types.submodule {
+            options = {
+              ip-forwarding = mkBoolOption ''
+                Enable or disable IP forwarding.
+                if false, this may cause issues with certain VM networking,
+                and must be true if the system is meant to function as a router.
+              '' false;
+            };
+          };
         };
 
-        programs = {
-          replace-sudo-with-doas = mkBoolOption ''
-            Replace sudo with doas, doas has a lower attack surface, but is less audited.
-          '' false;
+        programs = lib.mkOption {
+          description = ''
+            Options to add (or remove) opinionated software replacements by nix-mineral.
+          '';
+          default = { };
+          type = lib.types.submodule {
+            options = {
+              replace-sudo-with-doas = mkBoolOption ''
+                Replace sudo with doas, doas has a lower attack surface, but is less audited.
+              '' false;
 
-          doas-sudo-wrapper = mkBoolOption ''
-            Creates a wrapper for doas to simulate sudo, with nano to utilize rnano as
-            editor for editing as root.
-          '' false;
+              doas-sudo-wrapper = mkBoolOption ''
+                Creates a wrapper for doas to simulate sudo, with nano to utilize rnano as
+                editor for editing as root.
+              '' false;
+            };
+          };
         };
       };
     };
