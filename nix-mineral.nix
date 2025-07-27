@@ -146,29 +146,31 @@
 }:
 
 let
+  l = lib // builtins;
+
   cfg = config.nix-mineral;
 
   mkBoolOption =
     desc: bool:
-    lib.mkOption {
+    l.mkOption {
       default = bool;
       example = !bool;
       description = desc;
-      type = lib.types.bool;
+      type = l.types.bool;
     };
 in
 {
   options = {
     nix-mineral = {
-      enable = lib.mkEnableOption "the nix-mineral module";
+      enable = l.mkEnableOption "the nix-mineral module";
 
       settings = {
-        kernel = lib.mkOption {
+        kernel = l.mkOption {
           description = ''
             Settings meant to harden the linux kernel.
           '';
           default = { };
-          type = lib.types.submodule {
+          type = l.types.submodule {
             options = {
               only-signed-modules = mkBoolOption ''
                 Requires all kernel modules to be signed. This prevents out-of-tree
@@ -193,7 +195,7 @@ in
                 if false, forces DMA to go through IOMMU to mitigate some DMA attacks.
               '' false;
 
-              cpu-mitigations = lib.mkOption {
+              cpu-mitigations = l.mkOption {
                 description = ''
                   Apply relevant CPU exploit mitigations, May harm performance.
 
@@ -204,7 +206,7 @@ in
                   but is even more dangerous!
                 '';
                 default = "smt-off";
-                type = lib.types.enum {
+                type = l.types.enum {
                   values = [
                     "smt-off"
                     "smt-on"
@@ -232,12 +234,12 @@ in
           };
         };
 
-        system = lib.mkOption {
+        system = l.mkOption {
           description = ''
             Settings for the system.
           '';
           default = { };
-          type = lib.types.submodule {
+          type = l.types.submodule {
             options = {
               multilib = mkBoolOption ''
                 Enable multilib support, allowing 32-bit libraries and applications to run.
@@ -260,12 +262,12 @@ in
           };
         };
 
-        network = lib.mkOption {
+        network = l.mkOption {
           description = ''
             Settings for the network.
           '';
           default = { };
-          type = lib.types.submodule {
+          type = l.types.submodule {
             options = {
               ip-forwarding = mkBoolOption ''
                 Enable or disable IP forwarding.
@@ -276,12 +278,12 @@ in
           };
         };
 
-        programs = lib.mkOption {
+        programs = l.mkOption {
           description = ''
             Options to add (or remove) opinionated software replacements by nix-mineral.
           '';
           default = { };
-          type = lib.types.submodule {
+          type = l.types.submodule {
             options = {
               replace-sudo-with-doas = mkBoolOption ''
                 Replace sudo with doas, doas has a lower attack surface, but is less audited.
@@ -298,28 +300,28 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
+  config = l.mkIf cfg.enable (
+    l.mkMerge [
       # Kernel configurations
-      (lib.mkIf cfg.settings.kernel.only-signed-modules {
+      (l.mkIf cfg.settings.kernel.only-signed-modules {
         boot.kernelParams = [
           "module.sig_enforce=1"
         ];
       })
 
-      (lib.mkIf cfg.settings.kernel.only-signed-modules {
+      (l.mkIf cfg.settings.kernel.only-signed-modules {
         boot.kernelParams = [
           "lockdown=confidentiality"
         ];
       })
 
-      (lib.mkIf (!cfg.settings.kernel.busmaster-bit) {
+      (l.mkIf (!cfg.settings.kernel.busmaster-bit) {
         boot.kernelParams = [
           "efi=disable_early_pci_dma"
         ];
       })
 
-      (lib.mkIf (!cfg.settings.kernel.iommu-passthrough) {
+      (l.mkIf (!cfg.settings.kernel.iommu-passthrough) {
         boot.kernelParams = [
           "iommu.passthrough=0"
         ];
@@ -338,73 +340,73 @@ in
         ];
       }
 
-      (lib.mkIf cfg.settings.kernel.pti {
+      (l.mkIf cfg.settings.kernel.pti {
         boot.kernelParams = [
           "pti=on"
         ];
       })
 
-      (lib.mkIf (!cfg.settings.kernel.binfmt-misc) {
+      (l.mkIf (!cfg.settings.kernel.binfmt-misc) {
         boot.kernel.sysctl = {
-          "fs.binfmt_misc.status" = lib.mkDefault "0";
+          "fs.binfmt_misc.status" = l.mkDefault "0";
         };
       })
 
-      (lib.mkIf (!cfg.settings.kernel.io-uring) {
+      (l.mkIf (!cfg.settings.kernel.io-uring) {
         boot.kernel.sysctl = {
-          "kernel.io_uring_disabled" = lib.mkDefault "2";
+          "kernel.io_uring_disabled" = l.mkDefault "2";
         };
       })
 
       # System configurations
-      (lib.mkIf (!cfg.settings.system.multilib) {
+      (l.mkIf (!cfg.settings.system.multilib) {
         boot.kernelParams = [
           "ia32_emulation=0"
         ];
       })
 
-      (lib.mkIf (!cfg.settings.system.unprivileged-userns) {
+      (l.mkIf (!cfg.settings.system.unprivileged-userns) {
         boot.kernel.sysctl = {
-          "kernel.unprivileged_userns_clone" = lib.mkDefault "0";
+          "kernel.unprivileged_userns_clone" = l.mkDefault "0";
         };
       })
 
-      (lib.mkIf cfg.settings.system.nix-allow-only-wheel {
-        nix.settings.allowed-users = lib.mkDefault [ "@wheel" ];
+      (l.mkIf cfg.settings.system.nix-allow-only-wheel {
+        nix.settings.allowed-users = l.mkDefault [ "@wheel" ];
       })
 
       # Network configurations
-      (lib.mkIf (!cfg.settings.network.ip-forwarding) {
+      (l.mkIf (!cfg.settings.network.ip-forwarding) {
         boot.kernel.sysctl = {
           # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
-          "net.ipv4.ip_forward" = lib.mkDefault "0";
-          "net.ipv4.conf.all.forwarding" = lib.mkOverride 900 "0";
-          "net.ipv4.conf.default.forwarding" = lib.mkDefault "0";
-          "net.ipv6.conf.all.forwarding" = lib.mkDefault "0";
-          "net.ipv6.conf.default.forwarding" = lib.mkDefault "0";
+          "net.ipv4.ip_forward" = l.mkDefault "0";
+          "net.ipv4.conf.all.forwarding" = l.mkOverride 900 "0";
+          "net.ipv4.conf.default.forwarding" = l.mkDefault "0";
+          "net.ipv6.conf.all.forwarding" = l.mkDefault "0";
+          "net.ipv6.conf.default.forwarding" = l.mkDefault "0";
         };
       })
 
       # Programs configurations
-      (lib.mkIf cfg.settings.programs.replace-sudo-with-doas {
-        security.sudo.enable = lib.mkDefault false;
+      (l.mkIf cfg.settings.programs.replace-sudo-with-doas {
+        security.sudo.enable = l.mkDefault false;
         security.doas = {
-          enable = lib.mkDefault true;
+          enable = l.mkDefault true;
           extraRules = [
             {
-              keepEnv = lib.mkDefault true;
-              persist = lib.mkDefault true;
-              users = lib.mkDefault [ "user" ];
+              keepEnv = l.mkDefault true;
+              persist = l.mkDefault true;
+              users = l.mkDefault [ "user" ];
             }
           ];
         };
       })
 
-      (lib.mkIf cfg.settings.programs.doas-sudo-wrapper {
+      (l.mkIf cfg.settings.programs.doas-sudo-wrapper {
         environment.systemPackages = with pkgs; [
-          (writeScriptBin "sudo" ''exec ${lib.getExe doas} "$@"'')
-          (writeScriptBin "sudoedit" ''exec ${lib.getExe doas} ${lib.getExe' nano "rnano"} "$@"'')
-          (writeScriptBin "doasedit" ''exec ${lib.getExe doas} ${lib.getExe' nano "rnano"} "$@"'')
+          (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
+          (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
+          (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
         ];
       })
     ]
