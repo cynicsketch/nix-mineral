@@ -251,6 +251,11 @@ in
                 and bubblewrap among many other applications.
                 if false, this may break some applications that rely on user namespaces.
               '' false;
+
+              nix-allow-only-wheel = mkBoolOption ''
+                Limit access to nix commands to users with the "wheel" group. ("sudoers")
+                if false, may be useful for allowing a non-wheel user to, for example, use devshell.
+              '' true;
             };
           };
         };
@@ -360,8 +365,12 @@ in
 
       (lib.mkIf (!cfg.settings.system.unprivileged-userns) {
         boot.kernel.sysctl = {
-          "kernel.unprivileged_userns_clone" = "0";
+          "kernel.unprivileged_userns_clone" = lib.mkDefault "0";
         };
+      })
+
+      (lib.mkIf cfg.settings.system.nix-allow-only-wheel {
+        nix.settings.allowed-users = lib.mkDefault [ "@wheel" ];
       })
 
       # Network configurations
