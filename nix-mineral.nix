@@ -217,6 +217,11 @@ in
                 Enable Page Table Isolation (PTI) to mitigate some KASLR bypasses and
                 the Meltdown CPU vulnerability. It may also tax performance.
               '' true;
+
+              binfmt-misc = mkBoolOption ''
+                Enable binfmt_misc, (https://en.wikipedia.org/wiki/Binfmt_misc).
+                if false, breaks Roseta, among other applications.
+              '' false;
             };
           };
         };
@@ -318,6 +323,12 @@ in
         boot.kernelParams = [
           "pti=on"
         ];
+      })
+
+      (lib.mkIf (!cfg.settings.kernel.binfmt-misc) {
+        boot.kernel.sysctl = {
+          "fs.binfmt_misc.status" = lib.mkDefault "0";
+        };
       })
 
       # System configurations
