@@ -192,6 +192,26 @@ in
                 performance on ARM64 systems, with risk.
                 if false, forces DMA to go through IOMMU to mitigate some DMA attacks.
               '' false;
+
+              cpu-mitigations = lib.mkOption {
+                description = ''
+                  Apply relevant CPU exploit mitigations, May harm performance.
+
+                  `smt-off` - Enable CPU mitigations and disables symmetric multithreading.
+                  `smt-on` - Enable symmetric multithreading and just use default CPU mitigations,
+                  to potentially improve performance.
+                  `off` - Disables all CPU mitigations. May improve performance further,
+                  but is even more dangerous!
+                '';
+                default = "smt-off";
+                type = lib.types.enum {
+                  values = [
+                    "smt-off"
+                    "smt-on"
+                    "off"
+                  ];
+                };
+              };
             };
           };
         };
@@ -275,6 +295,19 @@ in
           "iommu.passthrough=0"
         ];
       })
+
+      {
+        boot.kernelParams = [
+          "${
+            if (cfg.settigs.kernel.cpu-mitigations == "smt-off") then
+              "mitigations=auto,nosmt"
+            else if (cfg.settigs.kernel.cpu-mitigations == "smt-on") then
+              "mitigations=auto"
+            else
+              "mitigations=off"
+          }"
+        ];
+      }
 
       # System configurations
       (lib.mkIf (!cfg.settings.system.multilib) {
