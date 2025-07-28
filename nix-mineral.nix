@@ -367,6 +367,12 @@ in
                 Creates a wrapper for doas to simulate sudo, with nano to utilize rnano as
                 editor for editing as root.
               '' false;
+
+              firewall = mkBoolOption ''
+                Enables firewall. You may need to tweak your firewall rules depending on
+                your usecase. On a desktop, this shouldn't cause problems.
+                Disable if you wish to use alternate applications for the same purpose.
+              '' true;
             };
           };
         };
@@ -565,6 +571,14 @@ in
           (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
           (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
         ];
+      })
+
+      (l.mkIf cfg.settings.programs.firewall {
+        networking.firewall = {
+          enable = l.mkDefault true;
+          allowedTCPPorts = l.mkDefault [ ];
+          allowedUDPPorts = l.mkDefault [ ];
+        };
       })
     ]
   );
