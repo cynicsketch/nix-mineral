@@ -326,6 +326,11 @@ in
                 Enable SAK (Secure Attention Key). SAK prevents keylogging, if used
                 correctly. See URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html#accessing-root-securely
               '' false;
+
+              hardened-malloc = mkBoolOption ''
+                DO NOT USE THIS OPTION ON ANY PRODUCTION SYSTEM! FOR TESTING PURPOSES ONLY!
+                Use hardened-malloc as default memory allocator for all processes.
+              '' false;
             };
           };
         };
@@ -542,6 +547,10 @@ in
 
       (l.mkIf cfg.settings.system.sysrq-sak {
         boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4";
+      })
+
+      (l.mkIf cfg.settings.system.hardened-malloc {
+        environment.memoryAllocator.provider = "graphene-hardened";
       })
 
       # Network configurations
