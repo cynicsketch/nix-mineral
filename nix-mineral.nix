@@ -16,33 +16,9 @@
 
 # This is the main module for nix-mineral, containing the default configuration.
 
-# Primarily sourced was madaidan's Linux Hardening Guide. See for details:
-# URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html
-# Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html
-
-# Additionally sourced is privsec's Desktop Linux Hardening:
-# URL: https://privsec.dev/posts/linux/desktop-linux-hardening/
-# Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
-
-# Bluetooth configuration and module blacklist, and many more config files were
-# borrowed from Kicksecure's security-misc:
-# URL: https://github.com/Kicksecure/security-misc
-
-# Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts:
-# URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf
-
-# Chrony configuration was borrowed from GrapheneOS server infrastructure:
-# URL: https://github.com/GrapheneOS/infrastructure
-
-# Original idea to restrict nix to wheel user from Xe Iaso:
-# URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
-
-# NixOS snippet for hiding process information from anon* (obviously throwaway
-# Reddit account)
-# URL: https://www.reddit.com/r/NixOS/comments/1aqfuxq/bootloaderkernel_hardening_for_nixos/
-
-# More relevant sysctl configuration from K4YT3X's sysctl:
-# URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
+### CREDITS ###
+# Please, see the README and give your thanks and support to the people and projects
+# which have helped this project's development!
 
 # sysctl omitted from K4YT3X config that are out of scope of nix-mineral and
 # hardening  but may be useful anyways to some, see their repo for details:

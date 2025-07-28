@@ -43,12 +43,12 @@ A non-comprehensive list of features in `nix-mineral`
   * Require user to be in wheel to use nix
 ### Overrides
   Optional overrides are provided to quickly tweak `nix-mineral` to conform to different environments and workloads, such as by integrating USBGuard with GNOME, relaxing restrictions to allow Linux gaming, replacing systemd-timesyncd with a secure chrony configuration, and more.
-  
+
   See [nm-overrides.nix](https://github.com/cynicsketch/nix-mineral/blob/main/nm-overrides.nix)
 
 ## Usage
 
-### Automatic Installation (fetchgit) 
+### Automatic Installation (fetchgit)
 (Can be used with flake and non-flake configurations, but if you are using flakes, the next flake specific method is objectively simpler and better for you in every way).
 
 You can also use fetchFromGithub, fetchTarball or fetchUrl to your preference.
@@ -61,14 +61,14 @@ let
     url = "https://github.com/cynicsketch/nix-mineral.git";
 
     # now add one of the following:
-    # a specific tag 
+    # a specific tag
     ref = "refs/tags/v0.1.6-alpha"; # Modify this tag as desired. Tags can be found here: https://github.com/cynicsketch/nix-mineral/tags. You will have to manually change this to the latest tagged release when/if you want to update.
     # or a specific commit hash
-    rev = "cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61";  
+    rev = "cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61";
     # or the HEAD
     ref = "HEAD"; # This will always fetch from the head of main, however this does not guarantee successful configuration evaluation in future - if we change something and you rebuild purely, your evaluation will fail because the sha256 hash will have changed (so may require manually changing every time you evaluate, to get a successful evaluation).
 
-    # After changing any of the above, you to update the hash. 
+    # After changing any of the above, you to update the hash.
 
     # Now the sha256 hash of the repository. This can be found with the nix-prefetch-url command, or (the simpler method) you can place an incorrect, but valid hash here, and nix will fail to evaluate and tell you the hash it expected (which you can then change this value to).
     # NOTE: this can be omitted if you are evaluating/building impurely.
@@ -94,9 +94,9 @@ Add nix-mineral as a non-flake input to your flake:
   inputs = {
     # ...
     nix-mineral = {
-      url = "github:cynicsketch/nix-mineral"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update" 
-      # url = "github:cynicsketch/nix-mineral/v0.1.6-alpha" # Refers to a specific tag and follows that tag until you change it 
-      # url = "github:cynicsketch/nix-mineral/cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61" # Refers to a specific commit and follows that until you change it 
+      url = "github:cynicsketch/nix-mineral"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
+      # url = "github:cynicsketch/nix-mineral/v0.1.6-alpha" # Refers to a specific tag and follows that tag until you change it
+      # url = "github:cynicsketch/nix-mineral/cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61" # Refers to a specific commit and follows that until you change it
       flake = false;
     };
     # ...
@@ -129,8 +129,8 @@ In `configuration.nix`:
 
 ```nix
 {
-  imports = [ 
-    ./nix-mineral.nix 
+  imports = [
+    ./nix-mineral.nix
     # Other imports ...
   ];
   # The rest of your configuration ...
@@ -138,7 +138,7 @@ In `configuration.nix`:
 ```
 
 #### Example directory structure
-Some individual modules may be missing in this example, but should show roughly what `/etc/nixos/` would look like. 
+Some individual modules may be missing in this example, but should show roughly what `/etc/nixos/` would look like.
 
     $ tree /etc/nixos
 
@@ -191,31 +191,31 @@ Have any ideas for the project? Want to help improve it by writing code or docum
 ### Credits
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
 
-Original basis for hardening, of which many of the below have themselves derived from:  
-URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html  
-Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html  
+Original basis for hardening, of which many of the below have themselves derived from:
+URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html
+Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html
 
-Additionally used is privsec's Desktop Linux Hardening:  
-URL: https://privsec.dev/posts/linux/desktop-linux-hardening/  
-Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel  
+Additionally used is privsec's Desktop Linux Hardening:
+URL: https://privsec.dev/posts/linux/desktop-linux-hardening/
+Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
 
-Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc:  
-URL: https://github.com/Kicksecure/security-misc  
+Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc:
+URL: https://github.com/Kicksecure/security-misc
 
-Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts:  
-URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf  
+Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts:
+URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf
 
-Optional chrony configuration was borrowed from GrapheneOS server infrastructure:  
-URL: https://github.com/GrapheneOS/infrastructure  
+Optional chrony configuration was borrowed from GrapheneOS server infrastructure:
+URL: https://github.com/GrapheneOS/infrastructure
 
-Original idea to restrict nix to wheel user from Xe Iaso:  
-URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/  
+Original idea to restrict nix to wheel user from Xe Iaso:
+URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
 
-Various security-relevant sysctl configuration from K4YT3X's sysctl:  
-URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf  
+Various security-relevant sysctl configuration from K4YT3X's sysctl:
+URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
 
-The `hardened.nix` profile upstream, which inspired this project:  
-URL: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix  
+The `hardened.nix` profile upstream, which inspired this project:
+URL: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
 
-nix-bitcoin's hardening, which have also inspired this project:  
-URL: https://github.com/fort-nix/nix-bitcoin  
+nix-bitcoin's hardening, which have also inspired this project:
+URL: https://github.com/fort-nix/nix-bitcoin
