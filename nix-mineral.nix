@@ -266,6 +266,16 @@ in
                 https://github.com/Kicksecure/security-misc/pull/236#issuecomment-2229092813
                 https://github.com/Kicksecure/security-misc/issues/239
               '' true;
+
+              tcp-timestamps = mkBoolOption ''
+                Enables tcp_timestamps.
+                Disabling prevents leaking system time, enabling protects against
+                wrapped sequence numbers and improves performance.
+
+                Read more about the issue here:
+                URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
+                URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
+              '' true;
             };
           };
         };
@@ -480,6 +490,12 @@ in
             install mei_wdt /usr/bin/disabled-intelme-by-security-misc
             install microread_mei /usr/bin/disabled-intelme-by-security-misc
           '';
+        };
+      })
+
+      (l.mkIf cfg.settings.kernel.tcp-timestamps {
+        boot.kernel.sysctl = {
+          "net.ipv4.tcp_timestamps" = l.mkDefault "1";
         };
       })
 
