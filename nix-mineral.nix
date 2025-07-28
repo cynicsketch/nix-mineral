@@ -342,6 +342,12 @@ in
                 if false, this may cause issues with certain VM networking,
                 and must be true if the system is meant to function as a router.
               '' false;
+
+              tcp-window-scaling = mkBoolOption ''
+                Disable TCP window scaling.
+                if false, may help mitigate TCP reset DoS attacks, but
+                may also harm network performance when at high latencies.
+              '' true;
             };
           };
         };
@@ -548,6 +554,10 @@ in
           "net.ipv6.conf.all.forwarding" = l.mkDefault "0";
           "net.ipv6.conf.default.forwarding" = l.mkDefault "0";
         };
+      })
+
+      (l.mkIf (!cfg.settings.network.tcp-window-scaling) {
+        boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
       })
 
       # Desktop configurations
