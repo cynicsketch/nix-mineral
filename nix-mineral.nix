@@ -276,6 +276,12 @@ in
                 URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
                 URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
               '' true;
+
+              load-kernel-modules = mkBoolOption ''
+                Allow loading of kernel modules not only at boot via kernel commandline.
+                if false, very likely to cause breakage unless you can compile a list of every module
+                you need and add that to your boot parameters manually.
+              '' true;
             };
           };
         };
@@ -497,6 +503,10 @@ in
         boot.kernel.sysctl = {
           "net.ipv4.tcp_timestamps" = l.mkDefault "1";
         };
+      })
+
+      (l.mkIf (!cfg.settings.kernel.load-kernel-modules) {
+        boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
       })
 
       # System configurations
