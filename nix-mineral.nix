@@ -230,6 +230,11 @@ in
                 and is disabled on Android + ChromeOS.
                 This may be desired for specific environments concerning Proxmox.
               '' false;
+
+              amd-iommu-force-isolation = mkBoolOption ''
+                Set amd_iommu=force_isolation kernel parameter.
+                set this to false as workaround for hanging issue on linux kernel 6.13.
+              '' true;
             };
           };
         };
@@ -405,6 +410,12 @@ in
         boot.kernel.sysctl = {
           "kernel.io_uring_disabled" = l.mkDefault "2";
         };
+      })
+
+      (l.mkIf cfg.settings.kernel.amd-iommu-force-isolation {
+        boot.kernelParams = [
+          "amd_iommu=force_isolation"
+        ];
       })
 
       # System configurations
