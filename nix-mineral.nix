@@ -329,62 +329,6 @@ in
                 if false, may help mitigate TCP reset DoS attacks, but
                 may also harm network performance when at high latencies.
               '' true;
-            };
-          };
-        };
-
-        desktop = l.mkOption {
-          description = ''
-            Options that are useful to desktop experience and general convenience.
-          '';
-          default = { };
-          type = l.types.submodule {
-            options = {
-              usbguard = {
-                enable = mkBoolOption ''
-                  Enable USBGuard, a tool to restrict USB devices.
-                  disable to avoid hassle with handling USB devices at all.
-                '' true;
-
-                whitelist-at-boot = mkBoolOption ''
-                  Automatically allow all connected devices at boot in USBGuard.
-                  Note that for laptop users, inbuilt speakers and bluetooth cards may be disabled
-                  by USBGuard by default, so whitelisting them manually or enabling this
-                  may solve that.
-                  if false, USB devices will be blocked until USBGuard is configured.
-                '' false;
-
-                gnome-integration = mkBoolOption ''
-                  Enable USBGuard dbus daemon and add polkit rules to integrate USBGuard with
-                  GNOME Shell. If you use GNOME, this means that USBGuard automatically
-                  allows all newly connected devices while unlocked, and blacklists all
-                  newly connected devices while locked. This is obviously very convenient,
-                  and is similar behavior to handling USB as ChromeOS and GrapheneOS.
-                '' false;
-              };
-
-              bluetooth-kmodules = mkBoolOption ''
-                Enable bluetooth related kernel modules.
-              '' true;
-            };
-          };
-        };
-
-        programs = l.mkOption {
-          description = ''
-            Options to add (or remove) opinionated software replacements by nix-mineral.
-          '';
-          default = { };
-          type = l.types.submodule {
-            options = {
-              replace-sudo-with-doas = mkBoolOption ''
-                Replace sudo with doas, doas has a lower attack surface, but is less audited.
-              '' false;
-
-              doas-sudo-wrapper = mkBoolOption ''
-                Creates a wrapper for doas to simulate sudo, with nano to utilize rnano as
-                editor for editing as root.
-              '' false;
 
               firewall = mkBoolOption ''
                 Enables firewall. You may need to tweak your firewall rules depending on
@@ -392,11 +336,56 @@ in
                 Disable if you wish to use alternate applications for the same purpose.
               '' true;
 
-              secure-chrony = mkBoolOption ''
-                Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
-                and to use the seccomp filter for security.
-              '' false;
+              bluetooth-kmodules = mkBoolOption ''
+                Enable bluetooth related kernel modules.
+              '' true;
             };
+          };
+        };
+      };
+
+      extras = l.mkOption {
+        description = ''
+          Extra options that are not part of the main configuration.
+          Most of those are relatively opinionated additional software.
+        '';
+        default = { };
+        type = l.types.submodule {
+          replace-sudo-with-doas = mkBoolOption ''
+            Replace sudo with doas, doas has a lower attack surface, but is less audited.
+          '' false;
+
+          doas-sudo-wrapper = mkBoolOption ''
+            Creates a wrapper for doas to simulate sudo, with nano to utilize rnano as
+            editor for editing as root.
+          '' false;
+
+          secure-chrony = mkBoolOption ''
+            Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
+            and to use the seccomp filter for security.
+          '' false;
+
+          usbguard = {
+            enable = mkBoolOption ''
+              Enable USBGuard, a tool to restrict USB devices.
+              disable to avoid hassle with handling USB devices at all.
+            '' false;
+
+            whitelist-at-boot = mkBoolOption ''
+              Automatically allow all connected devices at boot in USBGuard.
+              Note that for laptop users, inbuilt speakers and bluetooth cards may be disabled
+              by USBGuard by default, so whitelisting them manually or enabling this
+              may solve that.
+              if false, USB devices will be blocked until USBGuard is configured.
+            '' false;
+
+            gnome-integration = mkBoolOption ''
+              Enable USBGuard dbus daemon and add polkit rules to integrate USBGuard with
+              GNOME Shell. If you use GNOME, this means that USBGuard automatically
+              allows all newly connected devices while unlocked, and blacklists all
+              newly connected devices while locked. This is obviously very convenient,
+              and is similar behavior to handling USB as ChromeOS and GrapheneOS.
+            '' false;
           };
         };
       };
@@ -545,29 +534,15 @@ in
         boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
       })
 
-      # Desktop configurations
-      (l.mkIf cfg.settings.desktop.usbguard.enable {
-        services.usbguard = {
+      (l.mkIf cfg.settings.network.firewall {
+        networking.firewall = {
           enable = l.mkDefault true;
-          presentDevicePolicy = l.mkIf cfg.settings.desktop.usbguard.whitelist-at-boot (l.mkForce "allow");
-          dbus.enable = l.mkForce cfg.settings.desktop.usbguard.gnome-integration;
+          allowedTCPPorts = l.mkDefault [ ];
+          allowedUDPPorts = l.mkDefault [ ];
         };
-        security.polkit.extraConfig = l.mkIf cfg.settings.desktop.usbguard.gnome-integration ''
-          polkit.addRule(function(action, subject) {
-            if ((action.id == "org.usbguard.Policy1.listRules" ||
-                 action.id == "org.usbguard.Policy1.appendRule" ||
-                 action.id == "org.usbguard.Policy1.removeRule" ||
-                 action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
-                 action.id == "org.usbguard.Devices1.listDevices" ||
-                 action.id == "org.usbguard1.getParameter" ||
-                 action.id == "org.usbguard1.setParameter") &&
-                 subject.active == true && subject.local == true &&
-                 subject.isInGroup("wheel")) { return polkit.Result.YES; }
-          });
-        '';
       })
 
-      (l.mkIf (!cfg.settings.desktop.bluetooth-kmodules) {
+      (l.mkIf (!cfg.settings.network.bluetooth-kmodules) {
         environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
           text = ''
             install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
@@ -591,8 +566,8 @@ in
         };
       })
 
-      # Programs configurations
-      (l.mkIf cfg.settings.programs.replace-sudo-with-doas {
+      # Extras configurations
+      (l.mkIf cfg.extras.replace-sudo-with-doas {
         security.sudo.enable = l.mkDefault false;
         security.doas = {
           enable = l.mkDefault true;
@@ -606,7 +581,7 @@ in
         };
       })
 
-      (l.mkIf cfg.settings.programs.doas-sudo-wrapper {
+      (l.mkIf cfg.extras.doas-sudo-wrapper {
         environment.systemPackages = with pkgs; [
           (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
           (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
@@ -614,15 +589,7 @@ in
         ];
       })
 
-      (l.mkIf cfg.settings.programs.firewall {
-        networking.firewall = {
-          enable = l.mkDefault true;
-          allowedTCPPorts = l.mkDefault [ ];
-          allowedUDPPorts = l.mkDefault [ ];
-        };
-      })
-
-      (l.mkIf cfg.settings.programs.secure-chrony {
+      (l.mkIf cfg.extras.secure-chrony {
         services.timesyncd = {
           enable = l.mkDefault false;
         };
@@ -666,6 +633,27 @@ in
           # leap-seconds.list using the tzdata package. This is necessary because
           # NixOS doesn't use standard FHS paths like /usr/share/zoneinfo.
         };
+      })
+
+      (l.mkIf cfg.extras.usbguard.enable {
+        services.usbguard = {
+          enable = l.mkDefault true;
+          presentDevicePolicy = l.mkIf cfg.extras.usbguard.whitelist-at-boot (l.mkForce "allow");
+          dbus.enable = l.mkForce cfg.extras.usbguard.gnome-integration;
+        };
+        security.polkit.extraConfig = l.mkIf cfg.extras.usbguard.gnome-integration ''
+          polkit.addRule(function(action, subject) {
+            if ((action.id == "org.usbguard.Policy1.listRules" ||
+                 action.id == "org.usbguard.Policy1.appendRule" ||
+                 action.id == "org.usbguard.Policy1.removeRule" ||
+                 action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
+                 action.id == "org.usbguard.Devices1.listDevices" ||
+                 action.id == "org.usbguard1.getParameter" ||
+                 action.id == "org.usbguard1.setParameter") &&
+                 subject.active == true && subject.local == true &&
+                 subject.isInGroup("wheel")) { return polkit.Result.YES; }
+          });
+        '';
       })
     ]
   );
