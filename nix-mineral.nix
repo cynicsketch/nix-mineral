@@ -107,241 +107,63 @@
 # unupdated for long periods of time in the past, which would be a severe
 # security risk since an outdated kernel means the existence of many known
 # vulnerabilities in the most privileged component of the operating system.
-#
-# USBGuard is also *enabled* by default, which may inconvenience some users.
-#
-# All of this can, and should be addressed using the overrides file.
-# "nm-overrides.nix"
 
 {
   options,
   config,
   pkgs,
   lib,
+  l,
   ...
 }:
 
 let
-  l = lib // builtins;
-  sources = l.fromTOML (l.readFile ./sources.toml);
-
-  fetchGhFile =
-    {
-      user,
-      repo,
-      rev,
-      file,
-      sha256,
-      ...
-    }:
-    builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/${user}/${repo}/${rev}/${file}";
-      inherit sha256;
-    };
-
-  mkBoolOption =
-    desc: bool:
-    l.mkOption {
-      default = bool;
-      example = !bool;
-      description = desc;
-      type = l.types.bool;
-    };
-
   cfg = config.nix-mineral;
+
+  settingsModules =
+    l.mkCategoryModules cfg.settings
+      [
+        ./settings/kernel
+        ./settings/system
+        ./settings/network
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
+
+  extrasModules =
+    l.mkCategoryModules cfg.extras
+      [
+        ./extras/replace-sudo-with-doas.nix
+        ./extras/doas-sudo-wrapper.nix
+        ./extras/secure-chrony.nix
+        ./extras/usbguard.nix
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
 in
 {
   options = {
     nix-mineral = {
       enable = l.mkEnableOption "the nix-mineral module";
 
-      settings = {
-        kernel = l.mkOption {
-          description = ''
-            Settings meant to harden the linux kernel.
-          '';
-          default = { };
-          type = l.types.submodule {
-            options = {
-              only-signed-modules = mkBoolOption ''
-                Requires all kernel modules to be signed. This prevents out-of-tree
-                kernel modules from working unless signed.
-
-                (if false, `${options.nix-mineral.settings.kernel.lockdown}` must also be false)
-              '' true;
-
-              lockdown = mkBoolOption ''
-                Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
-                and breaks hibernation.
-              '' true;
-
-              busmaster-bit = mkBoolOption ''
-                Enable busmaster bit at boot.
-                if false, this may prevent low resource systems from booting.
-              '' false;
-
-              iommu-passthrough = mkBoolOption ''
-                Enable bypassing the IOMMU for direct memory access. Could increase I/O
-                performance on ARM64 systems, with risk.
-                if false, forces DMA to go through IOMMU to mitigate some DMA attacks.
-              '' false;
-
-              cpu-mitigations = l.mkOption {
-                description = ''
-                  Apply relevant CPU exploit mitigations, May harm performance.
-
-                  `smt-off` - Enable CPU mitigations and disables symmetric multithreading.
-                  `smt-on` - Enable symmetric multithreading and just use default CPU mitigations,
-                  to potentially improve performance.
-                  `off` - Disables all CPU mitigations. May improve performance further,
-                  but is even more dangerous!
-                '';
-                default = "smt-off";
-                type = l.types.enum {
-                  values = [
-                    "smt-off"
-                    "smt-on"
-                    "off"
-                  ];
-                };
-              };
-
-              pti = mkBoolOption ''
-                Enable Page Table Isolation (PTI) to mitigate some KASLR bypasses and
-                the Meltdown CPU vulnerability. It may also tax performance.
-              '' true;
-
-              binfmt-misc = mkBoolOption ''
-                Enable binfmt_misc, (https://en.wikipedia.org/wiki/Binfmt_misc).
-                if false, breaks Roseta, among other applications.
-              '' false;
-
-              io-uring = mkBoolOption ''
-                Enable io_uring, is the cause of many vulnerabilities,
-                and is disabled on Android + ChromeOS.
-                This may be desired for specific environments concerning Proxmox.
-              '' false;
-
-              amd-iommu-force-isolation = mkBoolOption ''
-                Set amd_iommu=force_isolation kernel parameter.
-                set this to false as workaround for hanging issue on linux kernel 6.13.
-              '' true;
-
-              intelme-kmodules = mkBoolOption ''
-                Intel ME related kernel modules.
-                Disable this to avoid putting trust in the highly privilege ME system,
-                but there are potentially other consequences.
-
-                If you use an AMD system, you can disable this without negative consequence
-                and reduce attack surface.
-
-                Intel users should read more about the issue at the below links:
-                https://www.kernel.org/doc/html/latest/driver-api/mei/mei.html
-                https://en.wikipedia.org/wiki/Intel_Management_Engine#Security_vulnerabilities
-                https://www.kicksecure.com/wiki/Out-of-band_Management_Technology#Intel_ME_Disabling_Disadvantages
-                https://github.com/Kicksecure/security-misc/pull/236#issuecomment-2229092813
-                https://github.com/Kicksecure/security-misc/issues/239
-              '' true;
-
-              tcp-timestamps = mkBoolOption ''
-                Enables tcp_timestamps.
-                Disabling prevents leaking system time, enabling protects against
-                wrapped sequence numbers and improves performance.
-
-                Read more about the issue here:
-                URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
-                URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
-              '' true;
-
-              load-kernel-modules = mkBoolOption ''
-                Allow loading of kernel modules not only at boot via kernel commandline.
-                if false, very likely to cause breakage unless you can compile a list of every module
-                you need and add that to your boot parameters manually.
-              '' true;
-            };
-          };
-        };
-
-        system = l.mkOption {
-          description = ''
-            Settings for the system.
-          '';
-          default = { };
-          type = l.types.submodule {
-            options = {
-              multilib = mkBoolOption ''
-                Enable multilib support, allowing 32-bit libraries and applications to run.
-                if false, this may cause issues with certain games that still require 32-bit libraries.
-              '' false;
-
-              unprivileged-userns = mkBoolOption ''
-                Enable unprivileged user namespaces, is a large attack surface
-                and has been the cause of many privilege escalation vulnerabilities,
-                but can cause breakage. It is used in the Chromium sandbox, unprivileged containers,
-                and bubblewrap among many other applications.
-                if false, this may break some applications that rely on user namespaces.
-              '' false;
-
-              nix-allow-only-wheel = mkBoolOption ''
-                Limit access to nix commands to users with the "wheel" group. ("sudoers")
-                if false, may be useful for allowing a non-wheel user to, for example, use devshell.
-              '' true;
-
-              lock-root = mkBoolOption ''
-                Lock the root account. Requires another method of privilege escalation, i.e
-                sudo or doas, and declarative accounts to work properly.
-              '' false;
-
-              minimize-swapping = mkBoolOption ''
-                Reduce swappiness to bare minimum. May reduce risk of writing sensitive
-                information to disk, but hampers zram performance. Also useless if you do
-                not even use a swap file/partition, i.e zram only setup.
-              '' false;
-
-              sysrq-sak = mkBoolOption ''
-                Enable SAK (Secure Attention Key). SAK prevents keylogging, if used
-                correctly. See URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html#accessing-root-securely
-              '' false;
-
-              hardened-malloc = mkBoolOption ''
-                DO NOT USE THIS OPTION ON ANY PRODUCTION SYSTEM! FOR TESTING PURPOSES ONLY!
-                Use hardened-malloc as default memory allocator for all processes.
-              '' false;
-            };
-          };
-        };
-
-        network = l.mkOption {
-          description = ''
-            Settings for the network.
-          '';
-          default = { };
-          type = l.types.submodule {
-            options = {
-              ip-forwarding = mkBoolOption ''
-                Enable or disable IP forwarding.
-                if false, this may cause issues with certain VM networking,
-                and must be true if the system is meant to function as a router.
-              '' false;
-
-              tcp-window-scaling = mkBoolOption ''
-                Disable TCP window scaling.
-                if false, may help mitigate TCP reset DoS attacks, but
-                may also harm network performance when at high latencies.
-              '' true;
-
-              firewall = mkBoolOption ''
-                Enables firewall. You may need to tweak your firewall rules depending on
-                your usecase. On a desktop, this shouldn't cause problems.
-                Disable if you wish to use alternate applications for the same purpose.
-              '' true;
-
-              bluetooth-kmodules = mkBoolOption ''
-                Enable bluetooth related kernel modules.
-              '' true;
-            };
-          };
-        };
+      settings = l.mkOption {
+        description = ''
+          nix-mineral settings.
+        '';
+        default = { };
+        type = l.mkCategorySubmodule settingsModules;
       };
 
       extras = l.mkOption {
@@ -350,311 +172,15 @@ in
           Most of those are relatively opinionated additional software.
         '';
         default = { };
-        type = l.types.submodule {
-          replace-sudo-with-doas = mkBoolOption ''
-            Replace sudo with doas, doas has a lower attack surface, but is less audited.
-          '' false;
-
-          doas-sudo-wrapper = mkBoolOption ''
-            Creates a wrapper for doas to simulate sudo, with nano to utilize rnano as
-            editor for editing as root.
-          '' false;
-
-          secure-chrony = mkBoolOption ''
-            Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
-            and to use the seccomp filter for security.
-          '' false;
-
-          usbguard = {
-            enable = mkBoolOption ''
-              Enable USBGuard, a tool to restrict USB devices.
-              disable to avoid hassle with handling USB devices at all.
-            '' false;
-
-            whitelist-at-boot = mkBoolOption ''
-              Automatically allow all connected devices at boot in USBGuard.
-              Note that for laptop users, inbuilt speakers and bluetooth cards may be disabled
-              by USBGuard by default, so whitelisting them manually or enabling this
-              may solve that.
-              if false, USB devices will be blocked until USBGuard is configured.
-            '' false;
-
-            gnome-integration = mkBoolOption ''
-              Enable USBGuard dbus daemon and add polkit rules to integrate USBGuard with
-              GNOME Shell. If you use GNOME, this means that USBGuard automatically
-              allows all newly connected devices while unlocked, and blacklists all
-              newly connected devices while locked. This is obviously very convenient,
-              and is similar behavior to handling USB as ChromeOS and GrapheneOS.
-            '' false;
-          };
-        };
+        type = l.mkCategorySubmodule extrasModules;
       };
     };
   };
 
   config = l.mkIf cfg.enable (
     l.mkMerge [
-      # Kernel configurations
-      (l.mkIf cfg.settings.kernel.only-signed-modules {
-        boot.kernelParams = [
-          "module.sig_enforce=1"
-        ];
-      })
-
-      (l.mkIf cfg.settings.kernel.only-signed-modules {
-        boot.kernelParams = [
-          "lockdown=confidentiality"
-        ];
-      })
-
-      (l.mkIf (!cfg.settings.kernel.busmaster-bit) {
-        boot.kernelParams = [
-          "efi=disable_early_pci_dma"
-        ];
-      })
-
-      (l.mkIf (!cfg.settings.kernel.iommu-passthrough) {
-        boot.kernelParams = [
-          "iommu.passthrough=0"
-        ];
-      })
-
-      {
-        boot.kernelParams = [
-          "${
-            if (cfg.settigs.kernel.cpu-mitigations == "smt-off") then
-              "mitigations=auto,nosmt"
-            else if (cfg.settigs.kernel.cpu-mitigations == "smt-on") then
-              "mitigations=auto"
-            else
-              "mitigations=off"
-          }"
-        ];
-      }
-
-      (l.mkIf cfg.settings.kernel.pti {
-        boot.kernelParams = [
-          "pti=on"
-        ];
-      })
-
-      (l.mkIf (!cfg.settings.kernel.binfmt-misc) {
-        boot.kernel.sysctl = {
-          "fs.binfmt_misc.status" = l.mkDefault "0";
-        };
-      })
-
-      (l.mkIf (!cfg.settings.kernel.io-uring) {
-        boot.kernel.sysctl = {
-          "kernel.io_uring_disabled" = l.mkDefault "2";
-        };
-      })
-
-      (l.mkIf cfg.settings.kernel.amd-iommu-force-isolation {
-        boot.kernelParams = [
-          "amd_iommu=force_isolation"
-        ];
-      })
-
-      (l.mkIf (!cfg.settings.kernel.intelme-kmodules) {
-        environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
-          text = ''
-            install mei /usr/bin/disabled-intelme-by-security-misc
-            install mei-gsc /usr/bin/disabled-intelme-by-security-misc
-            install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
-            install mei_hdcp /usr/bin/disabled-intelme-by-security-misc
-            install mei-me /usr/bin/disabled-intelme-by-security-misc
-            install mei_phy /usr/bin/disabled-intelme-by-security-misc
-            install mei_pxp /usr/bin/disabled-intelme-by-security-misc
-            install mei-txe /usr/bin/disabled-intelme-by-security-misc
-            install mei-vsc /usr/bin/disabled-intelme-by-security-misc
-            install mei-vsc-hw /usr/bin/disabled-intelme-by-security-misc
-            install mei_wdt /usr/bin/disabled-intelme-by-security-misc
-            install microread_mei /usr/bin/disabled-intelme-by-security-misc
-          '';
-        };
-      })
-
-      (l.mkIf cfg.settings.kernel.tcp-timestamps {
-        boot.kernel.sysctl = {
-          "net.ipv4.tcp_timestamps" = l.mkDefault "1";
-        };
-      })
-
-      (l.mkIf (!cfg.settings.kernel.load-kernel-modules) {
-        boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
-      })
-
-      # System configurations
-      (l.mkIf (!cfg.settings.system.multilib) {
-        boot.kernelParams = [
-          "ia32_emulation=0"
-        ];
-      })
-
-      (l.mkIf (!cfg.settings.system.unprivileged-userns) {
-        boot.kernel.sysctl = {
-          "kernel.unprivileged_userns_clone" = l.mkDefault "0";
-        };
-      })
-
-      (l.mkIf cfg.settings.system.nix-allow-only-wheel {
-        nix.settings.allowed-users = l.mkDefault [ "@wheel" ];
-      })
-
-      (l.mkIf cfg.settings.system.lock-root {
-        users.users.root.hashedPassword = l.mkDefault "!";
-      })
-
-      (l.mkIf cfg.settings.system.minimize-swapping {
-        boot.kernel.sysctl."vm.swappiness" = l.mkForce "1";
-      })
-
-      (l.mkIf cfg.settings.system.sysrq-sak {
-        boot.kernel.sysctl."kernel.sysrq" = l.mkForce "4";
-      })
-
-      (l.mkIf cfg.settings.system.hardened-malloc {
-        environment.memoryAllocator.provider = "graphene-hardened";
-      })
-
-      # Network configurations
-      (l.mkIf (!cfg.settings.network.ip-forwarding) {
-        boot.kernel.sysctl = {
-          # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
-          "net.ipv4.ip_forward" = l.mkDefault "0";
-          "net.ipv4.conf.all.forwarding" = l.mkOverride 900 "0";
-          "net.ipv4.conf.default.forwarding" = l.mkDefault "0";
-          "net.ipv6.conf.all.forwarding" = l.mkDefault "0";
-          "net.ipv6.conf.default.forwarding" = l.mkDefault "0";
-        };
-      })
-
-      (l.mkIf (!cfg.settings.network.tcp-window-scaling) {
-        boot.kernel.sysctl."net.ipv4.tcp_window_scaling" = l.mkForce "0";
-      })
-
-      (l.mkIf cfg.settings.network.firewall {
-        networking.firewall = {
-          enable = l.mkDefault true;
-          allowedTCPPorts = l.mkDefault [ ];
-          allowedUDPPorts = l.mkDefault [ ];
-        };
-      })
-
-      (l.mkIf (!cfg.settings.network.bluetooth-kmodules) {
-        environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
-          text = ''
-            install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
-            install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
-            install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
-            install btbcm /usr/bin/disabled-bluetooth-by-security-misc
-            install btintel /usr/bin/disabled-bluetooth-by-security-misc
-            install btmrvl /usr/bin/disabled-bluetooth-by-security-misc
-            install btmrvl_sdio /usr/bin/disabled-bluetooth-by-security-misc
-            install btmtk /usr/bin/disabled-bluetooth-by-security-misc
-            install btmtksdio /usr/bin/disabled-bluetooth-by-security-misc
-            install btmtkuart /usr/bin/disabled-bluetooth-by-security-misc
-            install btnxpuart /usr/bin/disabled-bluetooth-by-security-misc
-            install btqca /usr/bin/disabled-bluetooth-by-security-misc
-            install btrsi /usr/bin/disabled-bluetooth-by-security-misc
-            install btrtl /usr/bin/disabled-bluetooth-by-security-misc
-            install btsdio /usr/bin/disabled-bluetooth-by-security-misc
-            install btusb /usr/bin/disabled-bluetooth-by-security-misc
-            install virtio_bt /usr/bin/disabled-bluetooth-by-security-misc
-          '';
-        };
-      })
-
-      # Extras configurations
-      (l.mkIf cfg.extras.replace-sudo-with-doas {
-        security.sudo.enable = l.mkDefault false;
-        security.doas = {
-          enable = l.mkDefault true;
-          extraRules = [
-            {
-              keepEnv = l.mkDefault true;
-              persist = l.mkDefault true;
-              users = l.mkDefault [ "user" ];
-            }
-          ];
-        };
-      })
-
-      (l.mkIf cfg.extras.doas-sudo-wrapper {
-        environment.systemPackages = with pkgs; [
-          (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
-          (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-          (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-        ];
-      })
-
-      (l.mkIf cfg.extras.secure-chrony {
-        services.timesyncd = {
-          enable = l.mkDefault false;
-        };
-        services.chrony = {
-          enable = l.mkDefault true;
-
-          extraFlags = l.mkDefault [
-            "-F 1"
-            "-r"
-          ];
-          # Enable seccomp filter for chronyd (-F 1) and reload server history on
-          # restart (-r). The -r flag is added to match GrapheneOS's original
-          # chronyd configuration.
-
-          enableRTCTrimming = l.mkDefault false;
-          # Disable 'rtcautotrim' so that 'rtcsync' can be used instead. Either
-          # this or 'rtcsync' must be disabled to complete a successful rebuild,
-          # or an error will be thrown due to these options conflicting with
-          # eachother.
-
-          servers = l.mkDefault [ ];
-          # Since servers are declared by the fetched chrony config, set the
-          # NixOS option to [ ] to prevent the default values from interfering.
-
-          initstepslew.enabled = l.mkDefault false;
-          # Initstepslew "is deprecated in favour of the makestep directive"
-          # according to:
-          # https://chrony-project.org/doc/4.6/chrony.conf.html#initstepslew.
-          # The fetched chrony config already has makestep enabled, so
-          # initstepslew is disabled (it is enabled by default).
-
-          # The below config is borrowed from GrapheneOS server infrastructure.
-          # It enables NTS to secure NTP requests, among some other useful
-          # settings.
-
-          extraConfig = ''
-            ${builtins.readFile (fetchGhFile sources.chrony)}
-            leapseclist ${pkgs.tzdata}/share/zoneinfo/leap-seconds.list
-          '';
-          # Override the leapseclist path with the NixOS-compatible path to
-          # leap-seconds.list using the tzdata package. This is necessary because
-          # NixOS doesn't use standard FHS paths like /usr/share/zoneinfo.
-        };
-      })
-
-      (l.mkIf cfg.extras.usbguard.enable {
-        services.usbguard = {
-          enable = l.mkDefault true;
-          presentDevicePolicy = l.mkIf cfg.extras.usbguard.whitelist-at-boot (l.mkForce "allow");
-          dbus.enable = l.mkForce cfg.extras.usbguard.gnome-integration;
-        };
-        security.polkit.extraConfig = l.mkIf cfg.extras.usbguard.gnome-integration ''
-          polkit.addRule(function(action, subject) {
-            if ((action.id == "org.usbguard.Policy1.listRules" ||
-                 action.id == "org.usbguard.Policy1.appendRule" ||
-                 action.id == "org.usbguard.Policy1.removeRule" ||
-                 action.id == "org.usbguard.Devices1.applyDevicePolicy" ||
-                 action.id == "org.usbguard.Devices1.listDevices" ||
-                 action.id == "org.usbguard1.getParameter" ||
-                 action.id == "org.usbguard1.setParameter") &&
-                 subject.active == true && subject.local == true &&
-                 subject.isInGroup("wheel")) { return polkit.Result.YES; }
-          });
-        '';
-      })
+      (l.mkCategoryConfig settingsModules)
+      (l.mkCategoryConfig extrasModules)
     ]
   );
 }
