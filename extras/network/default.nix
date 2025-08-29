@@ -12,8 +12,8 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./ip-forwarding.nix
-        ./firewall.nix
+        ./tcp-window-scaling.nix
+        ./bluetooth-kmodules.nix
       ]
       {
         inherit
@@ -28,7 +28,7 @@ in
   options = {
     network = l.mkOption {
       description = ''
-        Settings for the network.
+        Extra settings for the network.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;

@@ -15,10 +15,6 @@ let
         ./multilib.nix
         ./unprivileged-userns.nix
         ./nix-allow-only-wheel.nix
-        ./lock-root.nix
-        ./minimize-swapping.nix
-        ./sysrq-sak.nix
-        ./hardened-malloc.nix
       ]
       {
         inherit

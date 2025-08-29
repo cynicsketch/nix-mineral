@@ -139,10 +139,10 @@ let
   extrasModules =
     l.mkCategoryModules cfg.extras
       [
-        ./extras/replace-sudo-with-doas.nix
-        ./extras/doas-sudo-wrapper.nix
-        ./extras/secure-chrony.nix
-        ./extras/usbguard.nix
+        ./extras/kernel
+        ./extras/system
+        ./extras/network
+        ./extras/misc
       ]
       {
         inherit

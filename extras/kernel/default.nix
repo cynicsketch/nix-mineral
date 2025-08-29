@@ -12,8 +12,8 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./ip-forwarding.nix
-        ./firewall.nix
+        ./intelme-kmodules.nix
+        ./load-kernel-modules.nix
       ]
       {
         inherit
@@ -26,9 +26,9 @@ let
 in
 {
   options = {
-    network = l.mkOption {
+    kernel = l.mkOption {
       description = ''
-        Settings for the network.
+        Extra settings to harden the linux kernel.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;

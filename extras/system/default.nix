@@ -12,8 +12,11 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./ip-forwarding.nix
-        ./firewall.nix
+        ./lock-root.nix
+        ./minimize-swapping.nix
+        ./sysrq-sak.nix
+        ./hardened-malloc.nix
+        ./secure-chrony.nix
       ]
       {
         inherit
@@ -26,9 +29,9 @@ let
 in
 {
   options = {
-    network = l.mkOption {
+    system = l.mkOption {
       description = ''
-        Settings for the network.
+        Extra settings for the system.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;

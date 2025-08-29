@@ -21,9 +21,7 @@ let
         ./binfmt-misc.nix
         ./io-uring.nix
         ./amd-iommu-force-isolation.nix
-        ./intelme-kmodules.nix
         ./tcp-timestamps.nix
-        ./load-kernel-modules.nix
       ]
       {
         inherit

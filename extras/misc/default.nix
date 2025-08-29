@@ -12,8 +12,9 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./ip-forwarding.nix
-        ./firewall.nix
+        ./doas-sudo-wrapper.nix
+        ./replace-sudo-with-doas.nix
+        ./usbguard.nix
       ]
       {
         inherit
@@ -26,9 +27,9 @@ let
 in
 {
   options = {
-    network = l.mkOption {
+    misc = l.mkOption {
       description = ''
-        Settings for the network.
+        Extra misc settings.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;
