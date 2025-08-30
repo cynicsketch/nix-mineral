@@ -108,6 +108,10 @@ in
       # You do not want to install applications here anyways.
       "/root".enable = l.mkDefault true;
 
+      # Some applications may need to be executable in /tmp.
+      # change options."noexec" to false if you want to disable.
+      "/tmp".enable = l.mkDefault true;
+
       # noexec on /var(/lib) may cause breakage.
       # set the option bellow if you want to disable:
       #"/var/lib" = {
