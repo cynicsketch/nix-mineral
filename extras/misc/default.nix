@@ -30,6 +30,7 @@ in
     misc = l.mkOption {
       description = ''
         Extra misc settings.
+        Most of those are relatively opinionated additional software.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;

@@ -152,6 +152,21 @@ let
           lib
           ;
       };
+
+  filesystemsModules =
+    l.mkCategoryModules cfg.filesystems
+      [
+        ./filesystems/normal.nix
+        ./filesystems/special.nix
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
 in
 {
   options = {
@@ -169,10 +184,17 @@ in
       extras = l.mkOption {
         description = ''
           Extra options that are not part of the main configuration.
-          Most of those are relatively opinionated additional software.
         '';
         default = { };
         type = l.mkCategorySubmodule extrasModules;
+      };
+
+      filesystems = l.mkOption {
+        description = ''
+          Utility for hardening filesystems and special filesystems.
+        '';
+        default = { };
+        type = l.mkCategorySubmodule filesystemsModules;
       };
     };
   };
@@ -181,6 +203,7 @@ in
     l.mkMerge [
       (l.mkCategoryConfig settingsModules)
       (l.mkCategoryConfig extrasModules)
+      (l.mkCategoryConfig filesystemsModules)
     ]
   );
 }
