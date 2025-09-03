@@ -169,6 +169,10 @@ let
       };
 in
 {
+  imports = [
+    (l.importModule ./presets { })
+  ];
+
   options = {
     nix-mineral = {
       enable = l.mkEnableOption "the nix-mineral module";
