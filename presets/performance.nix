@@ -10,8 +10,10 @@
         # if false, may prevent low resource systems from booting.
         busmaster-bit = mkPreset true;
 
-        # Disables all CPU mitigations to improve performance.
-        cpu-mitigations = mkPreset "off";
+        # Enable symmetric multithreading and just use default CPU mitigations,
+        # to potentially improve performance.
+        # DO NOT disable all cpu mitigations,
+        cpu-mitigations = mkPreset "smt-on";
 
         # Could increase I/O performance on ARM64 systems, with risk.
         iommu-passthrough = mkPreset true;
