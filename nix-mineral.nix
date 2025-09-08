@@ -1096,7 +1096,7 @@ in
           {
             keepEnv = l.mkDefault true;
             persist = l.mkDefault true;
-            users = l.mkDefault [ "user" ];
+            groups = l.mkDefault [ "wheel" ];
           }
         ];
       };
