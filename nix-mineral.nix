@@ -914,9 +914,18 @@ in
 
     (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
       environment.systemPackages = (with pkgs; [
-        (writeScriptBin "sudo" ''exec /run/wrappers/bin/doas "$@"'')
-        (writeScriptBin "sudoedit" ''exec /run/wrappers/bin/doas ${l.getExe' nano "rnano"} "$@"'')
-        (writeScriptBin "doasedit" ''exec /run/wrappers/bin/doas ${l.getExe' nano "rnano"} "$@"'')
+        (writeScriptBin "sudo" ''
+          #!/bin/sh
+          exec /run/wrappers/bin/doas "$@"
+          '')
+        (writeScriptBin "sudoedit" ''
+          #!/bin/sh
+          exec /run/wrappers/bin/doas ${l.getExe' nano "rnano"} "$@"
+          '')
+        (writeScriptBin "doasedit" ''
+          #!/bin/sh
+          exec /run/wrappers/bin/doas ${l.getExe' nano "rnano"} "$@"
+          '')
       ]);
     })
 
