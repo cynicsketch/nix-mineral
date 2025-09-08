@@ -914,9 +914,18 @@ in
 
     (l.mkIf cfg.overrides.desktop.doas-sudo-wrapper {
       environment.systemPackages = (with pkgs; [
-        (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
-        (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-        (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
+        (writeScriptBin "sudo" ''
+          #!/bin/sh
+          exec /run/wrappers/bin/doas "$@"
+          '')
+        (writeScriptBin "sudoedit" ''
+          #!/bin/sh
+          exec /run/wrappers/bin/doas ${l.getExe' nano "rnano"} "$@"
+          '')
+        (writeScriptBin "doasedit" ''
+          #!/bin/sh
+          exec /run/wrappers/bin/doas ${l.getExe' nano "rnano"} "$@"
+          '')
       ]);
     })
 
@@ -1087,7 +1096,7 @@ in
           {
             keepEnv = l.mkDefault true;
             persist = l.mkDefault true;
-            users = l.mkDefault [ "user" ];
+            groups = l.mkDefault [ "wheel" ];
           }
         ];
       };
