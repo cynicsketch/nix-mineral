@@ -8,7 +8,8 @@ Rather than be named after a mineral, it's named after the word "mineral".
 ## Scope
 Reasonably harden NixOS in a way that can be quickly deployed by the end user.
 
-`nix-mineral` primarily aims to configure, *not* install additional software unless the user explicitly does so (with the exception of AppArmor, since it's not known to cause any issues and has no functioning alternatives on NixOS). Although some alternate software could be considered more "secure" due to improved memory safety among other metrics, we avoid automatic replacements by default to help preserve user freedom.
+`nix-mineral` primarily aims to configure, *not* install additional software unless the user explicitly does so. There are specific exceptions for software which is not known to cause any problems to any workflow.
+Refer to [our contribution guidelines](docs/CONTRIBUTING.md) for more information on what we choose to exclude.
 
 Threat model assumes non-governmental adversaries, and anonymity is not considered.
 
@@ -130,6 +131,7 @@ You can then use the `nm-overrides` config option to tweak the overrides to your
 
 #### Contributing
 Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the [issues tracker](https://github.com/cynicsketch/nix-mineral/issues) and we can talk a solution!
+Also see [our contribution guidelines](docs/CONTRIBUTING.md) for more information.
 
 ### Credits
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
