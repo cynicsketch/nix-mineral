@@ -17,6 +17,9 @@ this rule may be added to [ADDITIONAL-RESOURCES.md](ADDITIONAL-RESOURCES.md)
 # Specific omissions
 Features in sources of research for `nix-mineral` which have been intentionally omitted due to irrelevancy or logistical issues.
 
+`linux-hardened` is not used because it breaks unpriviliged userns and has
+historically failed to receive regular updates in nixpkgs.
+
 sysctl omitted from K4YT3X config that are out of scope of nix-mineral and
 hardening  but may be useful anyways to some, see their repo for details:
 kernel.core_uses_pid = 1
