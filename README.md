@@ -54,8 +54,7 @@ Example with fetchgit:
 ```nix
 let
     nix-mineral = builtins.fetchGit {
-      url = "https://github.com/Seikm/nix-mineral.git";
-      ref = "change-overrides-to-enable-options";
+      url = "https://github.com/cynicsketch/nix-mineral.git";
     };
 in
 {
