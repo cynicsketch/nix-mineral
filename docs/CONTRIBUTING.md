@@ -15,7 +15,7 @@ One of the main ideas is to be as modular as possible, so don't create modules t
 # Rules
 
 - Whenever you need to use lib/builtins functions, use the `l` attribute, which is available in all modules. It contains all lib functions, builtins, and additional nix-mineral functions.
-- Format the code with the formatter in `flake.nix`. If using nixos, use the `nix fmt` command within the repository, which will format all files with the correct formatter.
+- Format the code with the formatter in `flake.nix`. If using NixOS, use the `nix fmt` command within the repository, which will format all files with the correct formatter.
 - Explain the options in their descriptions (or in comments). The reason for each setting, and WHY this setting makes the system more secure for the user.
 - When creating new settings, use names in lowercase and hyphens to separate words, for example: `example-feature-x`.
 - Invert options that are intended to disable something, for example: don't use `disable-example-feature-y`, use `example-feature-y` and set the default to `false`.
