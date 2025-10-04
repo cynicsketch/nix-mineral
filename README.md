@@ -122,6 +122,68 @@ Import nix-mineral.nix from the input and enable the module:
 }
 ```
 
+### Configuring options
+It is very likely you will need to change some options in order to make your
+individual hardware and software function as intended.
+
+Some presets for doing so are available below:
+[](https://github.com/cynicsketch/nix-mineral/tree/main/presets)
+
+Refer to the individual submodules for more information on what each option does.
+
+An example configuration with all default option values is shown below:
+```nix
+{
+    nix-mineral = {
+        enable = true;
+
+        settings = {
+            kernel = {
+                only-signed-modules = true;
+                lockdown = true;
+                busmaster-bit = false;
+                iommu-passthrough = false;
+                cpu-mitigations = "smt-off";
+                pti = true;
+                binfmt-misc = false;
+                io-uring = false;
+                amd-iommu-force-isolation = true;
+                intelme-kmodules = true;
+                tcp-timestamps = true;
+                load-kernel-modules = true;
+            };
+            system = {
+                multilib = false;
+                unprivileged-userns = false;
+                nix-allow-only-wheel = true;
+                lock-root = false;
+                minimize-swapping = false;
+                sysrq-sak = false;
+                hardened-malloc = false;
+            };
+            network = {
+                ip-forwarding = false;
+                tcp-window-scaling = true;
+            };
+            desktop = {
+                usbguard = {
+                    enable = true;
+                    whitelist-at-boot = false;
+                    gnome-integration = false;
+                };
+                bluetooth-kmodules = true;
+            };
+            programs = {
+                replace-sudo-with-doas = false;
+                doas-sudo-wrapper = false;
+                firewall = true;
+                secure-chrony = false;
+            };
+        };
+    }
+}
+```
+
 #### Contributing
 Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the [issues tracker](https://github.com/cynicsketch/nix-mineral/issues) and we can talk a solution!
 Also see [our contribution guidelines](docs/CONTRIBUTING.md) for more information.
