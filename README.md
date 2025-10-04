@@ -51,68 +51,78 @@ A non-comprehensive list of features in `nix-mineral`
 ### Automatic Installation (fetchgit)
 (Can be used with flake and non-flake configurations, but if you are using flakes, the next flake specific method is objectively simpler and better for you in every way).
 
-You can also use fetchFromGithub, fetchTarball or fetchUrl to your preference.
+Since we are using flake-compat inside the project, you can use the `nix-mineral` without needing to have flakes enabled, using `fetchGit`
 
 Example with fetchgit:
 ```nix
-{ pkgs, ... }:
 let
-  nix-mineral = pkgs.fetchgit {
-    url = "https://github.com/cynicsketch/nix-mineral.git";
-
-    # now add one of the following:
-    # a specific tag
-    ref = "refs/tags/v0.1.6-alpha"; # Modify this tag as desired. Tags can be found here: https://github.com/cynicsketch/nix-mineral/tags. You will have to manually change this to the latest tagged release when/if you want to update.
-    # or a specific commit hash
-    rev = "cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61";
-    # or the HEAD
-    ref = "HEAD"; # This will always fetch from the head of main, however this does not guarantee successful configuration evaluation in future - if we change something and you rebuild purely, your evaluation will fail because the sha256 hash will have changed (so may require manually changing every time you evaluate, to get a successful evaluation).
-
-    # After changing any of the above, you to update the hash.
-
-    # Now the sha256 hash of the repository. This can be found with the nix-prefetch-url command, or (the simpler method) you can place an incorrect, but valid hash here, and nix will fail to evaluate and tell you the hash it expected (which you can then change this value to).
-    # NOTE: this can be omitted if you are evaluating/building impurely.
-    sha256 = "1mac9cnywpc4a0x1f5n45yn4yhady1affdmkimt2lg8rcw65ajh2";
-  };
+    nix-mineral = builtins.fetchGit {
+      url = "https://github.com/Seikm/nix-mineral.git";
+      ref = "change-overrides-to-enable-options";
+    };
 in
 {
   imports = [
-    "${nix-mineral}/nix-mineral.nix"
-    # Other imports ...
+    nix-mineral.nixosModules.nix-mineral
   ];
-  # The rest of your configuration ...
+
+  nix-mineral = {
+    enable = true;
+  };
 }
 ```
 ### Usage With Flakes
 
 While you can use both of the other methods with flakes, it may be a little easier (and allow for easier updates and version pinning) by using this method.
 
-Add nix-mineral as a non-flake input to your flake:
+Add nix-mineral as an input to your flake:
 
 ```nix
 {
+  description = "Example flake for using nix-mineral";
+
   inputs = {
-    # ...
-    nix-mineral = {
-      url = "github:cynicsketch/nix-mineral"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
-      # url = "github:cynicsketch/nix-mineral/v0.1.6-alpha" # Refers to a specific tag and follows that tag until you change it
-      # url = "github:cynicsketch/nix-mineral/cfaf4cf15c7e6dc7f882c471056b57ea9ea0ee61" # Refers to a specific commit and follows that until you change it
-      flake = false;
-    };
-    # ...
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    nix-mineral.url = "github:cynicsketch/nix-mineral/"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
+    
+    # Note that due to major breaking changes, the below examples are not compatible with commits or releases prior to 0.2.0a!
+    
+    # nix-mineral.url = "github:cynicsketch/nix-mineral/v0.2.0-alpha" # Refers to a specific tag and follows that tag until you change it
+    # nix-mineral.url = "github:cynicsketch/nix-mineral/reallylongexamplehashforthecommitandall9" # Refers to a specific commit and follows that until you change it 
   };
+
+  outputs =
+    { nixpkgs, ... }@inputs:
+    {
+      nixosConfigurations.ExampleSystem = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+        };
+
+        modules = [
+          ./configuration.nix
+        ];
+      };
+    };
 }
 ```
 
-Import nix-mineral.nix from the repository path:
+Import nix-mineral.nix from the input and enable the module:
 
 ```nix
+{ inputs, ... }:
+
 {
   imports = [
-    "${inputs.nix-mineral}/nix-mineral.nix"
-    # Other imports ...
+    inputs.nix-mineral.nixosModules.nix-mineral
   ];
-  # The rest of your configuration ...
+
+  nix-mineral = {
+    enable = true;
+  };
 }
 ```
 
