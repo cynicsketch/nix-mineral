@@ -42,10 +42,6 @@ A non-comprehensive list of features in `nix-mineral`
   * Make all files in /etc/nixos unreadable and uneditable except by root, since configuration files can sometimes end up owned by unprivileged users
   * Enable zram to reduce need to swap (potentially sensitive data) to disk
   * Require user to be in wheel to use nix
-### Overrides
-  Optional overrides are provided to quickly tweak `nix-mineral` to conform to different environments and workloads, such as by integrating USBGuard with GNOME, relaxing restrictions to allow Linux gaming, replacing systemd-timesyncd with a secure chrony configuration, and more.
-
-  See [nm-overrides.nix](https://github.com/cynicsketch/nix-mineral/blob/main/nm-overrides.nix)
 
 ## Usage
 
@@ -126,8 +122,6 @@ Import nix-mineral.nix from the input and enable the module:
   };
 }
 ```
-
-You can then use the `nm-overrides` config option to tweak the overrides to your liking.
 
 #### Contributing
 Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the [issues tracker](https://github.com/cynicsketch/nix-mineral/issues) and we can talk a solution!
