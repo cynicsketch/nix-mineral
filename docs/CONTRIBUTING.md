@@ -20,6 +20,8 @@ One of the main ideas is to be as modular as possible, so don't create modules t
 - When creating new settings, use names in lowercase and hyphens to separate words, for example: `example-feature-x`.
 - Invert options that are intended to disable something, for example: don't use `disable-example-feature-y`, use `example-feature-y` and set the default to `false`.
 - Use the `l.mkBoolOption` function to create boolean options.
+- Do not attempt to add any feature which has been intentionally excluded under [OMITTED.md](OMITTED.md) or [ADDITIONAL-RESOURCES.md](OMITTED.md) without first creating an issue.
+- Issues should be created for most feature changes before attempting a PR. Bug fixes, and minor documentation changes do not require issues, but it is still heavily encouraged.
 
 # Libs
 
