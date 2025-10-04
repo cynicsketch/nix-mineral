@@ -16,32 +16,15 @@ Threat model assumes non-governmental adversaries, and anonymity is not consider
 If you think the Feds are out to get you specifically, it's time to smash your hard drive and disappear.
 
 ## Features
-A non-comprehensive list of features in `nix-mineral`
-### Defaults
-  * Hardened sysctl
-  * Hardened boot parameters
-  * Disable editor in systemd-boot to prevent unauthorized modification of boot parameters
-  * Empty securetty and enable pam_securetty.so to prevent root login on TTY
-  * Use Whonix machine-id to reduce identifiers
-  * Use Kicksecure Bluetooth configuration to automatically turn off bluetooth when unneeded
-  * Comprehensive module blacklist to reduce attack surface, based on Kicksecure and secureblue
-  * Mount option hardening on /home, /tmp, /var, /boot, and /dev/shm
-  * hidepid on /proc to hide processes between users
-  * Enable minimal firewall and block all incoming connections on all ports
-  * Randomize MAC address in NetworkManager for increased privacy
-  * Enable AppArmor and kill all processes that have an AppArmor profile but aren't confined
-  * Disable core dumps
-  * Increase hashing rounds in /etc/shadow (for new passwords only)
-  * Require wheel to use su
-  * Enforce 4 second delay on failed logins
-  * Disallow root login in OpenSSH
-  * Enable and require DNSSEC in systemd-resolved
-  * Enable USBGuard to prevent BadUSB attacks
-  * Enable jitterentropy-rngd and jitterentropy kernel module for additional entropy
-  * Make all files in /home/$USER unreadable except by the owner
-  * Make all files in /etc/nixos unreadable and uneditable except by root, since configuration files can sometimes end up owned by unprivileged users
-  * Enable zram to reduce need to swap (potentially sensitive data) to disk
-  * Require user to be in wheel to use nix
+A full rundown of features is best obtained by reading the individual submodules
+for every option `nix-mineral` offers.
+
+Some notable features include:
+- Filesystem hardening with both systemd-tmpfiles and mount options
+- Extensive kernel hardening using sysctl and boot parameters
+- Network hardening through sysctl and configuration of relevant services
+- Attack surface reduction by an extensive kernel module blacklist
+- System entropy hardening
 
 ## Usage
 
