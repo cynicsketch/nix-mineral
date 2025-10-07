@@ -114,56 +114,28 @@ Some presets for doing so are available below:
 
 Refer to the individual submodules for more information on what each option does.
 
-An example configuration with all default option values is shown below:
+An example configuration to enable all defaults, and then disable TCP window
+scaling while enabling multilib support and IP forwarding functionality is
+shown below.
 ```nix
 {
     nix-mineral = {
         enable = true;
 
         settings = {
-            kernel = {
-                only-signed-modules = true;
-                lockdown = true;
-                busmaster-bit = false;
-                iommu-passthrough = false;
-                cpu-mitigations = "smt-off";
-                pti = true;
-                binfmt-misc = false;
-                io-uring = false;
-                amd-iommu-force-isolation = true;
-                intelme-kmodules = true;
-                tcp-timestamps = true;
-                load-kernel-modules = true;
-            };
-            system = {
-                multilib = false;
-                unprivileged-userns = false;
-                nix-allow-only-wheel = true;
-                lock-root = false;
-                minimize-swapping = false;
-                sysrq-sak = false;
-                hardened-malloc = false;
-            };
+            # kernel = {
+            #     only-signed-modules = true;
+            #     lockdown = true;
+            #     ...
+            # };
+            system.multilib = true;
             network = {
-                ip-forwarding = false;
-                tcp-window-scaling = true;
-            };
-            desktop = {
-                usbguard = {
-                    enable = true;
-                    whitelist-at-boot = false;
-                    gnome-integration = false;
-                };
-                bluetooth-kmodules = true;
-            };
-            programs = {
-                replace-sudo-with-doas = false;
-                doas-sudo-wrapper = false;
-                firewall = true;
-                secure-chrony = false;
+                ip-forwarding = true;
             };
         };
-    }
+    };
+
+    nix-mineral.settings.network.tcp-window-scaling = false;
 }
 ```
 
