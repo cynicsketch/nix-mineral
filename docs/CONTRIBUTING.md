@@ -15,11 +15,14 @@ One of the main ideas is to be as modular as possible, so don't create modules t
 # Rules
 
 - Whenever you need to use lib/builtins functions, use the `l` attribute, which is available in all modules. It contains all lib functions, builtins, and additional nix-mineral functions.
-- Format the code with the formatter in `flake.nix`. If using nixos, use the `nix fmt` command within the repository, which will format all files with the correct formatter.
+- Format the code with the formatter in `flake.nix`. If using NixOS, use the `nix fmt` command within the repository, which will format all files with the correct formatter.
 - Explain the options in their descriptions (or in comments). The reason for each setting, and WHY this setting makes the system more secure for the user.
 - When creating new settings, use names in lowercase and hyphens to separate words, for example: `example-feature-x`.
 - Invert options that are intended to disable something, for example: don't use `disable-example-feature-y`, use `example-feature-y` and set the default to `false`.
 - Use the `l.mkBoolOption` function to create boolean options.
+- Do not attempt to add any feature which has been intentionally excluded under [OMITTED.md](OMITTED.md) or [ADDITIONAL-RESOURCES.md](OMITTED.md) without first creating an issue.
+- Issues should be created for most feature changes before attempting a PR. Bug fixes, and minor documentation changes do not require issues, but it is still heavily encouraged.
+- Where applicable, update both [presets](https://github.com/cynicsketch/nix-mineral/tree/main/presets) and the [README](https://github.com/cynicsketch/nix-mineral/tree/main/README.md) to reflect any new options.
 
 # Libs
 
