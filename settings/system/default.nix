@@ -15,6 +15,7 @@ let
         ./multilib.nix
         ./unprivileged-userns.nix
         ./nix-allow-only-wheel.nix
+        ./yama.nix
       ]
       {
         inherit

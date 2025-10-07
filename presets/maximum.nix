@@ -10,6 +10,12 @@
         # Enable SAK (Secure Attention Key). SAK prevents keylogging, if used correctly.
         sysrq = mkPreset "sak";
       };
+
+      system = {
+        # Restrict yama ptrace scope to the most secure option.
+        # No processes may be traced with ptrace.
+        yama = mkPreset "restricted";
+      };
     };
 
     extras = {
