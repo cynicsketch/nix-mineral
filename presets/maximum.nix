@@ -5,6 +5,13 @@
 
 {
   nix-mineral = {
+    settings = {
+      kernel = {
+        # Enable SAK (Secure Attention Key). SAK prevents keylogging, if used correctly.
+        sysrq = mkPreset "sak";
+      };
+    };
+
     extras = {
       kernel = {
         # Avoid putting trust in the highly privilege ME system,
@@ -30,9 +37,6 @@
         # Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
         # and to use the seccomp filter for security.
         secure-chrony = mkPreset true;
-
-        # Enable SAK (Secure Attention Key). SAK prevents keylogging, if used correctly.
-        sysrq-sak = mkPreset true;
       };
 
       network = {

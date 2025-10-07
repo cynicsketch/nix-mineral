@@ -14,7 +14,6 @@ let
       [
         ./lock-root.nix
         ./minimize-swapping.nix
-        ./sysrq-sak.nix
         ./hardened-malloc.nix
         ./secure-chrony.nix
       ]

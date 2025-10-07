@@ -22,6 +22,7 @@ let
         ./io-uring.nix
         ./amd-iommu-force-isolation.nix
         ./tcp-timestamps.nix
+        ./sysrq.nix
       ]
       {
         inherit
