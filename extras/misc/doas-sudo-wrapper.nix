@@ -18,6 +18,7 @@
   l,
   cfg,
   pkgs,
+  config,
   ...
 }:
 
@@ -31,9 +32,15 @@
 
   config = l.mkIf cfg {
     environment.systemPackages = with pkgs; [
-      (writeScriptBin "sudo" ''exec ${l.getExe doas} "$@"'')
-      (writeScriptBin "sudoedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
-      (writeScriptBin "doasedit" ''exec ${l.getExe doas} ${l.getExe' nano "rnano"} "$@"'')
+      (writeShellScriptBin "sudo" ''
+        exec ${config.security.wrapperDir}/doas "$@"
+      '')
+      (writeShellScriptBin "sudoedit" ''
+        exec ${config.security.wrapperDir}/doas ${l.getExe' nano "rnano"} "$@"
+      '')
+      (writeShellScriptBin "doasedit" ''
+        exec ${config.security.wrapperDir}/doas ${l.getExe' nano "rnano"} "$@"
+      '')
     ];
   };
 }

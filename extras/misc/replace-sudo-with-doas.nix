@@ -35,7 +35,7 @@
         {
           keepEnv = l.mkDefault true;
           persist = l.mkDefault true;
-          users = l.mkDefault [ "user" ];
+          users = l.mkDefault [ "wheel" ];
         }
       ];
     };
