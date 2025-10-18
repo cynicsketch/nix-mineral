@@ -42,7 +42,7 @@
       perSystem =
         { pkgs, ... }:
         {
-          formatter = pkgs.nixfmt-classic;
+          formatter = pkgs.nixfmt-rfc-style;
         };
 
       flake.nixosModules = {
