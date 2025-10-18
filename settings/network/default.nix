@@ -29,7 +29,6 @@ let
     l.mkCategoryModules cfg
       [
         ./ip-forwarding.nix
-        ./firewall.nix
       ]
       {
         inherit
