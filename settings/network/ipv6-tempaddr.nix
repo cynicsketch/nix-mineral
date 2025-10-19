@@ -15,41 +15,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    ipv6-tempaddr = l.mkBoolOption ''
+      Enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address
+      https://grapheneos.org/features#wifi-privacy
+      GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
+      extensions alongside MAC randomization, so consider doing both where
+      applicable
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf {
+    boot.kernel.sysctl = {
+      "net.ipv6.conf.default.use_tempaddr" = l.mkDefault "2";
+      "net.ipv6.conf.all.use_tempaddr" = l.mkDefault "2";
+    };
+  };
 }
