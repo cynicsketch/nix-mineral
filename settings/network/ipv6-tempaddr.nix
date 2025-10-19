@@ -31,7 +31,7 @@
     '' true;
   };
 
-  config = l.mkIf {
+  config = l.mkIf cfg {
     boot.kernel.sysctl = {
       "net.ipv6.conf.default.use_tempaddr" = l.mkDefault "2";
       "net.ipv6.conf.all.use_tempaddr" = l.mkDefault "2";
