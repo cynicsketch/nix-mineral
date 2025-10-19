@@ -29,6 +29,7 @@ let
     l.mkCategoryModules cfg
       [
         ./hwrng.nix
+        ./jitterentropy.nix
       ]
       {
         inherit

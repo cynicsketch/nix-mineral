@@ -16,6 +16,7 @@
 
 {
   l,
+  cfg,
   config,
   ...
 }:
@@ -34,7 +35,7 @@
     '' true;
   };
 
-  config = l.mkIf {
+  config = l.mkIf cfg {
     services.jitterentropy-rngd.enable = l.mkDefault (!config.boot.isContainer);
     boot.kernelModules = l.mkDefault [ "jitterentropy_rng" ];
   };
