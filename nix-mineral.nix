@@ -34,6 +34,7 @@ let
         ./settings/kernel
         ./settings/system
         ./settings/network
+        ./settings/entropy
       ]
       {
         inherit
