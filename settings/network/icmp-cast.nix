@@ -15,46 +15,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./icmp-cast.nix
-        ./icmp-ignore-all.nix
-        ./icmp-ignore-bogus.nix
-        ./icmp-redirect.nix
-        ./icmp-secure-redirect.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    icmp-cast = l.mkBoolOption ''
+      Set to false to ignore all ICMPv6 and ICMPv4 echo and timestamp requests
+      sent to broadcast/multicast/anycast
+      Makes system slightly harder to enumerate on a network
+      Redundant with nix-mineral.settings.network.icmp-ignore-all = true;
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "net.ipv4.icmp_echo_ignore_broadcasts" = l.mkOverride 900 "1";
+      "net.ipv6.icmp.echo_ignore_anycast" = l.mkDefault "1";
+      "net.ipv6.icmp.echo_ignore_multicast" = l.mkDefault "1";
+    };
+  };
 }

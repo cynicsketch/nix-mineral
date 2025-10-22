@@ -15,46 +15,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./icmp-cast.nix
-        ./icmp-ignore-all.nix
-        ./icmp-ignore-bogus.nix
-        ./icmp-redirect.nix
-        ./icmp-secure-redirect.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    icmp-redirect = l.mkBoolOption ''
+      Set to false to disable ICMP redirects to prevent some MITM attacks
+      See https://askubuntu.com/questions/118273/what-are-icmp-redirects-and-should-they-be-blocked
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.all.accept_redirects" = l.mkOverride 900 "0";
+      "net.ipv4.conf.default.accept_redirects" = l.mkOverride 900 "0";
+      "net.ipv4.conf.all.send_redirects" = l.mkOverride 900 "0";
+      "net.ipv4.conf.default.send_redirects" = l.mkOverride 900 "0";
+      "net.ipv6.conf.all.accept_redirects" = l.mkOverride 900 "0";
+      "net.ipv6.conf.default.accept_redirects" = l.mkOverride 900 "0";
+    };
+  };
 }

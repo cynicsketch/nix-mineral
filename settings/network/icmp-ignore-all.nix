@@ -15,46 +15,25 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./icmp-cast.nix
-        ./icmp-ignore-all.nix
-        ./icmp-ignore-bogus.nix
-        ./icmp-redirect.nix
-        ./icmp-secure-redirect.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    icmp-ignore-all = l.mkBoolOption ''
+      Set to true to ignore all ICMPv6 and ICMPv4 echo and timestamp requests.
+      Makes system slightly harder to enumerate on a network.
+      You will not be able to ping this computer with ICMP packets if this is
+      enabled.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "net.ipv6.icmp.echo_ignore_all" = l.mkDefault "1";
+      "net.ipv4.icmp_echo_ignore_all" = l.mkDefault "1";
+    };
+  };
 }

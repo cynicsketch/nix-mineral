@@ -15,46 +15,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./icmp-cast.nix
-        ./icmp-ignore-all.nix
-        ./icmp-ignore-bogus.nix
-        ./icmp-redirect.nix
-        ./icmp-secure-redirect.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    icmp-ignore-bogus = l.mkBoolOption ''
+      Ignore bogus ICMP error responses to reduce potential system impact
+      caused by spammed error responses.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "net.ipv4.icmp_ignore_bogus_error_responses" = l.mkDefault "1";
+    };
+  };
 }

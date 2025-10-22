@@ -15,46 +15,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./icmp-cast.nix
-        ./icmp-ignore-all.nix
-        ./icmp-ignore-bogus.nix
-        ./icmp-redirect.nix
-        ./icmp-secure-redirect.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    icmp-secure-redirect = l.mkBoolOption ''
+      Use secure ICMP redirects by default. Helpful only if ICMP redirects are
+      reenabled, otherwise this does nothing. Not harmful to leave enabled
+      even if unnecessary.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.all.secure_redirects" = l.mkOverride 900 "1";
+      "net.ipv4.conf.default.secure_redirects" = l.mkOverride 900 "1";
+    };
+  };
 }
