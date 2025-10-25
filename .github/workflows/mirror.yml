@@ -1,0 +1,9 @@
+            - name: mirror-repository
+  # You may pin to the exact commit or the version.
+  # uses: yesolutions/mirror-action@1708f16cdb28634fd3ba10c5c79abc91f5578a14
+on: [push]
+  uses: yesolutions/mirror-action@v0.7.0
+  with:
+    REMOTE: 'ssh://codeberg.org/cynicsketch/nix-mineral.git'
+    GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+    GIT_SSH_KNOWN_HOSTS: ${{ secrets.GIT_SSH_KNOWN_HOSTS }}
