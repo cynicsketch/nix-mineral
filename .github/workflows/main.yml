@@ -26,6 +26,6 @@ jobs:
       # uses: yesolutions/mirror-action@1708f16cdb28634fd3ba10c5c79abc91f5578a14
       uses: yesolutions/mirror-action@v0.7.0
       with:
-        REMOTE: 'ssh://codeberg.org/cynicsketch/nix-mineral.git'
+        REMOTE: 'ssh://git@codeberg.org:cynicsketch/nix-mineral.git'
         GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
         GIT_SSH_NO_VERIFY_HOST: "true"
