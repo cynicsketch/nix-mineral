@@ -15,47 +15,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./arp.nix
-        ./icmp.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-        ./log-martians.nix
-        ./max-addresses.nix
-        ./neighbor-solicitations.nix
-        ./shared-media.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
+    neighbor-solicitations = l.mkOption {
       description = ''
-        Settings for the network.
+        Number of neighbor solicitations to send out per address.
+
+        Set this to `false` to disable this option entirely.
       '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
+      default = 0;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
     };
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (l.typeOf cfg == "int") {
+    boot.kernel.sysctl = {
+      "net.ipv6.conf.default.dad_transmits" = l.mkDefault (toString cfg);
+      "net.ipv6.conf.all.dad_transmits" = l.mkDefault (toString cfg);
+    };
+  };
 }
