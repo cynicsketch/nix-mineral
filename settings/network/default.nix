@@ -28,11 +28,7 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./icmp-cast.nix
-        ./icmp-ignore-all.nix
-        ./icmp-ignore-bogus.nix
-        ./icmp-redirect.nix
-        ./icmp-secure-redirect.nix
+        ./icmp.nix
         ./ip-forwarding.nix
         ./ipv6-tempaddr.nix
       ]
