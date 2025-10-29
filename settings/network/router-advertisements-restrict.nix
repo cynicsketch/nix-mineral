@@ -22,17 +22,27 @@
 
 {
   options = {
-    router-tweaks = l.mkBoolOption ''
-      Tweak router advertisement settings to improve privacy and security.
+    router-advertisements-restrict = l.mkBoolOption ''
+      Restrict the parameters of IPv6 router advertisements which are accepted.
+      Malicious router advertisements have the potential to create a MITM
+      attack by modifying the default gateway, cause a DoS/DDoS attack when
+      flooded, or initiate unauthorized IPv6 access.
+
+      Router advertisements are never authenticated, and can be sent and
+      received by any device on the local network.
+
+      This option does nothing if all router advertisements are disabled with
+      nix-mineral.settings.network.router-advertisements = false
+
+      See:
+      https://datatracker.ietf.org/doc/html/rfc6104
+      https://datatracker.ietf.org/doc/html/rfc6105
+      https://archive.conference.hitb.org/hitbsecconf2012kul/materials/D1T2%20-%20Marc%20Heuse%20-%20IPv6%20Insecurity%20Revolutions.pdf
     '' true;
   };
 
   config = l.mkIf cfg {
     boot.kernel.sysctl = {
-      # number of Router Solicitations to send until assuming no routers are present
-      "net.ipv6.conf.default.router_solicitations" = l.mkDefault "0";
-      "net.ipv6.conf.all.router_solicitations" = l.mkDefault "0";
-
       # do not accept Router Preference from RA
       "net.ipv6.conf.default.accept_ra_rtr_pref" = l.mkDefault "0";
       "net.ipv6.conf.all.accept_ra_rtr_pref" = l.mkDefault "0";
