@@ -35,6 +35,7 @@ let
         ./log-martians.nix
         ./max-addresses.nix
         ./neighbor-solicitations.nix
+        ./router-tweaks.nix
         ./shared-media.nix
       ]
       {
