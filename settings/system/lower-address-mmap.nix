@@ -15,43 +15,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./nix-allow-only-wheel.nix
-        ./yama.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    lower-address-mmap = l.mkBoolOption ''
+      Allow mmap in lower addresses
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl."vm.mmap_min_addr" = l.mkDefault "65536";
+  };
 }
