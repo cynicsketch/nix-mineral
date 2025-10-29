@@ -23,10 +23,10 @@
 {
   options = {
     restrict-perf-subsystem-usage = l.mkBoolOption ''
-      Restrict perf subsystem usage (activity) to reduce attack surface.
+      Restrict perf subsystem access to reduce attack surface.
 
-      Not to be confused with paranoid-perf-subsystem, which pertains to
-      access.
+      Not to be confused to restrict-perf-subsystem-usage, which pertains
+      to activity.
 
       See https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
       for more information.
@@ -35,8 +35,11 @@
 
   config = l.mkIf cfg {
     boot.kernel.sysctl = {
-      "kernel.perf_cpu_time_max_percent" = l.mkDefault "1";
-      "kernel.perf_event_max_sample_rate" = l.mkDefault "1";
+      # Note: This is set to 3 because additional restriction can be made
+      # if a specific kernel patch is. This reverts back to "2" in terms of
+      # behavior if the patch isn't present, which is the default behavior of
+      # NixOS.
+      "kernel.perf_event_paranoid" = l.mkDefault "3";
     };
   };
 }
