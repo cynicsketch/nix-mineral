@@ -32,6 +32,7 @@ let
         ./minimize-swapping.nix
         ./hardened-malloc.nix
         ./secure-chrony.nix
+        ./unprivileged-userns.nix
       ]
       {
         inherit

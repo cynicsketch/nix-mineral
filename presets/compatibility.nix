@@ -45,9 +45,6 @@
       system = {
         # allow 32-bit libraries and applications to run.
         multilib = mkPreset true;
-
-        # if false, this may break some applications that rely on user namespaces.
-        unprivileged-userns = mkPreset true;
       };
     };
 

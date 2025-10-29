@@ -29,7 +29,6 @@ let
     l.mkCategoryModules cfg
       [
         ./multilib.nix
-        ./unprivileged-userns.nix
         ./nix-allow-only-wheel.nix
         ./yama.nix
       ]
