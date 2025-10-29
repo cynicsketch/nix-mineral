@@ -24,7 +24,10 @@
   options = {
     neighbor-solicitations = l.mkOption {
       description = ''
-        Number of neighbor solicitations to send out per address.
+        Number of IPv6 duplicate address detection neighbor solicitations to
+        send out per address.
+
+        See RFC4681 for details.
 
         Set this to `false` to disable this option entirely.
       '';

@@ -34,6 +34,7 @@ let
         ./ipv6-tempaddr.nix
         ./log-martians.nix
         ./max-addresses.nix
+        ./router-advertisements.nix
         ./router-advertisements-restrict.nix
         ./router-tweaks.nix
         ./shared-media.nix
