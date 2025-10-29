@@ -15,44 +15,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./link-protection.nix
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./nix-allow-only-wheel.nix
-        ./yama.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    lower-address-mmap = l.mkBoolOption ''
+      Protect hardlinks and softlinks to prevent TOCTOU attacks.
+
+      Prevent users from hardlinking to files they can't read/write to.
+
+      Allows symlinks to be followed only outside world writable directories,
+      when the owner and follower match, or when the directory and symlink
+      owner match.
+
+      See https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "fs.protected_hardlinks" = l.mkDefault "1";
+      "fs.protected_symlinks" = l.mkDefault "1";
+    };
+  };
 }
