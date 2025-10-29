@@ -15,46 +15,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./arp.nix
-        ./icmp.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-        ./log-martians.nix
-        ./max-addresses.nix
-        ./shared-media.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
+    max-addresses = l.mkOption {
       description = ''
-        Settings for the network.
+        Number of global unicast IPv6 addresses can be assigned to each interface.
+
+        Set this to `false` to disable this option entirely.
       '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
+      default = 1;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
     };
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (l.typeOf cfg == "int") {
+    boot.kernel.sysctl = {
+      "net.ipv6.conf.default.max_addresses" = l.mkDefault (toString cfg);
+      "net.ipv6.conf.all.max_addresses" = l.mkDefault (toString cfg);
+    };
+  };
 }
