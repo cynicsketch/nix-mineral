@@ -15,44 +15,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./arp.nix
-        ./icmp.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-        ./shared-media.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    shared-media = l.mkBoolOption ''
+      Disable sending and receiving of shared media redirects
+      this setting overwrites net.ipv4.conf.all.secure_redirects
+      refer to RFC1620
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.default.shared_media" = l.mkDefault "0";
+      "net.ipv4.conf.all.shared_media" = l.mkDefault "0";
+    };
+  };
 }
