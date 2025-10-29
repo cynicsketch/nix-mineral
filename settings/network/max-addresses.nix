@@ -22,18 +22,22 @@
 
 {
   options = {
-    icmp-ignore-all = l.mkBoolOption ''
-      Set to true to ignore all ICMPv6 and ICMPv4 echo and timestamp requests.
-      Makes system slightly harder to enumerate on a network.
-      You will not be able to ping this computer with ICMP packets if this is
-      enabled.
-    '' true;
+    max-addresses = l.mkOption {
+      description = ''
+        Number of global unicast IPv6 addresses can be assigned to each interface.
+
+        Set this to `false` to disable this option entirely.
+      '';
+      default = 1;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
+    };
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (l.typeOf cfg == "int") {
     boot.kernel.sysctl = {
-      "net.ipv6.icmp.echo_ignore_all" = l.mkDefault "1";
-      "net.ipv4.icmp_echo_ignore_all" = l.mkDefault "1";
+      "net.ipv6.conf.default.max_addresses" = l.mkDefault (toString cfg);
+      "net.ipv6.conf.all.max_addresses" = l.mkDefault (toString cfg);
     };
   };
 }

@@ -22,15 +22,12 @@
 
 {
   options = {
-    icmp-ignore-bogus = l.mkBoolOption ''
-      Ignore bogus ICMP error responses to reduce potential system impact
-      caused by spammed error responses.
-    '' true;
+    lower-address-mmap = l.mkBoolOption ''
+      Allow mmap in lower addresses
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernel.sysctl = {
-      "net.ipv4.icmp_ignore_bogus_error_responses" = l.mkDefault "1";
-    };
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl."vm.mmap_min_addr" = l.mkDefault "65536";
   };
 }

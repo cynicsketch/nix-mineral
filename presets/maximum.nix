@@ -59,6 +59,9 @@
         # Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
         # and to use the seccomp filter for security.
         secure-chrony = mkPreset true;
+
+        # if false, this may break some applications that rely on user namespaces.
+        unprivileged-userns = mkPreset false;
       };
 
       network = {

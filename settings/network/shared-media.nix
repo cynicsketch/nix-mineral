@@ -22,17 +22,17 @@
 
 {
   options = {
-    icmp-secure-redirect = l.mkBoolOption ''
-      Use secure ICMP redirects by default. Helpful only if ICMP redirects are
-      reenabled, otherwise this does nothing. Not harmful to leave enabled
-      even if unnecessary.
-    '' true;
+    shared-media = l.mkBoolOption ''
+      Disable sending and receiving of shared media redirects
+      this setting overwrites net.ipv4.conf.all.secure_redirects
+      refer to RFC1620
+    '' false;
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (!cfg) {
     boot.kernel.sysctl = {
-      "net.ipv4.conf.all.secure_redirects" = l.mkOverride 900 "1";
-      "net.ipv4.conf.default.secure_redirects" = l.mkOverride 900 "1";
+      "net.ipv4.conf.default.shared_media" = l.mkDefault "0";
+      "net.ipv4.conf.all.shared_media" = l.mkDefault "0";
     };
   };
 }

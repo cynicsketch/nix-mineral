@@ -15,42 +15,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./hwrng.nix
-        ./jitterentropy.nix
-        ./aslr.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    entropy = l.mkOption {
-      description = ''
-        Settings for entropy sources.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    aslr = l.mkBoolOption ''
+      Turn on protection and randomize stack, vdso page and mmap + randomize brk base address
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl."kernel.randomize_va_space" = l.mkDefault "2";
+  };
 }

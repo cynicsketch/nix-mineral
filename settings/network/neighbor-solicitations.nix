@@ -22,19 +22,22 @@
 
 {
   options = {
-    icmp-cast = l.mkBoolOption ''
-      Set to false to ignore all ICMPv6 and ICMPv4 echo and timestamp requests
-      sent to broadcast/multicast/anycast
-      Makes system slightly harder to enumerate on a network
-      Redundant with nix-mineral.settings.network.icmp-ignore-all = true;
-    '' false;
+    neighbor-solicitations = l.mkOption {
+      description = ''
+        Number of neighbor solicitations to send out per address.
+
+        Set this to `false` to disable this option entirely.
+      '';
+      default = 0;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
+    };
   };
 
-  config = l.mkIf (!cfg) {
+  config = l.mkIf (l.typeOf cfg == "int") {
     boot.kernel.sysctl = {
-      "net.ipv4.icmp_echo_ignore_broadcasts" = l.mkOverride 900 "1";
-      "net.ipv6.icmp.echo_ignore_anycast" = l.mkDefault "1";
-      "net.ipv6.icmp.echo_ignore_multicast" = l.mkDefault "1";
+      "net.ipv6.conf.default.dad_transmits" = l.mkDefault (toString cfg);
+      "net.ipv6.conf.all.dad_transmits" = l.mkDefault (toString cfg);
     };
   };
 }

@@ -37,8 +37,9 @@ let
         ./binfmt-misc.nix
         ./io-uring.nix
         ./amd-iommu-force-isolation.nix
-        ./tcp-timestamps.nix
+        ./restrict-perf-subsystem-usage.nix
         ./sysrq.nix
+        ./tcp-timestamps.nix
       ]
       {
         inherit

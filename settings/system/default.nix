@@ -28,8 +28,8 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
+        ./lower-address-mmap.nix
         ./multilib.nix
-        ./unprivileged-userns.nix
         ./nix-allow-only-wheel.nix
         ./yama.nix
       ]

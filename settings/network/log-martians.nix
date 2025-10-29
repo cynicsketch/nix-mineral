@@ -22,20 +22,18 @@
 
 {
   options = {
-    icmp-redirect = l.mkBoolOption ''
-      Set to false to disable ICMP redirects to prevent some MITM attacks
-      See https://askubuntu.com/questions/118273/what-are-icmp-redirects-and-should-they-be-blocked
-    '' false;
+    log-martians = l.mkBoolOption ''
+      log packets with impossible addresses to kernel log
+      No active security benefit, just makes it easier to
+      spot a DDOS/DOS by giving extra logs
+    '' true;
   };
 
-  config = l.mkIf (!cfg) {
+  config = l.mkIf cfg {
     boot.kernel.sysctl = {
-      "net.ipv4.conf.all.accept_redirects" = l.mkOverride 900 "0";
-      "net.ipv4.conf.default.accept_redirects" = l.mkOverride 900 "0";
-      "net.ipv4.conf.all.send_redirects" = l.mkOverride 900 "0";
-      "net.ipv4.conf.default.send_redirects" = l.mkOverride 900 "0";
-      "net.ipv6.conf.all.accept_redirects" = l.mkOverride 900 "0";
-      "net.ipv6.conf.default.accept_redirects" = l.mkOverride 900 "0";
+      # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
+      "net.ipv4.conf.default.log_martians" = l.mkOverride 900 "1";
+      "net.ipv4.conf.all.log_martians" = l.mkOverride 900 "1";
     };
   };
 }

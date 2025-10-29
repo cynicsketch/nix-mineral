@@ -28,13 +28,15 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./icmp-cast.nix
-        ./icmp-ignore-all.nix
-        ./icmp-ignore-bogus.nix
-        ./icmp-redirect.nix
-        ./icmp-secure-redirect.nix
+        ./arp.nix
+        ./icmp.nix
         ./ip-forwarding.nix
         ./ipv6-tempaddr.nix
+        ./log-martians.nix
+        ./max-addresses.nix
+        ./neighbor-solicitations.nix
+        ./router-tweaks.nix
+        ./shared-media.nix
       ]
       {
         inherit
