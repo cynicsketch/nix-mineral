@@ -22,7 +22,7 @@
 
 {
   options = {
-    lower-address-mmap = l.mkBoolOption ''
+    link-protection = l.mkBoolOption ''
       Protect hardlinks and softlinks to prevent TOCTOU attacks.
 
       Prevent users from hardlinking to files they can't read/write to.
