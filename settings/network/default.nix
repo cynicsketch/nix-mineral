@@ -37,7 +37,6 @@ let
         ./router-advertisements.nix
         ./router-advertisements-restrict.nix
         ./router-solicitations.nix
-        ./router-tweaks.nix
         ./shared-media.nix
       ]
       {
