@@ -15,45 +15,25 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./arp.nix
-        ./icmp.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-        ./log-martians.nix
-        ./shared-media.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
-      description = ''
-        Settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    log-martians = l.mkBoolOption ''
+      log packets with impossible addresses to kernel log
+      No active security benefit, just makes it easier to
+      spot a DDOS/DOS by giving extra logs
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
+      "net.ipv4.conf.default.log_martians" = l.mkOverride 900 "1";
+      "net.ipv4.conf.all.log_martians" = l.mkOverride 900 "1";
+    };
+  };
 }
