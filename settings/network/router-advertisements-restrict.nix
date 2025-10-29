@@ -34,6 +34,9 @@
       This option does nothing if all router advertisements are disabled with
       nix-mineral.settings.network.router-advertisements = false
 
+      Setting to true may cause issues with IPv6 address autoconfiguration or
+      host discovery.
+
       See:
       https://datatracker.ietf.org/doc/html/rfc6104
       https://datatracker.ietf.org/doc/html/rfc6105

@@ -31,6 +31,9 @@
       Router advertisements are never authenticated, and can be sent and
       received by any device on the local network.
 
+      Setting to false may cause issues with IPv6 address autoconfiguration or
+      host discovery.
+
       See:
       https://datatracker.ietf.org/doc/html/rfc6104
       https://datatracker.ietf.org/doc/html/rfc6105
