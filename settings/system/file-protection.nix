@@ -15,45 +15,25 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./file-protection.nix
-        ./link-protection.nix
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./nix-allow-only-wheel.nix
-        ./yama.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    file-protection = l.mkBoolOption ''
+      Prevent creation of files in world writable directories under certain
+      circumstances to limit spoofing attacks.
+       
+       See https://github.com/torvalds/linux/commit/30aba6656f61ed44cba445a3c0d38b296fa9e8f5
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "fs.protected_regular" = l.mkDefault "2";
+      "fs.protected_fifos" = l.mkDefault "2";
+    };
+  };
 }
