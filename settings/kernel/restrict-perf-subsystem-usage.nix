@@ -15,51 +15,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./only-signed-modules.nix
-        ./lockdown.nix
-        ./busmaster-bit.nix
-        ./iommu-passthrough.nix
-        ./cpu-mitigations.nix
-        ./pti.nix
-        ./binfmt-misc.nix
-        ./io-uring.nix
-        ./amd-iommu-force-isolation.nix
-        ./restrict-perf-subsystem-usage.nix
-        ./sysrq.nix
-        ./tcp-timestamps.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    kernel = l.mkOption {
-      description = ''
-        Settings meant to harden the linux kernel.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    restrict-perf-subsystem-usage = l.mkBoolOption ''
+      Restrict perf subsystem usage (activity) further
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "kernel.perf_cpu_time_max_percent" = l.mkDefault "1";
+      "kernel.perf_event_max_sample_rate" = l.mkDefault "1";
+    };
+  };
 }
