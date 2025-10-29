@@ -15,50 +15,36 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./arp.nix
-        ./icmp.nix
-        ./ip-forwarding.nix
-        ./ipv6-tempaddr.nix
-        ./log-martians.nix
-        ./max-addresses.nix
-        ./router-advertisements.nix
-        ./router-advertisements-restrict.nix
-        ./router-solicitations.nix
-        ./router-tweaks.nix
-        ./shared-media.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    network = l.mkOption {
+    router-solicitations = l.mkOption {
       description = ''
-        Settings for the network.
+        Number of IPv6 Router Solicitations to send until assuming no routers
+        are present. Setting to 0 limits outgoing traffic on the network,
+        and reduces the frequecy of IPv6 router advertisements received.
+
+        There is no point to setting this number above 0 if all router
+        advertisements are not accepted.
+
+        See RFC4681 for details.
+
+        Set this to `false` to disable this option entirely.
       '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
+      default = 0;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
     };
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (l.typeOf cfg == "int") {
+    boot.kernel.sysctl = {
+      "net.ipv6.conf.default.router_solicitations" = l.mkDefault (toString cfg);
+      "net.ipv6.conf.all.router_solicitations" = l.mkDefault (toString cfg);
+    };
+  };
 }
