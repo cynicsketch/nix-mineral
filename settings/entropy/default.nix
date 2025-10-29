@@ -42,9 +42,9 @@ let
 in
 {
   options = {
-    system = l.mkOption {
+    entropy = l.mkOption {
       description = ''
-        Settings for the system.
+        Settings for entropy sources.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;
