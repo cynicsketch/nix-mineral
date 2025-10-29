@@ -46,6 +46,12 @@
         # allow 32-bit libraries and applications to run.
         multilib = mkPreset true;
       };
+
+      network = {
+        # drop Gratuitous ARP frames to prevent ARP poisoning
+        # this can cause issues when ARP proxies are used in the network
+        arp.drop-gratuitous = mkPreset false;
+      };
     };
 
     filesystems = {

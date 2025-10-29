@@ -28,6 +28,7 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
+        ./arp.nix
         ./icmp.nix
         ./ip-forwarding.nix
         ./ipv6-tempaddr.nix
