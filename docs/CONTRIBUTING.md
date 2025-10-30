@@ -24,6 +24,25 @@ One of the main ideas is to be as modular as possible, so don't create modules t
 - Do not attempt to add any feature which has been intentionally excluded under [OMITTED.md](OMITTED.md) or [ADDITIONAL-RESOURCES.md](OMITTED.md) without first creating an issue.
 - Issues should be created for most feature changes before attempting a PR. Bug fixes, and minor documentation changes do not require issues, but it is still heavily encouraged.
 - Where applicable, update both [presets](https://github.com/cynicsketch/nix-mineral/tree/main/presets) and the [README](https://github.com/cynicsketch/nix-mineral/tree/main/README.md) to reflect any new options.
+- Where applicable, add [GPL license headers](https://www.gnu.org/licenses/gpl-3.0.html#howto) to new source code files:
+
+```
+# This file is part of nix-mineral (https://github.com/cynicsketch/nix-mineral/).
+# Copyright (c) 2025 cynicsketch
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+```
 
 # Libs
 
