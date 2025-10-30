@@ -11,6 +11,7 @@ One of the main ideas is to be as modular as possible, so don't create modules t
 - [Hardening a filesystem](#hardening-a-filesystem)
 - [Creating a preset](#creating-a-preset)
 - [Adding functions to the lib](#adding-functions-to-the-lib)
+- [Licensing and copyright](#licensing-and-copyright)
 
 # Rules
 
@@ -253,3 +254,14 @@ Examples are within the files.
 
 Create your function within the `let in` in the `lib/default.nix` file, following the pattern of the other functions.
 Then place your function within the `flake.lib` list at the end of the file, and within the list inside the `importModule` function as well.
+
+# Licensing and copyright
+
+Because it is pragmatic to take from existing research, consideration to licensing applies. This is not legal advice, just a general reference and opinion.
+
+- The merger doctrine nullifies licensing and attribution requirements when there are limited ways to express an idea. 
+- Basic concepts and facts aren't copyrightable. 
+- Due to the nature of Linux hardening, most configuration changes aren't legally valid to copyright under merger doctrine. 
+- Informal crediting exists as a courtesy, not as a way to fulfill proper license attribution requirements.
+- *Some* commentary isn't legally valid to copyright when summarizing basic facts or concepts. If independent descriptions inevitably converge to the same semantic meaning, merger doctrine usually applies.
+- *Some* commentary **is** legally copyrightable when there is an element of artistic of imaginative expression.
