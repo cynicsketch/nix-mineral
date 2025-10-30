@@ -29,7 +29,7 @@
       '' true;
 
       ignore = l.mkBoolOption ''
-        reply only if the target IP address is local address configured on the incoming interface
+        Reply only if the target IP address is local address configured on the incoming interface
       '' true;
 
       drop-gratuitous = l.mkBoolOption ''

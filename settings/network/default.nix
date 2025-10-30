@@ -34,8 +34,8 @@ let
         ./ipv6-tempaddr.nix
         ./log-martians.nix
         ./max-addresses.nix
+        ./neighbor-solicitations.nix
         ./router-advertisements.nix
-        ./router-advertisements-restrict.nix
         ./router-solicitations.nix
         ./shared-media.nix
       ]

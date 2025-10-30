@@ -37,8 +37,7 @@ let
         ./binfmt-misc.nix
         ./io-uring.nix
         ./amd-iommu-force-isolation.nix
-        ./restrict-perf-subsystem-usage.nix
-        ./paranoid-perf-subsystem.nix
+        ./perf-subsystem.nix
         ./sysrq.nix
         ./tcp-timestamps.nix
       ]
