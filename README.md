@@ -9,6 +9,7 @@ Rather than be named after a mineral, it's named after the word "mineral".
 Reasonably harden NixOS in a way that can be quickly deployed by the end user.
 
 `nix-mineral` primarily aims to configure, *not* install additional software unless the user explicitly does so. There are specific exceptions for software which is not known to cause any problems to any workflow.
+
 Refer to [our contribution guidelines](docs/CONTRIBUTING.md) for more information on what we choose to exclude.
 
 Threat model assumes non-governmental adversaries, and anonymity is not considered.
