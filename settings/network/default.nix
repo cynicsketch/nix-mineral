@@ -36,7 +36,6 @@ let
         ./max-addresses.nix
         ./neighbor-solicitations.nix
         ./router-advertisements.nix
-        ./router-advertisements-restrict.nix
         ./router-solicitations.nix
         ./shared-media.nix
       ]

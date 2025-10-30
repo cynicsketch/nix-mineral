@@ -22,29 +22,63 @@
 
 {
   options = {
-    router-advertisements = l.mkBoolOption ''
-      Enable or disable all IPv6 router advertisements which are accepted.
-      Malicious router advertisements have the potential to create a MITM
-      attack by modifying the default gateway, cause a DoS/DDoS attack when
-      flooded, or initiate unauthorized IPv6 access.
+    router-advertisements = l.mkOption {
+      description = ''
+        IPv6 router advertisements which are accepted.
+        Malicious router advertisements have the potential to create a MITM
+        attack by modifying the default gateway, cause a DoS/DDoS attack when
+        flooded, or initiate unauthorized IPv6 access.
 
-      Router advertisements are never authenticated, and can be sent and
-      received by any device on the local network.
+        `off` - Disable all IPv6 router advertisements.
+        `restrict` - Restrict the parameters of IPv6 router advertisements which are accepted.
+        `on` - Enable all IPv6 router advertisements (effectively, do nothing).
 
-      Setting to false may cause issues with IPv6 address autoconfiguration or
-      host discovery.
+        Router advertisements are never authenticated, and can be sent and
+        received by any device on the local network.
 
-      See:
-      https://datatracker.ietf.org/doc/html/rfc6104
-      https://datatracker.ietf.org/doc/html/rfc6105
-      https://archive.conference.hitb.org/hitbsecconf2012kul/materials/D1T2%20-%20Marc%20Heuse%20-%20IPv6%20Insecurity%20Revolutions.pdf
-    '' false;
+        Setting to `off` or `restrict` may cause issues with IPv6 address autoconfiguration or
+        host discovery.
+
+        See:
+        https://datatracker.ietf.org/doc/html/rfc6104
+        https://datatracker.ietf.org/doc/html/rfc6105
+        https://archive.conference.hitb.org/hitbsecconf2012kul/materials/D1T2%20-%20Marc%20Heuse%20-%20IPv6%20Insecurity%20Revolutions.pdf
+      '';
+      default = "restrict";
+      type = l.types.enum [
+        "off"
+        "restrict"
+        "on"
+      ];
+    };
   };
 
-  config = l.mkIf (!cfg) {
-    boot.kernel.sysctl = {
-      "net.ipv6.conf.default.accept_ra" = l.mkDefault "0";
-      "net.ipv6.conf.all.accept_ra" = l.mkDefault "0";
-    };
+  config = {
+    boot.kernel.sysctl =
+      if (cfg == "off") then
+        {
+          "net.ipv6.conf.default.accept_ra" = l.mkDefault "0";
+          "net.ipv6.conf.all.accept_ra" = l.mkDefault "0";
+        }
+      else if cfg == "restrict" then
+        {
+          # do not accept Router Preference from RA
+          "net.ipv6.conf.default.accept_ra_rtr_pref" = l.mkDefault "0";
+          "net.ipv6.conf.all.accept_ra_rtr_pref" = l.mkDefault "0";
+
+          # learn prefix information in router advertisement
+          "net.ipv6.conf.default.accept_ra_pinfo" = l.mkDefault "0";
+          "net.ipv6.conf.all.accept_ra_pinfo" = l.mkDefault "0";
+
+          # setting controls whether the system will accept Hop Limit settings from a router advertisement
+          "net.ipv6.conf.default.accept_ra_defrtr" = l.mkDefault "0";
+          "net.ipv6.conf.all.accept_ra_defrtr" = l.mkDefault "0";
+
+          # router advertisements can cause the system to assign a global unicast address to an interface
+          "net.ipv6.conf.default.autoconf" = l.mkDefault "0";
+          "net.ipv6.conf.all.autoconf" = l.mkDefault "0";
+        }
+      else
+        { };
   };
 }
