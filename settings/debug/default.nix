@@ -42,7 +42,7 @@ let
 in
 {
   options = {
-    entropy = l.mkOption {
+    debug = l.mkOption {
       description = ''
         Limit various debugging information to reduce info available to
         potential attackers.
