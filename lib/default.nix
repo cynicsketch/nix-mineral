@@ -76,12 +76,31 @@ let
               mkCategoryModules
               mkCategorySubmodule
               mkCategoryConfig
+              mkFilesystemOptions
               ;
           };
         }
         // extraArgs
       ))
     );
+
+  # Converts a declarative attrset of filesystem options into a valid list.
+  # It filters out options set to `false` and formats non-booleans
+  # (e.g., `hidepid = 2` -> `"hidepid=2"`). If the resulting list is
+  # empty, it avoids errors by defining no options at all.
+  mkFilesystemOptions =
+    optionAttrs:
+    let
+      finalOptions = l.attrNames (
+        l.filterAttrs (_: bool: bool) (
+          l.mapAttrs' (name: value: {
+            name = if l.isBool value then name else "${name}=${toString value}";
+            value = if l.isBool value then value else true;
+          }) optionAttrs
+        )
+      );
+    in
+    l.mkIf (finalOptions != [ ]) finalOptions;
 
   # import a module using `importModule` and adds the args `parentCfg` and `cfg` to the module
   # `categoryConfig` is the config for the category the module belongs to, ex: config.nix-mineral.settings.kernel
