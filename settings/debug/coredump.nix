@@ -41,7 +41,7 @@
       "fs.suid_dumpable" = l.mkDefault "0";
       "kernel.core_pattern" = l.mkDefault "|/bin/false";
     };
-    pam.loginLimits = [
+    security.pam.loginLimits = [
       {
         domain = l.mkDefault "*";
         item = l.mkDefault "core";
