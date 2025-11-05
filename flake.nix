@@ -44,6 +44,10 @@
         { pkgs, ... }:
         {
           formatter = pkgs.nixfmt-rfc-style;
+
+          packages.docs = pkgs.callPackage ./docs/package.nix {
+            inherit inputs pkgs;
+          };
         };
 
       flake.nixosModules = {
