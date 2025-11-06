@@ -84,14 +84,7 @@ in
         name: opts:
         (l.mkIf opts.enable {
           device = l.mkIf (opts.device != null) (l.mkDefault opts.device);
-          options = l.attrNames (
-            l.filterAttrs (_: bool: bool) (
-              l.mapAttrs' (name: value: {
-                name = (if ((l.typeOf value) == "bool") then name else (name + "=" + (toString value)));
-                value = (if ((l.typeOf value) == "bool") then value else true);
-              }) opts.options
-            )
-          );
+          options = l.mkFilesystemOptions opts.options;
         })
       ) cfg
     );
