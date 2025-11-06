@@ -26,7 +26,9 @@
       Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
       and breaks hibernation.
 
-      (if false, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`)
+      ::: {.note}
+      If false, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
+      :::
     '' true;
   };
 

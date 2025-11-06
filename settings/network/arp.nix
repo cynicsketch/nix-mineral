@@ -24,17 +24,19 @@
   options = {
     arp = {
       announce = l.mkBoolOption ''
-        Always use the best local address for announcing local IP via ARP
-        Seems to be most restrictive option
+        Always use the best local address for announcing local IP via ARP.
+
+        Seems to be the most restrictive option.
       '' true;
 
       ignore = l.mkBoolOption ''
-        Reply only if the target IP address is local address configured on the incoming interface
+        Reply only if the target IP address is local address configured on the incoming interface.
       '' true;
 
       drop-gratuitous = l.mkBoolOption ''
-        Drop Gratuitous ARP frames to prevent ARP poisoning
-        this can cause issues when ARP proxies are used in the network
+        Drop Gratuitous ARP frames to prevent ARP poisoning.
+
+        This can cause issues when ARP proxies are used in the network
       '' true;
     };
   };

@@ -23,8 +23,11 @@
 {
   options = {
     binfmt-misc = l.mkBoolOption ''
-      Enable binfmt_misc, (https://en.wikipedia.org/wiki/Binfmt_misc).
-      if false, breaks Roseta, among other applications.
+      Enable [binfmt_misc](https://en.wikipedia.org/wiki/Binfmt_misc).
+
+      ::: {.warning}
+      If false, breaks Roseta, among other applications.
+      :::
     '' false;
   };
 

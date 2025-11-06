@@ -23,11 +23,14 @@
 {
   options = {
     ipv6-tempaddr = l.mkBoolOption ''
-      Enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address
-      https://grapheneos.org/features#wifi-privacy
+      Enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address.
+
+      ::: {.note}
       GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
       extensions alongside MAC randomization, so consider doing both where
-      applicable
+      applicable.
+      https://grapheneos.org/features#wifi-privacy
+      :::
     '' true;
   };
 

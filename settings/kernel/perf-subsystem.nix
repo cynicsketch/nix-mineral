@@ -26,15 +26,19 @@
       restrict-usage = l.mkBoolOption ''
         Restrict perf subsystem usage (activity) to reduce attack surface.
 
+        ::: {.note}
         See https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
         for more information.
+        :::
       '' true;
 
       restrict-access = l.mkBoolOption ''
         Restrict perf subsystem access to reduce attack surface.
 
+        ::: {.note}
         See https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
         for more information.
+        :::
       '' true;
     };
   };
