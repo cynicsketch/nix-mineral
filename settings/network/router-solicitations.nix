@@ -25,15 +25,19 @@
     router-solicitations = l.mkOption {
       description = ''
         Number of IPv6 Router Solicitations to send until assuming no routers
-        are present. Setting to 0 limits outgoing traffic on the network,
-        and reduces the frequecy of IPv6 router advertisements received.
+        are present.
 
-        There is no point to setting this number above 0 if all router
-        advertisements are not accepted.
+        Setting to 0 limits outgoing traffic on the network,
+        and reduces the frequecy of IPv6 router advertisements received.
 
         See RFC4681 for details.
 
         Set this to `false` to disable this option entirely.
+
+        ::: {.note}
+        There is no point to setting this number above 0 if
+        {option}`nix-mineral.settings.network.router-advertisements` is set to `off`.
+        :::
       '';
       default = 0;
       example = false;

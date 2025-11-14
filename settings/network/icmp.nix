@@ -25,14 +25,20 @@
     icmp = {
       cast = l.mkBoolOption ''
         Set to false to ignore all ICMPv6 and ICMPv4 echo and timestamp requests
-        sent to broadcast/multicast/anycast
-        Makes system slightly harder to enumerate on a network
-        Redundant with nix-mineral.settings.network.icmp-ignore-all = true;
+        sent to broadcast/multicast/anycast.
+
+        Makes system slightly harder to enumerate on a network.
+
+        ::: {.note}
+        Redundant with {option}`nix-mineral.settings.network.icmp.ignore-all` enabled.
+        :::
       '' false;
 
       ignore-all = l.mkBoolOption ''
         Set to true to ignore all ICMPv6 and ICMPv4 echo and timestamp requests.
+
         Makes system slightly harder to enumerate on a network.
+
         You will not be able to ping this computer with ICMP packets if this is
         enabled.
       '' true;
@@ -43,14 +49,20 @@
       '' true;
 
       redirect = l.mkBoolOption ''
-        Set to false to disable ICMP redirects to prevent some MITM attacks
+        Set to false to disable ICMP redirects to prevent some MITM attacks.
+
+        ::: {.note}
         See https://askubuntu.com/questions/118273/what-are-icmp-redirects-and-should-they-be-blocked
+        :::
       '' false;
 
       secure-redirect = l.mkBoolOption ''
-        Use secure ICMP redirects by default. Helpful only if ICMP redirects are
-        reenabled, otherwise this does nothing. Not harmful to leave enabled
-        even if unnecessary.
+        Use secure ICMP redirects by default.
+
+        ::: {.note}
+        Helpful only if {option}`nix-mineral.settings.network.icmp.redirect` is enabled, otherwise this does nothing.
+        Not harmful to leave enabled even if unnecessary.
+        :::
       '' true;
     };
   };

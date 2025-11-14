@@ -17,8 +17,6 @@
 {
   l,
   cfg,
-  pkgs,
-  config,
   ...
 }:
 
@@ -26,10 +24,13 @@
   options = {
     apparmor = l.mkBoolOption ''
       Use an opinionated AppArmor configuration.
-      NOTE: This is currently absolutely useless except for compliance, because
+
+      ::: {.note}
+      This is currently absolutely useless except for compliance, because
       there are no currently functioning AppArmor profiles! This option exists
       only for reference sake, once AppArmor is properly fixed to work on
       NixOS.
+      :::
     '' false;
   };
 
