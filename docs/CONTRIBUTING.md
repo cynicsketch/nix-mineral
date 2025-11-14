@@ -276,7 +276,9 @@ Then place your function within the `flake.lib` list at the end of the file, and
 
 # Licensing and copyright
 
-Because it is pragmatic to take from existing research, consideration to licensing applies. This is not legal advice, just a general reference and opinion.
+Because it is pragmatic to take from existing research, consideration to licensing applies.
+
+This is not legal advice. The information provided is for general informational purposes only and may not reflect the most current legal developments. The author is not an attorney and makes no guarantees regarding the accuracy or completeness of this information. The author disclaims any liability for actions taken or not taken based on the content provided.
 
 - The merger doctrine nullifies licensing and attribution requirements when there are limited ways to express an idea. 
 - Basic concepts and facts aren't copyrightable. 
