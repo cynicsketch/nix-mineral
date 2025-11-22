@@ -40,6 +40,7 @@ let
         ./perf-subsystem.nix
         ./sysrq.nix
         ./tcp-timestamps.nix
+        ./restrict-line-disciplines.nix
       ]
       {
         inherit
