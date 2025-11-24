@@ -23,7 +23,7 @@
 {
   options = {
     lower-address-mmap = l.mkBoolOption ''
-      Allow mmap in lower addresses
+      Allow mmap in lower addresses.
     '' false;
   };
 

@@ -24,12 +24,17 @@
   options = {
     unprivileged-userns = l.mkBoolOption ''
       Enable or disable unprivileged user namespaces.
+
       It has been the cause of many privilege escalation vulnerabilities,
-      but can cause breakage. It is left enabled by default now because
-      the benefits of rootless sandboxing in Chromium, unprivileged
-      containers, and bubblewrap among many other applications, combined
-      with the increase maturity of unprivileged namespaces as of Oct 2025.
+      but can cause breakage.
+
+      ::: {.note}
+      It is left enabled by default now because the benefits of
+      rootless sandboxing in Chromium, unprivileged containers,
+      and bubblewrap among many other applications, combined with
+      the increase maturity of unprivileged namespaces as of Oct 2025.
       If false, this may break some applications that rely on user namespaces.
+      :::
     '' true;
   };
 

@@ -38,6 +38,12 @@ let
 
         options = l.mkOption {
           default = { };
+          defaultText = {
+            "bind" = true;
+            "nosuid" = true;
+            "noexec" = true;
+            "nodev" = true;
+          };
           example = {
             "bind" = false;
             "nosuid" = false;
@@ -46,7 +52,9 @@ let
           };
           description = ''
             Options used to mount the file system.
+
             If the value is false, the option is disabled.
+
             If the value is an integer or a string, it is passed as "name=value".
           '';
           type = l.types.attrsOf (
@@ -79,8 +87,8 @@ in
       description = ''
         Filesystem hardening.
 
-        Sets the device option with the defined name,
-        and the options: "bind", "nosuid", "noexec", "nodev" by default.
+        Sets the device option as `<name>`,
+        and the options: `"bind", "nosuid", "noexec", "nodev"` by default.
       '';
       default = { };
       type = l.types.attrsOf (l.types.submodule filesystemOpts);

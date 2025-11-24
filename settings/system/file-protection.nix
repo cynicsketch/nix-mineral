@@ -25,8 +25,10 @@
     file-protection = l.mkBoolOption ''
       Prevent creation of files in world writable directories under certain
       circumstances to limit spoofing attacks.
-       
-       See https://github.com/torvalds/linux/commit/30aba6656f61ed44cba445a3c0d38b296fa9e8f5
+
+      ::: {.note}
+      See https://github.com/torvalds/linux/commit/30aba6656f61ed44cba445a3c0d38b296fa9e8f5
+      :::
     '' true;
   };
 

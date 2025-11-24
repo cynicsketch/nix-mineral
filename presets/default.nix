@@ -32,10 +32,10 @@ in
           The preset to use for the nix-mineral module.
           (all presets are applied on top of the default preset)
 
-          - maximum: enables every optional security setting to have maximum protection.
-          - default: only default settings.
-          - compatibility: disables or enables settings to aim at compatibility.
-          - performance: disables or enables settings to aim at performance.
+          - `maximum`: enables every optional security setting to have maximum protection.
+          - `default`: only default settings.
+          - `compatibility`: disables or enables settings to aim at compatibility.
+          - `performance`: disables or enables settings to aim at performance.
         '';
         default = "default";
         type = l.types.enum [

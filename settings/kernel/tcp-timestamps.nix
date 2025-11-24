@@ -24,12 +24,15 @@
   options = {
     tcp-timestamps = l.mkBoolOption ''
       Enables tcp_timestamps.
+
       Disabling prevents leaking system time, enabling protects against
       wrapped sequence numbers and improves performance.
 
+      ::: {.note}
       Read more about the issue here:
-      URL: (In favor of disabling): https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
-      URL: (In favor of enabling): https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
+      - In favor of disabling: https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
+      - In favor of enabling: https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
+      :::
     '' true;
   };
 

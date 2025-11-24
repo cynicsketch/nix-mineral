@@ -25,6 +25,7 @@
     io-uring = l.mkBoolOption ''
       Enable io_uring, is the cause of many vulnerabilities,
       and is disabled on Android + ChromeOS.
+
       This may be desired for specific environments concerning Proxmox.
     '' false;
   };

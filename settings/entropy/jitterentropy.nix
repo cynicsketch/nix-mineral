@@ -28,10 +28,12 @@
       provide additional entropy and compensate for disabled hardware
       entropy sources.
 
+      ::: {.note}
       Read more about why at:
-      https://github.com/smuellerDD/jitterentropy-rngd/issues/27
-      https://blogs.oracle.com/linux/post/rngd1
-      https://github.com/Kicksecure/security-misc/commit/fe1f1b73a77d11c136cedcdb3efcb57f4c68c6af
+      - https://github.com/smuellerDD/jitterentropy-rngd/issues/27
+      - https://blogs.oracle.com/linux/post/rngd1
+      - https://github.com/Kicksecure/security-misc/commit/fe1f1b73a77d11c136cedcdb3efcb57f4c68c6af
+      :::
     '' true;
   };
 

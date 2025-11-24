@@ -31,7 +31,9 @@
       when the owner and follower match, or when the directory and symlink
       owner match.
 
+      ::: {.note}
       See https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use
+      :::
     '' true;
   };
 
