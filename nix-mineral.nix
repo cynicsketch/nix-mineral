@@ -36,6 +36,7 @@ let
         ./settings/network
         ./settings/entropy
         ./settings/debug
+        ./settings/etc
       ]
       {
         inherit
