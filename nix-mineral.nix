@@ -54,6 +54,7 @@ let
         ./extras/system
         ./extras/network
         ./extras/misc
+        ./extras/tmpfiles
       ]
       {
         inherit
