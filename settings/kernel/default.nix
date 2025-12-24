@@ -31,7 +31,6 @@ let
         ./only-signed-modules.nix
         ./lockdown.nix
         ./busmaster-bit.nix
-        ./iommu-passthrough.nix
         ./cpu-mitigations.nix
         ./pti.nix
         ./binfmt-misc.nix
