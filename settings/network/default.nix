@@ -38,6 +38,7 @@ let
         ./router-advertisements.nix
         ./router-solicitations.nix
         ./shared-media.nix
+        ./random-mac.nix
       ]
       {
         inherit

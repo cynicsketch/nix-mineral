@@ -22,19 +22,22 @@
 
 {
   options = {
-    ipv6-tempaddr = l.mkBoolOption ''
-      Enable IPv6 Privacy Extensions (RFC3041) and prefer the temporary address
-      https://grapheneos.org/features#wifi-privacy
-      GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
-      extensions alongside MAC randomization, so consider doing both where
-      applicable
+    random-mac = l.mkBoolOption ''
+      If set to true, randomize mac addressees to improve privacy.
+
+      This currently only works if you use networkmanager. If you don't,
+      this does nothing and you should consult upstream documentation or file
+      a PR to add relevant configuration.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernel.sysctl = {
-      "net.ipv6.conf.default.use_tempaddr" = l.mkDefault "2";
-      "net.ipv6.conf.all.use_tempaddr" = l.mkDefault "2";
+    networkmanager = {
+      ethernet.macAddress = l.mkDefault "random";
+      wifi = {
+        macAddress = l.mkDefault "random";
+        scanRandMacAddress = l.mkDefault true;
+      };
     };
   };
 }
