@@ -27,13 +27,7 @@
       https://grapheneos.org/features#wifi-privacy
       GrapheneOS devs seem to believe it is relevant to use IPV6 privacy
       extensions alongside MAC randomization, so consider doing both where
-      applicable.
-
-      Inclusive a "kitchen sink" config to enable privacy extensions in
-      relevant daemons. If you do not use these, nothing will happen.
-
-      If you use alternative daemons or replacements, considering looking at
-      upstream documentation or filing a PR to add their configurations here.
+      applicable
     '' true;
   };
 
@@ -42,8 +36,5 @@
       "net.ipv6.conf.default.use_tempaddr" = l.mkDefault "2";
       "net.ipv6.conf.all.use_tempaddr" = l.mkDefault "2";
     };
-
-    networking.networkmanager.connectionConfig."ipv6.ip6-privacy" = l.mkDefault 2;
-    systemd.network.config.networkConfig.IPv6PrivacyExtensions = l.mkDefault "kernel";
   };
 }
