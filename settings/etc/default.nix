@@ -29,6 +29,7 @@ let
     l.mkCategoryModules cfg
       [
         ./generic-machine.id.nix
+        ./no-root-securetty.nix
       ]
       {
         inherit
