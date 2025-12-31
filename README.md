@@ -48,6 +48,8 @@ A non-comprehensive list of features in `nix-mineral`
 
 ## Usage
 
+"Automatic Installation (fetchgit)," "Usage With Flakes," and "Manual Installation" sections of documentation are MIT licensed contributions by pseudonym "wyyllou." Original MIT license retained in the LICENSE.MIT file. Other portions are GPLv3 licensed.
+
 ### Automatic Installation (fetchgit) 
 (Can be used with flake and non-flake configurations, but if you are using flakes, the next flake specific method is objectively simpler and better for you in every way).
 
