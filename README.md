@@ -30,7 +30,7 @@ Some notable features include:
 ## Usage
 
 ### Automatic Installation (fetchgit)
-(Can be used with flake and non-flake configurations, but if you are using flakes, the next flake specific method is objectively simpler and better for you in every way).
+May be used with or without flakes. However, the flake specific method in the next section is preferred because it allows version pinning.
 
 Since we are using flake-compat inside the project, you can use the `nix-mineral` without needing to have flakes enabled, using `fetchGit`
 
@@ -53,7 +53,7 @@ in
 ```
 ### Usage With Flakes
 
-While you can use both of the other methods with flakes, it may be a little easier (and allow for easier updates and version pinning) by using this method.
+For use in flake enabled systems, and to enable automatic updates and version pinning, use this method.
 
 Add nix-mineral as an input to your flake:
 
