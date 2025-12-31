@@ -15,45 +15,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./generic-machine.id.nix
-        ./no-root-securetty.nix
-        ./kicksecure-issue.nix
-        ./kicksecure-gitconfig.nix
-        ./kicksecure-bluetooth.nix
-        ./kicksecure-module-blacklist.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Modify files in /etc to limit attack surface.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    kicksecure-module-blacklist = l.mkBoolOption ''
+      Borrow Kicksecure module blacklist.
+
+      "install "foobar" /bin/false" prevents the module from being
+      loaded at all. "blacklist "foobar"" prevents the module from being
+      loaded automatically at boot, but it can still be loaded afterwards.
+
+      Because the "install /bin/false" method does not register as a regular
+      blacklist, this might cause issues with kernel module auditing e.g
+      using Lynis. If so, you'll need to generate a whitelist.
+
+      This may have unintended consequences if you require specific drivers,
+      and may cause breakage.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    environment.etc."modprobe.d/nm-module-blacklist.conf".source = (
+      l.fetchGhFile l.sources.module-blacklist
+    );
+  };
 }

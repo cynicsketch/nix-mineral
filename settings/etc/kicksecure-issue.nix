@@ -15,45 +15,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./generic-machine.id.nix
-        ./no-root-securetty.nix
-        ./kicksecure-issue.nix
-        ./kicksecure-gitconfig.nix
-        ./kicksecure-bluetooth.nix
-        ./kicksecure-module-blacklist.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Modify files in /etc to limit attack surface.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    kicksecure-issue = l.mkBoolOption ''
+      Borrow Kicksecure banner/issue.
+      Provides NO exploit resistance whatsoever, only serves as a deterrent to
+      unauthorized access and to comply with Lynis.
+      There are no assurances that anything stated here is legally valid.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    environment.etc.issue.source = (l.fetchGhFile l.sources.issue);
+  };
 }

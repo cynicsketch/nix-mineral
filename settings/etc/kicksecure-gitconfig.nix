@@ -15,45 +15,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./generic-machine.id.nix
-        ./no-root-securetty.nix
-        ./kicksecure-issue.nix
-        ./kicksecure-gitconfig.nix
-        ./kicksecure-bluetooth.nix
-        ./kicksecure-module-blacklist.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Modify files in /etc to limit attack surface.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    kicksecure-gitconfig = l.mkBoolOption ''
+      Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
+      by default for better git security.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    environment.etc.gitconfig.source = (l.fetchGhFile l.sources.gitconfig);
+  };
 }

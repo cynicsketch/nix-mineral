@@ -15,45 +15,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./generic-machine.id.nix
-        ./no-root-securetty.nix
-        ./kicksecure-issue.nix
-        ./kicksecure-gitconfig.nix
-        ./kicksecure-bluetooth.nix
-        ./kicksecure-module-blacklist.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Modify files in /etc to limit attack surface.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    kicksecure-bluetooth = l.mkBoolOption ''
+      Borrow Kicksecure bluetooth configuration for better bluetooth privacy
+      and security. Disables bluetooth automatically when not connected to
+      any device.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    environment.etc."bluetooth/main.conf".source = l.mkForce (l.fetchGhFile l.sources.bluetooth);
+  };
 }
