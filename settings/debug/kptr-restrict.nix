@@ -15,45 +15,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./coredump.nix
-        ./zram.nix
-        ./restrict-printk.nix
-        ./kptr-restrict.nix
-        ./dmesg-restrict.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Limit various debugging information to reduce info available to
-        potential attackers.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    kptr-restrict = l.mkBoolOption ''
+      Display all kernel pointers as 0s regardless of user privileges when
+      printed. This may interfere with specific diagnostic and performance
+      profiling tools.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl."kernel.kptr_restrict" = l.mkOverride 900 "2";
+  };
 }

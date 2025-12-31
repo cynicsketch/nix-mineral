@@ -42,6 +42,7 @@ let
         ./restrict-line-disciplines.nix
         ./harden-bpf.nix
         ./restrict-bpf.nix
+        ./kexec.nix
       ]
       {
         inherit

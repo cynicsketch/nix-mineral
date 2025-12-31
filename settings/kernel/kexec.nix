@@ -15,45 +15,33 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./coredump.nix
-        ./zram.nix
-        ./restrict-printk.nix
-        ./kptr-restrict.nix
-        ./dmesg-restrict.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Limit various debugging information to reduce info available to
-        potential attackers.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    kexec = l.mkBoolOption ''
+      Prevent replacing the running kernel with kexec for security reasons.
+
+      On other distributions, kexec is most notably used for updating the
+      Linux kernel without rebooting, however, NixOS does not support this.
+
+      A comprehensive list of usecases is not feasible, but consider consulting
+      the following references as well as upstream documentation where
+      necessary:
+
+      https://docs.kernel.org/admin-guide/mm/kho.html
+      https://github.com/NixOS/nixpkgs/issues/10726
+      https://docs.kernel.org/admin-guide/kdump/kdump.html
+
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "kernel.kexec_load_disabled" = l.mkOverride 900 "1";
+    };
+  };
 }

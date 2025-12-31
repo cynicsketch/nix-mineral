@@ -15,45 +15,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./coredump.nix
-        ./zram.nix
-        ./restrict-printk.nix
-        ./kptr-restrict.nix
-        ./dmesg-restrict.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Limit various debugging information to reduce info available to
-        potential attackers.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    restrict-printk = l.mkBoolOption ''
+      Supress kernel messages via printk to only display log level 3 (error)
+      messages or higher, e.g, more severe warnings. This limits access to
+      debugging information which can be used by an attacker.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl."kernel.printk" = l.mkOverride 900 "3 3 3 3";
+  };
 }
