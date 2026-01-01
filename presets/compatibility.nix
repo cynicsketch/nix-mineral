@@ -40,13 +40,17 @@
         # Enable loading of unsigned kernel modules and enable hibernation.
         lockdown = mkPreset false;
         only-signed-modules = mkPreset false;
+
+        # Don't crash the system if faulty drivers produce kernel oopses
+        oops-panic = mkPreset false;
       };
 
       system = {
         # allow 32-bit libraries and applications to run.
         multilib = mkPreset true;
 
-        # allow applications to map into lower address spaces
+        # allow certain legacy applications to map into lower address spaces
+        # if needed
         lower-address-mmap = mkPreset true;
       };
 
