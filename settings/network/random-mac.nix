@@ -32,7 +32,7 @@
   };
 
   config = l.mkIf cfg {
-    networkmanager = {
+    networking.networkmanager = {
       ethernet.macAddress = l.mkDefault "random";
       wifi = {
         macAddress = l.mkDefault "random";
