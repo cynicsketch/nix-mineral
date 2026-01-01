@@ -39,7 +39,7 @@
       control = l.mkDefault "requisite";
       modulePath = l.mkDefault "${config.security.pam.package}/lib/security/pam_securetty.so";
     };
-    securetty.text = ''
+    environment.etc.securetty.text = ''
       # /etc/securetty: list of terminals on which root is allowed to login.                                                                                           
       # See securetty(5) and login(1).                                                                                                                                 
     '';
