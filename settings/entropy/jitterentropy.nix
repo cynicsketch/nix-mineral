@@ -23,7 +23,7 @@
 
 {
   options = {
-    jitterentropy-rngd = l.mkBoolOption ''
+    jitterentropy = l.mkBoolOption ''
       Enable jitterentropy with both the daemon and the kernel module to
       provide additional entropy and compensate for disabled hardware
       entropy sources.
