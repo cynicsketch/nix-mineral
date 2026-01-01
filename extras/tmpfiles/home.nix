@@ -31,6 +31,11 @@
 
       This may also have unintended side effects, e.g, root owned files being
       unreadable if somehow created in a user home directory.
+
+      Note that this is not retroactively applied. The "~" option means
+      this only applies to newly created files, not existing files. Consider
+      setting manually if this is a priority, but this may have side effects
+      like obliterating existing executable access mask bits.
     '' false;
   };
 
