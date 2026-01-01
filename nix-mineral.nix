@@ -37,6 +37,7 @@ let
         ./settings/entropy
         ./settings/debug
         ./settings/etc
+        ./settings/pam
       ]
       {
         inherit
