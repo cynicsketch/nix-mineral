@@ -15,43 +15,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./hwrng.nix
-        ./jitterentropy.nix
-        ./aslr.nix
-        ./aslr-max-bits.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    entropy = l.mkOption {
-      description = ''
-        Settings for entropy sources.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    aslr-max-bits = l.mkBoolOption ''
+      Use the maximum number of bits of entropy to address space layout
+      randomization, a widely used mitigation against memory exploits.
+
+      Note that the values used here are currently only valid for x86_64.
+      Other CPU architectures may require different numbers here, consult
+      upstream documentation as necessary.
+
+      See:
+      https://en.wikipedia.org/wiki/Address_space_layout_randomization
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "vm.mmap_rnd_bits" = l.mkDefault "32";
+      "vm.mmap_rnd_compat_bits" = l.mkDefault "16";
+    };
+  };
 }
