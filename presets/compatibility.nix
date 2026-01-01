@@ -45,6 +45,11 @@
         oops-panic = mkPreset false;
       };
 
+      misc = {
+        # Don't restrict nix to wheel, use default settings
+        nix-wheel = mkPreset false;
+      };
+
       system = {
         # allow 32-bit libraries and applications to run.
         multilib = mkPreset true;
