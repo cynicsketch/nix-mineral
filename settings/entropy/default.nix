@@ -29,7 +29,7 @@ let
     l.mkCategoryModules cfg
       [
         ./hwrng.nix
-        ./jitterentropy.nix
+        ./jitterentropy-rngd.nix
         ./aslr.nix
         ./aslr-max-bits.nix
       ]

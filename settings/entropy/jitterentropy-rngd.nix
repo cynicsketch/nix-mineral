@@ -23,7 +23,7 @@
 
 {
   options = {
-    jitterentropy = l.mkBoolOption ''
+    jitterentropy-rngd = l.mkBoolOption ''
       Enable jitterentropy with both the daemon and the kernel module to
       provide additional entropy and compensate for disabled hardware
       entropy sources.
@@ -32,11 +32,11 @@
       https://github.com/smuellerDD/jitterentropy-rngd/issues/27
       https://blogs.oracle.com/linux/post/rngd1
       https://github.com/Kicksecure/security-misc/commit/fe1f1b73a77d11c136cedcdb3efcb57f4c68c6af
-    '' true;
+    '' (!config.boot.isContainer);
   };
 
   config = l.mkIf cfg {
-    services.jitterentropy-rngd.enable = l.mkDefault (!config.boot.isContainer);
+    services.jitterentropy-rngd.enable = l.mkDefault true;
     boot.kernelModules = l.mkDefault [ "jitterentropy_rng" ];
   };
 }
