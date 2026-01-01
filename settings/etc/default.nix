@@ -28,7 +28,7 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./generic-machine.id.nix
+        ./generic-machine-id.nix
         ./no-root-securetty.nix
         ./kicksecure-issue.nix
         ./kicksecure-gitconfig.nix
