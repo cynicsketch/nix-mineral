@@ -50,8 +50,8 @@
   config = l.mkIf cfg.enable {
     services.usbguard = {
       enable = l.mkDefault true;
-      presentDevicePolicy = l.mkIf cfg.whitelist-at-boot (l.mkForce "allow");
-      dbus.enable = l.mkForce cfg.gnome-integration;
+      presentDevicePolicy = l.mkIf cfg.whitelist-at-boot (l.mkDefault "allow");
+      dbus.enable = l.mkDefault cfg.gnome-integration;
     };
     security.polkit.extraConfig = l.mkIf cfg.gnome-integration ''
       polkit.addRule(function(action, subject) {
