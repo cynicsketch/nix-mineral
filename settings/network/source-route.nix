@@ -22,20 +22,21 @@
 
 {
   options = {
-    log-martians = l.mkBoolOption ''
-      Log packets with impossible addresses to kernel log
-      No active security benefit, just makes it easier to
-      spot a DDOS/DOS by giving extra logs.
+    source-route = l.mkBoolOption ''
+      Disable source routing if set to false, since it allows for redirecting
+      network traffic and potentially creating a man in the middle attack.
 
-      This may worsen performance due to the additional logging.
-    '' true;
+      See:
+      https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-server_security-disable-source-routing
+    '' false;
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (!cfg) {
     boot.kernel.sysctl = {
-      # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
-      "net.ipv4.conf.default.log_martians" = l.mkOverride 900 "1";
-      "net.ipv4.conf.all.log_martians" = l.mkOverride 900 "1";
+      "net.ipv4.conf.all.accept_source_route" = l.mkDefault "0";
+      "net.ipv4.conf.default.accept_source_route" = l.mkDefault "0";
+      "net.ipv6.conf.all.accept_source_route" = l.mkDefault "0";
+      "net.ipv6.conf.default.accept_source_route" = l.mkDefault "0";
     };
   };
 }

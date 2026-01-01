@@ -22,20 +22,22 @@
 
 {
   options = {
-    log-martians = l.mkBoolOption ''
-      Log packets with impossible addresses to kernel log
-      No active security benefit, just makes it easier to
-      spot a DDOS/DOS by giving extra logs.
+    rfc1337 = l.mkBoolOption ''
+      RFC1337 protects from TIME-WAIT assassination attacks by dropping TCP
+      RST packets when in the TIME-WAIT state.
 
-      This may worsen performance due to the additional logging.
+      This protects against some potention DoS attacks which could cause
+      TCP connections to drop given specific circumstances or crafted packets.
+
+      Additional reference:
+      https://datatracker.ietf.org/doc/html/rfc1337
+      https://serverfault.com/questions/787624/why-isnt-net-ipv4-tcp-rfc1337-enabled-by-default
     '' true;
   };
 
   config = l.mkIf cfg {
     boot.kernel.sysctl = {
-      # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
-      "net.ipv4.conf.default.log_martians" = l.mkOverride 900 "1";
-      "net.ipv4.conf.all.log_martians" = l.mkOverride 900 "1";
+      "net.ipv4.tcp_rfc1337" = l.mkDefault "1";
     };
   };
 }

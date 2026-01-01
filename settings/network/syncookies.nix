@@ -22,20 +22,17 @@
 
 {
   options = {
-    log-martians = l.mkBoolOption ''
-      Log packets with impossible addresses to kernel log
-      No active security benefit, just makes it easier to
-      spot a DDOS/DOS by giving extra logs.
+    syncookies = l.mkBoolOption ''
+      Use syncookies to help protect against SYN flooding, a type DoS attack.
 
-      This may worsen performance due to the additional logging.
+      See:
+      https://en.wikipedia.org/wiki/SYN_flood
     '' true;
   };
 
   config = l.mkIf cfg {
     boot.kernel.sysctl = {
-      # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
-      "net.ipv4.conf.default.log_martians" = l.mkOverride 900 "1";
-      "net.ipv4.conf.all.log_martians" = l.mkOverride 900 "1";
+      "net.ipv4.tcp_syncookies" = l.mkDefault "1";
     };
   };
 }

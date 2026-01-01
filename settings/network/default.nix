@@ -39,6 +39,11 @@ let
         ./router-solicitations.nix
         ./shared-media.nix
         ./random-mac.nix
+        ./rfc1337.nix
+        ./tcp-sack.nix
+        ./rp-filter.nix
+        ./source-route.nix
+        ./syncookies.nix
       ]
       {
         inherit
