@@ -28,6 +28,10 @@
 
       Improves storage lifespan and overall performance when swapping as a
       side effect.
+
+      Not enabled by default due to interfering with zswap. Additionally, the
+      task of limiting swapping of sensitive data depends highly on the user's
+      individual swapping setup which can't be reliably inferred.
     '' true;
   };
 
