@@ -45,6 +45,9 @@
       system = {
         # allow 32-bit libraries and applications to run.
         multilib = mkPreset true;
+
+        # allow applications to map into lower address spaces
+        lower-address-mmap = mkPreset true;
       };
 
       network = {

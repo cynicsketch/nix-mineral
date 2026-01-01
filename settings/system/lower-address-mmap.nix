@@ -23,7 +23,14 @@
 {
   options = {
     lower-address-mmap = l.mkBoolOption ''
-      Allow mmap in lower addresses
+      Allow or disallow mmap in lower addresses.
+
+      Disallowing mmap in lower addresses reduces the risk that incorrect
+      memory allocations could tamper with the kernel, but may also cause
+      compatibility issues with certain legacy software.
+
+      See:
+      https://wiki.debian.org/mmap_min_addr
     '' false;
   };
 
