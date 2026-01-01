@@ -33,7 +33,8 @@
         Note that for laptop users, inbuilt speakers and bluetooth cards may be disabled
         by USBGuard by default, so whitelisting them manually or enabling this
         may solve that.
-        if false, USB devices will be blocked until USBGuard is configured.
+
+        If false, USB devices will be blocked until USBGuard is configured.
       '' false;
 
       gnome-integration = l.mkBoolOption ''
