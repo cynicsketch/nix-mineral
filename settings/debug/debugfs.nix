@@ -15,47 +15,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./coredump.nix
-        ./zram.nix
-        ./restrict-printk.nix
-        ./kptr-restrict.nix
-        ./dmesg-restrict.nix
-        ./quiet-boot.nix
-        ./debugfs.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Limit various debugging information to reduce info available to
-        potential attackers.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    coredump = l.mkBoolOption ''
+      Enable/disable the Linux debugfs, which exposes a lot of possibly
+      sensitive information.
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernelParams = [ "debugfs=off" ];
+  };
 }

@@ -15,47 +15,25 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./coredump.nix
-        ./zram.nix
-        ./restrict-printk.nix
-        ./kptr-restrict.nix
-        ./dmesg-restrict.nix
-        ./quiet-boot.nix
-        ./debugfs.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    debug = l.mkOption {
-      description = ''
-        Limit various debugging information to reduce info available to
-        potential attackers.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    quiet-boot = l.mkBoolOption ''
+      If set to true, minimize information displayed during boot to reduce
+      information available to an attacker.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.consoleLogLevel = l.mkDefault "0";
+    boot.initrd.verbose = l.mkDefault false;
+    boot.kernelParams = [
+      "quiet"
+      "udev.log_level=3"
+    ];
+  };
 }

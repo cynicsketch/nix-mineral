@@ -23,7 +23,9 @@
 {
   options = {
     coredump = l.mkBoolOption ''
-      Disable core dumps everywhere. Core dumps contain a programs memory,
+      Disable core dumps everywhere if set to false.
+
+      Core dumps contain a programs memory,
       usually after a crash, which could include sensitive information
       including encryption keys being written to the disk without any
       protection.
