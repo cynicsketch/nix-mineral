@@ -23,13 +23,13 @@
 {
   options = {
     su-wheel = l.mkBoolOption ''
-      Set to true to require wheel to use su and su-l, to reduce the risk of
+      Set to false to require wheel to use su and su-l, to reduce the risk of
       privilege escalation e.g from service accounts which have been
       maliciously hijacked and used for a shell.
-    '' true;
+    '' false;
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (!cfg) {
     security.pam.services = {
       su.requireWheel = l.mkDefault true;
       su-l.requireWheel = l.mkDefault true;
