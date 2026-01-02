@@ -22,20 +22,22 @@
 
 {
   options = {
-    shadow-hashing = l.mkBoolOption ''
-      Modify hashing rounds for /etc/shadow; this doesn't automatically
-      rehash your passwords, you'll need to set passwords for your accounts
-      again for this to work.
+    shadow-hashing = l.mkOption {
+      description = ''
+        Modify hashing rounds for /etc/shadow; this doesn't automatically
+        rehash your passwords, you'll need to set passwords for your accounts
+        again for this to work.
 
-      If you declaratively set passwords with a secret manager, consider
-      using a good number (65536) of hashing rounds or more for resilience to
-      password cracking.
+        If you declaratively set passwords with a secret manager, consider
+        using a good number (65536) of hashing rounds or more for resilience to
+        password cracking.
 
-      Set this to `false` to disable this option entirely.
-    '';
-    default = 65536;
-    example = false;
-    type = l.types.either l.types.bool l.types.int;
+        Set this to `false` to disable this option entirely.
+      '';
+      default = 65536;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
+    };
   };
 
   config = l.mkIf (l.typeOf cfg == "int") {
