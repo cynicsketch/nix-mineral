@@ -22,7 +22,7 @@
 
 {
   options = {
-    load-kernel-modules = l.mkBoolOption ''
+    home = l.mkBoolOption ''
       Set to true to recursively restrict permissions of /home/$USER so that
       only the owner of the directory can access it (the user).
        
