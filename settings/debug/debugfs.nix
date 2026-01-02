@@ -22,7 +22,7 @@
 
 {
   options = {
-    coredump = l.mkBoolOption ''
+    debugfs = l.mkBoolOption ''
       Enable/disable the Linux debugfs, which exposes a lot of possibly
       sensitive information.
     '' false;
