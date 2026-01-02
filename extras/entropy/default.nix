@@ -41,7 +41,7 @@ let
 in
 {
   options = {
-    kernel = l.mkOption {
+    entropy = l.mkOption {
       description = ''
         Modify entropy settings for improved security
       '';

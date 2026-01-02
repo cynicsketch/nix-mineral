@@ -42,7 +42,7 @@ let
 in
 {
   options = {
-    kernel = l.mkOption {
+    tmpfiles = l.mkOption {
       description = ''
         Use systemd-tmpfiles to restrict file permissions in various folders.
       '';
