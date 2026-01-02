@@ -22,7 +22,7 @@
 
 {
   options = {
-    unprivileged-userfaultfd = l.mkBoolOption ''
+    vsyscall = l.mkBoolOption ''
       If set to false, Disable vsyscalls, which are obsolete and create static
       memory locations that are easy to exploit.
 
