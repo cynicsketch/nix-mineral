@@ -22,20 +22,22 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    random-mac = l.mkBoolOption ''
+      If set to true, randomize mac addressees to improve privacy.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      This currently only works if you use networkmanager. If you don't,
+      this does nothing and you should consult upstream documentation or file
+      a PR to add relevant configuration.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    networking.networkmanager = {
+      ethernet.macAddress = l.mkDefault "random";
+      wifi = {
+        macAddress = l.mkDefault "random";
+        scanRandMacAddress = l.mkDefault true;
+      };
+    };
   };
 }

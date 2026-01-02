@@ -22,20 +22,18 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    dnssec = l.mkBoolOption ''
+      Make DNS connections will fail if not using a DNS server supporting
+      DNSSEC.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      Currently does nothing if you don't use systemd-resolved.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      Consider filing a PR if/when similar configuration for other DNS
+      resolving software can be added unobtrusively.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    services.resolved.dnssec = l.mkDefault "true";
   };
 }

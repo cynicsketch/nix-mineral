@@ -22,20 +22,17 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    iommu-passthrough = l.mkBoolOption ''
+      Enable bypassing the IOMMU for direct memory access. Could increase I/O
+      performance on ARM64 systems, with risk.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      If false, forces DMA to go through IOMMU to mitigate some DMA attacks.
+    '' false;
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (!cfg) {
     boot.kernelParams = [
-      "amd_iommu=force_isolation"
+      "iommu.passthrough=0"
     ];
   };
 }

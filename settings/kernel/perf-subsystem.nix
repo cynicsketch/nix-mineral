@@ -48,9 +48,9 @@
 
       (l.mkIf cfg.restrict-access {
         # Note: This is set to 3 because additional restriction can be made
-        # if a specific kernel patch is. This reverts back to "2" in terms of
-        # behavior if the patch isn't present, which is the default behavior of
-        # NixOS.
+        # if a specific kernel patch is present. This reverts back to "2" in
+        # terms of behavior if the patch isn't present, which is the default
+        # behavior of NixOS.
         "kernel.perf_event_paranoid" = l.mkDefault "3";
       })
     ];

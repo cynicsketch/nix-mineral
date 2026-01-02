@@ -36,6 +36,9 @@ let
         ./settings/network
         ./settings/entropy
         ./settings/debug
+        ./settings/etc
+        ./settings/pam
+        ./settings/misc
       ]
       {
         inherit
@@ -52,7 +55,9 @@ let
         ./extras/kernel
         ./extras/system
         ./extras/network
+        ./extras/entropy
         ./extras/misc
+        ./extras/tmpfiles
       ]
       {
         inherit

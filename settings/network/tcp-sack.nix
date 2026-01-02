@@ -22,20 +22,24 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    tcp-sack = l.mkBoolOption ''
+      Set to false to disable TCP SACK, which has been used for DoS attacks
+      and been exploited in the past.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      Rarely used, but can reduce networking performance if disabled in certain
+      applications.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      Additional reading:
+      https://github.com/Netflix/security-bulletins/blob/master/advisories/third-party/2019-001.md
+      https://serverfault.com/questions/10955/when-to-turn-tcp-sack-off
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "net.ipv4.tcp_dsack" = l.mkDefault "0";
+      "net.ipv4.tcp_fack" = l.mkDefault "0";
+      "net.ipv4.tcp_sack" = l.mkDefault "0";
+    };
   };
 }

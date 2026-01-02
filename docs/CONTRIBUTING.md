@@ -24,6 +24,7 @@ One of the main ideas is to be as modular as possible, so don't create modules t
 - Do not attempt to add any feature which has been intentionally excluded under [OMITTED.md](OMITTED.md) or [ADDITIONAL-RESOURCES.md](OMITTED.md) without first creating an issue.
 - Issues should be created for most feature changes before attempting a PR. Bug fixes, and minor documentation changes do not require issues, but it is still heavily encouraged.
 - Where applicable, update both [presets](https://github.com/cynicsketch/nix-mineral/tree/main/presets) and the [README](https://github.com/cynicsketch/nix-mineral/tree/main/README.md) to reflect any new options.
+- Use `l.mkOverride 900` over `l.mkForce` when forcefully overriding NixOS defaults is necessary, to make sure it actually applies.
 - Where applicable, add [GPL license headers](https://www.gnu.org/licenses/gpl-3.0.html#howto) to new source code files:
 
 ```

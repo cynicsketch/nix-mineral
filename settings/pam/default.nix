@@ -15,27 +15,42 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
+  options,
+  config,
+  pkgs,
+  lib,
   l,
   cfg,
   ...
 }:
 
+let
+  categoryModules =
+    l.mkCategoryModules cfg
+      [
+        ./su-wheel.nix
+        ./shadow-hashing.nix
+        ./login-faildelay.nix
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
+in
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
-
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+    pam = l.mkOption {
+      description = ''
+        Modify pluggable authentication module (PAM) settings
+      '';
+      default = { };
+      type = l.mkCategorySubmodule categoryModules;
+    };
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
-  };
+  config = l.mkCategoryConfig categoryModules;
 }

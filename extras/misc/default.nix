@@ -31,6 +31,7 @@ let
         ./doas-sudo-wrapper.nix
         ./replace-sudo-with-doas.nix
         ./usbguard.nix
+        ./ssh-hardening.nix
       ]
       {
         inherit

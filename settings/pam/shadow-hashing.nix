@@ -22,20 +22,27 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    shadow-hashing = l.mkOption {
+      description = ''
+        Modify hashing rounds for /etc/shadow; this doesn't automatically
+        rehash your passwords, you'll need to set passwords for your accounts
+        again for this to work.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+        If you declaratively set passwords with a secret manager, consider
+        using a good number (65536) of hashing rounds or more for resilience to
+        password cracking.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+        Set this to `false` to disable this option entirely.
+      '';
+      default = 65536;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
+    };
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (l.typeOf cfg == "int") {
+    security.pam.services = {
+      passwd.rules.password."unix".settings.rounds = l.mkDefault (toString cfg);
+    };
   };
 }

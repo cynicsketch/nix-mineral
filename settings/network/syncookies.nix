@@ -22,20 +22,17 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    syncookies = l.mkBoolOption ''
+      Use syncookies to help protect against SYN flooding, a type DoS attack.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      See:
+      https://en.wikipedia.org/wiki/SYN_flood
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    boot.kernel.sysctl = {
+      "net.ipv4.tcp_syncookies" = l.mkDefault "1";
+    };
   };
 }

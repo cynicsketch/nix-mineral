@@ -29,7 +29,11 @@ let
     l.mkCategoryModules cfg
       [
         ./coredump.nix
-        ./zram.nix
+        ./restrict-printk.nix
+        ./kptr-restrict.nix
+        ./dmesg-restrict.nix
+        ./quiet-boot.nix
+        ./debugfs.nix
       ]
       {
         inherit

@@ -22,20 +22,20 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
-
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+    login-faildelay = l.mkOption {
+      description = ''
+        Add/increase the delay to failed logins into the system. The default for
+        nix-mineral is 4 seconds, or 4000000 microseconds.
+      '';
+      default = 4000000;
+      example = false;
+      type = l.types.either l.types.bool l.types.int;
+    };
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (l.typeOf cfg == "int") {
+    security.pam.services = {
+      system-login.failDelay.delay = l.mkDefault (toString cfg);
+    };
   };
 }

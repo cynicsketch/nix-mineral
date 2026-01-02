@@ -22,20 +22,18 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    randomize-kstack-offset = l.mkBoolOption ''
+      Randomize the kernel's stack offset on every syscall, to make attacks
+      relying on predicting the location of the kernel's stack more difficult.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      See:
+      https://lkml.org/lkml/2019/3/18/246
     '' true;
   };
 
   config = l.mkIf cfg {
     boot.kernelParams = [
-      "amd_iommu=force_isolation"
+      "randomize_kstack_offset=on"
     ];
   };
 }

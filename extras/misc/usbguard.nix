@@ -33,7 +33,8 @@
         Note that for laptop users, inbuilt speakers and bluetooth cards may be disabled
         by USBGuard by default, so whitelisting them manually or enabling this
         may solve that.
-        if false, USB devices will be blocked until USBGuard is configured.
+
+        If false, USB devices will be blocked until USBGuard is configured.
       '' false;
 
       gnome-integration = l.mkBoolOption ''
@@ -49,8 +50,8 @@
   config = l.mkIf cfg.enable {
     services.usbguard = {
       enable = l.mkDefault true;
-      presentDevicePolicy = l.mkIf cfg.whitelist-at-boot (l.mkForce "allow");
-      dbus.enable = l.mkForce cfg.gnome-integration;
+      presentDevicePolicy = l.mkIf cfg.whitelist-at-boot (l.mkDefault "allow");
+      dbus.enable = l.mkDefault cfg.gnome-integration;
     };
     security.polkit.extraConfig = l.mkIf cfg.gnome-integration ''
       polkit.addRule(function(action, subject) {

@@ -22,20 +22,19 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    bootloader-editor = l.mkBoolOption ''
+      Set to false to disable bootloader editors, to prevent access to the
+      root shell or otherwise weakening security by tampering with boot
+      parameters.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      This currently does nothing if you don't use systemd-boot.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      Consider filing a PR if/when similar configuration for other bootloaders
+      can be added unobtrusively.
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (!cfg) {
+    boot.loader.systemd-boot.editor = l.mkDefault false;
   };
 }

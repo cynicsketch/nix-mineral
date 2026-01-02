@@ -22,20 +22,20 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    zram = l.mkBoolOption ''
+      Enable zram so that memory is more likely to be compressed instead of
+      written to disk, which may include sensitive information.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      Improves storage lifespan and overall performance when swapping as a
+      side effect.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      Not enabled by default due to interfering with zswap. Additionally, the
+      task of limiting swapping of sensitive data depends highly on the user's
+      individual swapping setup which can't be reliably inferred.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    zramSwap.enable = true;
   };
 }

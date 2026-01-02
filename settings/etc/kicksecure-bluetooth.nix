@@ -22,20 +22,14 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
-
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+    kicksecure-bluetooth = l.mkBoolOption ''
+      Borrow Kicksecure bluetooth configuration for better bluetooth privacy
+      and security. Disables bluetooth automatically when not connected to
+      any device.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    environment.etc."bluetooth/main.conf".source = l.mkForce (l.fetchGhFile l.sources.bluetooth);
   };
 }

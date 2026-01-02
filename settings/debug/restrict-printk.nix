@@ -22,20 +22,14 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
-
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+    restrict-printk = l.mkBoolOption ''
+      Supress kernel messages via printk to only display log level 3 (error)
+      messages or higher, e.g, more severe warnings. This limits access to
+      debugging information which can be used by an attacker.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    boot.kernel.sysctl."kernel.printk" = l.mkOverride 900 "3 3 3 3";
   };
 }

@@ -31,18 +31,27 @@ let
         ./only-signed-modules.nix
         ./lockdown.nix
         ./busmaster-bit.nix
-        ./iommu-passthrough.nix
         ./cpu-mitigations.nix
         ./pti.nix
         ./binfmt-misc.nix
         ./io-uring.nix
         ./amd-iommu-force-isolation.nix
+        ./intel-iommu.nix
+        ./strict-iommu.nix
         ./perf-subsystem.nix
         ./sysrq.nix
         ./tcp-timestamps.nix
         ./restrict-line-disciplines.nix
         ./harden-bpf.nix
         ./restrict-bpf.nix
+        ./kexec.nix
+        ./unprivileged-userfaultfd.nix
+        ./vsyscall.nix
+        ./slab-merging.nix
+        ./zero-alloc.nix
+        ./page-alloc-shuffle.nix
+        ./randomize-kstack-offset.nix
+        ./oops-panic.nix
       ]
       {
         inherit

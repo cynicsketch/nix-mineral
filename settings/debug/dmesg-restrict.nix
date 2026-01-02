@@ -22,20 +22,12 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
-
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+    dmesg-restrict = l.mkBoolOption ''
+      Only allow users with root privileges or CAP_SYSLOG to use dmesg.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    boot.kernel.sysctl."kernel.dmesg_restrict" = l.mkDefault "1";
   };
 }

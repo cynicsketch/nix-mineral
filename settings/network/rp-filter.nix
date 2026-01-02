@@ -22,20 +22,16 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
-
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+    rp-filter = l.mkBoolOption ''
+      Validate source IPs of packets received on the machine, protecting from
+      IP spoofing.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.all.rp_filter" = l.mkOverride 900 "1";
+      "net.ipv4.conf.default.rp_filter" = l.mkOverride 900 "1";
+    };
   };
 }

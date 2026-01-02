@@ -22,16 +22,18 @@
 
 {
   options = {
-    zram = l.mkBoolOption ''
-      Enable zram so that memory is more likely to be compressed instead of
-      written to disk, which may include sensitive information.
-
-      Improves storage lifespan and overall performance when swapping as a
-      side effect.
+    generic-machine-id = l.mkBoolOption ''
+      Set machine-id to the Kicksecure machine-id, for privacy reasons.
+      This may have unintended consequences if machine-id needs to be unique,
+      e.g for log collection or VM management.
     '' true;
   };
 
   config = l.mkIf cfg {
-    zramSwap.enable = true;
+    # /var/lib/dbus/machine-id doesn't exist on dbus enabled NixOS systems,
+    # so we don't have to worry about that.
+    environment.etc.machine-id.text = ''
+      b08dfa6083e7567a1921a715000001fb
+    '';
   };
 }

@@ -22,20 +22,24 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    etc-nixos = l.mkBoolOption ''
+      Set to true to recursively make all files in /etc/nixos owned and readable
+      only by root.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      /etc/nixos is not owned by root by default, which can be hazardous as
+      files  that are included in the rebuild may be editable by unprivileged
+      users.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      This may have unintended side effects if user state is intentionally
+      stored in /etc/nixos, and is therefore no longer enabled by default.
+    '' false;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    systemd.tmpfiles.settings."restrictetcnixos"."/etc/nixos/*".Z = {
+      mode = l.mkDefault "0000";
+      user = l.mkDefault "root";
+      group = l.mkDefault "root";
+    };
   };
 }

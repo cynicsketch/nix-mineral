@@ -33,6 +33,7 @@ let
         ./hardened-malloc.nix
         ./secure-chrony.nix
         ./unprivileged-userns.nix
+        ./zram.nix
       ]
       {
         inherit

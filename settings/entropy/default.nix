@@ -31,6 +31,7 @@ let
         ./hwrng.nix
         ./jitterentropy.nix
         ./aslr.nix
+        ./aslr-max-bits.nix
       ]
       {
         inherit

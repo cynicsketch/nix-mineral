@@ -22,20 +22,22 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    rfc1337 = l.mkBoolOption ''
+      RFC1337 protects from TIME-WAIT assassination attacks by dropping TCP
+      RST packets when in the TIME-WAIT state.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      This protects against some potention DoS attacks which could cause
+      TCP connections to drop given specific circumstances or crafted packets.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      Additional reference:
+      https://datatracker.ietf.org/doc/html/rfc1337
+      https://serverfault.com/questions/787624/why-isnt-net-ipv4-tcp-rfc1337-enabled-by-default
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    boot.kernel.sysctl = {
+      "net.ipv4.tcp_rfc1337" = l.mkDefault "1";
+    };
   };
 }

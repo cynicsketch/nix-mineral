@@ -22,20 +22,22 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    unprivileged-userfaultfd = l.mkBoolOption ''
+      If set to false, limit access to userfaultfd() syscall to the
+      CAP_SYS_PTRACE capability.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      userfaultfd has been used for use-after-free exploits in the past.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      See:
+      https://man7.org/linux/man-pages/man2/userfaultfd.2.html
+      https://duasynt.com/blog/linux-kernel-heap-spray
+      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cefdca0a86be517bc390fc4541e3674b8e7803b0
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "vm.unprivileged_userfaultfd" = l.mkDefault "0";
+    };
   };
 }

@@ -22,20 +22,16 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    vsyscall = l.mkBoolOption ''
+      If set to false, Disable vsyscalls, which are obsolete and create static
+      memory locations that are easy to exploit.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      See:
+      https://lwn.net/Articles/446528/
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (!cfg) {
+    boot.kernelParams = [ "vsyscall=none" ];
   };
 }

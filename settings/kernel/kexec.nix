@@ -22,20 +22,26 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    kexec = l.mkBoolOption ''
+      Prevent replacing the running kernel with kexec for security reasons.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      On other distributions, kexec is most notably used for updating the
+      Linux kernel without rebooting, however, NixOS does not support this.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      A comprehensive list of usecases is not feasible, but consider consulting
+      the following references as well as upstream documentation where
+      necessary:
+
+      https://docs.kernel.org/admin-guide/mm/kho.html
+      https://github.com/NixOS/nixpkgs/issues/10726
+      https://docs.kernel.org/admin-guide/kdump/kdump.html
+
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "kernel.kexec_load_disabled" = l.mkOverride 900 "1";
+    };
   };
 }

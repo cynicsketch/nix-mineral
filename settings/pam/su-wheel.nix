@@ -22,20 +22,17 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
-
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+    su-wheel = l.mkBoolOption ''
+      Set to false to require wheel to use su and su-l, to reduce the risk of
+      privilege escalation e.g from service accounts which have been
+      maliciously hijacked and used for a shell.
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (!cfg) {
+    security.pam.services = {
+      su.requireWheel = l.mkDefault true;
+      su-l.requireWheel = l.mkDefault true;
+    };
   };
 }

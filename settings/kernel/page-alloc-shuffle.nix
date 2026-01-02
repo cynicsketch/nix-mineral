@@ -22,16 +22,19 @@
 
 {
   options = {
-    iommu-passthrough = l.mkBoolOption ''
-      Enable bypassing the IOMMU for direct memory access. Could increase I/O
-      performance on ARM64 systems, with risk.
-      if false, forces DMA to go through IOMMU to mitigate some DMA attacks.
-    '' false;
+    page-alloc-shuffle = l.mkBoolOption ''
+      Make page allocations less predicatable by randomizing freelists
+      This is one of the few things which IMPROVES performance as a side
+      effect, and there's usually no reason to disable this.
+
+      See:
+      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e900a918b0984ec8f2eb150b8477a47b75d17692
+    '' true;
   };
 
-  config = l.mkIf (!cfg) {
+  config = l.mkIf cfg {
     boot.kernelParams = [
-      "iommu.passthrough=0"
+      "page_alloc.shuffle=1"
     ];
   };
 }

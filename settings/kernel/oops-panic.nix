@@ -22,20 +22,19 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    oops-panic = l.mkBoolOption ''
+      Intentionally induce kernel panics on "oops" errors and above, to
+      limit the extent of certain exploits which trigger kernel oopses.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      This might cause stability issues with certain poorly written drivers
+      that aren't malicious. If you experience random kernel panics, consider
+      disabling this.
     '' true;
   };
 
   config = l.mkIf cfg {
     boot.kernelParams = [
-      "amd_iommu=force_isolation"
+      "oops=panic"
     ];
   };
 }

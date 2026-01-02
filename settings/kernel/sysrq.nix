@@ -34,6 +34,7 @@
 
         SAK prevents keylogging, if used correctly.
         See URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html#accessing-root-securely
+        And: https://www.kicksecure.com/wiki/Login_spoofing
       '';
       default = "off";
       type = l.types.enum [

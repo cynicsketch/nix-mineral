@@ -22,20 +22,20 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    zero-alloc = l.mkBoolOption ''
+      Zero memory during both allocation and free time to help mitigate
+      use-after-free exploits.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      See:
+      https://en.wikipedia.org/wiki/Dangling_pointer
+      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6471384af2a6530696fc0203bafe4de41a23c9ef
     '' true;
   };
 
   config = l.mkIf cfg {
     boot.kernelParams = [
-      "amd_iommu=force_isolation"
+      "init_on_alloc=1"
+      "init_on_free=1"
     ];
   };
 }

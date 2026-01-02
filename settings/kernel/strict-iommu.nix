@@ -22,20 +22,19 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    strict-iommu = l.mkBoolOption ''
+      Enable and force the IOMMU to be used to reduce the risk of DMA attacks,
+      and strictly invalidate TLBs to prevent abuse of stale data.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      See:
+      https://en.wikipedia.org/wiki/Input%E2%80%93output_memory_management_unit
     '' true;
   };
 
   config = l.mkIf cfg {
     boot.kernelParams = [
-      "amd_iommu=force_isolation"
+      "iommu=force"
+      "iommu.strict=1"
     ];
   };
 }

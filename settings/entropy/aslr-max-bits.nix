@@ -22,20 +22,23 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    aslr-max-bits = l.mkBoolOption ''
+      Use the maximum number of bits of entropy to address space layout
+      randomization, a widely used mitigation against memory exploits.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      Note that the values used here are currently only valid for x86_64.
+      Other CPU architectures may require different numbers here, consult
+      upstream documentation as necessary.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      See:
+      https://en.wikipedia.org/wiki/Address_space_layout_randomization
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    boot.kernel.sysctl = {
+      "vm.mmap_rnd_bits" = l.mkDefault "32";
+      "vm.mmap_rnd_compat_bits" = l.mkDefault "16";
+    };
   };
 }

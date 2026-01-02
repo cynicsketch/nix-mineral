@@ -22,20 +22,25 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    kicksecure-module-blacklist = l.mkBoolOption ''
+      Borrow Kicksecure module blacklist.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
+      "install "foobar" /bin/false" prevents the module from being
+      loaded at all. "blacklist "foobar"" prevents the module from being
+      loaded automatically at boot, but it can still be loaded afterwards.
 
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
+      Because the "install /bin/false" method does not register as a regular
+      blacklist, this might cause issues with kernel module auditing e.g
+      using Lynis. If so, you'll need to generate a whitelist.
+
+      This may have unintended consequences if you require specific drivers,
+      and may cause breakage.
     '' true;
   };
 
   config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+    environment.etc."modprobe.d/nm-module-blacklist.conf".source = (
+      l.fetchGhFile l.sources.module-blacklist
+    );
   };
 }

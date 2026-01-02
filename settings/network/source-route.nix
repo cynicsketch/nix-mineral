@@ -22,20 +22,21 @@
 
 {
   options = {
-    amd-iommu-force-isolation = l.mkBoolOption ''
-      Set amd_iommu=force_isolation kernel parameter.
+    source-route = l.mkBoolOption ''
+      Disable source routing if set to false, since it allows for redirecting
+      network traffic and potentially creating a man in the middle attack.
 
-      You may need to set this to false as a workaround for a boot hanging
-      issue on Linux kernel 6.13.
-
-      If you're not using an AMD CPU, this does nothing and can be safely
-      ignored.
-    '' true;
+      See:
+      https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-server_security-disable-source-routing
+    '' false;
   };
 
-  config = l.mkIf cfg {
-    boot.kernelParams = [
-      "amd_iommu=force_isolation"
-    ];
+  config = l.mkIf (!cfg) {
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.all.accept_source_route" = l.mkDefault "0";
+      "net.ipv4.conf.default.accept_source_route" = l.mkDefault "0";
+      "net.ipv6.conf.all.accept_source_route" = l.mkDefault "0";
+      "net.ipv6.conf.default.accept_source_route" = l.mkDefault "0";
+    };
   };
 }
