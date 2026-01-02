@@ -29,7 +29,7 @@
   };
 
   config = l.mkIf cfg {
-    boot.consoleLogLevel = l.mkDefault "0";
+    boot.consoleLogLevel = l.mkDefault 0;
     boot.initrd.verbose = l.mkDefault false;
     boot.kernelParams = [
       "quiet"
