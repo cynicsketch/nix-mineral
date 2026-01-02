@@ -33,7 +33,7 @@
 
   config = l.mkIf cfg {
     # Enable securetty support in PAM first
-    security.pam.services.rules.auth."securetty" = {
+    security.pam.services.login.rules.auth."securetty" = {
       enable = l.mkDefault true;
       order = l.mkDefault 1;
       control = l.mkDefault "requisite";
