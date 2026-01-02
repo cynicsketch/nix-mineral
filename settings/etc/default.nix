@@ -46,7 +46,7 @@ let
 in
 {
   options = {
-    debug = l.mkOption {
+    etc = l.mkOption {
       description = ''
         Modify files in /etc to limit attack surface.
       '';

@@ -43,7 +43,7 @@ let
 in
 {
   options = {
-    entropy = l.mkOption {
+    pam = l.mkOption {
       description = ''
         Modify pluggable authentication module (PAM) settings
       '';

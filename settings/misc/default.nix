@@ -43,7 +43,7 @@ let
 in
 {
   options = {
-    entropy = l.mkOption {
+    misc = l.mkOption {
       description = ''
         Configure miscellaneous settings, usually additional software.
       '';
