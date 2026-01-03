@@ -32,7 +32,7 @@
   config = l.mkIf (!cfg) {
     boot.kernelParams = [
       "random.trust_cpu=off"
-      "random.trust_bootloader=pff"
+      "random.trust_bootloader=off"
     ];
   };
 }
