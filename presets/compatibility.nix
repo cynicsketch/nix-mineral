@@ -63,6 +63,9 @@
         # drop Gratuitous ARP frames to prevent ARP poisoning
         # this can cause issues when ARP proxies are used in the network
         arp.drop-gratuitous = mkPreset false;
+
+        # Do not ignore all ICMP requests so that this device can be pinged
+        icmp.ignore-all = mkPreset false;
       };
     };
 
