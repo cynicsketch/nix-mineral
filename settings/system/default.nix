@@ -32,7 +32,6 @@ let
         ./link-protection.nix
         ./lower-address-mmap.nix
         ./multilib.nix
-        ./nix-allow-only-wheel.nix
         ./yama.nix
       ]
       {
