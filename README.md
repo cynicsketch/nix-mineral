@@ -116,13 +116,14 @@ Some presets for doing so are available below:
 
 Refer to the individual submodules for more information on what each option does.
 
-An example configuration to enable all defaults, and then disable TCP window
+An example configuration to enable all defaults, use the "compatibility" preset, and then disable TCP window
 scaling while enabling multilib support and IP forwarding functionality is
 shown below.
 ```nix
 {
     nix-mineral = {
         enable = true;
+        preset = "compatibility";
 
         settings = {
             # kernel = {
