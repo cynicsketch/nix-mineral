@@ -78,9 +78,11 @@
         "/tmp".options."noexec" = mkPreset false;
 
         # noexec on /var(/lib) may cause breakage.
+        # Because /var is noexec, set exec explicitly in order to override it
         "/var/lib" = {
           enable = mkPreset true;
           options."noexec" = mkPreset false;
+          options."exec" = true;
         };
       };
 

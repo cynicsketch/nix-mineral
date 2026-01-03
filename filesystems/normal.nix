@@ -126,6 +126,7 @@ in
       #"/var/lib" = {
       #  enable = true;
       #  options."noexec" = false;
+      #  options."exec" = true;
       #};
       "/var".enable = l.mkDefault true;
 
