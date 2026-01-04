@@ -57,7 +57,6 @@ let
         ./kfence.nix
         ./slab-debug.nix
         ./vdso32.nix
-        ./max-map.nix
       ]
       {
         inherit
