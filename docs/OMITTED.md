@@ -18,7 +18,7 @@ Features in sources of research for `nix-mineral` which have been intentionally 
 `linux-hardened` is not used because it breaks unpriviliged userns and has
 historically failed to receive regular updates in nixpkgs.
 
-sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details: \
+## sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details:
 kernel.core_uses_pid = 1 \
 kernel.pid_max = 4194304 \
 kernel.panic = 10 \
@@ -41,7 +41,7 @@ net.ipv4.tcp_wmem = 4096 16384 536870912 \
 net.ipv4.tcp_adv_win_scale = -2 \
 net.ipv4.tcp_notsent_lowat = 131072
 
-Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE: \
+## Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:
 1 (Advice) \
 2.1 (Advice) \
 2.3.3 (Advice) \
@@ -61,7 +61,7 @@ whether with mount options or through tmpfiles) \
 21.7 (Advice, not in threat model) \
 22 (Advice)
 
-Sections from madaidan's guide requiring manual user intervention:
+## Sections from madaidan's guide requiring manual user intervention:
 2.7 (systemd service hardening must be done manually) \
 2.9 (Paid software) \
 2.11 (Unique for all hardware, inconvenient) \
@@ -87,5 +87,5 @@ implemented here) \
 21.3.3 (See above) \
 21.4 (Non-declarative setup, experimental)
 
-sysctl omitted due to already being used by default on NixOS: \
+## sysctl omitted due to already being used by default on NixOS:
 "vm.max_map_count=1048576" (Due to its relevance in reducing crashes for memory intensive applications, despite a secondary need to be used in order to have enough guard pages for hardened_malloc)
