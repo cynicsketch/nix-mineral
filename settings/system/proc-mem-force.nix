@@ -34,17 +34,17 @@
         `ptrace` - Only allow modification of memory mappings using ptrace. Affected by the "yama" option.
         `never` - Do not allow modifying memory mappings at all.
       '';
-      default = "relaxed";
+      default = "ptrace";
       type = l.types.enum [
         "none"
-        "relaxed"
-        "restricted"
+        "ptrace"
+        "never"
       ];
     };
   };
 
   config = l.mkIf (cfg != "none") {
-    boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce (
+    boot.kernel.sysctl."proc_mem.force_override" = l.mkForce (
       if cfg == "ptrace" then "ptrace" else "never"
     );
   };
