@@ -86,3 +86,6 @@ implemented here) \
 21.3.2 (See above) \
 21.3.3 (See above) \
 21.4 (Non-declarative setup, experimental)
+
+sysctl omitted due to already being used by default on NixOS: \
+"vm.max_map_count=1048576" (Due to its relevance in reducing crashes for memory intensive applications, despite a secondary need to be used in order to have enough guard pages for hardened_malloc)
