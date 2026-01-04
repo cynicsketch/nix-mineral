@@ -35,6 +35,7 @@ let
         ./quiet-boot.nix
         ./debugfs.nix
         ./efipstore.nix
+        ./panic-reboot.nix
       ]
       {
         inherit

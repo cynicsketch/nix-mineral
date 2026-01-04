@@ -15,43 +15,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./intelme-kmodules.nix
-        ./load-kernel-modules.nix
-        ./iommu-passthrough.nix
-        ./warn-panic.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    kernel = l.mkOption {
-      description = ''
-        Extra settings to harden the linux kernel.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    panic-reboot = l.mkBoolOption ''
+      Force the system to automatically reboot upon kernel panic instead of
+      freezing, helping to mitigate denial of service attacks by automatically
+      recovering and preventing the capture of information presented by a
+      kernel panic screen.
+
+      This may inhibit debugging kernel panics, since the immediate reboot
+      prevents immediate analysis of error messages which may be displayed.
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "kernel.panic" = l.mkDefault "-1";
+    };
+  };
 }

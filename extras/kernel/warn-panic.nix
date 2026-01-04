@@ -15,43 +15,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./intelme-kmodules.nix
-        ./load-kernel-modules.nix
-        ./iommu-passthrough.nix
-        ./warn-panic.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    kernel = l.mkOption {
-      description = ''
-        Extra settings to harden the linux kernel.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    warn-panic = l.mkBoolOption ''
+      Be extra paranoid of potential kernel exploitation by inducing kernel
+      panics on kernel warns and above.
+
+      This will cause massive instability in the event of any bugs in the
+      kernel.
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl."kernel.warn_limit" = l.mkDefault "1";
+  };
 }

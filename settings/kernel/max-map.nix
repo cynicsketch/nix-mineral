@@ -15,43 +15,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./intelme-kmodules.nix
-        ./load-kernel-modules.nix
-        ./iommu-passthrough.nix
-        ./warn-panic.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    kernel = l.mkOption {
-      description = ''
-        Extra settings to harden the linux kernel.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    max-map = l.mkBoolOption ''
+      Increase the number memory map areas a process can use.
+
+      Primarily for future proofing potential use of hardened-malloc in the
+      future, which requires more map areas in order to support its guard
+      pages.
+
+      This feature is usually safe, and has been enabled by default on Arch
+      Linux specifically to increase stability and reduce crashing.
+
+      See:
+      https://archlinux.org/news/increasing-the-default-vmmax_map_count-value/
+      https://github.com/GrapheneOS/hardened_malloc#traditional-linux-based-operating-systems
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernel.sysctl = {
+      "vm.max_map_count" = l.mkDefault "1048576";
+    };
+  };
 }

@@ -36,6 +36,12 @@
         Drop Gratuitous ARP frames to prevent ARP poisoning
         this can cause issues when ARP proxies are used in the network
       '' true;
+
+      filter = l.mkBoolOption ''
+        Enable ARP filtering in the kernel to prevent the Linux kernel from
+        handling the ARP table globally and mitigate some ARP spoofing and
+        ARP cache poisoning attacks.
+      '' true;
     };
   };
 
@@ -54,6 +60,11 @@
       (l.mkIf cfg.drop-gratuitous {
         "net.ipv4.conf.default.drop_gratuitous_arp" = l.mkDefault "1";
         "net.ipv4.conf.all.drop_gratuitous_arp" = l.mkDefault "1";
+      })
+
+      (l.mkIf cfg.filter {
+        "net.ipv4.conf.default.arp_filter" = l.mkDefault "1";
+        "net.ipv4.conf.all.arp_filter" = l.mkDefault "1";
       })
     ];
   };
