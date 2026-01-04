@@ -44,8 +44,8 @@
   };
 
   config = l.mkIf (cfg != "none") {
-    boot.kernel.sysctl."proc_mem.force_override" = l.mkForce (
-      if cfg == "ptrace" then "ptrace" else "never"
-    );
+    boot.kernelParams = [
+      "proc_mem.force_override=${if cfg == "ptrace" then "ptrace" else "never"}"
+    ];
   };
 }
