@@ -30,7 +30,7 @@
     '' false;
   };
 
-  config = l.mkIf (!cfg) {
+  config = l.mkIf cfg {
     boot.kernelParams = [
       "iommu.passthrough=0"
     ];
