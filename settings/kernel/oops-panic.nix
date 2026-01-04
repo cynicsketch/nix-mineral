@@ -38,7 +38,8 @@
     ];
 
     # For future reference, the following sysctl accomplishes the same thing
-    # but has been excluded for redundancy:
-    # boot.kernel.sysctl."kernel.oops_limit" = l.mkDefault "1";
+    # and is included anyways for redundancy, since there should be no
+    # negative effects from using both.
+    boot.kernel.sysctl."kernel.oops_limit" = l.mkDefault "1";
   };
 }
