@@ -30,7 +30,6 @@ let
       [
         ./intelme-kmodules.nix
         ./load-kernel-modules.nix
-        ./iommu-passthrough.nix
         ./warn-panic.nix
       ]
       {
