@@ -15,45 +15,25 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./file-protection.nix
-        ./link-protection.nix
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./yama.nix
-        ./proc-mem-force.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    bdev-write-mount = l.mkBoolOption ''
+      If set to false, prevent runaway privileged processes from writing to
+      block devices to protect against runaway privileged processes causing
+      filesystem corruption and kernel crashes.
+
+      See:
+      https://github.com/Kicksecure/security-misc/pull/334
+      https://github.com/a13xp0p0v/kernel-hardening-checker
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernelParams = [ "bdev_allow_write_mounted=0" ];
+  };
 }

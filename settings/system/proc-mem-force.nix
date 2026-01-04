@@ -15,45 +15,37 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./file-protection.nix
-        ./link-protection.nix
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./yama.nix
-        ./proc-mem-force.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
+    proc-mem-force = l.mkOption {
       description = ''
-        Settings for the system.
+        Configure whether processes can modify their own memory mappings or
+        not, which could be used for some exploits.
+
+        See:
+        https://github.com/Kicksecure/security-misc/pull/332
+
+        `none` - Keep the default configuration of your kernel.
+        `ptrace` - Only allow modification of memory mappings using ptrace. Affected by the "yama" option.
+        `never` - Do not allow modifying memory mappings at all.
       '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
+      default = "relaxed";
+      type = l.types.enum [
+        "none"
+        "relaxed"
+        "restricted"
+      ];
     };
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (cfg != "none") {
+    boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce (
+      if cfg == "ptrace" then "ptrace" else "never"
+    );
+  };
 }

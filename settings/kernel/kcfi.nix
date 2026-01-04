@@ -15,45 +15,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./file-protection.nix
-        ./link-protection.nix
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./yama.nix
-        ./proc-mem-force.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    kcfi = l.mkBoolOption ''
+      If set to true, switch (back) to using kCFI as the default Control Flow
+      Integrity (CFI) implementation as kCFI mandates hash validation at the
+      source making it more difficult to bypass.
+
+      This is in contrast to FineIBT which was made the default in kernel 6.2
+      due to its performance benefits as it only performs hash checks at the
+      destinations.
+
+      See:
+      https://docs.kernel.org/next/x86/shstk.html
+    '' true;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    boot.kernelParams = [ "cfi=kcfi" ];
+  };
 }

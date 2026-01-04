@@ -15,45 +15,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./file-protection.nix
-        ./link-protection.nix
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./yama.nix
-        ./proc-mem-force.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    efipstore = l.mkBoolOption ''
+      If set to false, Disable both the EFI persistent storage feature and
+      Error Record Serialization Table (ERST) support as a form of
+      defense-in-depth. This prevents the kernel from writing crash logs
+      and other persistent data to the storage backend.
+
+      See:
+      https://blogs.oracle.com/linux/pstore-linux-kernel-persistent-storage-file-system
+      https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/18_ACPI_Platform_Error_Interfaces/error-serialization.html
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernelParams = [
+      "efi_pstore.pstore_disable=1"
+      "erst_disable"
+    ];
+  };
 }

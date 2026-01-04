@@ -31,6 +31,9 @@
         # Restrict yama ptrace scope to the most secure option.
         # No processes may be traced with ptrace.
         yama = mkPreset "restricted";
+
+        # Never allow processes to modify their own memory mappings.
+        proc-mem-force = mkPreset "never";
       };
     };
 

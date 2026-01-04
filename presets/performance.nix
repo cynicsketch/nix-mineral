@@ -36,6 +36,15 @@
 
         # PTI (Page Table Isolation) may tax performance.
         pti = mkPreset false;
+
+        # Don't use kcfi as the control flow implementation in the kernel,
+        # since it performs worse than FineIBT, which is the current Linux
+        # kenrel (not nix-mineral) default.
+        kcfi = mkPreset false;
+
+        # Do not enable red zoning and sanity checking with slab debug, since
+        # it adds significant memory allocation overhead.
+        slab-debug = mkPreset false;
       };
 
       system = {

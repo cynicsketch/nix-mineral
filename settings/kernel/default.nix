@@ -52,6 +52,11 @@ let
         ./page-alloc-shuffle.nix
         ./randomize-kstack-offset.nix
         ./oops-panic.nix
+        ./bdev-write-mount.nix
+        ./kcfi.nix
+        ./kfence.nix
+        ./slab-debug.nix
+        ./vdso32.nix
       ]
       {
         inherit

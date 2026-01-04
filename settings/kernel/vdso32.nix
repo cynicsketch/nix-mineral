@@ -15,45 +15,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
 
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./file-protection.nix
-        ./link-protection.nix
-        ./lower-address-mmap.nix
-        ./multilib.nix
-        ./yama.nix
-        ./proc-mem-force.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    vdso32 = l.mkBoolOption ''
+      If set to false, disable 32-bit Virtual Dynamic Shared Object (vDSO)
+      mappings as these are a legacy compatibility feature for superseded
+      glibc versions.
+
+      See:
+      https://man7.org/linux/man-pages/man7/vdso.7.html
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf (!cfg) {
+    boot.kernelParams = [ "vdso32=0" ];
+  };
 }

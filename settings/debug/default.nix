@@ -34,6 +34,7 @@ let
         ./dmesg-restrict.nix
         ./quiet-boot.nix
         ./debugfs.nix
+        ./efipstore.nix
       ]
       {
         inherit
