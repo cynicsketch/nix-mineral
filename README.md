@@ -66,11 +66,11 @@ Add nix-mineral as an input to your flake:
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     nix-mineral.url = "github:cynicsketch/nix-mineral/"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
-    
+
     # Note that due to major breaking changes, the below examples are not compatible with commits or releases prior to 0.2.0a!
-    
+
     # nix-mineral.url = "github:cynicsketch/nix-mineral/v0.2.0-alpha" # Refers to a specific tag and follows that tag until you change it
-    # nix-mineral.url = "github:cynicsketch/nix-mineral/reallylongexamplehashforthecommitandall9" # Refers to a specific commit and follows that until you change it 
+    # nix-mineral.url = "github:cynicsketch/nix-mineral/reallylongexamplehashforthecommitandall9" # Refers to a specific commit and follows that until you change it
   };
 
   outputs =
@@ -161,7 +161,7 @@ Bluetooth configuration and module blacklist, with various additional settings i
 URL: https://github.com/Kicksecure/security-misc
 
 Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts: \
-URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf
+URL: https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf
 
 Optional chrony configuration was borrowed from GrapheneOS server infrastructure: \
 URL: https://github.com/GrapheneOS/infrastructure
