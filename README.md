@@ -161,7 +161,7 @@ Bluetooth configuration and module blacklist, with various additional settings i
 URL: https://github.com/Kicksecure/security-misc
 
 Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts: \
-URL: https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf
+URL: https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf
 
 Optional chrony configuration was borrowed from GrapheneOS server infrastructure: \
 URL: https://github.com/GrapheneOS/infrastructure
