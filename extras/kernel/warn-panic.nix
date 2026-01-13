@@ -32,6 +32,9 @@
   };
 
   config = l.mkIf cfg {
+    # Both sysctl and boot parameter are included for redundancy and future
+    # referenc.
+    boot.kernelParams = [ "panic_on_warn=1" ];
     boot.kernel.sysctl."kernel.warn_limit" = l.mkDefault "1";
   };
 }

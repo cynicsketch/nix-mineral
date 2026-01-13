@@ -34,6 +34,9 @@
   };
 
   config = l.mkIf cfg {
+    # Both sysctl and boot parameter are included for future reference and
+    # redundancy.
+    boot.kernelParams = [ "panic=-1" ];
     boot.kernel.sysctl = {
       "kernel.panic" = l.mkDefault "-1";
     };
