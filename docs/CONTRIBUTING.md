@@ -285,5 +285,4 @@ This is not legal advice. The information provided is for general informational 
 - Basic concepts and facts aren't copyrightable. 
 - Due to the nature of Linux hardening, most configuration changes aren't legally valid to copyright under merger doctrine. 
 - Informal crediting exists as a courtesy, not as a way to fulfill proper license attribution requirements.
-- *Some* commentary isn't legally valid to copyright when summarizing basic facts or concepts. If independent descriptions inevitably converge to the same semantic meaning, merger doctrine usually applies.
-- *Some* commentary **is** legally copyrightable when there is an element of artistic of imaginative expression.
+- If in doubt, do not blindly copy and just attribute when the license permits.
