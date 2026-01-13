@@ -30,13 +30,7 @@
     '' false;
   };
 
-  config = l.mkMerge [
-    (l.mkIf (!cfg) {
-      boot.kernelParams = [ "iommu.passthrough=0" ];
-    })
-
-    (l.mkIf cfg {
-      boot.kernelParams = [ "iommu.passthrough=1" ];
-    })
-  ];
+  config = {
+    boot.kernelParams = [ "iommu.passthrough=${if cfg then "1" else "0"}" ];
+  };
 }

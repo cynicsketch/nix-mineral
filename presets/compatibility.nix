@@ -60,7 +60,7 @@
 
         # allow applications to ptrace their child processes, in the case of
         # certain software especially video game anticheats
-        yama = "restricted";
+        yama = "relaxed";
       };
 
       network = {
