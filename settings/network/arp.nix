@@ -28,9 +28,28 @@
         Seems to be most restrictive option
       '' true;
 
-      ignore = l.mkBoolOption ''
-        Reply only if the target IP address is local address configured on the incoming interface
-      '' true;
+      ignore = l.mkOption {
+        description = ''
+          Ignore/don't reply to specific ARP requests to limit scope of ARP
+          spoofing. This may break certain VM networking configurations if set
+          to 'link,' which can be fixed by setting to 'local' or 'none.'
+
+          See:
+          https://github.com/Kicksecure/security-misc/pull/279
+          https://github.com/Kicksecure/security-misc/pull/290
+
+          `none` - Keep the default configuration of your kernel.
+          `local` - Reply only if the target IP address is within the local
+                    address range configured on the incoming interface
+          `link` - Reply only if the target IP is on the same link.
+        '';
+        default = "link";
+        type = l.types.enum [
+          "none"
+          "local"
+          "link"
+        ];
+      };
 
       drop-gratuitous = l.mkBoolOption ''
         Drop Gratuitous ARP frames to prevent ARP poisoning
@@ -52,9 +71,9 @@
         "net.ipv4.conf.all.arp_announce" = l.mkDefault "2";
       })
 
-      (l.mkIf cfg.ignore {
-        "net.ipv4.conf.default.arp_ignore" = l.mkDefault "1";
-        "net.ipv4.conf.all.arp_ignore" = l.mkDefault "1";
+      (l.mkIf (cfg.ignore != "none") {
+        "net.ipv4.conf.default.arp_ignore" = l.mkDefault (if cfg == "local" then "1" else "2");
+        "net.ipv4.conf.all.arp_ignore" = l.mkDefault (if cfg == "local" then "1" else "2");
       })
 
       (l.mkIf cfg.drop-gratuitous {
