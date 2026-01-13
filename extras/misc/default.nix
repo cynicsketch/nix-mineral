@@ -28,6 +28,7 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
+        ./apparmor.nix
         ./doas-sudo-wrapper.nix
         ./replace-sudo-with-doas.nix
         ./usbguard.nix
