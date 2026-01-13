@@ -57,6 +57,10 @@
         # allow certain legacy applications to map into lower address spaces
         # if needed
         lower-address-mmap = mkPreset true;
+
+        # allow applications to ptrace their child processes, in the case of
+        # certain software especially video game anticheats
+        yama = "restricted";
       };
 
       network = {
