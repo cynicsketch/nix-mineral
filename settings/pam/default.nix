@@ -28,7 +28,7 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./su-wheel.nix
+        ./su-wheel-only.nix
         ./shadow-hashing.nix
         ./login-faildelay.nix
       ]
