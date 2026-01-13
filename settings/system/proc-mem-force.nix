@@ -45,7 +45,7 @@
 
   config = l.mkIf (cfg != "none") {
     boot.kernelParams = [
-      "proc_mem.force_override=${if cfg == "ptrace" then "ptrace" else "never"}"
+      "proc_mem.force_override=${cfg}"
     ];
   };
 }
