@@ -19,7 +19,6 @@ Features in sources of research for `nix-mineral` which have been intentionally 
 historically failed to receive regular updates in nixpkgs.
 
 ## sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details:
-kernel.core_uses_pid = 1 \
 kernel.pid_max = 4194304 \
 kernel.panic = 10 \
 fs.file-max = 9223372036854775807 \

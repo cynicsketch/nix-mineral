@@ -58,6 +58,7 @@ let
         ./slab-debug.nix
         ./vdso32.nix
         ./iommu-passthrough.nix
+        ./core-pid.nix
       ]
       {
         inherit
