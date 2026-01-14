@@ -68,10 +68,6 @@
         # this can cause issues when ARP proxies are used in the network
         arp.drop-gratuitous = mkPreset false;
 
-        # allow ARP replies up to local address range rather than requiring to
-        # be on link, in order to allow some specific vm networking to work
-        arp.ignore = mkPreset "local";
-
         # Do not ignore all ICMP requests so that this device can be pinged
         icmp.ignore-all = mkPreset false;
       };

@@ -31,12 +31,22 @@
       ignore = l.mkOption {
         description = ''
           Ignore/don't reply to specific ARP requests to limit scope of ARP
-          spoofing. This may break certain VM networking configurations if set
+          spoofing.
+
+          This may break certain VM networking configurations if set
           to 'link,' which can be fixed by setting to 'local' or 'none.'
+
+          However, such a regression has been intentionally excluded from the
+          compatibility preset unless new information or usecases are made
+          apparent, given that this issue appears to be isolated to niche
+          setups which NixOS is not known or advisable to be used for.
 
           See:
           https://github.com/Kicksecure/security-misc/pull/279
           https://github.com/Kicksecure/security-misc/pull/290
+          https://github.com/QubesOS/qubes-issues/issues/9990
+          https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium
+          https://github.com/mullvad/mullvadvpn-app/pull/7141
 
           `none` - Keep the default configuration of your kernel.
           `local` - Reply only if the target IP address is within the local
