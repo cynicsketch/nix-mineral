@@ -23,9 +23,14 @@
 {
   options = {
     tcp-timestamps = l.mkBoolOption ''
-      Enables tcp_timestamps.
+      Enables TCP timestamps.
       Disabling prevents leaking system time, enabling protects against
       wrapped sequence numbers and improves performance.
+
+      Disabling implicitly disables reuse of TIME_WAIT sockets, as they depend
+      on TCP timestamps which may lead to corruption and an inability to detect
+      duplicate packets. It may also result in port exhaustion as ports may not
+      be immediately reused.
 
       In favor of disabling:
       https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
@@ -37,9 +42,17 @@
     '' true;
   };
 
-  config = l.mkIf cfg {
-    boot.kernel.sysctl = {
-      "net.ipv4.tcp_timestamps" = l.mkDefault "1";
-    };
-  };
+  config = l.mkMerge [
+    (l.mkIf cfg {
+      boot.kernel.sysctl = {
+        "net.ipv4.tcp_timestamps" = l.mkDefault "1";
+      };
+    })
+    (l.mkIf (!cfg) {
+      boot.kernel.sysctl = {
+        "net.ipv4.tcp_timestamps" = l.mkDefault "0";
+        "net.ipv4.tcp_tw_reuse" = l.mkDefault "0";
+      };
+    })
+  ];
 }
