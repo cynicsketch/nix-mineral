@@ -59,6 +59,7 @@ let
         ./vdso32.nix
         ./iommu-passthrough.nix
         ./core-pid.nix
+        ./tiocsti.nix
       ]
       {
         inherit
