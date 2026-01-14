@@ -32,11 +32,13 @@
   config = l.mkIf (!cfg) {
     boot.kernel.sysctl = {
       # NOTE: `mkOverride 900` is used when a default value is already defined in NixOS.
-      "net.ipv4.ip_forward" = l.mkDefault "0";
+      # The IP forwarding sysctl is somewhat inconsistent to apply, so we
+      # force the value for all relevant keys
+      "net.ipv4.ip_forward" = l.mkOverride 900 "0";
       "net.ipv4.conf.all.forwarding" = l.mkOverride 900 "0";
-      "net.ipv4.conf.default.forwarding" = l.mkDefault "0";
-      "net.ipv6.conf.all.forwarding" = l.mkDefault "0";
-      "net.ipv6.conf.default.forwarding" = l.mkDefault "0";
+      "net.ipv4.conf.default.forwarding" = l.mkOverride 900 "0";
+      "net.ipv6.conf.all.forwarding" = l.mkOverride 900 "0";
+      "net.ipv6.conf.default.forwarding" = l.mkOverride 900 "0";
     };
   };
 }
