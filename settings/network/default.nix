@@ -44,6 +44,7 @@ let
         ./rp-filter.nix
         ./source-route.nix
         ./syncookies.nix
+        ./tcp-timestamps.nix
       ]
       {
         inherit

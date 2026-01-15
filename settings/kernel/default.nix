@@ -40,7 +40,6 @@ let
         ./strict-iommu.nix
         ./perf-subsystem.nix
         ./sysrq.nix
-        ./tcp-timestamps.nix
         ./restrict-line-disciplines.nix
         ./harden-bpf.nix
         ./restrict-bpf.nix
