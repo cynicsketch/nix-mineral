@@ -240,26 +240,28 @@ Examples are within the files.
 
 1. Create a file with the preset name inside the `presets` folder:
    Example: `presets/example-preset.nix`
-   The code inside the file is the same as what a normal user would use to configure nix-mineral, but each option must be set using `mkPreset`.
+   The code inside the file is the same as what a normal user would use to configure nix-mineral,
+   but each option must be set using `mkPreset` or `mkPresets` functions.
+   `mkPreset` is used to set a single option, while `mkPresets` is used to set multiple options within an attrset.
    An example of a preset below:
 
 ```nix
 {
-  mkPreset,
+  mkPresets,
   ...
 }:
 
 {
-  nix-mineral = {
+  nix-mineral = mkPresets {
     settings = {
       kernel = {
-        lockdown = mkPreset false;
-        only-signed-modules = mkPreset false;
+        lockdown = false;
+        only-signed-modules = false;
       };
     };
     extras = {
       system = {
-        lock-root = mkPreset true;
+        lock-root = true;
       };
     };
   };
@@ -267,8 +269,8 @@ Examples are within the files.
 ```
 
 2. Add your preset to the `presets/default.nix` file:
-   In the `options.nix-mineral.preset` option, add your preset to the enum and description.
-   At the end of the file, import your preset within the `mkMerge`, based on the code of the other presets.
+   In the `presets` attrset at the top of the file, add your preset with the name as the key and the description as the value.
+   Your preset name must match the filename you created in step 1. This will automatically import the preset file when the user includes the preset name in their configuration.
 
 # Adding functions to the lib
 
@@ -281,8 +283,8 @@ Because it is pragmatic to take from existing research, consideration to licensi
 
 This is not legal advice. The information provided is for general informational purposes only and may not reflect the most current legal developments. The author is not an attorney and makes no guarantees regarding the accuracy or completeness of this information. The author disclaims any liability for actions taken or not taken based on the content provided.
 
-- The merger doctrine nullifies licensing and attribution requirements when there are limited ways to express an idea. 
-- Basic concepts and facts aren't copyrightable. 
-- Due to the nature of Linux hardening, most configuration changes aren't legally valid to copyright under merger doctrine. 
+- The merger doctrine nullifies licensing and attribution requirements when there are limited ways to express an idea.
+- Basic concepts and facts aren't copyrightable.
+- Due to the nature of Linux hardening, most configuration changes aren't legally valid to copyright under merger doctrine.
 - Informal crediting exists as a courtesy, not as a way to fulfill proper license attribution requirements.
 - If in doubt, do not blindly copy and just attribute when the license permits.
