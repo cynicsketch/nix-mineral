@@ -41,15 +41,15 @@ https://github.com/Naxdy/nix-bwrapper \
 Bubblewrap is arguably the best sandboxing solution for desktop Linux. There's many projects to make using bubblewrap easier to use for nix, and these are just some examples. Convenient hardening is better than no hardening, though for fine grained control power users can manually sandbox their stuff or use something else. 
 
 https://github.com/e-tho/ucodenix \
-TLDR; amd-ucode targets server CPUs mostly. BIOS updates update microcode consumer AMD CPUs, but if your OEM no longer provides updates your microcode will probably never be updated by a standard Linux setup. Luckily, someone made a tool to do so automatically. Unfortunately, your BIOS not being updated means that your microcode may also be prevented from updating... but harm reduction is better than nothing.
+amd-ucode mainly targets server CPUs, NOT consumer CPUs. If your OEM no longer provides updates for your AMD systemz microcode will likely never be updated by a standard Linux hardware. Luckily, someone made a tool to do so automatically. Certain outdated firmware may prevent updating of microcode past a certain point, see the repo linked above for more details.
 
 Rust replacements, for example: \
 https://github.com/trifectatechfoundation/sudo-rs \
 https://github.com/pendulum-project/ntpd-rs \
-All other rust replacements for common Linux services and applications fall under this catagory unless they do something "novel." You need to ask yourself whether guaranteed memory safety is worth the risk of less audited, and an often larger codebase. Do you trust the programming language architecture or the programmer more? Is it really a good idea to replace a C app which has worked just fine and has been written by a likely more experienced programmer for decades?
+All other rust replacements for common Linux services and applications fall under this catagory unless they do something "novel." You need to ask yourself whether guaranteed memory safety is worth the risk of a less audited, and sometimes larger codebase. Do you trust the programming language architecture or the programmer more?
 
 https://datatracker.ietf.org/doc/rfc8915/ \
-Consider using NTP implementations that support NTS. There are many out there that exist. Encrypting NTP means red team can't mess with your system time, which can interfere with some forms of online authentication.
+Consider using NTP implementations that support NTS, so that NTP requests are encrypted and prevent tampering or eavesdropping which may interfere with certain authentication mechanism. `nix-mineral.extras.system.secure-chrony` does this, but is highly opinionated in configuration. There are many other implementations not listed here.
 
 https://wiki.nixos.org/wiki/Automatic_system_upgrades \
 Regular updates keep your system patched from many known vulnerabilities. Not included by default because most people will schedule their auto-updates differently (or object to automatic updates entirely for a variety of non-security related reasons, e.g avoiding unwanted feature changes).
