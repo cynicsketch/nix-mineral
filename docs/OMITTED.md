@@ -12,6 +12,8 @@ MAC system on NixOS.
 - Future reference for potentially useful software which is still omitted under
 this rule may be added to [ADDITIONAL-RESOURCES.md](ADDITIONAL-RESOURCES.md)
 
+- Remember that this is supposed to be a drop-in NixOS module and not a Linux distribution. Common sense constraints on scope have to apply.
+
 # Specific omissions
 Features in sources of research for `nix-mineral` which have been intentionally omitted due to irrelevancy or logistical issues.
 
