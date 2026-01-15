@@ -23,55 +23,96 @@
 
 let
   cfg = config.nix-mineral;
+
+  presets = {
+    maximum = "enables every optional security setting to have maximum protection";
+    compatibility = "disables or enables settings to aim at compatibility";
+    performance = "disables or enables settings to aim at performance";
+  };
+
+  presetsEnum = l.types.enum ([ "default" ] ++ (l.attrNames presets));
 in
 {
   options = {
     nix-mineral = {
       preset = l.mkOption {
         description = ''
-          The preset to use for the nix-mineral module.
+          The preset (or presets) to use for the nix-mineral module.
           (all presets are applied on top of the default preset)
 
-          - maximum: enables every optional security setting to have maximum protection.
+          To select multiple presets, provide a list of preset names.
+          The order of presets matters, the top ones will have more priority.
+
           - default: only default settings.
-          - compatibility: disables or enables settings to aim at compatibility.
-          - performance: disables or enables settings to aim at performance.
+          ${l.concatStringsSep "\n" (
+            l.mapAttrsToList (name: description: "- ${name}: ${description}.") presets
+          )}
         '';
         default = "default";
-        type = l.types.enum [
-          "maximum"
-          "default"
-          "compatibility"
+        example = [
           "performance"
+          "compatibility"
         ];
+        # Convert strings to single-element lists for easier processing later
+        apply = value: if l.typeOf value == "string" then [ value ] else value;
+        type = l.types.either presetsEnum (l.types.listOf presetsEnum);
       };
     };
   };
 
   config =
     let
-      mkPreset = l.mkOverride 900;
+      defaultOverride = 800;
 
-      importWithArgs =
-        path:
-        import path {
-          inherit
-            config
-            pkgs
-            l
-            mkPreset
-            ;
-        };
+      # Generate a set of overrides with all the presets inside cfg.preset
+      # Each preset will have a different priority based on its position
+      # Example:
+      # if cfg.preset == [ "performance" "compatibility" "other-preset" ]
+      # then presetOverrides = {
+      #   performance = 800
+      #   compatibility = 799
+      #   other-preset = 798
+      # }
+      presetOverrides = (
+        l.mergeAttrsList (
+          l.imap0 (index: presetName: {
+            "${presetName}" = defaultOverride - index;
+          }) cfg.preset
+        )
+      );
     in
     # Any other way of doing this causes infinite recursion for some reason
     # i tried using a hashtable, if elses, but the only one that worked was mkIf
-    l.mkMerge [
-      (l.mkIf (cfg.preset == "maximum") (importWithArgs ./maximum.nix))
+    l.mkMerge (
+      l.mapAttrsToList (
+        name: _:
+        if name == "default" then
+          { }
+        else
+          (
+            let
+              # For each preset, create a different mkPreset function that applies
+              # the correct override based on the preset priority
+              mkPreset = l.mkOverride (presetOverrides.${name});
 
-      (l.mkIf (cfg.preset == "default") { })
+              mkPresets = l.mapAttrsRecursive (name: value: mkPreset value);
 
-      (l.mkIf (cfg.preset == "compatibility") (importWithArgs ./compatibility.nix))
-
-      (l.mkIf (cfg.preset == "performance") (importWithArgs ./performance.nix))
-    ];
+              importWithArgs =
+                filePath:
+                import filePath {
+                  inherit
+                    config
+                    pkgs
+                    l
+                    mkPreset
+                    mkPresets
+                    ;
+                };
+            in
+            # Automatically import the preset file if a element with the preset name
+            # exists in the cfg.preset list
+            (l.mkIf (l.elem name cfg.preset) (importWithArgs ./${name}.nix))
+          )
+      ) presets
+    );
 }
