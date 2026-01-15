@@ -32,6 +32,17 @@
       duplicate packets. It may also result in port exhaustion as ports may not
       be immediately reused.
 
+      There are possible information leaks when timestamps are enabled.
+      Offset randomization used by default prevents uptime prediction, but
+      the rate of incrementing timestamps can be used in some advanced attacks
+      to predict the current clock speed of a running system.
+
+      Because nix-mineral has different priorities to Whonix, which influences
+      Kicksecure's development, we choose not to disable timestamps by default
+      since clock speed fingerprinting is not a useful threat to most people;
+      if it is important, it is probably smarter to use another Linux
+      distribution entirely.
+
       In favor of disabling:
       https://madaidans-insecurities.github.io/guides/linux-hardening.html#tcp-timestamps
       https://forums.whonix.org/t/do-ntp-and-tcp-timestamps-really-leak-your-local-time/7824/6
