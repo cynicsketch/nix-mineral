@@ -95,6 +95,8 @@ in
               # the correct override based on the preset priority
               mkPreset = l.mkOverride (presetOverrides.${name});
 
+              mkPresets = l.mapAttrsRecursive (name: value: mkPreset value);
+
               importWithArgs =
                 filePath:
                 import filePath {
@@ -103,6 +105,7 @@ in
                     pkgs
                     l
                     mkPreset
+                    mkPresets
                     ;
                 };
             in
