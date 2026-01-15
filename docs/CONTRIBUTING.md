@@ -287,4 +287,4 @@ This is not legal advice. The information provided is for general informational 
 - Basic concepts and facts aren't copyrightable.
 - Due to the nature of Linux hardening, most configuration changes aren't legally valid to copyright under merger doctrine.
 - Informal crediting exists as a courtesy, not as a way to fulfill proper license attribution requirements.
-- If in doubt, do not blindly copy and just attribute when the license permits.
+- If in doubt, do not blindly copy. Use proper license attribution where permitted and required.
