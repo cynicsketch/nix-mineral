@@ -281,10 +281,12 @@ Then place your function within the `flake.lib` list at the end of the file, and
 
 Because it is pragmatic to take from existing research, consideration to licensing applies.
 
-This is not legal advice. The information provided is for general informational purposes only and may not reflect the most current legal developments. The author is not an attorney and makes no guarantees regarding the accuracy or completeness of this information. The author disclaims any liability for actions taken or not taken based on the content provided.
+This is not legal advice. The information provided is for general informational
+purposes only and may not reflect the most current legal developments. The
+author is not an attorney and makes no guarantees regarding the accuracy or
+completeness of this information. The author disclaims any liability for
+actions taken or not taken based on the content provided.
 
-- The merger doctrine nullifies licensing and attribution requirements when there are limited ways to express an idea.
-- Basic concepts and facts aren't copyrightable.
-- Due to the nature of Linux hardening, most configuration changes aren't legally valid to copyright under merger doctrine.
+- Invidividual, purely functional configuration decisions and purely factual statements are usually not copyrightable due to merger doctrine.
 - Informal crediting exists as a courtesy, not as a way to fulfill proper license attribution requirements.
 - If in doubt, do not blindly copy. Use proper license attribution where permitted and required.
