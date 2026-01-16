@@ -1,21 +1,24 @@
 # nix-mineral
-NixOS module for convenient system hardening.
+`nix-mineral` is NixOS module for convenient system hardening.
 Rather than be named after a mineral, it's named after the word "mineral".
 
 ## WARNING
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
 
-## Scope
-Reasonably harden NixOS in a way that can be quickly deployed by the end user.
+## Documentation and scope
+`nix-mineral` aims to serve as a drop-in addition to any NixOS system.
 
-`nix-mineral` primarily aims to configure, *not* install additional software unless the user explicitly does so. There are specific exceptions for software which is not known to cause any problems to any workflow.
+By default, configuring software is preferred to replacing or installing new
+services except when unobtrusive or lacking any significant alternative.
 
-Refer to [our contribution guidelines](docs/CONTRIBUTING.md) for more information on what we choose to exclude.
-Also see our documentation on [additional resources](docs/ADDITIONAL-RESOURCES.md) for other useful information and software.
+`nix-mineral`'s threat model assumes non-state adversaries, and anonymity is
+not considered.
 
-Threat model assumes non-governmental adversaries, and anonymity is not considered.
+For more information on specific details of scope, refer to the documents below.
 
-If you think the Feds are out to get you specifically, it's time to smash your hard drive and disappear.
+Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md)
+Additional resources: [ADDITIONAL-RESOURCES.md](docs/ADDITIONAL-RESOURCES.md)
+Omitted features: [OMITTED.md](docs/OMITTED.md)
 
 ## Features
 A full rundown of features is best obtained by reading the individual submodules
@@ -108,11 +111,11 @@ Import nix-mineral.nix from the input and enable the module:
 ```
 
 ### Configuring options
-It is very likely you will need to change some options in order to make your
-individual hardware and software function as intended.
+It is likely you will need to change some options in order to make your
+individual hardware and software configuration function as intended.
 
-Some presets for doing so are available below:
-[](https://github.com/cynicsketch/nix-mineral/tree/main/presets)
+Presets for doing so are available in the [presets directory](https://github.com/cynicsketch/nix-mineral/tree/main/presets)
+of this repository.
 
 Refer to the individual submodules for more information on what each option does.
 
@@ -144,7 +147,7 @@ shown below.
 
 #### Contributing
 Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the [issues tracker](https://github.com/cynicsketch/nix-mineral/issues) and we can talk a solution!
-Also see [our contribution guidelines](docs/CONTRIBUTING.md) for more information.
+Contributing guidelines: [CONTRIBUTING.MD](docs/CONTRIBUTING.md)
 
 ### Credits
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
