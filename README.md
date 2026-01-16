@@ -1,5 +1,5 @@
 # nix-mineral
-`nix-mineral` is NixOS module for convenient system hardening.
+`nix-mineral` is a NixOS module for convenient system hardening.
 Rather than be named after a mineral, it's named after the word "mineral".
 
 ## WARNING
