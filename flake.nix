@@ -45,6 +45,18 @@
 
         {
           formatter = pkgs.nixfmt-rfc-style;
+
+          packages =
+            let
+              docs = pkgs.callPackage ./docs/package.nix {
+                inherit inputs pkgs;
+              };
+            in
+            {
+              docs = docs.server;
+              docs-server = docs.server;
+              docs-html = docs.html;
+            };
         };
 
       flake.nixosModules = {
