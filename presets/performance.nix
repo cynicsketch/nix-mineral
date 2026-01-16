@@ -47,10 +47,6 @@
         slab-debug = false;
       };
 
-      system = {
-        # allow 32-bit libraries and applications to run.
-        multilib = true;
-      };
     };
   };
 }
