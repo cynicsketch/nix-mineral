@@ -16,8 +16,8 @@ not considered.
 
 For more information on specific details of scope, refer to the documents below.
 
-Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md)
-Additional resources: [ADDITIONAL-RESOURCES.md](docs/ADDITIONAL-RESOURCES.md)
+Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md) \
+Additional resources: [ADDITIONAL-RESOURCES.md](docs/ADDITIONAL-RESOURCES.md) \
 Omitted features: [OMITTED.md](docs/OMITTED.md)
 
 ## Features
