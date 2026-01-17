@@ -8,8 +8,9 @@ Rather than be named after a mineral, it's named after the word "mineral".
 ## Documentation and scope
 `nix-mineral` aims to serve as a drop-in addition to any NixOS system.
 
-By default, configuring software is preferred to replacing or installing new
-services except when unobtrusive or lacking any significant alternative.
+Because of this, complete overhauls of system UX or architecture is infeasible compared to dedicated security focused operating systems with complete executive control over design.
+
+By default, `nix-mineral` reduces attack surface by securely configuring existing software. It is not magic, but it's better than nothing.
 
 `nix-mineral`'s threat model assumes non-state adversaries, and anonymity is
 not considered.
