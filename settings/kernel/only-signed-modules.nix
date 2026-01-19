@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
   l,
   cfg,
   ...
@@ -27,7 +26,7 @@
       Requires all kernel modules to be signed. This prevents out-of-tree
       kernel modules from working unless signed.
 
-      (if false, `${options.nix-mineral.settings.kernel.lockdown}` must also be false)
+      (if false, {option}`nix-mineral.settings.kernel.lockdown` must also be false)
     '' true;
   };
 
