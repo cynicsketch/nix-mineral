@@ -15,7 +15,7 @@ By default, `nix-mineral` reduces attack surface by securely configuring existin
 `nix-mineral`'s threat model assumes non-state adversaries, and anonymity is
 not considered.
 
-For more information on specific details of scope, refer to the documents below.
+For more information on, refer to the documents below.
 
 Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md) \
 Additional resources: [ADDITIONAL-RESOURCES.md](docs/ADDITIONAL-RESOURCES.md) \
