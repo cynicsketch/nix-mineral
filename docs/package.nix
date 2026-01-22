@@ -169,6 +169,8 @@ rec {
 
         # Copy the markdown sources to be processed by ndg
         cp -rf ${./.} ./inputs
+        chmod -R u+w ./inputs
+        cp -f ${../README.md} ./inputs/index.md
 
         # Create NDG toml config file
         cp ${pkgs.writers.writeTOML "ndg-config.toml" ndgConfig} $out/share/doc/ndg-config.toml
