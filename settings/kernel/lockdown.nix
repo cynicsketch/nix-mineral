@@ -27,7 +27,7 @@
       and breaks hibernation.
 
       ::: {.note}
-      If false, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
+      If `false`, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
       :::
     '' true;
   };

@@ -25,7 +25,7 @@
     shared-media = l.mkBoolOption ''
       Enable sending and receiving of shared media redirects.
 
-      This setting overwrites net.ipv4.conf.all.secure_redirects.
+      This setting overwrites `net.ipv4.conf.all.secure_redirects`.
 
       Refer to RFC1620
     '' false;

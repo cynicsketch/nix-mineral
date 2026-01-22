@@ -30,7 +30,7 @@
       including encryption keys being written to the disk without any
       protection.
 
-      If false, this disables core dumps using a combination of sysctl, PAM, and
+      If `false`, this disables core dumps using a combination of sysctl, PAM, and
       systemd. These are grouped together, because the disablement of
       any individual one of these might otherwise make available a bypass.
 

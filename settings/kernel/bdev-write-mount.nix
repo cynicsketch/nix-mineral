@@ -27,9 +27,11 @@
       block devices to protect against runaway privileged processes causing
       filesystem corruption and kernel crashes.
 
+      ::: {.note}
       See:
-      https://github.com/Kicksecure/security-misc/pull/334
-      https://github.com/a13xp0p0v/kernel-hardening-checker
+      - https://github.com/Kicksecure/security-misc/pull/334
+      - https://github.com/a13xp0p0v/kernel-hardening-checker
+      :::
     '' false;
   };
 

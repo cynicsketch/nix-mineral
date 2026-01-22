@@ -23,15 +23,17 @@
 {
   options = {
     etc-nixos = l.mkBoolOption ''
-      Set to true to recursively make all files in /etc/nixos owned and readable
+      Set to true to recursively make all files in `/etc/nixos` owned and readable
       only by root.
 
-      /etc/nixos is not owned by root by default, which can be hazardous as
-      files  that are included in the rebuild may be editable by unprivileged
+      `/etc/nixos` is not owned by root by default, which can be hazardous as
+      files that are included in the rebuild may be editable by unprivileged
       users.
 
+      ::: {.note}
       This may have unintended side effects if user state is intentionally
-      stored in /etc/nixos, and is therefore no longer enabled by default.
+      stored in `/etc/nixos`, and is therefore no longer enabled by default.
+      :::
     '' false;
   };
 

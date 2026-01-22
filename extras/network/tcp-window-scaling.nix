@@ -26,7 +26,7 @@
       Disable TCP window scaling.
 
       ::: {.warning}
-      If false, may help mitigate TCP reset DoS attacks, but
+      If `false`, may help mitigate TCP reset DoS attacks, but
       may also harm network performance when at high latencies.
       :::
     '' true;

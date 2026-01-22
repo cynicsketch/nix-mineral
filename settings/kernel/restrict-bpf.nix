@@ -25,7 +25,10 @@
     restrict-bpf = l.mkBoolOption ''
       Restrict eBPF to CAP_BPF in order to prevent abuse by unprivileged users.
 
-      See https://en.wikipedia.org/wiki/EBPF#Security for more info.
+      ::: {.note}
+      See:
+      - https://en.wikipedia.org/wiki/EBPF#Security
+      :::
     '' true;
   };
 

@@ -24,8 +24,9 @@
   options = {
     login-faildelay = l.mkOption {
       description = ''
-        Add/increase the delay to failed logins into the system. The default for
-        nix-mineral is 4 seconds, or 4000000 microseconds.
+        Add/increase the delay to failed logins into the system.
+
+        The default for nix-mineral is 4 seconds, or 4000000 microseconds.
       '';
       default = 4000000;
       example = false;

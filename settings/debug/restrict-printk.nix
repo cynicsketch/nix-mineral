@@ -24,8 +24,9 @@
   options = {
     restrict-printk = l.mkBoolOption ''
       Supress kernel messages via printk to only display log level 3 (error)
-      messages or higher, e.g, more severe warnings. This limits access to
-      debugging information which can be used by an attacker.
+      messages or higher, e.g, more severe warnings.
+
+      This limits access to debugging information which can be used by an attacker.
     '' true;
   };
 

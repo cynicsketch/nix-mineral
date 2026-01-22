@@ -26,8 +26,10 @@
       Enable and force the IOMMU to be used to reduce the risk of DMA attacks,
       and strictly invalidate TLBs to prevent abuse of stale data.
 
+      ::: {.note}
       See:
-      https://en.wikipedia.org/wiki/Input%E2%80%93output_memory_management_unit
+      - https://en.wikipedia.org/wiki/Input%E2%80%93output_memory_management_unit
+      :::
     '' true;
   };
 

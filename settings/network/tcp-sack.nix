@@ -23,15 +23,17 @@
 {
   options = {
     tcp-sack = l.mkBoolOption ''
-      Set to false to disable TCP SACK, which has been used for DoS attacks
+      Set to `false` to disable TCP SACK, which has been used for DoS attacks
       and been exploited in the past.
 
       Rarely used, but can reduce networking performance if disabled in certain
       applications.
 
+      ::: {.note}
       Additional reading:
-      https://github.com/Netflix/security-bulletins/blob/master/advisories/third-party/2019-001.md
-      https://serverfault.com/questions/10955/when-to-turn-tcp-sack-off
+      - https://github.com/Netflix/security-bulletins/blob/master/advisories/third-party/2019-001.md
+      - https://serverfault.com/questions/10955/when-to-turn-tcp-sack-off
+      :::
     '' false;
   };
 

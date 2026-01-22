@@ -26,8 +26,10 @@
       Disable source routing if set to false, since it allows for redirecting
       network traffic and potentially creating a man in the middle attack.
 
+      ::: {.note}
       See:
-      https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-server_security-disable-source-routing
+      - https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-server_security-disable-source-routing
+      :::
     '' false;
   };
 

@@ -25,12 +25,16 @@
     efipstore = l.mkBoolOption ''
       If set to false, Disable both the EFI persistent storage feature and
       Error Record Serialization Table (ERST) support as a form of
-      defense-in-depth. This prevents the kernel from writing crash logs
-      and other persistent data to the storage backend.
+      defense-in-depth.
 
+      This prevents the kernel from writing crash logs and
+      other persistent data to the storage backend.
+
+      ::: {.note}
       See:
-      https://blogs.oracle.com/linux/pstore-linux-kernel-persistent-storage-file-system
-      https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/18_ACPI_Platform_Error_Interfaces/error-serialization.html
+      - https://blogs.oracle.com/linux/pstore-linux-kernel-persistent-storage-file-system
+      - https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/18_ACPI_Platform_Error_Interfaces/error-serialization.html
+      :::
     '' false;
   };
 

@@ -26,9 +26,11 @@
       Zero memory during both allocation and free time to help mitigate
       use-after-free exploits.
 
+      ::: {.note}
       See:
-      https://en.wikipedia.org/wiki/Dangling_pointer
-      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6471384af2a6530696fc0203bafe4de41a23c9ef
+      - https://en.wikipedia.org/wiki/Dangling_pointer
+      - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6471384af2a6530696fc0203bafe4de41a23c9ef
+      :::
     '' true;
   };
 

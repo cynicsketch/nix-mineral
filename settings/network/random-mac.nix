@@ -23,11 +23,13 @@
 {
   options = {
     random-mac = l.mkBoolOption ''
-      If set to true, randomize mac addressees to improve privacy.
+      If set to `true`, randomize mac addressees to improve privacy.
 
+      ::: {.note}
       This currently only works if you use networkmanager. If you don't,
       this does nothing and you should consult upstream documentation or file
       a PR to add relevant configuration.
+      :::
     '' true;
   };
 

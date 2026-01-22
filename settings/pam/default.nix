@@ -45,7 +45,7 @@ in
   options = {
     pam = l.mkOption {
       description = ''
-        Modify pluggable authentication module (PAM) settings
+        Modify pluggable authentication module (PAM) settings.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;

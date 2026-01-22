@@ -26,8 +26,10 @@
       Restrict TTY line discipline loading to CAP_SYS_MODULE to prevent
       unprivileged users from loading insecure line disciplines.
 
+      ::: {.note}
       See https://a13xp0p0v.github.io/2017/03/24/CVE-2017-2636.html as an
       example exploit.
+      :::
     '' true;
   };
 

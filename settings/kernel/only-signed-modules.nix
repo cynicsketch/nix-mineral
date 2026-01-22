@@ -27,7 +27,7 @@
       kernel modules from working unless signed.
 
       ::: {.note}
-      If false, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
+      If `false`, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
       :::
     '' true;
   };

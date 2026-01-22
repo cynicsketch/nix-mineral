@@ -24,7 +24,9 @@
   options = {
     panic-reboot = l.mkBoolOption ''
       Force the system to automatically reboot upon kernel panic instead of
-      freezing, helping to mitigate denial of service attacks by automatically
+      freezing.
+
+      This helps to mitigate denial of service attacks by automatically
       recovering and preventing the capture of information presented by a
       kernel panic screen.
 

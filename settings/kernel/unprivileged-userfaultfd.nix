@@ -28,10 +28,12 @@
 
       userfaultfd has been used for use-after-free exploits in the past.
 
+      ::: {.note}
       See:
-      https://man7.org/linux/man-pages/man2/userfaultfd.2.html
-      https://duasynt.com/blog/linux-kernel-heap-spray
-      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cefdca0a86be517bc390fc4541e3674b8e7803b0
+      - https://man7.org/linux/man-pages/man2/userfaultfd.2.html
+      - https://duasynt.com/blog/linux-kernel-heap-spray
+      - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cefdca0a86be517bc390fc4541e3674b8e7803b0
+      :::
     '' false;
   };
 

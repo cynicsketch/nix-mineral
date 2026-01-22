@@ -23,10 +23,14 @@
 {
   options = {
     extra-latent-entropy = l.mkBoolOption ''
-      Gather more entropy on boot. Only works with the linux_hardened
-      patchset, which is currently ill advised due to inconsistent updates in
-      nixpkgs. This does nothing if using another kernel. Also slows down boot
-      time by a bit.
+      Gather more entropy on boot.
+
+      ::: {.note}
+      Only works with the linux_hardened patchset,
+      which is currently ill advised due to inconsistent updates in nixpkgs.
+      This does nothing if using another kernel.
+      Also slows down boot time by a bit.
+      :::
     '' false;
   };
 

@@ -26,8 +26,10 @@
       Be extra paranoid of potential kernel exploitation by inducing kernel
       panics on kernel warns and above.
 
+      ::: {.warning}
       This will cause massive instability in the event of any bugs in the
       kernel.
+      :::
     '' false;
   };
 

@@ -26,9 +26,11 @@
       Intentionally induce kernel panics on "oops" errors and above, to
       limit the extent of certain exploits which trigger kernel oopses.
 
+      ::: {.warning}
       This might cause stability issues with certain poorly written drivers
       that aren't malicious. If you experience random kernel panics, consider
       disabling this.
+      :::
     '' true;
   };
 

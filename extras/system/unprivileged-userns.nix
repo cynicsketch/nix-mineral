@@ -26,7 +26,7 @@
       Enable or disable unprivileged user namespaces.
 
       It has been the cause of many privilege escalation vulnerabilities,
-      but can cause breakage. If false, this may break some applications
+      but can cause breakage. If `false`, this may break some applications
       that rely on user namespaces.
 
       ::: {.note}

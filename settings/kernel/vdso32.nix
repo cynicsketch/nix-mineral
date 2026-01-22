@@ -27,8 +27,10 @@
       mappings as these are a legacy compatibility feature for superseded
       glibc versions.
 
+      ::: {.note}
       See:
-      https://man7.org/linux/man-pages/man7/vdso.7.html
+      - https://man7.org/linux/man-pages/man7/vdso.7.html
+      :::
     '' false;
   };
 

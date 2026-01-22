@@ -23,7 +23,7 @@
 {
   options = {
     aslr = l.mkBoolOption ''
-      Turn on protection and randomize stack, vdso page and mmap + randomize brk base address
+      Turn on protection and randomize stack, vdso page and mmap + randomize brk base address.
     '' true;
   };
 

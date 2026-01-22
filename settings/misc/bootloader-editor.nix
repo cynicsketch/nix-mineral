@@ -27,10 +27,12 @@
       root shell or otherwise weakening security by tampering with boot
       parameters.
 
+      ::: {.note}
       This currently does nothing if you don't use systemd-boot.
 
       Consider filing a PR if/when similar configuration for other bootloaders
       can be added unobtrusively.
+      :::
     '' false;
   };
 

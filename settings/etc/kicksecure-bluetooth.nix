@@ -24,8 +24,9 @@
   options = {
     kicksecure-bluetooth = l.mkBoolOption ''
       Borrow Kicksecure bluetooth configuration for better bluetooth privacy
-      and security. Disables bluetooth automatically when not connected to
-      any device.
+      and security.
+
+      Disables bluetooth automatically when not connected to any device.
     '' true;
   };
 

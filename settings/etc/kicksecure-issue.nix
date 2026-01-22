@@ -24,8 +24,10 @@
   options = {
     kicksecure-issue = l.mkBoolOption ''
       Borrow Kicksecure banner/issue.
+
       Provides NO exploit resistance whatsoever, only serves as a deterrent to
       unauthorized access and to comply with Lynis.
+
       There are no assurances that anything stated here is legally valid.
     '' true;
   };

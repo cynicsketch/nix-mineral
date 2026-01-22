@@ -26,7 +26,7 @@
       Enable or disable IP forwarding.
 
       ::: .{warning}
-      If false, this may cause issues with certain VM networking,
+      If `false`, this may cause issues with certain VM networking,
       and must be true if the system is meant to function as a router.
       :::
     '' false;

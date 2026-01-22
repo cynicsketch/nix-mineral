@@ -31,8 +31,10 @@
       due to its performance benefits as it only performs hash checks at the
       destinations.
 
+      ::: {.note}
       See:
-      https://docs.kernel.org/next/x86/shstk.html
+      - https://docs.kernel.org/next/x86/shstk.html
+      :::
     '' true;
   };
 

@@ -26,7 +26,7 @@
       Allow loading of kernel modules not only at boot via kernel commandline.
 
       ::: {.warning}
-      If false, very likely to cause breakage unless you can compile a list of every module
+      If `false`, very likely to cause breakage unless you can compile a list of every module
       you need and add that to your boot parameters manually.
       :::
     '' true;

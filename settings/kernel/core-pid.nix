@@ -32,9 +32,11 @@
       Otherwise, this is still nice to have for forensic purposes/log analysis,
       so that sources of core dumps are more obvious.
 
+      ::: {.note}
       See:
-      https://securitybuzz.com/cybersecurity-news/new-vulnerabilities-in-linux-core-dump-handlers-expose-password-hashes/
-      https://lwn.net/Articles/1024160/
+      - https://securitybuzz.com/cybersecurity-news/new-vulnerabilities-in-linux-core-dump-handlers-expose-password-hashes/
+      - https://lwn.net/Articles/1024160/
+      :::
     '' true;
   };
 

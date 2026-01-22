@@ -23,19 +23,26 @@
 {
   options = {
     home = l.mkBoolOption ''
-      Set to true to recursively restrict permissions of /home/$USER so that
+      Set to true to recursively restrict permissions of `/home/$USER` so that
       only the owner of the directory can access it (the user).
-       
-      This may cause recursion/boot speed problems, see https://github.com/cynicsketch/nix-mineral/issues/28
-      for more information.
 
-      This may also have unintended side effects, e.g, root owned files being
-      unreadable if somehow created in a user home directory.
-
-      Note that this is not retroactively applied. The "~" option means
+      ::: {.note}
+      This is not retroactively applied. The "~" option means
       this only applies to newly created files, not existing files. Consider
       setting manually if this is a priority, but this may have side effects
       like obliterating existing executable access mask bits.
+      :::
+
+      ::: {.warning}
+      This may also have unintended side effects, e.g, root owned files being
+      unreadable if somehow created in a user home directory.
+      :::
+
+      ::: {.warning}
+      This may cause recursion/boot speed problems.
+      See:
+      - https://github.com/cynicsketch/nix-mineral/issues/28
+      :::
     '' false;
   };
 

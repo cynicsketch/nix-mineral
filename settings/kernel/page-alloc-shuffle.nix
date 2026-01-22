@@ -23,12 +23,17 @@
 {
   options = {
     page-alloc-shuffle = l.mkBoolOption ''
-      Make page allocations less predicatable by randomizing freelists
+      Make page allocations less predicatable by randomizing freelists.
+
+      ::: {.tip}
       This is one of the few things which IMPROVES performance as a side
       effect, and there's usually no reason to disable this.
+      :::
 
+      ::: {.note}
       See:
-      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e900a918b0984ec8f2eb150b8477a47b75d17692
+      - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e900a918b0984ec8f2eb150b8477a47b75d17692
+      :::
     '' true;
   };
 

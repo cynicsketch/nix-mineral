@@ -26,18 +26,22 @@
       Set to true to modify the "slab_debug" boot parameter to enable red
       zoning and sanity checks to detect memory corruption.
 
+      Adds significant overhead to memory allocation.
+
+      ::: {.warning}
       Because this is a debugging option, it will disable kernel pointer
       hashing and leak kernel memory addresses to root unless the
       "hash_pointers=always" parameter is used, which is only supported on
       kernel version 6.17 and above. Otherwise, "hash_pointers" is silently
       ignored.
+      :::
 
-      Adds significant overhead to memory allocation.
-
+      ::: {.note}
       See:
-      https://gitlab.tails.boum.org/tails/tails/-/issues/19613
-      https://kspp.github.io/Recommended_Settings
-      https://github.com/Kicksecure/security-misc/issues/253
+      - https://gitlab.tails.boum.org/tails/tails/-/issues/19613
+      - https://kspp.github.io/Recommended_Settings
+      - https://github.com/Kicksecure/security-misc/issues/253
+      :::
     '' true;
   };
 

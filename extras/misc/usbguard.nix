@@ -32,7 +32,7 @@
       whitelist-at-boot = l.mkBoolOption ''
         Automatically allow all connected devices at boot in USBGuard.
 
-        If false, USB devices will be blocked until USBGuard is configured.
+        If `false`, USB devices will be blocked until USBGuard is configured.
 
         ::: {.note}
         For laptop users, inbuilt speakers and bluetooth cards may be disabled
