@@ -23,18 +23,20 @@
 {
   options = {
     coredump = l.mkBoolOption ''
-      Disable core dumps everywhere if set to false.
+      Enable core dumps everywhere.
 
       Core dumps contain a programs memory,
       usually after a crash, which could include sensitive information
       including encryption keys being written to the disk without any
       protection.
 
-      This disables core dumps using a combination of sysctl, PAM, and
+      If false, this disables core dumps using a combination of sysctl, PAM, and
       systemd. These are grouped together, because the disablement of
       any individual one of these might otherwise make available a bypass.
 
+      ::: {.note}
       You might need core dumps when debugging crashing programs.
+      :::
     '' false;
   };
 
