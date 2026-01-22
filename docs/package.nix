@@ -16,6 +16,27 @@
 let
   inherit (inputs.nixpkgs) lib;
 
+  # Configuration reference:
+  # https://github.com/feel-co/ndg/blob/a6bd3c1ce2668d096e4fdaaa03ad7f03ba1fbca8/ndg/README.md#configuration-reference
+  ndgConfig = {
+    title = "nix-mineral";
+    highlight_code = true;
+    generate_anchors = true;
+
+    search = {
+      enable = true;
+      max_heading_level = 3;
+    };
+
+    tab_style = "normalize"; # converts tabs to spaces
+
+    meta_tags = {
+      description = "nix-mineral automatic option documentation";
+      keywords = "documentation,nix,tutorial,nix-mineral";
+      author = "cynicsketch";
+    };
+  };
+
   # Based on:
   # https://github.com/feel-co/hjem/blob/8539013044624a257e8da370069107aea148e985/docs/package.nix#L24
   # https://github.com/snugnug/hjem-rum/blob/edac54b7d57ad72cc4b124da2f44e7b2e584f3c6/docs/package.nix#L17
@@ -99,6 +120,8 @@ let
                   )
                 );
 
+                # nix-mineral repository structure is quite different from a standard module,
+                # so this function transforms the options into valid paths in the nix-mineral repository.
                 fileLocation =
                   if (lib.length splitedLocation == 1) then
                     lib.elemAt splitedLocation 0
@@ -132,27 +155,9 @@ let
           ) opt.declarations;
         };
     }).optionsJSON;
-
-  ndgConfig = {
-    title = "nix-mineral";
-    highlight_code = true;
-    generate_anchors = true;
-
-    search = {
-      enable = true;
-      max_heading_level = 3;
-    };
-
-    tab_style = "normalize"; # converts tabs to spaces
-
-    meta_tags = {
-      description = "nix-mineral automatic option documentation";
-      keywords = "documentation,nix,tutorial,nix-mineral";
-      author = "cynicsketch";
-    };
-  };
-
-  docs-html =
+in
+rec {
+  docs =
     # based on: https://github.com/feel-co/hjem/blob/6e144632e3d8cfa7d7cfcc9504e10a032837f22a/docs/package.nix#L116
     # default configuration from: https://github.com/feel-co/ndg/blob/a6bd3c1ce2668d096e4fdaaa03ad7f03ba1fbca8/ndg/README.md?plain=1#L309
     pkgs.runCommand "nix-mineral-docs"
@@ -161,62 +166,48 @@ let
       }
       ''
         mkdir -p $out/share/doc
-        cd $out
 
         # Copy the markdown sources to be processed by ndg
         cp -rf ${./.} ./inputs
 
         # Create NDG toml config file
-        cp ${
-          pkgs.writers.writeTOML "ndg-config.toml" (
-            ndgConfig
-            // {
-              input_dir = "./inputs";
-              output_dir = "%outfile%/share/doc";
-              jobs = "%NIX_BUILD_CORES%";
-            }
-          )
-        } $out/ndg-config.toml
+        cp ${pkgs.writers.writeTOML "ndg-config.toml" ndgConfig} $out/share/doc/ndg-config.toml
 
-        substituteInPlace $out/ndg-config.toml \
-          --replace-fail "%outfile%" "$out" \
-          --replace-fail '"%NIX_BUILD_CORES%"' "$NIX_BUILD_CORES"
-
-        ndg --config-file $out/ndg-config.toml html \
-          --module-options ${configJSON}/share/doc/nixos/options.json
-
-        mkdir -p $out/bin
-
-        cp ${pkgs.writeShellScript "nix-mineral-docs" ''
-          #cp -r %outfile%/share/doc ./nix-mineral-docs
-          cp -r %outfile% ./nix-mineral-docs
-          chown -R $(whoami) ./nix-mineral-docs
-          chmod -R u+w ./nix-mineral-docs
-        ''} $out/bin/nix-mineral-docs
-
-        substituteInPlace $out/bin/nix-mineral-docs --replace-fail "%outfile%" "$out"
+        ndg --config-file $out/share/doc/ndg-config.toml \
+          --config input_dir=./inputs \
+          --config output_dir=$out/share/doc \
+          --config jobs=$NIX_BUILD_CORES \
+          html --module-options ${configJSON}/share/doc/nixos/options.json
       '';
 
-  docs-server =
+  html =
+    pkgs.runCommand "nix-mineral-docs-html"
+      {
+        nativeBuildInputs = [ docs ];
+      }
+      ''
+        mkdir -p $out/bin
+
+        cp ${pkgs.writeShellScript "nix-mineral-docs-html" ''
+          cp -r ${docs}/share/doc ./nix-mineral-docs
+          chown -R $(whoami) ./nix-mineral-docs
+          chmod -R u+w ./nix-mineral-docs
+        ''} $out/bin/nix-mineral-docs-html
+      '';
+
+  server =
     pkgs.runCommand "nix-mineral-docs-server"
       {
         nativeBuildInputs = [
+          docs
           pkgs.http-server
-          docs-html
         ];
       }
       ''
         mkdir -p $out/bin
 
         cp ${pkgs.writeShellScript "nix-mineral-docs-server" ''
-          exec ${lib.getExe pkgs.http-server} %docpath%
+          exec ${lib.getExe pkgs.http-server} ${docs}/share/doc
         ''} $out/bin/nix-mineral-docs-server
-
-        substituteInPlace $out/bin/nix-mineral-docs-server --replace-fail "%docpath%" "${docs-html}/share/doc"
       '';
-in
-{
-  html = docs-html;
-
-  server = docs-server;
 }
