@@ -53,7 +53,7 @@
               };
             in
             {
-              docs = docs.server;
+              docs = docs.docs;
               docs-server = docs.server;
               docs-html = docs.html;
             };
