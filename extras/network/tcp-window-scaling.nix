@@ -24,8 +24,11 @@
   options = {
     tcp-window-scaling = l.mkBoolOption ''
       Disable TCP window scaling.
-      if false, may help mitigate TCP reset DoS attacks, but
+
+      ::: {.warning}
+      If false, may help mitigate TCP reset DoS attacks, but
       may also harm network performance when at high latencies.
+      :::
     '' true;
   };
 

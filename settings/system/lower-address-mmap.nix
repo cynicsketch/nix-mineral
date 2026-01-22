@@ -29,8 +29,10 @@
       memory allocations could tamper with the kernel, but may also cause
       compatibility issues with certain legacy software.
 
+      ::: {.note}
       See:
-      https://wiki.debian.org/mmap_min_addr
+      - https://wiki.debian.org/mmap_min_addr
+      :::
     '' false;
   };
 

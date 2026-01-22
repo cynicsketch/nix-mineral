@@ -24,8 +24,9 @@
   options = {
     arp = {
       announce = l.mkBoolOption ''
-        Always use the best local address for announcing local IP via ARP
-        Seems to be most restrictive option
+        Always use the best local address for announcing local IP via ARP.
+
+        Seems to be most restrictive option.
       '' true;
 
       ignore = l.mkOption {
@@ -41,17 +42,18 @@
           apparent, given that this issue appears to be isolated to niche
           setups which NixOS is not known or advisable to be used for.
 
-          See:
-          https://github.com/Kicksecure/security-misc/pull/279
-          https://github.com/Kicksecure/security-misc/pull/290
-          https://github.com/QubesOS/qubes-issues/issues/9990
-          https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium
-          https://github.com/mullvad/mullvadvpn-app/pull/7141
+          - `none`: Keep the default configuration of your kernel.
+          - `local`: Reply only if the target IP address is within the local address range configured on the incoming interface
+          - `link`: Reply only if the target IP is on the same link.
 
-          `none` - Keep the default configuration of your kernel.
-          `local` - Reply only if the target IP address is within the local
-                    address range configured on the incoming interface
-          `link` - Reply only if the target IP is on the same link.
+          ::: {.note}
+          See:
+          - https://github.com/Kicksecure/security-misc/pull/279
+          - https://github.com/Kicksecure/security-misc/pull/290
+          - https://github.com/QubesOS/qubes-issues/issues/9990
+          - https://github.com/mullvad/mullvadvpn-app/blob/main/audits/2024-12-10-X41-D-Sec.md#mllvd-cr-24-03-virtual-ip-address-of-tunnel-device-leaks-to-network-adjacent-participant-severity-medium
+          - https://github.com/mullvad/mullvadvpn-app/pull/7141
+          :::
         '';
         default = "link";
         type = l.types.enum [
@@ -62,8 +64,9 @@
       };
 
       drop-gratuitous = l.mkBoolOption ''
-        Drop Gratuitous ARP frames to prevent ARP poisoning
-        this can cause issues when ARP proxies are used in the network
+        Drop Gratuitous ARP frames to prevent ARP poisoning.
+
+        This can cause issues when ARP proxies are used in the network.
       '' true;
 
       filter = l.mkBoolOption ''

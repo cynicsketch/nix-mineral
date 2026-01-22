@@ -23,8 +23,9 @@
 {
   options = {
     iommu-passthrough = l.mkBoolOption ''
-      Enable or disable bypassing the IOMMU for direct memory access. Could
-      increase I/O performance on ARM64 systems, with risk.
+      Enable or disable bypassing the IOMMU for direct memory access.
+
+      Could increase I/O performance on ARM64 systems, with risk.
 
       If false, forces DMA to go through IOMMU to mitigate some DMA attacks.
     '' false;

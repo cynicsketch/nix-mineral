@@ -26,7 +26,9 @@
       Requires all kernel modules to be signed. This prevents out-of-tree
       kernel modules from working unless signed.
 
-      (if false, {option}`nix-mineral.settings.kernel.lockdown` must also be false)
+      ::: {.note}
+      If false, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
+      :::
     '' true;
   };
 

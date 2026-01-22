@@ -43,9 +43,9 @@ in
           To select multiple presets, provide a list of preset names.
           The order of presets matters, the top ones will have more priority.
 
-          - default: only default settings.
+          - `default`: only default settings.
           ${l.concatStringsSep "\n" (
-            l.mapAttrsToList (name: description: "- ${name}: ${description}.") presets
+            l.mapAttrsToList (name: description: "- `${name}`: ${description}.") presets
           )}
         '';
         default = "default";

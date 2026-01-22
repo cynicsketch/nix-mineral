@@ -25,24 +25,29 @@
     router-advertisements = l.mkOption {
       description = ''
         IPv6 router advertisements which are accepted.
+
         Malicious router advertisements have the potential to create a MITM
         attack by modifying the default gateway, cause a DoS/DDoS attack when
         flooded, or initiate unauthorized IPv6 access.
 
-        `off` - Disable all IPv6 router advertisements.
-        `restrict` - Restrict the parameters of IPv6 router advertisements which are accepted.
-        `on` - Enable all IPv6 router advertisements (effectively, do nothing).
+        - `off`: Disable all IPv6 router advertisements.
+        - `restrict`: Restrict the parameters of IPv6 router advertisements which are accepted.
+        - `on`: Enable all IPv6 router advertisements (effectively, do nothing).
 
         Router advertisements are never authenticated, and can be sent and
         received by any device on the local network.
 
+        ::: {.warning}
         Setting to `off` or `restrict` may cause issues with IPv6 address autoconfiguration or
         host discovery.
+        :::
 
+        ::: {.note}
         See:
-        https://datatracker.ietf.org/doc/html/rfc6104
-        https://datatracker.ietf.org/doc/html/rfc6105
-        https://archive.conference.hitb.org/hitbsecconf2012kul/materials/D1T2%20-%20Marc%20Heuse%20-%20IPv6%20Insecurity%20Revolutions.pdf
+        - https://datatracker.ietf.org/doc/html/rfc6104
+        - https://datatracker.ietf.org/doc/html/rfc6105
+        - https://archive.conference.hitb.org/hitbsecconf2012kul/materials/D1T2%20-%20Marc%20Heuse%20-%20IPv6%20Insecurity%20Revolutions.pdf
+        :::
       '';
       default = "restrict";
       type = l.types.enum [

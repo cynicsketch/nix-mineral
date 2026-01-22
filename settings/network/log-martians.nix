@@ -23,7 +23,8 @@
 {
   options = {
     log-martians = l.mkBoolOption ''
-      Log packets with impossible addresses to kernel log
+      Log packets with impossible addresses to kernel log.
+
       No active security benefit, just makes it easier to
       spot a DDOS/DOS by giving extra logs.
 
