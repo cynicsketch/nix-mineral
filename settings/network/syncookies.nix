@@ -25,8 +25,10 @@
     syncookies = l.mkBoolOption ''
       Use syncookies to help protect against SYN flooding, a type DoS attack.
 
+      ::: {.note}
       See:
-      https://en.wikipedia.org/wiki/SYN_flood
+      - https://en.wikipedia.org/wiki/SYN_flood
+      :::
     '' true;
   };
 

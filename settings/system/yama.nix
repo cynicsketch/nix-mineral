@@ -30,9 +30,9 @@
         ptrace may be required for specific debugging or certain video game
         anti cheats. Usually, the 'relaxed' option avoids most breakage.
 
-        `none` - Keep the default configuration of your kernel.
-        `relaxed` - Only allow parent processes to ptrace child processes.
-        `restricted` - No processes may be traced with ptrace.
+        - `none`: Keep the default configuration of your kernel.
+        - `relaxed`: Only allow parent processes to ptrace child processes.
+        - `restricted`: No processes may be traced with ptrace.
       '';
       default = "restricted";
       type = l.types.enum [

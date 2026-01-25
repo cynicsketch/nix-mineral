@@ -25,16 +25,19 @@
     sysrq = l.mkOption {
       description = ''
         Control the magic SysRq key functionality of the Linux kernel.
+
         It is a 'magical' key combo you can hit which the kernel will respond to regardless of whatever else it is doing,
         unless it is completely locked up.
 
-        `none` - Keep the default configuration of your kernel.
-        `off` - Disables sysrq completely.
-        `sak` - Enable SAK (Secure Attention Key).
+        - `none`: Keep the default configuration of your kernel.
+        - `off`: Disables sysrq completely.
+        - `sak`: Enable SAK (Secure Attention Key).
 
-        SAK prevents keylogging, if used correctly.
-        See URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html#accessing-root-securely
-        And: https://www.kicksecure.com/wiki/Login_spoofing
+        ::: {.note}
+        SAK prevents keylogging, if used correctly. See:
+        - https://madaidans-insecurities.github.io/guides/linux-hardening.html#accessing-root-securely
+        - https://www.kicksecure.com/wiki/Login_spoofing
+        :::
       '';
       default = "off";
       type = l.types.enum [

@@ -38,13 +38,18 @@ let
 
         options = l.mkOption {
           default = { };
+          defaultText = {
+            "noexec" = true;
+          };
           example = {
             "noexec" = false;
             "hidepid" = 4;
           };
           description = ''
             Options used to mount the file system.
+
             If the value is false, the option is disabled.
+
             If the value is an integer or a string, it is passed as "name=value".
           '';
           type = l.types.attrsOf (
@@ -70,7 +75,7 @@ in
       description = ''
         Special Filesystem hardening.
 
-        Sets the option "noexec" by default.
+        Sets the option `"noexec"` by default.
       '';
       default = { };
       type = l.types.attrsOf (l.types.submodule specialFilesystemOpts);

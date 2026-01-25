@@ -23,7 +23,7 @@
 {
   options = {
     su-wheel-only = l.mkBoolOption ''
-      Set to true to require wheel to use su and su-l, to reduce the risk of
+      Set to `true` to require wheel to use `su` and `su-l`, to reduce the risk of
       privilege escalation e.g from service accounts which have been
       maliciously hijacked and used for a shell.
     '' true;

@@ -23,7 +23,9 @@
 {
   options = {
     replace-sudo-with-doas = l.mkBoolOption ''
-      Replace sudo with doas, doas has a lower attack surface, but is less audited.
+      Replace `sudo` with `doas`.
+
+      `doas` has a lower attack surface, but is less audited.
     '' false;
   };
 

@@ -26,8 +26,10 @@
       Randomize the kernel's stack offset on every syscall, to make attacks
       relying on predicting the location of the kernel's stack more difficult.
 
+      ::: {.note}
       See:
-      https://lkml.org/lkml/2019/3/18/246
+      - https://lkml.org/lkml/2019/3/18/246
+      :::
     '' true;
   };
 

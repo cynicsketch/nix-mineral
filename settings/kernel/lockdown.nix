@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {
-  options,
   l,
   cfg,
   ...
@@ -27,7 +26,9 @@
       Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
       and breaks hibernation.
 
-      (if false, you probably want to disable `${options.nix-mineral.settings.kernel.only-signed-modules}`)
+      ::: {.note}
+      If `false`, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
+      :::
     '' true;
   };
 

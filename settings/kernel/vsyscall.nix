@@ -26,8 +26,10 @@
       If set to false, Disable vsyscalls, which are obsolete and create static
       memory locations that are easy to exploit.
 
+      ::: {.note}
       See:
-      https://lwn.net/Articles/446528/
+      - https://lwn.net/Articles/446528/
+      :::
     '' false;
   };
 

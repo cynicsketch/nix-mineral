@@ -23,13 +23,15 @@
 {
   options = {
     dnssec = l.mkBoolOption ''
-      Make DNS connections will fail if not using a DNS server supporting
+      Make DNS connections fail if not using a DNS server supporting
       DNSSEC.
 
+      ::: {.note}
       Currently does nothing if you don't use systemd-resolved.
 
       Consider filing a PR if/when similar configuration for other DNS
       resolving software can be added unobtrusively.
+      :::
     '' true;
   };
 

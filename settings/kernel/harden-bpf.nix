@@ -26,7 +26,10 @@
       Harden eBPF against JIT spraying attacks, to reduce the risk of abuse
       because eBPF allows executing potentially dangerous code in the kernel.
 
-      See https://en.wikipedia.org/wiki/EBPF#Security for more info.
+      ::: {.note}
+      See:
+      - https://en.wikipedia.org/wiki/EBPF#Security
+      :::
     '' true;
   };
 

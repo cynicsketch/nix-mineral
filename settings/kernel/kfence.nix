@@ -27,8 +27,10 @@
       safety error to detect heap out-of-bounds access, use-after-free, and
       invalid-free errors.
 
+      ::: {.note}
       See:
-      https://docs.kernel.org/dev-tools/kfence.html
+      - https://docs.kernel.org/dev-tools/kfence.html
+      :::
     '' true;
   };
 

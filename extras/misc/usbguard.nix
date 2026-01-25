@@ -25,21 +25,27 @@
     usbguard = {
       enable = l.mkBoolOption ''
         Enable USBGuard, a tool to restrict USB devices.
+
         disable to avoid hassle with handling USB devices at all.
       '' false;
 
       whitelist-at-boot = l.mkBoolOption ''
         Automatically allow all connected devices at boot in USBGuard.
-        Note that for laptop users, inbuilt speakers and bluetooth cards may be disabled
+
+        If `false`, USB devices will be blocked until USBGuard is configured.
+
+        ::: {.note}
+        For laptop users, inbuilt speakers and bluetooth cards may be disabled
         by USBGuard by default, so whitelisting them manually or enabling this
         may solve that.
-
-        If false, USB devices will be blocked until USBGuard is configured.
+        :::
       '' false;
 
       gnome-integration = l.mkBoolOption ''
         Enable USBGuard dbus daemon and add polkit rules to integrate USBGuard with
-        GNOME Shell. If you use GNOME, this means that USBGuard automatically
+        GNOME Shell.
+
+        If you use GNOME, this means that USBGuard automatically
         allows all newly connected devices while unlocked, and blacklists all
         newly connected devices while locked. This is obviously very convenient,
         and is similar behavior to handling USB as ChromeOS and GrapheneOS.

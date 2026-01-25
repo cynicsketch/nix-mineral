@@ -24,8 +24,11 @@
   options = {
     ip-forwarding = l.mkBoolOption ''
       Enable or disable IP forwarding.
-      if false, this may cause issues with certain VM networking,
+
+      ::: .{warning}
+      If `false`, this may cause issues with certain VM networking,
       and must be true if the system is meant to function as a router.
+      :::
     '' false;
   };
 

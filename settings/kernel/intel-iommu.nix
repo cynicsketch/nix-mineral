@@ -24,7 +24,11 @@
   options = {
     intel-iommu = l.mkBoolOption ''
       Explicitly enable intel IOMMU to reduce risk of DMA attacks and other
-      memory abuse. Does nothing if you don't use an intel processor.
+      memory abuse.
+
+      ::: {.note}
+      Does nothing if you don't use an intel processor.
+      :::
     '' true;
   };
 

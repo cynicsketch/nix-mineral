@@ -29,9 +29,11 @@
       This protects against some potention DoS attacks which could cause
       TCP connections to drop given specific circumstances or crafted packets.
 
+      ::: {.note}
       Additional reference:
-      https://datatracker.ietf.org/doc/html/rfc1337
-      https://serverfault.com/questions/787624/why-isnt-net-ipv4-tcp-rfc1337-enabled-by-default
+      - https://datatracker.ietf.org/doc/html/rfc1337
+      - https://serverfault.com/questions/787624/why-isnt-net-ipv4-tcp-rfc1337-enabled-by-default
+      :::
     '' true;
   };
 

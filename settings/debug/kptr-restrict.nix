@@ -24,8 +24,9 @@
   options = {
     kptr-restrict = l.mkBoolOption ''
       Display all kernel pointers as 0s regardless of user privileges when
-      printed. This may interfere with specific diagnostic and performance
-      profiling tools.
+      printed.
+
+      This may interfere with specific diagnostic and performance profiling tools.
     '' true;
   };
 

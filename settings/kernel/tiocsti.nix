@@ -23,7 +23,7 @@
 {
   options = {
     tiocsti = l.mkBoolOption ''
-      If false, disable TIOCSTI because it's used to inject arbitrary
+      If `false`, disable TIOCSTI because it's used to inject arbitrary
       characters and potentially lead to privilege escalation.
 
       Already disabled by default on modern (>=6.2) Linux kernel versions,
@@ -33,8 +33,10 @@
       because of the above reasoning, this will never be considered for
       the compatibility preset.
 
+      ::: {.note}
       See:
-      https://lore.kernel.org/lkml/20221228205726.rfevry7ud6gmttg5@begin/T/
+      - https://lore.kernel.org/lkml/20221228205726.rfevry7ud6gmttg5@begin/T/
+      :::
     '' false;
   };
 

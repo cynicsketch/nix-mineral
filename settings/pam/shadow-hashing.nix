@@ -24,12 +24,12 @@
   options = {
     shadow-hashing = l.mkOption {
       description = ''
-        Modify hashing rounds for /etc/shadow; this doesn't automatically
+        Modify hashing rounds for `/etc/shadow`; this doesn't automatically
         rehash your passwords, you'll need to set passwords for your accounts
         again for this to work.
 
         If you declaratively set passwords with a secret manager, consider
-        using a good number (65536) of hashing rounds or more for resilience to
+        using a good number (`65536`) of hashing rounds or more for resilience to
         password cracking.
 
         Set this to `false` to disable this option entirely.

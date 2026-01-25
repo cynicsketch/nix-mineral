@@ -31,11 +31,9 @@
       A comprehensive list of usecases is not feasible, but consider consulting
       the following references as well as upstream documentation where
       necessary:
-
-      https://docs.kernel.org/admin-guide/mm/kho.html
-      https://github.com/NixOS/nixpkgs/issues/10726
-      https://docs.kernel.org/admin-guide/kdump/kdump.html
-
+      - https://docs.kernel.org/admin-guide/mm/kho.html
+      - https://github.com/NixOS/nixpkgs/issues/10726
+      - https://docs.kernel.org/admin-guide/kdump/kdump.html
     '' false;
   };
 

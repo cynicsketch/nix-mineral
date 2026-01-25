@@ -23,10 +23,13 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+
+    ndg.url = "github:feel-co/ndg/v2.6.0"; # pin NDG to benefit from binary cache
   };
 
   outputs =
-    { self, ... }@inputs:
+    inputs:
+
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./lib
@@ -39,12 +42,25 @@
 
       perSystem =
         { pkgs, ... }:
+
         {
           formatter = pkgs.nixfmt-rfc-style;
+
+          packages =
+            let
+              docs = pkgs.callPackage ./docs/package.nix {
+                inherit inputs pkgs;
+              };
+            in
+            {
+              docs = docs.docs;
+              docs-server = docs.server;
+              docs-html = docs.html;
+            };
         };
 
       flake.nixosModules = {
-        nix-mineral = self.lib.importModule ./nix-mineral.nix { };
+        nix-mineral = inputs.self.lib.importModule ./nix-mineral.nix { };
       };
     };
 }

@@ -24,7 +24,10 @@
   options = {
     busmaster-bit = l.mkBoolOption ''
       Enable busmaster bit at boot, which may prevent some DMA attacks.
-      If false, this may prevent low resource systems from booting.
+
+      ::: {.warning}
+      If `false`, this may prevent low resource systems from booting.
+      :::
     '' false;
   };
 

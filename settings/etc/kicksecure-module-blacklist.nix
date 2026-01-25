@@ -25,16 +25,18 @@
     kicksecure-module-blacklist = l.mkBoolOption ''
       Borrow Kicksecure module blacklist.
 
-      "install "foobar" /bin/false" prevents the module from being
-      loaded at all. "blacklist "foobar"" prevents the module from being
+      `"install "foobar" /bin/false"` prevents the module from being
+      loaded at all. `"blacklist "foobar""` prevents the module from being
       loaded automatically at boot, but it can still be loaded afterwards.
 
-      Because the "install /bin/false" method does not register as a regular
+      Because the `"install /bin/false"` method does not register as a regular
       blacklist, this might cause issues with kernel module auditing e.g
       using Lynis. If so, you'll need to generate a whitelist.
 
+      ::: {.warning}
       This may have unintended consequences if you require specific drivers,
       and may cause breakage.
+      :::
     '' true;
   };
 

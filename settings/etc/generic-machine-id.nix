@@ -24,8 +24,11 @@
   options = {
     generic-machine-id = l.mkBoolOption ''
       Set machine-id to the Kicksecure machine-id, for privacy reasons.
+
+      ::: {.warning}
       This may have unintended consequences if machine-id needs to be unique,
       e.g for log collection or VM management.
+      :::
     '' true;
   };
 

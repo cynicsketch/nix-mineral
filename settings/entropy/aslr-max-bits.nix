@@ -26,12 +26,17 @@
       Use the maximum number of bits of entropy to address space layout
       randomization, a widely used mitigation against memory exploits.
 
-      Note that the values used here are currently only valid for x86_64.
+      ::: {.note}
+      The values used here are currently only valid for x86_64.
+
       Other CPU architectures may require different numbers here, consult
       upstream documentation as necessary.
+      :::
 
+      ::: {.note}
       See:
-      https://en.wikipedia.org/wiki/Address_space_layout_randomization
+      - https://en.wikipedia.org/wiki/Address_space_layout_randomization
+      :::
     '' true;
   };
 

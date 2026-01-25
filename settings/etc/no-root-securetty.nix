@@ -24,10 +24,12 @@
 {
   options = {
     no-root-securetty = l.mkBoolOption ''
-      Use an empty /etc/securetty to prevent root login on tty.
+      Use an empty `/etc/securetty` to prevent root login on tty.
 
+      ::: {.warning}
       If set to true, logging in as the root user will fail and throw an error:
       "Login incorrect"
+      :::
     '' true;
   };
 
@@ -40,8 +42,8 @@
       modulePath = l.mkDefault "${config.security.pam.package}/lib/security/pam_securetty.so";
     };
     environment.etc.securetty.text = ''
-      # /etc/securetty: list of terminals on which root is allowed to login.                                                                                           
-      # See securetty(5) and login(1).                                                                                                                                 
+      # /etc/securetty: list of terminals on which root is allowed to login.
+      # See securetty(5) and login(1).
     '';
   };
 }

@@ -27,9 +27,11 @@
       the slab cache layout and compartmentalize the damage of certain memory
       attacks by limiting influence to individual caches.
 
+      ::: {.note}
       See:
-      https://www.openwall.com/lists/kernel-hardening/2017/06/19/33
-      https://www.openwall.com/lists/kernel-hardening/2017/06/20/10
+      - https://www.openwall.com/lists/kernel-hardening/2017/06/19/33
+      - https://www.openwall.com/lists/kernel-hardening/2017/06/20/10
+      :::
     '' false;
   };
 
