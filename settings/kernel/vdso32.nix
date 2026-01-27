@@ -38,6 +38,6 @@
     # Both boot parameter and sysctl are included for future reference and
     # redundancy
     boot.kernelParams = [ "vdso32=0" ];
-    boot.kernel.sysctl."abi.vsyscall32" = "0";
+    boot.kernel.sysctl."abi.vsyscall32" = l.mkDefault "0";
   };
 }

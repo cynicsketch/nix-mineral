@@ -42,7 +42,7 @@
 
   config = l.mkIf (!cfg) {
     boot.kernel.sysctl = {
-      "dev.tty.legacy_tiocsti" = "0";
+      "dev.tty.legacy_tiocsti" = l.mkDefault "0";
     };
   };
 }

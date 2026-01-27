@@ -42,7 +42,7 @@
 
   config = l.mkIf cfg {
     boot.kernel.sysctl = {
-      "kernel.core_uses_pid" = "1";
+      "kernel.core_uses_pid" = l.mkDefault "1";
     };
   };
 }
