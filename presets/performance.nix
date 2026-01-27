@@ -23,7 +23,11 @@
   nix-mineral = mkPresets {
     settings = {
       kernel = {
-        # if false, may prevent low resource systems from booting.
+        # If false, may prevent low resource systems from booting.
+        #
+        # May improve performance a side effect, but this is dependant on
+        # hardware/firmware.
+        # https://en.wikipedia.org/wiki/Bus_mastering
         busmaster-bit = true;
 
         # Enable symmetric multithreading and just use default CPU mitigations,

@@ -26,7 +26,11 @@
       Enable busmaster bit at boot, which may prevent some DMA attacks.
 
       ::: {.warning}
-      If `false`, this may prevent low resource systems from booting.
+      If `false`, this may prevent systems with low resource OR specific
+      firmware configurations from booting.
+
+      May worsen performance as a side effect.
+      https://en.wikipedia.org/wiki/Bus_mastering
       :::
     '' false;
   };
