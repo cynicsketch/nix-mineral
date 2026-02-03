@@ -54,8 +54,6 @@ net.ipv4.tcp_notsent_lowat = 131072
 10.5.4 (The problem of NTP being unencrypted is fixed by using NTS instead.
 Note that this means using chrony, as in "Software Choice" in the overrides,
 which is not default behavior!) \
-11 (Partially, there seems to be no way to edit the permissions of /boot
-whether with mount options or through tmpfiles) \
 15 (Implemented by default) \
 19 (Advice) \
 20 (Not relevant) \
