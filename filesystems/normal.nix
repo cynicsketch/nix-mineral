@@ -89,6 +89,24 @@ in
 
         Sets the device option as `<name>`,
         and the options: `"bind", "nosuid", "noexec", "nodev"` by default.
+
+        ::: {.warning}
+        The default filesystem hardening settings make necessary assumptions
+        about partition layout. That is, that `/` is one partition, and
+        `/boot` or `/boot/EFI` is another partition.
+
+        If using a more exotic partition layout, you may need to account for
+        this and adjust {option}`nix-mineral.filesystems.normal.$/foo/bar/.options."bind"`
+        accordingly, or face potential evaluation issues.
+
+        Bind mounts are necessary when a directory is on a shared partition.
+
+        Bind mounts must be EXPLICITLY DISABLED when a directory gets its
+        own, dedicated partition.
+
+        See:
+        https://github.com/cynicsketch/nix-mineral/issues/11
+        :::
       '';
       default = { };
       type = l.types.attrsOf (l.types.submodule filesystemOpts);
@@ -141,6 +159,8 @@ in
       "/boot" = l.mkIf (!config.boot.isContainer) {
         enable = l.mkDefault true;
         device = l.mkDefault null;
+        # Don't bind, since most systems use /boot or /boot/EFI on a separate
+        # partition
         options."bind" = false;
       };
 
@@ -148,6 +168,8 @@ in
 
       "/etc" = l.mkIf (!config.boot.isContainer) {
         enable = l.mkDefault true;
+        # Don't set noexec because there are often many necessary
+        # executables in /etc
         options."noexec" = false;
       };
     };
