@@ -132,7 +132,6 @@ in
     # Inapplicable:
     # /sys (Already hardened by default in NixOS)
     # /media, /mnt, /opt (Doesn't even exist on NixOS)
-    # /var/tmp, /var/log (Covered by toplevel hardening on /var,)
     # Bind mounting /usr with nodev causes boot failure
     # Bind mounting /boot/efi at all causes complete system failure
     nix-mineral.filesystems.normal = {
@@ -155,6 +154,11 @@ in
       #  options."exec" = true;
       #};
       "/var".enable = l.mkDefault true;
+
+      # Defense in depth if restrictions on /var are relaxed by a user
+      # Normally, top level hardening of /var covers these though
+      "/var/tmp".enable = l.mkDefault true;
+      "/var/log".enable = l.mkDefault true;
 
       "/boot" = l.mkIf (!config.boot.isContainer) {
         enable = l.mkDefault true;
