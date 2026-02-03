@@ -162,6 +162,10 @@ in
         # Don't bind, since most systems use /boot or /boot/EFI on a separate
         # partition
         options."bind" = false;
+        # Explicitly prevent non-root users from accessing /boot in the case
+        # of certain potential legacy configurations
+        # See: https://github.com/NixOS/nixpkgs/issues/279362
+        options."umask" = 077;
       };
 
       "/srv".enable = true;
