@@ -36,6 +36,6 @@
   };
 
   config = l.mkIf cfg {
-    services.resolved.dnssec = l.mkDefault "true";
+    services.resolved.settings.Resolve.DNSSEC = l.mkDefault "true";
   };
 }
