@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rationale</title>
+    <meta name="description" content="nix-mineral automatic option documentation" />
+    <meta name="author" content="cynicsketch" />
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">nix-mineral</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">nix-mineral</a></li>
+<li><a href="CONTRIBUTING.html">Contributing</a></li>
+<li><a href="OMITTED.html">Non-specific omissions</a></li>
+<li><a href="ADDITIONAL-RESOURCES.html">Rationale</a></li>
+<li><a href="search.html">Search</a></li>
+
+              </ul>
+            </div>
+          </details>
+
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#rationale">Rationale</a>
+<li><a href="#resources">Resources</a>
+</li>
+              </ul>
+            </div>
+          </details>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="rationale">Rationale</h1>
+<p><code>nix-mineral</code> tries to address as many system level risks as possible, but there are some things which could improve security but are not feasible to implement.</p>
+<p>This is most apparent when there are "switches" which can't necessarily be turned "on" and "off," or when setup can't be declarative.</p>
+<p>Useful resources which could improve security, but can't be directly implemented in <code>nix-mineral</code> are listed here for individual reference.</p>
+<h1 id="resources">Resources</h1>
+<p><a href="https://wiki.nixos.org/wiki/Encrypted_DNS">https://wiki.nixos.org/wiki/Encrypted_DNS</a> <br>
+<a href="https://github.com/DNSCrypt/dnscrypt-proxy">https://github.com/DNSCrypt/dnscrypt-proxy</a> <br>
+Encrypted DNS. It's not that important, but you might as well. Not included due to significant disagreement on what the ideal DNS server to choose is. Encrypted DNS is easily rendered useless due to <a href="https://madaidans-insecurities.github.io/encrypted-dns.html">adjacent information leaks</a>. This is at no fault to encrypted DNS itself; it's encrypted just fine, but there's simply too many other ways to see or otherwise interfere with a user's browsing regardless.
+Notable implementations are in systemd-resolved and dnscrypt-proxy.</p>
+<p><a href="https://github.com/infinisil/sanix">https://github.com/infinisil/sanix</a> <br>
+<a href="https://grahamc.com/blog/erase-your-darlings/">https://grahamc.com/blog/erase-your-darlings/</a> <br>
+<a href="https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/">https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/</a> <br>
+<a href="https://github.com/nix-community/impermanence">https://github.com/nix-community/impermanence</a> <br>
+Statelessness, through whatever implementation, <em>may</em> result in malware being cleared on reboot. Not included, since it's easy to bypass if known about, and most solutions are highly dependent on other components of the user's configuration (requiring btrfs, zfs, high amounts of ram, and differing opinions on what to persist and what not to). There are many more implementations than listed.</p>
+<p><a href="https://github.com/nix-community/lanzaboote">https://github.com/nix-community/lanzaboote</a> <br>
+Secure boot on NixOS, which is a highly impactful mitigation of "evil maid" attacks. Can't be set declaratively, although it's planned to mainlined at some point; when this happens, this will be integrated into <code>nix-mineral.</code></p>
+<p><a href="https://madaidans-insecurities.github.io/security-privacy-advice.html">https://madaidans-insecurities.github.io/security-privacy-advice.html</a> <br>
+Basic OPSEC. Decent, concise advice. Many will disagree with, or just disregard a lot here, but the "General" advice here is applicable and useful to most people.</p>
+<p><a href="https://github.com/arkenfox/user.js">https://github.com/arkenfox/user.js</a> <br>
+<a href="https://github.com/dwarfmaster/arkenfox-nixos">https://github.com/dwarfmaster/arkenfox-nixos</a> <br>
+Most desktop NixOS users use Firefox. Locking it down a bit is commonsense.</p>
+<p><a href="https://codeberg.org/celenity/Phoenix">https://codeberg.org/celenity/Phoenix</a> <br>
+An arkenfox alternative featuring a NixOS module. This may make you stand out due to a smaller userbase, though.</p>
+<p><a href="https://github.com/ryantm/agenix">https://github.com/ryantm/agenix</a> <br>
+<a href="https://github.com/Mic92/sops-nix">https://github.com/Mic92/sops-nix</a> <br>
+Secrets management lets you more safely declaratively set password on NixOS, along with managing other sensitive info. Not included by default because people have different passwords (obviously) and if you imperatively set your password, you don't have to worry about this. There are many, many more implementations than listed.</p>
+<p><a href="https://github.com/nixpak/nixpak">https://github.com/nixpak/nixpak</a> <br>
+<a href="https://github.com/Naxdy/nix-bwrapper">https://github.com/Naxdy/nix-bwrapper</a> <br>
+Bubblewrap is arguably the best sandboxing solution for desktop Linux. There's many projects to make using bubblewrap easier to use for nix, and these are just some examples. Convenient hardening is better than no hardening, though for fine grained control power users can manually sandbox their stuff or use something else.</p>
+<p><a href="https://github.com/e-tho/ucodenix">https://github.com/e-tho/ucodenix</a> <br>
+amd-ucode mainly targets server CPUs, NOT consumer CPUs. If your OEM no longer provides updates for your AMD systemz microcode will likely never be updated by a standard Linux hardware. Luckily, someone made a tool to do so automatically. Certain outdated firmware may prevent updating of microcode past a certain point, see the repo linked above for more details.</p>
+<p>Rust replacements, for example: <br>
+<a href="https://github.com/trifectatechfoundation/sudo-rs">https://github.com/trifectatechfoundation/sudo-rs</a> <br>
+<a href="https://github.com/pendulum-project/ntpd-rs">https://github.com/pendulum-project/ntpd-rs</a> <br>
+All other rust replacements for common Linux services and applications fall under this catagory unless they do something "novel." You need to ask yourself whether guaranteed memory safety is worth the risk of a less audited, and sometimes larger codebase. Do you trust the programming language architecture or the programmer more?</p>
+<p><a href="https://datatracker.ietf.org/doc/rfc8915/">https://datatracker.ietf.org/doc/rfc8915/</a> <br>
+Consider using NTP implementations that support NTS, so that NTP requests are encrypted and prevent tampering or eavesdropping which may interfere with certain authentication mechanism. <code>nix-mineral.extras.system.secure-chrony</code> does this, but is highly opinionated in configuration. There are many other implementations not listed here.</p>
+<p><a href="https://wiki.nixos.org/wiki/Automatic_system_upgrades">https://wiki.nixos.org/wiki/Automatic_system_upgrades</a> <br>
+Regular updates keep your system patched from many known vulnerabilities. Not included by default because most people will schedule their auto-updates differently (or object to automatic updates entirely for a variety of non-security related reasons, e.g avoiding unwanted feature changes).</p>
+<p><a href="https://wiki.nixos.org/wiki/Chromium">https://wiki.nixos.org/wiki/Chromium</a> <br>
+or <code>NIXOS_OZONE_WL=1</code> <br>
+Tangentially related. For some reason, Chromium doesn't use Wayland by default on NixOS. This means no window isolation, and it comes with the added effect that Chromium is a blurry mess if you use display scaling.</p>
+<p><a href="https://github.com/lkrg-org/lkrg">https://github.com/lkrg-org/lkrg</a> <br>
+Supposedly kills several classes of vulnerabilities in the Linux kernel. Excluded due to apparent breakage on NixOS. Pending any additional testing or workarounds, this may be reconsidered.
+See <a href="https://github.com/cynicsketch/nix-mineral/issues/48">https://github.com/cynicsketch/nix-mineral/issues/48</a> and <a href="https://www.kicksecure.com/wiki/Linux_Kernel_Runtime_Guard_LKRG#Deprecation_in_Kicksecure">https://www.kicksecure.com/wiki/Linux_Kernel_Runtime_Guard_LKRG#Deprecation_in_Kicksecure</a></p>
+</body></html></main>
+      </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#rationale">Rationale</a>
+<li><a href="#resources">Resources</a>
+</li>
+          </ul>
+        </nav>
+      </aside>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>

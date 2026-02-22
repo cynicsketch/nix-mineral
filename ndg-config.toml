@@ -1,0 +1,13 @@
+generate_anchors = true
+highlight_code = true
+tab_style = "normalize"
+title = "nix-mineral"
+
+[meta_tags]
+author = "cynicsketch"
+description = "nix-mineral automatic option documentation"
+keywords = "documentation,nix,tutorial,nix-mineral"
+
+[search]
+enable = true
+max_heading_level = 3

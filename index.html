@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nix-mineral</title>
+    <meta name="description" content="nix-mineral automatic option documentation" />
+    <meta name="author" content="cynicsketch" />
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">nix-mineral</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">nix-mineral</a></li>
+<li><a href="CONTRIBUTING.html">Contributing</a></li>
+<li><a href="OMITTED.html">Non-specific omissions</a></li>
+<li><a href="ADDITIONAL-RESOURCES.html">Rationale</a></li>
+<li><a href="search.html">Search</a></li>
+
+              </ul>
+            </div>
+          </details>
+
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#nix-mineral">nix-mineral</a>
+<ul><li><a href="#warning">WARNING</a>
+<li><a href="#documentation-and-scope">Documentation and scope</a>
+<li><a href="#features">Features</a>
+<li><a href="#usage">Usage</a>
+<ul><li><a href="#automatic-installation--fetchgit">Automatic Installation (fetchgit)</a>
+<li><a href="#usage-with-flakes">Usage With Flakes</a>
+<li><a href="#configuring-options">Configuring options</a>
+<li><a href="#credits">Credits</a>
+</li></ul></li></ul></li>
+              </ul>
+            </div>
+          </details>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="nix-mineral">nix-mineral</h1>
+<p><code>nix-mineral</code> is a NixOS module for convenient system hardening.
+Rather than be named after a mineral, it's named after the word "mineral".</p>
+<h2 id="warning">WARNING</h2>
+<p><code>nix-mineral</code> is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!</p>
+<h2 id="documentation-and-scope">Documentation and scope</h2>
+<p><code>nix-mineral</code> aims to serve as a drop-in addition to any NixOS system.</p>
+<p>Because of this, complete overhauls of system UX or architecture is infeasible compared to dedicated security focused operating systems with complete executive control over design.</p>
+<p>By default, <code>nix-mineral</code> reduces attack surface by securely configuring existing software. It is not magic, but it's better than nothing.</p>
+<p><code>nix-mineral</code>'s threat model assumes non-state adversaries, and anonymity is
+not considered.</p>
+<p>For more information on, refer to the documents below.</p>
+<p>Contributing guidelines: <a href="docs/CONTRIBUTING.md">CONTRIBUTING</a> <br>
+Additional resources: <a href="docs/ADDITIONAL-RESOURCES.md">ADDITIONAL-RESOURCES.md</a> <br>
+Omitted features: <a href="docs/OMITTED.md">OMITTED.md</a></p>
+<h2 id="features">Features</h2>
+<p>A full rundown of features is best obtained by reading the individual submodules
+for every option <code>nix-mineral</code> offers.</p>
+<p>Some notable features include:</p>
+<ul>
+<li>Filesystem hardening with both systemd-tmpfiles and mount options</li>
+<li>Extensive kernel hardening using sysctl and boot parameters</li>
+<li>Network hardening through sysctl and configuration of relevant services</li>
+<li>Attack surface reduction by an extensive kernel module blacklist</li>
+<li>System entropy hardening</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<h3 id="automatic-installation--fetchgit">Automatic Installation (fetchgit)</h3>
+<p>May be used with or without flakes. However, the flake specific method in the next section is preferred because it allows version pinning.</p>
+<p>Since we are using flake-compat inside the project, you can use the <code>nix-mineral</code> without needing to have flakes enabled, using <code>fetchGit</code></p>
+<p>Example with fetchgit:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;&nbsp;&nbsp;nix-mineral&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">builtins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">fetchGit</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">https://github.com/cynicsketch/nix-mineral.git</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">imports</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">nix-mineral</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nixosModules</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nix-mineral</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h3 id="usage-with-flakes">Usage With Flakes</h3>
+<p>For use in flake enabled systems, and to enable automatic updates and version pinning, use this method.</p>
+<p>Add nix-mineral as an input to your flake:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">description</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Example&nbsp;flake&nbsp;for&nbsp;using&nbsp;nix-mineral</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">inputs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nixpkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">github:nixos/nixpkgs?ref=nixos-unstable</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">github:cynicsketch/nix-mineral/</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Refers&nbsp;to&nbsp;the&nbsp;main&nbsp;branch&nbsp;and&nbsp;is&nbsp;updated&nbsp;to&nbsp;the&nbsp;latest&nbsp;commit&nbsp;when&nbsp;you&nbsp;use&nbsp;"nix&nbsp;flake&nbsp;update"</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Note&nbsp;that&nbsp;due&nbsp;to&nbsp;major&nbsp;breaking&nbsp;changes,&nbsp;the&nbsp;below&nbsp;examples&nbsp;are&nbsp;not&nbsp;compatible&nbsp;with&nbsp;commits&nbsp;or&nbsp;releases&nbsp;prior&nbsp;to&nbsp;0.2.0a!</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;nix-mineral.url&nbsp;=&nbsp;"github:cynicsketch/nix-mineral/v0.2.0-alpha"&nbsp;#&nbsp;Refers&nbsp;to&nbsp;a&nbsp;specific&nbsp;tag&nbsp;and&nbsp;follows&nbsp;that&nbsp;tag&nbsp;until&nbsp;you&nbsp;change&nbsp;it</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;nix-mineral.url&nbsp;=&nbsp;"github:cynicsketch/nix-mineral/reallylongexamplehashforthecommitandall9"&nbsp;#&nbsp;Refers&nbsp;to&nbsp;a&nbsp;specific&nbsp;commit&nbsp;and&nbsp;follows&nbsp;that&nbsp;until&nbsp;you&nbsp;change&nbsp;it</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(97,175,239);">outputs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(232,102,113);">nixpkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(171,178,191);">@</span><span style="color:rgb(232,102,113);">inputs</span><span style="color:rgb(232,102,113);">:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nixosConfigurations</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">ExampleSystem</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nixpkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">nixosSystem</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">system</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">x86_64-linux</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">specialArgs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;inputs<span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">modules</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">./configuration.nix</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>Import nix-mineral.nix from the input and enable the module:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(232,102,113);">inputs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span><br><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">imports</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">inputs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nix-mineral</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nixosModules</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nix-mineral</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h3 id="configuring-options">Configuring options</h3>
+<p>It is likely you will need to change some options in order to make your
+individual hardware and software configuration function as intended.</p>
+<p>Presets for doing so are available in the <a href="https://github.com/cynicsketch/nix-mineral/tree/main/presets">presets directory</a>
+of this repository.</p>
+<p>Refer to the individual submodules for more information on what each option does.</p>
+<p>An example configuration to enable all defaults, use the "compatibility" preset, and then disable TCP window
+scaling while enabling multilib support and IP forwarding functionality is
+shown below.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">preset</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">compatibility</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">settings</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;kernel&nbsp;=&nbsp;{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only-signed-modules&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockdown&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;};</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">system</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">multilib</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">network</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">ip-forwarding</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">settings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">network</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">tcp-window-scaling</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h4 id="contributing">Contributing</h4>
+<p>Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the <a href="https://github.com/cynicsketch/nix-mineral/issues">issues tracker</a> and we can talk a solution!
+Contributing guidelines: <a href="docs/CONTRIBUTING.md">CONTRIBUTING.MD</a></p>
+<h3 id="credits">Credits</h3>
+<p>Special thanks to all our <a href="https://github.com/cynicsketch/nix-mineral/graphs/contributors">wonderful contributors</a> who have helped make this project possible, as well many other projects, named and unnamed, which <code>nix-mineral</code> has borrowed insight and configuration from:</p>
+<p>Original basis for hardening, of which many of the below have themselves derived from: <br>
+URL: <a href="https://madaidans-insecurities.github.io/guides/linux-hardening.html">https://madaidans-insecurities.github.io/guides/linux-hardening.html</a> <br>
+Archive: <a href="https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html">https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html</a></p>
+<p>Additionally used is privsec's Desktop Linux Hardening: <br>
+URL: <a href="https://privsec.dev/posts/linux/desktop-linux-hardening/">https://privsec.dev/posts/linux/desktop-linux-hardening/</a> <br>
+Archive: <a href="https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel">https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel</a></p>
+<p>Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc: <br>
+URL: <a href="https://github.com/Kicksecure/security-misc">https://github.com/Kicksecure/security-misc</a></p>
+<p>Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts: <br>
+URL: <a href="https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf">https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf</a></p>
+<p>Optional chrony configuration was borrowed from GrapheneOS server infrastructure: <br>
+URL: <a href="https://github.com/GrapheneOS/infrastructure">https://github.com/GrapheneOS/infrastructure</a></p>
+<p>Original idea to restrict nix to wheel user from Xe Iaso: <br>
+URL: <a href="https://xeiaso.net/blog/paranoid-nixos-2021-07-18/">https://xeiaso.net/blog/paranoid-nixos-2021-07-18/</a></p>
+<p>Various security-relevant sysctl configuration from K4YT3X's sysctl: <br>
+URL: <a href="https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf">https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf</a></p>
+<p>The <code>hardened.nix</code> profile upstream, which inspired this project: <br>
+URL: <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix</a></p>
+<p>nix-bitcoin's hardening, which has also inspired this project: <br>
+URL: <a href="https://github.com/fort-nix/nix-bitcoin">https://github.com/fort-nix/nix-bitcoin</a></p>
+</body></html></main>
+      </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#nix-mineral">nix-mineral</a>
+<ul><li><a href="#warning">WARNING</a>
+<li><a href="#documentation-and-scope">Documentation and scope</a>
+<li><a href="#features">Features</a>
+<li><a href="#usage">Usage</a>
+<ul><li><a href="#automatic-installation--fetchgit">Automatic Installation (fetchgit)</a>
+<li><a href="#usage-with-flakes">Usage With Flakes</a>
+<li><a href="#configuring-options">Configuring options</a>
+<li><a href="#credits">Credits</a>
+</li></ul></li></ul></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contributing</title>
+    <meta name="description" content="nix-mineral automatic option documentation" />
+    <meta name="author" content="cynicsketch" />
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">nix-mineral</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">nix-mineral</a></li>
+<li><a href="CONTRIBUTING.html">Contributing</a></li>
+<li><a href="OMITTED.html">Non-specific omissions</a></li>
+<li><a href="ADDITIONAL-RESOURCES.html">Rationale</a></li>
+<li><a href="search.html">Search</a></li>
+
+              </ul>
+            </div>
+          </details>
+
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#contributing">Contributing</a>
+<li><a href="#table-of-contents">Table of Contents</a>
+<li><a href="#rules">Rules</a>
+<li><a href="#libs">Libs</a>
+<li><a href="#creating-a-module">Creating a module</a>
+<li><a href="#creating-a-category">Creating a category</a>
+<li><a href="#hardening-a-filesystem">Hardening a filesystem</a>
+<li><a href="#creating-a-preset">Creating a preset</a>
+<li><a href="#adding-functions-to-the-lib">Adding functions to the lib</a>
+<li><a href="#licensing-and-copyright">Licensing and copyright</a>
+</li>
+              </ul>
+            </div>
+          </details>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="contributing">Contributing</h1>
+<p>One of the main ideas is to be as modular as possible, so don't create modules that do too many things at the same time, always try to separate them into smaller modules, with unique responsibilities.</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#rules">Rules</a></li>
+<li><a href="#libs">Libs</a></li>
+<li><a href="#creating-a-module">Creating a module</a></li>
+<li><a href="#creating-a-category">Creating a category</a></li>
+<li><a href="#hardening-a-filesystem">Hardening a filesystem</a></li>
+<li><a href="#creating-a-preset">Creating a preset</a></li>
+<li><a href="#adding-functions-to-the-lib">Adding functions to the lib</a></li>
+<li><a href="#licensing-and-copyright">Licensing and copyright</a></li>
+</ul>
+<h1 id="rules">Rules</h1>
+<ul>
+<li>Whenever you need to use lib/builtins functions, use the <code>l</code> attribute, which is available in all modules. It contains all lib functions, builtins, and additional nix-mineral functions.</li>
+<li>Format the code with the formatter in <code>flake.nix</code>. If using NixOS, use the <code>nix fmt</code> command within the repository, which will format all files with the correct formatter.</li>
+<li>Explain the options in their descriptions (or in comments). The reason for each setting, and WHY this setting makes the system more secure for the user.</li>
+<li>When creating new settings, use names in lowercase and hyphens to separate words, for example: <code>example-feature-x</code>.</li>
+<li>Invert options that are intended to disable something, for example: don't use <code>disable-example-feature-y</code>, use <code>example-feature-y</code> and set the default to <code>false</code>.</li>
+<li>Use the <code>l.mkBoolOption</code> function to create boolean options.</li>
+<li>Do not attempt to add any feature which has been intentionally excluded under <a href="OMITTED.md">OMITTED.md</a> or <a href="ADDITIONAL-RESOURCES.md">ADDITIONAL-RESOURCES.md</a> without first creating an issue.</li>
+<li>Issues should be created for most feature changes before attempting a PR. Bug fixes, and minor documentation changes do not require issues, but it is still heavily encouraged.</li>
+<li>Where applicable, update both <a href="https://github.com/cynicsketch/nix-mineral/tree/main/presets">presets</a> and the <a href="https://github.com/cynicsketch/nix-mineral/tree/main/README.md">README</a> to reflect any new options.</li>
+<li>Use <code>l.mkOverride 900</code> over <code>l.mkForce</code> when forcefully overriding NixOS defaults is necessary, to make sure it actually applies.</li>
+<li>Where applicable, add <a href="https://www.gnu.org/licenses/gpl-3.0.html#howto">GPL license headers</a> to new source code files:</li>
+</ul>
+<pre><code># This file is part of nix-mineral (https://github.com/cynicsketch/nix-mineral/).
+# Copyright (c) 2025 cynicsketch
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+</code></pre>
+<h1 id="libs">Libs</h1>
+<p>nix-mineral has a library with things used in several files in the project, to avoid code repetition. Common things you'll likely use are explained here. Each function declaration and detailed explanations are located in the <code>lib/default.nix</code> file.
+<code>l</code> is an attrset with all the lib functions, builtins functions, and nix-mineral functions. So use <code>l</code> to access any function below.</p>
+<hr>
+<p><code>l.mkBoolOption</code>: Creates a boolean option with description and default value.</p>
+<p>Takes 2 arguments:
+desc, bool</p>
+<p>Example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Creates&nbsp;an&nbsp;option&nbsp;with&nbsp;mkOption&nbsp;which&nbsp;is&nbsp;a&nbsp;boolean,&nbsp;with&nbsp;the&nbsp;description&nbsp;"Enable&nbsp;example&nbsp;feature&nbsp;X"&nbsp;and&nbsp;default&nbsp;value&nbsp;`true`</span><br><span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkBoolOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Enable&nbsp;example&nbsp;feature&nbsp;X</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><br></code></pre>
+<hr>
+<p><code>l.sources</code>: Attrset with all sources inside the <code>lib/sources.toml</code> file (Used with fetchGhFile, fetchGit, fetchTarball, etc).</p>
+<hr>
+<p><code>l.fetchGhFile</code>: Fetches a file directly from a GitHub repository.</p>
+<p>Args:</p>
+<ul>
+<li><code>user</code>: GitHub username or organization name.</li>
+<li><code>repo</code>: Repository name.</li>
+<li><code>rev</code>: Branch, tag or commit.</li>
+<li><code>file</code>: Path to the file within the repository.</li>
+<li><code>sha256</code>: Hash sha256 of the file.</li>
+</ul>
+<p>Examples:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">fetchGhFile</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">user</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">cynicsketch</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">repo</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nix-mineral</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">rev</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b76cc19351f159cd360d8ceea3ba9aff8fce6c6e</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">file</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">README.md</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">sha256</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>Using with <code>l.sources</code>:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Fetches&nbsp;the&nbsp;example-file&nbsp;from&nbsp;the&nbsp;repository&nbsp;defined&nbsp;in&nbsp;l.sources.example-file</span><br><span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">fetchGhFile</span>&nbsp;<span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">sources</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">example-file</span><br></code></pre>
+<hr>
+<p><code>l.importModule</code>: import wrapper to pass extra args to a module, and also pass the lib <code>l</code>.</p>
+<p>Takes 2 arguments:
+path, extraArgs</p>
+<p>Example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Imports&nbsp;the&nbsp;module&nbsp;at&nbsp;./example-module.nix,&nbsp;passing&nbsp;the&nbsp;lib&nbsp;`l`&nbsp;and&nbsp;an&nbsp;extra&nbsp;argument&nbsp;`customArg`&nbsp;with&nbsp;value&nbsp;"value"</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;The&nbsp;imported&nbsp;module&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;using&nbsp;the&nbsp;nix&nbsp;import&nbsp;function.</span><br><span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">importModule</span>&nbsp;<span style="color:rgb(232,102,113);">./example-module.nix</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">customArg</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">value</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h1 id="creating-a-module">Creating a module</h1>
+<ol>
+<li>
+<p>Choose a module type:
+<code>settings</code>: Main settings, which modify things in the <code>default</code> preset.
+<code>extras</code>: Extra settings, which modify things only if specified by the user, and may contain opinionated additional software.</p>
+</li>
+<li>
+<p>Choose a category:
+Enter the folder for your chosen module type, and choose a category to place your module in (or <a href="#creating-a-category">create a new one</a> if needed).</p>
+</li>
+<li>
+<p>Create the module file:
+Let's say I want to create a <code>settings</code> module in the <code>system</code> category. Here's what the process would look like:</p>
+</li>
+</ol>
+<p>First, I create a file <code>example-module.nix</code> inside the <code>system</code> folder with this:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;The&nbsp;"l"&nbsp;variable&nbsp;includes&nbsp;all&nbsp;the&nbsp;functions&nbsp;from&nbsp;nixpkgs.lib,&nbsp;builtins,&nbsp;and&nbsp;nix-mineral&nbsp;libs.</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;is&nbsp;to&nbsp;avoid&nbsp;having&nbsp;to&nbsp;declare&nbsp;something&nbsp;like&nbsp;`l&nbsp;=&nbsp;lib&nbsp;//&nbsp;builtins&nbsp;//&nbsp;...`&nbsp;in&nbsp;every&nbsp;module,&nbsp;as&nbsp;was&nbsp;the&nbsp;case&nbsp;before.</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">l</span><span style="color:rgb(132,139,152);">,</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;The&nbsp;"cfg"&nbsp;variable&nbsp;contains&nbsp;the&nbsp;option&nbsp;within&nbsp;the&nbsp;category&nbsp;that&nbsp;has&nbsp;the&nbsp;same&nbsp;name&nbsp;as&nbsp;the&nbsp;file.</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;In&nbsp;this&nbsp;case,&nbsp;it's&nbsp;the&nbsp;same&nbsp;as&nbsp;setting&nbsp;`cfg&nbsp;=&nbsp;config.nix-mineral.system.example-module`</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">cfg</span><span style="color:rgb(132,139,152);">,</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;The&nbsp;parentCfg&nbsp;variable&nbsp;contains&nbsp;the&nbsp;category&nbsp;configuration&nbsp;if&nbsp;needed.</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;In&nbsp;this&nbsp;case,&nbsp;it&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;setting&nbsp;`parentCfg&nbsp;=&nbsp;config.nix-mineral.system`</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">parentCfg</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">...</span><br><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span><br><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">options</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;I&nbsp;use&nbsp;the&nbsp;mkBoolOption&nbsp;constructor&nbsp;to&nbsp;create&nbsp;a&nbsp;boolean&nbsp;option,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;with&nbsp;a&nbsp;default&nbsp;description&nbsp;and&nbsp;value.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">example-module</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkBoolOption</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;just&nbsp;a&nbsp;example&nbsp;module,&nbsp;enabled&nbsp;by&nbsp;default.</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;`cfg`&nbsp;is&nbsp;equivalent&nbsp;to&nbsp;the&nbsp;value&nbsp;defined&nbsp;in&nbsp;`example-module`&nbsp;within&nbsp;the&nbsp;`options`&nbsp;attribute&nbsp;above,</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;so&nbsp;using&nbsp;`mkIf`,&nbsp;all&nbsp;the&nbsp;config&nbsp;below&nbsp;will&nbsp;only&nbsp;be&nbsp;enabled&nbsp;if&nbsp;the&nbsp;module&nbsp;itself&nbsp;is&nbsp;enabled.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkIf</span>&nbsp;<span style="color:rgb(171,178,191);">cfg</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">environment</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">systemPackages</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(198,120,221);">with</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(171,178,191);">firefox</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<ol start="4">
+<li>
+<p>Import the module:
+Inside the <code>system</code> folder, there is a file with the name <code>default.nix</code>, which imports all modules within that category.
+You just need to add the relative file path to the <code>categoryModules</code> list inside the <code>settings/system/default.nix</code> file.</p>
+</li>
+<li>
+<p>Examples of different modules:
+<code>settings/system/multilib.nix</code>: A simple module.
+<code>settings/kernel/cpu-mitigations.nix</code>: A module that uses an enum instead of a bool.
+<code>extras/misc/usbguard.nix</code>: A module with several options.</p>
+</li>
+</ol>
+<h1 id="creating-a-category">Creating a category</h1>
+<ol>
+<li>
+<p>Choose a module type:
+<code>settings</code>: Main settings, which modify things in the <code>default</code> preset.
+<code>extras</code>: Extra settings, which modify things only if specified by the user, and may contain opinionated additional software.</p>
+</li>
+<li>
+<p>Create a folder with the category name within the chosen module type:
+Example: <code>settings/new-category</code></p>
+</li>
+<li>
+<p>Create a <code>default.nix</code> file inside the category folder:
+Example: <code>settings/new-category/default.nix</code>
+Place the following code inside the file, adapting the name, description, and the modules you want to add:</p>
+</li>
+</ol>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">options</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">config</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">l</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">cfg</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">...</span><br><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span><br><br><span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;categoryModules&nbsp;<span style="color:rgb(171,178,191);">=</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkCategoryModules</span>&nbsp;<span style="color:rgb(171,178,191);">cfg</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Add&nbsp;here&nbsp;the&nbsp;relative&nbsp;paths&nbsp;to&nbsp;the&nbsp;modules&nbsp;within&nbsp;this&nbsp;category</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">./example-module.nix</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pkgs<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lib<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">options</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">new-category</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkOption</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">description</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;a&nbsp;new&nbsp;category&nbsp;example.</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkCategorySubmodule</span>&nbsp;<span style="color:rgb(171,178,191);">categoryModules</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">l</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkCategoryConfig</span>&nbsp;<span style="color:rgb(171,178,191);">categoryModules</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<ol start="4">
+<li>Import the category:
+Within the <code>nix-mineral.nix</code> file, import the category by adding the relative path of the category folder to the <code>settingsModules</code> or <code>extrasModules</code> list, depending on the type of category you created.
+Example: <code>settings/new-category</code> would be imported within the <code>settingsModules</code> list in the <code>nix-mineral.nix</code> file.</li>
+</ol>
+<h1 id="hardening-a-filesystem">Hardening a filesystem</h1>
+<p>To harden a filesystem, you follow the same options a normal user would use, but simply place these options inside the <code>filesystems/normal.nix</code> or <code>filesystems/special.nix</code> modules, depending on the type of filesystem you want to harden.
+Examples are within the files.</p>
+<h1 id="creating-a-preset">Creating a preset</h1>
+<ol>
+<li>Create a file with the preset name inside the <code>presets</code> folder:
+Example: <code>presets/example-preset.nix</code>
+The code inside the file is the same as what a normal user would use to configure nix-mineral,
+but each option must be set using <code>mkPreset</code> or <code>mkPresets</code> functions.
+<code>mkPreset</code> is used to set a single option, while <code>mkPresets</code> is used to set multiple options within an attrset.
+An example of a preset below:</li>
+</ol>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">mkPresets</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">...</span><br><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span><br><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(232,102,113);">mkPresets</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">settings</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">kernel</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">lockdown</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">only-signed-modules</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">extras</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">system</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">lock-root</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<ol start="2">
+<li>Add your preset to the <code>presets/default.nix</code> file:
+In the <code>presets</code> attrset at the top of the file, add your preset with the name as the key and the description as the value.
+Your preset name must match the filename you created in step 1. This will automatically import the preset file when the user includes the preset name in their configuration.</li>
+</ol>
+<h1 id="adding-functions-to-the-lib">Adding functions to the lib</h1>
+<p>Create your function within the <code>let in</code> in the <code>lib/default.nix</code> file, following the pattern of the other functions.
+Then place your function within the <code>flake.lib</code> list at the end of the file, and within the list inside the <code>importModule</code> function as well.</p>
+<h1 id="licensing-and-copyright">Licensing and copyright</h1>
+<p>Because it is pragmatic to take from existing research, consideration to licensing applies.</p>
+<p>This is not legal advice. The information provided is for general informational
+purposes only and may not reflect the most current legal developments. The
+author is not an attorney and makes no guarantees regarding the accuracy or
+completeness of this information. The author disclaims any liability for
+actions taken or not taken based on the content provided.</p>
+<ul>
+<li>Invidividual, purely functional configuration decisions and purely factual statements are usually not copyrightable due to merger doctrine.</li>
+<li>Informal crediting exists as a courtesy, not as a way to fulfill proper license attribution requirements.</li>
+<li>If in doubt, do not blindly copy. Use proper license attribution where permitted and required.</li>
+</ul>
+</body></html></main>
+      </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#contributing">Contributing</a>
+<li><a href="#table-of-contents">Table of Contents</a>
+<li><a href="#rules">Rules</a>
+<li><a href="#libs">Libs</a>
+<li><a href="#creating-a-module">Creating a module</a>
+<li><a href="#creating-a-category">Creating a category</a>
+<li><a href="#hardening-a-filesystem">Hardening a filesystem</a>
+<li><a href="#creating-a-preset">Creating a preset</a>
+<li><a href="#adding-functions-to-the-lib">Adding functions to the lib</a>
+<li><a href="#licensing-and-copyright">Licensing and copyright</a>
+</li>
+          </ul>
+        </nav>
+      </aside>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>

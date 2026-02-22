@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Non-specific omissions</title>
+    <meta name="description" content="nix-mineral automatic option documentation" />
+    <meta name="author" content="cynicsketch" />
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">nix-mineral</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">nix-mineral</a></li>
+<li><a href="CONTRIBUTING.html">Contributing</a></li>
+<li><a href="OMITTED.html">Non-specific omissions</a></li>
+<li><a href="ADDITIONAL-RESOURCES.html">Rationale</a></li>
+<li><a href="search.html">Search</a></li>
+
+              </ul>
+            </div>
+          </details>
+
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#non-specific-omissions">Non-specific omissions</a>
+<li><a href="#specific-omissions">Specific omissions</a>
+<ul><li><a href="#sysctl-omitted-from-k4yt3x-config-that-are-out-of-scope-of-nix-mineral-and-hardening-but-may-be-useful-anyways-to-some--see-their-repo-for-details">sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details:</a>
+<li><a href="#sections-from-madaidan-s-guide-that-are-irrelevant-non-applicable">Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:</a>
+<li><a href="#sections-from-madaidan-s-guide-requiring-manual-user-intervention">Sections from madaidan's guide requiring manual user intervention:</a>
+<li><a href="#sysctl-omitted-due-to-already-being-used-by-default-on-nixos">sysctl omitted due to already being used by default on NixOS:</a>
+</li></ul></li>
+              </ul>
+            </div>
+          </details>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="non-specific-omissions">Non-specific omissions</h1>
+<ul>
+<li>
+<p>Most "replacement" software is omitted due to causing breakage or interfering
+with user freedom.</p>
+</li>
+<li>
+<p>Examples include most rust replacements for common utilities, such as sudo-rs
+or ntpd-rs.</p>
+</li>
+<li>
+<p>There may be exceptions for software which does not interfere with existing
+user software preferences. For example, <code>apparmor</code> is whitelisted from this due to being the only usable
+MAC system on NixOS.</p>
+</li>
+<li>
+<p>Future reference for potentially useful software which is still omitted under
+this rule may be added to <a href="ADDITIONAL-RESOURCES.md">ADDITIONAL-RESOURCES.md</a></p>
+</li>
+<li>
+<p>Remember that this is supposed to be a drop-in NixOS module and not a Linux distribution. Common sense constraints on scope have to apply.</p>
+</li>
+</ul>
+<h1 id="specific-omissions">Specific omissions</h1>
+<p>Features in sources of research for <code>nix-mineral</code> which have been intentionally omitted due to irrelevancy or logistical issues.</p>
+<p><code>linux-hardened</code> is not used because it breaks unpriviliged userns and has
+historically failed to receive regular updates in nixpkgs.</p>
+<h2 id="sysctl-omitted-from-k4yt3x-config-that-are-out-of-scope-of-nix-mineral-and-hardening-but-may-be-useful-anyways-to-some--see-their-repo-for-details">sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details:</h2>
+<p>kernel.pid_max = 4194304 <br>
+kernel.panic = 10 <br>
+fs.file-max = 9223372036854775807 <br>
+fs.inotify.max_user_watches = 524288 <br>
+net.core.netdev_max_backlog = 250000 <br>
+net.core.rmem_default = 8388608 <br>
+net.core.wmem_default = 8388608 <br>
+net.core.rmem_max = 536870912 <br>
+net.core.wmem_max = 536870912 <br>
+net.core.optmem_max = 40960 <br>
+net.ipv4.tcp_congestion_control = bbr <br>
+net.ipv4.tcp_synack_retries = 5 <br>
+net.ipv4.ip_local_port_range = 1024 65535 <br>
+net.ipv4.tcp_slow_start_after_idle = 0 <br>
+net.ipv4.tcp_mtu_probing = 1 <br>
+net.ipv4.tcp_base_mss = 1024 <br>
+net.ipv4.tcp_rmem = 8192 262144 536870912 <br>
+net.ipv4.tcp_wmem = 4096 16384 536870912 <br>
+net.ipv4.tcp_adv_win_scale = -2 <br>
+net.ipv4.tcp_notsent_lowat = 131072</p>
+<h2 id="sections-from-madaidan-s-guide-that-are-irrelevant-non-applicable">Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:</h2>
+<p>1 (Advice) <br>
+2.1 (Advice) <br>
+2.3.3 (Advice) <br>
+2.5.1 (Advice) <br>
+2.5.3 (Advice) <br>
+2.6 (Advice) <br>
+2.10 (Package is broken) <br>
+7 (Advice) <br>
+10.5.4 (The problem of NTP being unencrypted is fixed by using NTS instead.
+Note that this means using chrony, as in "Software Choice" in the overrides,
+which is not default behavior!) <br>
+15 (Implemented by default) <br>
+19 (Advice) <br>
+20 (Not relevant) <br>
+21.7 (Advice, not in threat model) <br>
+22 (Advice)</p>
+<h2 id="sections-from-madaidan-s-guide-requiring-manual-user-intervention">Sections from madaidan's guide requiring manual user intervention:</h2>
+<p>2.7 (systemd service hardening must be done manually) <br>
+2.9 (Paid software) <br>
+2.11 (Unique for all hardware, inconvenient) <br>
+4 (Sandboxing must be done manually) <br>
+6 (Compiling everything is inconvenient) <br>
+8.6 (No option, not for all systems) <br>
+8.7 (Inconvenient, depends on specific user behavior) <br>
+10.1 (Up to user to determine hostname and username) <br>
+10.2 (Up to user to determine timezone, locale, and keymap) <br>
+10.5.3 (Not packaged) <br>
+10.6 (Not packaged, inconvenient and not within threat model) <br>
+11.1 (Manual removal of SUID/SGID is manual) <br>
+11.2 (No known way to set umask declaratively systemwide, use your shellrc
+or home manager to do so) <br>
+14 (Rather than enforce password quality with PAM, expect user
+to enforce their own password quality; faildelay is, however,
+implemented here) <br>
+21.1 (Out of scope) <br>
+21.2 (See above) <br>
+21.3 (User's job to set passwords) <br>
+21.3.1 (See above) <br>
+21.3.2 (See above) <br>
+21.3.3 (See above) <br>
+21.4 (Non-declarative setup, experimental)</p>
+<h2 id="sysctl-omitted-due-to-already-being-used-by-default-on-nixos">sysctl omitted due to already being used by default on NixOS:</h2>
+<p>"vm.max_map_count=1048576" (Due to its relevance in reducing crashes for memory intensive applications, despite a secondary need to be used in order to have enough guard pages for hardened_malloc)</p>
+</body></html></main>
+      </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#non-specific-omissions">Non-specific omissions</a>
+<li><a href="#specific-omissions">Specific omissions</a>
+<ul><li><a href="#sysctl-omitted-from-k4yt3x-config-that-are-out-of-scope-of-nix-mineral-and-hardening-but-may-be-useful-anyways-to-some--see-their-repo-for-details">sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details:</a>
+<li><a href="#sections-from-madaidan-s-guide-that-are-irrelevant-non-applicable">Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:</a>
+<li><a href="#sections-from-madaidan-s-guide-requiring-manual-user-intervention">Sections from madaidan's guide requiring manual user intervention:</a>
+<li><a href="#sysctl-omitted-due-to-already-being-used-by-default-on-nixos">sysctl omitted due to already being used by default on NixOS:</a>
+</li></ul></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>
