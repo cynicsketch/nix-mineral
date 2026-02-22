@@ -6,6 +6,11 @@ Rather than be named after a mineral, it's named after the word "mineral".
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
 
 ## Documentation and scope
+All documentation and options can be viewed at https://cynicsketch.github.io/nix-mineral/.
+
+For development simplicity, target systems are assumed to be running `nixos-unstable.` Incompatibility may occur with renamed options,
+which should be manually overridden if necessary.
+
 `nix-mineral` aims to serve as a drop-in addition to any NixOS system.
 
 Because of this, complete overhauls of system UX or architecture is infeasible compared to dedicated security focused operating systems with complete executive control over design.
