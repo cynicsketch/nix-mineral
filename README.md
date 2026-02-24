@@ -22,9 +22,9 @@ not considered.
 
 For more information on, refer to the documents below.
 
-Contributing guidelines: [CONTRIBUTING.md](docs/CONTRIBUTING.md) \
-Additional resources: [ADDITIONAL-RESOURCES.md](docs/ADDITIONAL-RESOURCES.md) \
-Omitted features: [OMITTED.md](docs/OMITTED.md)
+Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md) \
+Additional resources: [ADDITIONAL-RESOURCES](docs/ADDITIONAL-RESOURCES.md) \
+Omitted features: [OMITTED](docs/OMITTED.md)
 
 ## Features
 A full rundown of features is best obtained by reading the individual submodules
