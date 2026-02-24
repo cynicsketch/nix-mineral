@@ -22,7 +22,7 @@ not considered.
 
 For more information on, refer to the documents below.
 
-Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md) \
+Contributing guidelines: [CONTRIBUTING.md](docs/CONTRIBUTING.md) \
 Additional resources: [ADDITIONAL-RESOURCES.md](docs/ADDITIONAL-RESOURCES.md) \
 Omitted features: [OMITTED.md](docs/OMITTED.md)
 
