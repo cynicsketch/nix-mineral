@@ -27,6 +27,16 @@
       and breaks hibernation.
 
       ::: {.note}
+      This currently does nothing as the default NixOS kernel config does not
+      enable Linux kernel lockdown as of 16/03/26.
+
+      It will remain implemented by default in the event that circumstances
+      change, since adding the corresponding boot parameter anyways is harmless.]
+
+      See:
+      https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
+      https://github.com/cynicsketch/nix-mineral/issues/125
+
       If `false`, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
       :::
     '' true;
