@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nix-mineral - Options</title>
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" />
     <meta name="description" content="nix-mineral automatic option documentation" />
-    <meta name="author" content="cynicsketch" />
-    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    <meta name="author" content="cynicsketch" /> 
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
@@ -2572,6 +2572,13 @@ invalid-free errors.</p>
 and breaks hibernation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>This currently does nothing as the default NixOS kernel config does not
+enable Linux kernel lockdown as of 16/03/26.</p>
+<p>It will remain implemented by default in the event that circumstances
+change, since adding the corresponding boot parameter anyways is harmless.]</p>
+<p>See:
+<a href="https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830">https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830</a>
+<a href="https://github.com/cynicsketch/nix-mineral/issues/125">https://github.com/cynicsketch/nix-mineral/issues/125</a></p>
 <p>If <code>false</code>, you probably want to disable <a class="option-reference" href="options.html#option-nix-mineral-settings-kernel-only-signed-modules"><code class="nixos-option">nix-mineral.settings.kernel.only-signed-modules</code></a>.</p>
 </div>
 </body></html></div>
@@ -2590,6 +2597,13 @@ and breaks hibernation.</p>
 kernel modules from working unless signed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>This currently does nothing as the default NixOS kernel config does not
+enable Linux kernel lockdown as of 16/03/26.</p>
+<p>It will remain implemented by default in the event that circumstances
+change, since adding the corresponding boot parameter anyways is harmless.</p>
+<p>See:
+<a href="https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830">https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830</a>
+<a href="https://github.com/cynicsketch/nix-mineral/issues/125">https://github.com/cynicsketch/nix-mineral/issues/125</a></p>
 <p>If <code>false</code>, <a class="option-reference" href="options.html#option-nix-mineral-settings-kernel-lockdown"><code class="nixos-option">nix-mineral.settings.kernel.lockdown</code></a> must also be false.</p>
 </div>
 </body></html></div>
