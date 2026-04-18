@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nix-mineral - Options</title>
     <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" />
-    <meta name="description" content="nix-mineral automatic option documentation" />
-    <meta name="author" content="cynicsketch" /> 
+    <meta name="author" content="cynicsketch" />
+    <meta name="description" content="nix-mineral automatic option documentation" /> 
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
@@ -340,7 +340,7 @@
     <details class="toc-category">
       <summary title="nix-mineral.filesystems">
         <span>nix-mineral.filesystems</span>
-        <span class="toc-count">10</span>
+        <span class="toc-count">11</span>
       </summary>
       <ul>
         
@@ -381,6 +381,14 @@
         <li>
           <a href='#option-nix-mineral-filesystems-normal-&lt;name&gt;-enable' title="nix-mineral.filesystems.normal.&lt;name&gt;.enable">
             normal.&lt;name&gt;.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-filesystems-normal-&lt;name&gt;-fsType' title="nix-mineral.filesystems.normal.&lt;name&gt;.fsType">
+            normal.&lt;name&gt;.fsType
             
             
           </a>
@@ -1798,6 +1806,20 @@ own, dedicated partition.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix" target="_blank">&lt;nix-mineral/filesystems/normal.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-nix-mineral-filesystems-normal-&lt;name&gt;-fsType">
+  <h3 class="option-name">
+    <a href="#option-nix-mineral-filesystems-normal-&lt;name&gt;-fsType" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.fsType</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or string</code></div>
+  <div class="option-description"><html><head></head><body><p>Filesystem type of the device. This value must not
+be null.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"auto"</code></div>
+  <div class="option-example">Example: <code>"ext4"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix" target="_blank">&lt;nix-mineral/filesystems/normal.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-nix-mineral-filesystems-normal-&lt;name&gt;-options">
