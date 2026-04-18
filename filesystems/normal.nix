@@ -36,6 +36,14 @@ let
           description = "Location of the device.";
         };
 
+        fsType = l.mkOption {
+          default = "auto";
+          example = "ext4";
+          type = l.types.nullOr l.types.str;
+          description = "Filesystem type of the device. This value must not
+                         be null.";
+        };
+
         options = l.mkOption {
           default = { };
           defaultText = {
@@ -120,6 +128,7 @@ in
         name: opts:
         (l.mkIf opts.enable {
           device = l.mkIf (opts.device != null) (l.mkDefault opts.device);
+          fsType = l.mkIf (opts.fsType != null) (l.mkDefault opts.fsType);
           options = l.mkFilesystemOptions opts.options;
         })
       ) cfg
