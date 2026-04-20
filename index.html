@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nix-mineral</title>
-    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" />
     <meta name="author" content="cynicsketch" />
-    <meta name="description" content="nix-mineral automatic option documentation" /> 
+    <meta name="description" content="nix-mineral automatic option documentation" />
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
@@ -105,11 +105,12 @@ Rather than be named after a mineral, it's named after the word "mineral".</p>
 <p><code>nix-mineral</code> is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!</p>
 <h2 id="documentation-and-scope">Documentation and scope</h2>
 <p>All documentation and options can be viewed at <a href="https://cynicsketch.github.io/nix-mineral/">https://cynicsketch.github.io/nix-mineral/</a>.</p>
+<p>By default, <code>nix-mineral</code> reduces attack surface by securely configuring existing software.</p>
+<p>It is intended to be used for defense-in-depth purposes only. It is not, and will not ever be intended as a substitute to core security practices such as operations security, sandboxing, zero trust, or any other primary guiding principle or framework.</p>
 <p>For development simplicity, target systems are assumed to be running <code>nixos-unstable.</code> Incompatibility may occur with renamed options,
 which should be manually overridden if necessary.</p>
 <p><code>nix-mineral</code> aims to serve as a drop-in addition to any NixOS system.</p>
 <p>Because of this, complete overhauls of system UX or architecture is infeasible compared to dedicated security focused operating systems with complete executive control over design.</p>
-<p>By default, <code>nix-mineral</code> reduces attack surface by securely configuring existing software. It is not magic, but it's better than nothing.</p>
 <p><code>nix-mineral</code>'s threat model assumes non-state adversaries, and anonymity is
 not considered.</p>
 <p>For more information on, refer to the documents below.</p>
