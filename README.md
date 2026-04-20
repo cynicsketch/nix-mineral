@@ -10,7 +10,7 @@ All documentation and options can be viewed at https://cynicsketch.github.io/nix
 
 By default, `nix-mineral` reduces attack surface by securely configuring existing software. 
 
-It is intended to be used for defense-in-depth purposes only. It is not, and will not ever be intended as a substitute to the implementation of core security practices such as operations security, sandboxing, zero trust, or any other primary guiding principle or framework.
+It is intended to be used for defense-in-depth purposes only. It is not, and will not ever be intended as a substitute to the implementation of core security practices such as good OPSEC (operations security), sandboxing, zero trust, or any other primary guiding principle or framework.
 
 For development simplicity, target systems are assumed to be running `nixos-unstable.` Incompatibility may occur with renamed options,
 which should be manually overridden if necessary.
