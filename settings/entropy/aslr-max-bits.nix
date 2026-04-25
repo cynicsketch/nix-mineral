@@ -27,6 +27,10 @@
       randomization, a widely used mitigation against memory exploits.
 
       ::: {.note}
+      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+      NEXT RELEASE.
+
       The values used here are currently only valid for x86_64.
 
       Other CPU architectures may require different numbers here, consult
@@ -37,13 +41,24 @@
       See:
       - https://en.wikipedia.org/wiki/Address_space_layout_randomization
       :::
-    '' true;
+    '' false;
   };
 
   config = l.mkIf cfg {
-    boot.kernel.sysctl = {
-      "vm.mmap_rnd_bits" = l.mkDefault "32";
-      "vm.mmap_rnd_compat_bits" = l.mkDefault "16";
-    };
+    warnings = l.optional cfg ''
+      The option `nix-mineral.settings.entropy.aslr-max-bits` is deprecated
+      due to being integrated upstream and will be removed in a future release.
+
+      See: https://github.com/NixOS/nixpkgs/commit/4971c9331a72deeda85ba8d8018a5b07ee6f1635
+
+      This option no longer does anything in order to avoid evaluation
+      conflicts on NixOS unstable as of 4/24/26.
+
+      Use `boot.kernel.sysctl."vm.mmap_rnd_bits"` instead.
+    '';
+    # boot.kernel.sysctl = {
+    #   "vm.mmap_rnd_bits" = l.mkDefault "32";
+    #   "vm.mmap_rnd_compat_bits" = l.mkDefault "16";
+    # };
   };
 }
