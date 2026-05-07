@@ -54,8 +54,6 @@
       }
     ];
     # Don't store coredumps from systemd-coredump.
-    systemd.coredump.extraConfig = ''
-      Storage=none
-    '';
+    systemd.coredump.settings.Coredump.Storage = "none";
   };
 }
