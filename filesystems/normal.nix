@@ -110,7 +110,10 @@ in
         Bind mounts are necessary when a directory is on a shared partition.
 
         Bind mounts must be EXPLICITLY DISABLED when a directory gets its
-        own, dedicated partition.
+        own, dedicated partition, OR when using separate btrfs subvolumes,
+
+        Failure to assign bind mounts accordingly may result in failures of
+        the stage 2 activation due to mounts not working as intended.
 
         See:
         https://github.com/cynicsketch/nix-mineral/issues/11
