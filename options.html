@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nix-mineral - Options</title>
     <meta name="author" content="cynicsketch" />
-    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" />
-    <meta name="description" content="nix-mineral automatic option documentation" /> 
+    <meta name="description" content="nix-mineral automatic option documentation" />
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
@@ -1778,7 +1778,9 @@ this and adjust <code class="nixos-option">nix-mineral.filesystems.normal.$/foo/
 accordingly, or face potential evaluation issues.</p>
 <p>Bind mounts are necessary when a directory is on a shared partition.</p>
 <p>Bind mounts must be EXPLICITLY DISABLED when a directory gets its
-own, dedicated partition.</p>
+own, dedicated partition, OR when using separate btrfs subvolumes,</p>
+<p>Failure to assign bind mounts accordingly may result in failures of
+the stage 2 activation due to mounts not working as intended.</p>
 <p>See:
 <a href="https://github.com/cynicsketch/nix-mineral/issues/11">https://github.com/cynicsketch/nix-mineral/issues/11</a></p>
 </div>
