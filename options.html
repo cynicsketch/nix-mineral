@@ -1706,10 +1706,14 @@ stored in <code>/etc/nixos</code>, and is therefore no longer enabled by default
 only the owner of the directory can access it (the user).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This is not retroactively applied. The "~" option means
-this only applies to newly created files, not existing files. Consider
-setting manually if this is a priority, but this may have side effects
-like obliterating existing executable access mask bits.</p>
+<p>Existing user masks are left untouched. The "~" option means provides
+masking, so that the permissions are only changed if it the existing value
+is greater than the masked value.</p>
+<p>E.G, a file with the permissions denoted "0644" changes to "0600," because
+the user permission mask "6" is less than "7" but the "4" for the group
+and world file mode masks are more than "0"</p>
+<p>This may have side effects like obliterating existing executable access
+mask bits for groups and world.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
