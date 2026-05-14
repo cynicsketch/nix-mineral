@@ -25,15 +25,86 @@ let
 
     search = {
       enable = true;
-      max_heading_level = 3;
+      max_heading_level = 6;
     };
 
+    options_toc_depth = 3; # depth of option categories in the table of contents
     tab_style = "normalize"; # converts tabs to spaces
 
     meta_tags = {
       description = "nix-mineral automatic option documentation";
       keywords = "documentation,nix,tutorial,nix-mineral";
       author = "cynicsketch";
+    };
+
+    sidebar = {
+      numbered = true;
+      number_special_files = false;
+      ordering = "custom";
+
+      matches = [
+        {
+          path = "index.md";
+          new_title = "Nix Mineral";
+          position = 1;
+        }
+        {
+          path = "CONTRIBUTING.md";
+          new_title = "Contributing";
+          position = 2;
+        }
+        {
+          path = "OMITTED.md";
+          new_title = "Omitted Features";
+          position = 3;
+        }
+        {
+          path = "ADDITIONAL-RESOURCES.md";
+          new_title = "Additional Resources";
+          position = 4;
+        }
+      ];
+
+      options = {
+        ordering = "custom";
+        depth = 3;
+
+        matches = [
+          {
+            name = "nix-mineral.enable";
+            position = 1;
+          }
+          {
+            name = "nix-mineral.preset";
+            position = 2;
+          }
+          {
+            name = "nix-mineral.settings";
+            position = 3;
+          }
+          {
+            name = "nix-mineral.extras";
+            position = 4;
+          }
+          {
+            name = "nix-mineral.filesystems";
+            position = 5;
+          }
+          {
+            name.regex = "^nix-mineral\\.filesystems\\..*";
+            position = 10;
+            depth = 2;
+          }
+          {
+            name.regex = "^nix-mineral\\.settings\\..*";
+            position = 20;
+          }
+          {
+            name.regex = "^nix-mineral\\.extras\\..*";
+            position = 30;
+          }
+        ];
+      };
     };
   };
 
@@ -172,10 +243,10 @@ rec {
         chmod -R u+w ./inputs
         cp -f ${../README.md} ./inputs/index.md
 
-        # Create NDG toml config file
-        cp ${pkgs.writers.writeTOML "ndg-config.toml" ndgConfig} $out/share/doc/ndg-config.toml
+        # Create NDG json config file
+        cp ${pkgs.writers.writeJSON "ndg-config.json" ndgConfig} $out/share/doc/ndg-config.json
 
-        ndg --config-file $out/share/doc/ndg-config.toml \
+        ndg --config-file $out/share/doc/ndg-config.json \
           --config input_dir=./inputs \
           --config output_dir=$out/share/doc \
           --config jobs=$NIX_BUILD_CORES \
