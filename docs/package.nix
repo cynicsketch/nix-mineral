@@ -243,6 +243,30 @@ rec {
         chmod -R u+w ./inputs
         cp -f ${../README.md} ./inputs/index.md
 
+        # Fix links in the index.md file to be relative to the root of the documentation and remove .md extensions
+        ${
+          let
+            mapMdFiles =
+              function:
+              lib.concatStringsSep "\n" (
+                lib.map function (
+                  lib.attrNames (
+                    lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".md" name) (builtins.readDir ./.)
+                  )
+                  ++ [ "index.md" ] # include index.md which is the copy of README.md
+                )
+              );
+          in
+          (mapMdFiles (
+            fileName:
+            "${mapMdFiles (
+              innerFileName:
+              "sed -i 's/](docs\\/${fileName})/](\\/\\${lib.removeSuffix ".md" fileName})/g' ./inputs/${innerFileName}
+                sed -i 's/](${fileName})/](\\/\\${lib.removeSuffix ".md" fileName})/g' ./inputs/${innerFileName}"
+            )}"
+          ))
+        }
+
         # Create NDG json config file
         cp ${pkgs.writers.writeJSON "ndg-config.json" ndgConfig} $out/share/doc/ndg-config.json
 
