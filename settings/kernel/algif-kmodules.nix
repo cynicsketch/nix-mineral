@@ -1,0 +1,56 @@
+# This file is part of nix-mineral (https://github.com/cynicsketch/nix-mineral/).
+# Copyright (c) 2025 cynicsketch
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{
+  l,
+  cfg,
+  config,
+  ...
+}:
+
+{
+  options = {
+    algif-kmodules = l.mkBoolOption ''
+      Algif related kernel modules.
+
+      The existence of AF_ALG has been criticized for a long time,
+      and has been the source of multiple vulnerabilities such as [CVE-2026-31431](https://github.com/advisories/GHSA-2274-3hgr-wxv6).
+
+      AF_ALG is practically only used in some unspecified rare and bespoke applications,
+      so normally you can disable this without any consequences.
+
+      ::: {.note}
+      Read more:
+      - https://lore.kernel.org/all/20260430021042.GA51782@sol/
+      - https://www.chronox.de/libkcapi/html/ch01s02.html
+      - https://lore.kernel.org/all/CAMj1kXGxxRs6Rkhevm9NSY6TaJUsOmF3UqdHUo=NRg9kQKtSBA@mail.gmail.com/
+      - https://news.ycombinator.com/item?id=47956312
+      :::
+    '' config.networking.wireless.iwd.enable;
+  };
+
+  config = l.mkIf (!cfg) {
+    environment.etc."modprobe.d/nm-disable-algif-kmodules.conf" = {
+      text = ''
+        install af_alg /bin/false
+        install algif_hash /bin/false
+        install algif_skcipher /bin/false
+        install algif_rng /bin/false
+        install algif_aead /bin/false
+      '';
+    };
+  };
+}
