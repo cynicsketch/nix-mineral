@@ -48,7 +48,7 @@
 
           packages =
             let
-              docs = pkgs.callPackage ./docs/package.nix {
+              docs = import ./docs/package.nix {
                 inherit inputs pkgs;
               };
             in
