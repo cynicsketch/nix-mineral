@@ -300,6 +300,10 @@ rec {
         ''} $out/bin/nix-mineral-docs-html
       '';
 
+  nix-mineral-prefix = docs.override {
+    urlPrefix = "nix-mineral";
+  };
+
   server =
     pkgs.runCommand "nix-mineral-docs-server"
       {
