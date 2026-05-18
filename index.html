@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nix-mineral</title>
-    <meta name="author" content="cynicsketch" />
     <meta name="description" content="nix-mineral automatic option documentation" />
-    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" />
+    <meta name="author" content="cynicsketch" /> 
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
@@ -69,10 +69,10 @@
             <summary>Documents</summary>
             <div class="sidebar-section-content">
               <ul>
-                <li><a href="index.html">nix-mineral</a></li>
-<li><a href="CONTRIBUTING.html">Contributing</a></li>
-<li><a href="OMITTED.html">Non-specific omissions</a></li>
-<li><a href="ADDITIONAL-RESOURCES.html">Rationale</a></li>
+                <li><a href="index.html">Nix Mineral</a></li>
+<li><a href="CONTRIBUTING.html">1. Contributing</a></li>
+<li><a href="OMITTED.html">2. Omitted Features</a></li>
+<li><a href="ADDITIONAL-RESOURCES.html">3. Additional Resources</a></li>
 <li><a href="search.html">Search</a></li>
 
               </ul>
@@ -114,9 +114,9 @@ which should be manually overridden if necessary.</p>
 <p><code>nix-mineral</code>'s threat model assumes non-state adversaries, and anonymity is
 not considered.</p>
 <p>For more information on, refer to the documents below.</p>
-<p>Contributing guidelines: <a href="docs/CONTRIBUTING.md">CONTRIBUTING</a> <br>
-Additional resources: <a href="docs/ADDITIONAL-RESOURCES.md">ADDITIONAL-RESOURCES</a> <br>
-Omitted features: <a href="docs/OMITTED.md">OMITTED</a></p>
+<p>Contributing guidelines: <a href="/CONTRIBUTING">CONTRIBUTING</a> <br>
+Additional resources: <a href="/ADDITIONAL-RESOURCES">ADDITIONAL-RESOURCES</a> <br>
+Omitted features: <a href="/OMITTED">OMITTED</a></p>
 <h2 id="features">Features</h2>
 <p>A full rundown of features is best obtained by reading the individual submodules
 for every option <code>nix-mineral</code> offers.</p>
@@ -152,7 +152,7 @@ shown below.</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">preset</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">compatibility</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">settings</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;kernel&nbsp;=&nbsp;{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only-signed-modules&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockdown&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;};</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">system</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">multilib</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">network</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">ip-forwarding</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">settings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">network</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">tcp-window-scaling</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <h4 id="contributing">Contributing</h4>
 <p>Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the <a href="https://github.com/cynicsketch/nix-mineral/issues">issues tracker</a> and we can talk a solution!
-Contributing guidelines: <a href="docs/CONTRIBUTING.md">CONTRIBUTING.MD</a></p>
+Contributing guidelines: <a href="/CONTRIBUTING">CONTRIBUTING.MD</a></p>
 <h3 id="credits">Credits</h3>
 <p>Special thanks to all our <a href="https://github.com/cynicsketch/nix-mineral/graphs/contributors">wonderful contributors</a> who have helped make this project possible, as well many other projects, named and unnamed, which <code>nix-mineral</code> has borrowed insight and configuration from:</p>
 <p>Original basis for hardening, of which many of the below have themselves derived from: <br>

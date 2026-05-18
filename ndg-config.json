@@ -1,0 +1,88 @@
+{
+  "generate_anchors": true,
+  "highlight_code": true,
+  "meta_tags": {
+    "author": "cynicsketch",
+    "description": "nix-mineral automatic option documentation",
+    "keywords": "documentation,nix,tutorial,nix-mineral"
+  },
+  "options_toc_depth": 3,
+  "search": {
+    "enable": true,
+    "max_heading_level": 6
+  },
+  "sidebar": {
+    "matches": [
+      {
+        "new_title": "Nix Mineral",
+        "path": "index.md",
+        "position": 1
+      },
+      {
+        "new_title": "Contributing",
+        "path": "CONTRIBUTING.md",
+        "position": 2
+      },
+      {
+        "new_title": "Omitted Features",
+        "path": "OMITTED.md",
+        "position": 3
+      },
+      {
+        "new_title": "Additional Resources",
+        "path": "ADDITIONAL-RESOURCES.md",
+        "position": 4
+      }
+    ],
+    "number_special_files": false,
+    "numbered": true,
+    "options": {
+      "depth": 3,
+      "matches": [
+        {
+          "name": "nix-mineral.enable",
+          "position": 1
+        },
+        {
+          "name": "nix-mineral.preset",
+          "position": 2
+        },
+        {
+          "name": "nix-mineral.settings",
+          "position": 3
+        },
+        {
+          "name": "nix-mineral.extras",
+          "position": 4
+        },
+        {
+          "name": "nix-mineral.filesystems",
+          "position": 5
+        },
+        {
+          "depth": 2,
+          "name": {
+            "regex": "^nix-mineral\\.filesystems\\..*"
+          },
+          "position": 10
+        },
+        {
+          "name": {
+            "regex": "^nix-mineral\\.settings\\..*"
+          },
+          "position": 20
+        },
+        {
+          "name": {
+            "regex": "^nix-mineral\\.extras\\..*"
+          },
+          "position": 30
+        }
+      ],
+      "ordering": "custom"
+    },
+    "ordering": "custom"
+  },
+  "tab_style": "normalize",
+  "title": "nix-mineral"
+}

@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nix-mineral - Options</title>
-    <meta name="author" content="cynicsketch" />
     <meta name="description" content="nix-mineral automatic option documentation" />
-    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" />
+    <meta name="author" content="cynicsketch" /> 
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
@@ -63,10 +63,10 @@
             <summary>Documents</summary>
             <div class="sidebar-section-content">
               <ul>
-                <li><a href="index.html">nix-mineral</a></li>
-<li><a href="CONTRIBUTING.html">Contributing</a></li>
-<li><a href="OMITTED.html">Non-specific omissions</a></li>
-<li><a href="ADDITIONAL-RESOURCES.html">Rationale</a></li>
+                <li><a href="index.html">Nix Mineral</a></li>
+<li><a href="CONTRIBUTING.html">1. Contributing</a></li>
+<li><a href="OMITTED.html">2. Omitted Features</a></li>
+<li><a href="ADDITIONAL-RESOURCES.html">3. Additional Resources</a></li>
 <li><a href="search.html">Search</a></li>
 
               </ul>
@@ -95,246 +95,24 @@
     </a>
   </li>
   
-
-  
+  <li>
+    <a href='#option-nix-mineral-settings' title="nix-mineral.settings">
+      nix-mineral.settings
+      
+      
+    </a>
+  </li>
   
   <li>
-    <details class="toc-category">
-      <summary title="nix-mineral.extras">
-        <span>nix-mineral.extras</span>
-        <span class="toc-count">28</span>
-      </summary>
-      <ul>
-        
-        <li>
-          <a href='#option-nix-mineral-extras' class="parent-option" title="nix-mineral.extras">
-            nix-mineral.extras
-            
-            
-          </a>
-        </li>
-        
-
-        
-        <li>
-          <a href='#option-nix-mineral-extras-entropy' title="nix-mineral.extras.entropy">
-            entropy
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-entropy-extra-latent-entropy' title="nix-mineral.extras.entropy.extra-latent-entropy">
-            entropy.extra-latent-entropy
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-kernel' title="nix-mineral.extras.kernel">
-            kernel
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-kernel-intelme-kmodules' title="nix-mineral.extras.kernel.intelme-kmodules">
-            kernel.intelme-kmodules
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-kernel-load-kernel-modules' title="nix-mineral.extras.kernel.load-kernel-modules">
-            kernel.load-kernel-modules
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-kernel-warn-panic' title="nix-mineral.extras.kernel.warn-panic">
-            kernel.warn-panic
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc' title="nix-mineral.extras.misc">
-            misc
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc-apparmor' title="nix-mineral.extras.misc.apparmor">
-            misc.apparmor
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc-doas-sudo-wrapper' title="nix-mineral.extras.misc.doas-sudo-wrapper">
-            misc.doas-sudo-wrapper
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc-replace-sudo-with-doas' title="nix-mineral.extras.misc.replace-sudo-with-doas">
-            misc.replace-sudo-with-doas
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc-ssh-hardening' title="nix-mineral.extras.misc.ssh-hardening">
-            misc.ssh-hardening
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc-usbguard-enable' title="nix-mineral.extras.misc.usbguard.enable">
-            misc.usbguard.enable
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc-usbguard-gnome-integration' title="nix-mineral.extras.misc.usbguard.gnome-integration">
-            misc.usbguard.gnome-integration
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-misc-usbguard-whitelist-at-boot' title="nix-mineral.extras.misc.usbguard.whitelist-at-boot">
-            misc.usbguard.whitelist-at-boot
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-network' title="nix-mineral.extras.network">
-            network
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-network-bluetooth-kmodules' title="nix-mineral.extras.network.bluetooth-kmodules">
-            network.bluetooth-kmodules
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-network-tcp-window-scaling' title="nix-mineral.extras.network.tcp-window-scaling">
-            network.tcp-window-scaling
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system' title="nix-mineral.extras.system">
-            system
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-hardened-malloc' title="nix-mineral.extras.system.hardened-malloc">
-            system.hardened-malloc
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-lock-root' title="nix-mineral.extras.system.lock-root">
-            system.lock-root
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-minimize-swapping' title="nix-mineral.extras.system.minimize-swapping">
-            system.minimize-swapping
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-secure-chrony' title="nix-mineral.extras.system.secure-chrony">
-            system.secure-chrony
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-unprivileged-userns' title="nix-mineral.extras.system.unprivileged-userns">
-            system.unprivileged-userns
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-zram' title="nix-mineral.extras.system.zram">
-            system.zram
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-tmpfiles' title="nix-mineral.extras.tmpfiles">
-            tmpfiles
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-tmpfiles-etc-nixos' title="nix-mineral.extras.tmpfiles.etc-nixos">
-            tmpfiles.etc-nixos
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-tmpfiles-home' title="nix-mineral.extras.tmpfiles.home">
-            tmpfiles.home
-            
-            
-          </a>
-        </li>
-        
-      </ul>
-    </details>
+    <a href='#option-nix-mineral-extras' title="nix-mineral.extras">
+      nix-mineral.extras
+      
+      
+    </a>
   </li>
+  
+
+  
   
   <li>
     <details class="toc-category">
@@ -440,15 +218,15 @@
   
   <li>
     <details class="toc-category">
-      <summary title="nix-mineral.settings">
-        <span>nix-mineral.settings</span>
-        <span class="toc-count">95</span>
+      <summary title="nix-mineral.settings.system">
+        <span>nix-mineral.settings.system</span>
+        <span class="toc-count">7</span>
       </summary>
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-settings' class="parent-option" title="nix-mineral.settings">
-            nix-mineral.settings
+          <a href='#option-nix-mineral-settings-system' class="parent-option" title="nix-mineral.settings.system">
+            nix-mineral.settings.system
             
             
           </a>
@@ -457,712 +235,8 @@
 
         
         <li>
-          <a href='#option-nix-mineral-settings-debug' title="nix-mineral.settings.debug">
-            debug
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-coredump' title="nix-mineral.settings.debug.coredump">
-            debug.coredump
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-debugfs' title="nix-mineral.settings.debug.debugfs">
-            debug.debugfs
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-dmesg-restrict' title="nix-mineral.settings.debug.dmesg-restrict">
-            debug.dmesg-restrict
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-efipstore' title="nix-mineral.settings.debug.efipstore">
-            debug.efipstore
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-kptr-restrict' title="nix-mineral.settings.debug.kptr-restrict">
-            debug.kptr-restrict
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-panic-reboot' title="nix-mineral.settings.debug.panic-reboot">
-            debug.panic-reboot
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-quiet-boot' title="nix-mineral.settings.debug.quiet-boot">
-            debug.quiet-boot
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-restrict-printk' title="nix-mineral.settings.debug.restrict-printk">
-            debug.restrict-printk
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-entropy' title="nix-mineral.settings.entropy">
-            entropy
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-entropy-aslr' title="nix-mineral.settings.entropy.aslr">
-            entropy.aslr
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-entropy-aslr-max-bits' title="nix-mineral.settings.entropy.aslr-max-bits">
-            entropy.aslr-max-bits
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-entropy-hwrng' title="nix-mineral.settings.entropy.hwrng">
-            entropy.hwrng
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-entropy-jitterentropy' title="nix-mineral.settings.entropy.jitterentropy">
-            entropy.jitterentropy
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-etc' title="nix-mineral.settings.etc">
-            etc
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-etc-generic-machine-id' title="nix-mineral.settings.etc.generic-machine-id">
-            etc.generic-machine-id
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-bluetooth' title="nix-mineral.settings.etc.kicksecure-bluetooth">
-            etc.kicksecure-bluetooth
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-gitconfig' title="nix-mineral.settings.etc.kicksecure-gitconfig">
-            etc.kicksecure-gitconfig
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-issue' title="nix-mineral.settings.etc.kicksecure-issue">
-            etc.kicksecure-issue
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-module-blacklist' title="nix-mineral.settings.etc.kicksecure-module-blacklist">
-            etc.kicksecure-module-blacklist
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-etc-no-root-securetty' title="nix-mineral.settings.etc.no-root-securetty">
-            etc.no-root-securetty
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel' title="nix-mineral.settings.kernel">
-            kernel
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-amd-iommu-force-isolation' title="nix-mineral.settings.kernel.amd-iommu-force-isolation">
-            kernel.amd-iommu-force-isolation
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-bdev-write-mount' title="nix-mineral.settings.kernel.bdev-write-mount">
-            kernel.bdev-write-mount
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-binfmt-misc' title="nix-mineral.settings.kernel.binfmt-misc">
-            kernel.binfmt-misc
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-busmaster-bit' title="nix-mineral.settings.kernel.busmaster-bit">
-            kernel.busmaster-bit
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-core-pid' title="nix-mineral.settings.kernel.core-pid">
-            kernel.core-pid
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-cpu-mitigations' title="nix-mineral.settings.kernel.cpu-mitigations">
-            kernel.cpu-mitigations
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-harden-bpf' title="nix-mineral.settings.kernel.harden-bpf">
-            kernel.harden-bpf
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-intel-iommu' title="nix-mineral.settings.kernel.intel-iommu">
-            kernel.intel-iommu
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-io-uring' title="nix-mineral.settings.kernel.io-uring">
-            kernel.io-uring
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-iommu-passthrough' title="nix-mineral.settings.kernel.iommu-passthrough">
-            kernel.iommu-passthrough
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-kcfi' title="nix-mineral.settings.kernel.kcfi">
-            kernel.kcfi
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-kexec' title="nix-mineral.settings.kernel.kexec">
-            kernel.kexec
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-kfence' title="nix-mineral.settings.kernel.kfence">
-            kernel.kfence
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-lockdown' title="nix-mineral.settings.kernel.lockdown">
-            kernel.lockdown
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-only-signed-modules' title="nix-mineral.settings.kernel.only-signed-modules">
-            kernel.only-signed-modules
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-oops-panic' title="nix-mineral.settings.kernel.oops-panic">
-            kernel.oops-panic
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-page-alloc-shuffle' title="nix-mineral.settings.kernel.page-alloc-shuffle">
-            kernel.page-alloc-shuffle
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-perf-subsystem-restrict-access' title="nix-mineral.settings.kernel.perf-subsystem.restrict-access">
-            kernel.perf-subsystem.restrict-access
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-perf-subsystem-restrict-usage' title="nix-mineral.settings.kernel.perf-subsystem.restrict-usage">
-            kernel.perf-subsystem.restrict-usage
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-pti' title="nix-mineral.settings.kernel.pti">
-            kernel.pti
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-randomize-kstack-offset' title="nix-mineral.settings.kernel.randomize-kstack-offset">
-            kernel.randomize-kstack-offset
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-restrict-bpf' title="nix-mineral.settings.kernel.restrict-bpf">
-            kernel.restrict-bpf
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-restrict-line-disciplines' title="nix-mineral.settings.kernel.restrict-line-disciplines">
-            kernel.restrict-line-disciplines
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-slab-debug' title="nix-mineral.settings.kernel.slab-debug">
-            kernel.slab-debug
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-slab-merging' title="nix-mineral.settings.kernel.slab-merging">
-            kernel.slab-merging
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-strict-iommu' title="nix-mineral.settings.kernel.strict-iommu">
-            kernel.strict-iommu
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-sysrq' title="nix-mineral.settings.kernel.sysrq">
-            kernel.sysrq
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-tiocsti' title="nix-mineral.settings.kernel.tiocsti">
-            kernel.tiocsti
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-unprivileged-userfaultfd' title="nix-mineral.settings.kernel.unprivileged-userfaultfd">
-            kernel.unprivileged-userfaultfd
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-vdso32' title="nix-mineral.settings.kernel.vdso32">
-            kernel.vdso32
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-vsyscall' title="nix-mineral.settings.kernel.vsyscall">
-            kernel.vsyscall
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-kernel-zero-alloc' title="nix-mineral.settings.kernel.zero-alloc">
-            kernel.zero-alloc
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-misc' title="nix-mineral.settings.misc">
-            misc
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-misc-bootloader-editor' title="nix-mineral.settings.misc.bootloader-editor">
-            misc.bootloader-editor
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-misc-dnssec' title="nix-mineral.settings.misc.dnssec">
-            misc.dnssec
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-misc-nix-wheel' title="nix-mineral.settings.misc.nix-wheel">
-            misc.nix-wheel
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network' title="nix-mineral.settings.network">
-            network
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-arp-announce' title="nix-mineral.settings.network.arp.announce">
-            network.arp.announce
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-arp-drop-gratuitous' title="nix-mineral.settings.network.arp.drop-gratuitous">
-            network.arp.drop-gratuitous
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-arp-filter' title="nix-mineral.settings.network.arp.filter">
-            network.arp.filter
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-arp-ignore' title="nix-mineral.settings.network.arp.ignore">
-            network.arp.ignore
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-cast' title="nix-mineral.settings.network.icmp.cast">
-            network.icmp.cast
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-ignore-all' title="nix-mineral.settings.network.icmp.ignore-all">
-            network.icmp.ignore-all
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-ignore-bogus' title="nix-mineral.settings.network.icmp.ignore-bogus">
-            network.icmp.ignore-bogus
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-redirect' title="nix-mineral.settings.network.icmp.redirect">
-            network.icmp.redirect
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-secure-redirect' title="nix-mineral.settings.network.icmp.secure-redirect">
-            network.icmp.secure-redirect
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-ip-forwarding' title="nix-mineral.settings.network.ip-forwarding">
-            network.ip-forwarding
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-ipv6-tempaddr' title="nix-mineral.settings.network.ipv6-tempaddr">
-            network.ipv6-tempaddr
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-log-martians' title="nix-mineral.settings.network.log-martians">
-            network.log-martians
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-max-addresses' title="nix-mineral.settings.network.max-addresses">
-            network.max-addresses
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-neighbor-solicitations' title="nix-mineral.settings.network.neighbor-solicitations">
-            network.neighbor-solicitations
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-random-mac' title="nix-mineral.settings.network.random-mac">
-            network.random-mac
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-rfc1337' title="nix-mineral.settings.network.rfc1337">
-            network.rfc1337
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-router-advertisements' title="nix-mineral.settings.network.router-advertisements">
-            network.router-advertisements
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-router-solicitations' title="nix-mineral.settings.network.router-solicitations">
-            network.router-solicitations
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-rp-filter' title="nix-mineral.settings.network.rp-filter">
-            network.rp-filter
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-shared-media' title="nix-mineral.settings.network.shared-media">
-            network.shared-media
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-source-route' title="nix-mineral.settings.network.source-route">
-            network.source-route
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-syncookies' title="nix-mineral.settings.network.syncookies">
-            network.syncookies
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-tcp-sack' title="nix-mineral.settings.network.tcp-sack">
-            network.tcp-sack
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-tcp-timestamps' title="nix-mineral.settings.network.tcp-timestamps">
-            network.tcp-timestamps
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-pam' title="nix-mineral.settings.pam">
-            pam
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-pam-login-faildelay' title="nix-mineral.settings.pam.login-faildelay">
-            pam.login-faildelay
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-pam-shadow-hashing' title="nix-mineral.settings.pam.shadow-hashing">
-            pam.shadow-hashing
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-pam-su-wheel-only' title="nix-mineral.settings.pam.su-wheel-only">
-            pam.su-wheel-only
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system' title="nix-mineral.settings.system">
-            system
-            
-            
-          </a>
-        </li>
-        
-        <li>
           <a href='#option-nix-mineral-settings-system-file-protection' title="nix-mineral.settings.system.file-protection">
-            system.file-protection
+            file-protection
             
             
           </a>
@@ -1170,7 +244,7 @@
         
         <li>
           <a href='#option-nix-mineral-settings-system-link-protection' title="nix-mineral.settings.system.link-protection">
-            system.link-protection
+            link-protection
             
             
           </a>
@@ -1178,7 +252,7 @@
         
         <li>
           <a href='#option-nix-mineral-settings-system-lower-address-mmap' title="nix-mineral.settings.system.lower-address-mmap">
-            system.lower-address-mmap
+            lower-address-mmap
             
             
           </a>
@@ -1186,7 +260,7 @@
         
         <li>
           <a href='#option-nix-mineral-settings-system-multilib' title="nix-mineral.settings.system.multilib">
-            system.multilib
+            multilib
             
             
           </a>
@@ -1194,7 +268,7 @@
         
         <li>
           <a href='#option-nix-mineral-settings-system-proc-mem-force' title="nix-mineral.settings.system.proc-mem-force">
-            system.proc-mem-force
+            proc-mem-force
             
             
           </a>
@@ -1202,7 +276,1101 @@
         
         <li>
           <a href='#option-nix-mineral-settings-system-yama' title="nix-mineral.settings.system.yama">
-            system.yama
+            yama
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.network">
+        <span>nix-mineral.settings.network</span>
+        <span class="toc-count">25</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network' class="parent-option" title="nix-mineral.settings.network">
+            nix-mineral.settings.network
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-arp-announce' title="nix-mineral.settings.network.arp.announce">
+            arp.announce
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-arp-drop-gratuitous' title="nix-mineral.settings.network.arp.drop-gratuitous">
+            arp.drop-gratuitous
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-arp-filter' title="nix-mineral.settings.network.arp.filter">
+            arp.filter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-arp-ignore' title="nix-mineral.settings.network.arp.ignore">
+            arp.ignore
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-icmp-cast' title="nix-mineral.settings.network.icmp.cast">
+            icmp.cast
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-icmp-ignore-all' title="nix-mineral.settings.network.icmp.ignore-all">
+            icmp.ignore-all
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-icmp-ignore-bogus' title="nix-mineral.settings.network.icmp.ignore-bogus">
+            icmp.ignore-bogus
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-icmp-redirect' title="nix-mineral.settings.network.icmp.redirect">
+            icmp.redirect
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-icmp-secure-redirect' title="nix-mineral.settings.network.icmp.secure-redirect">
+            icmp.secure-redirect
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-ip-forwarding' title="nix-mineral.settings.network.ip-forwarding">
+            ip-forwarding
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-ipv6-tempaddr' title="nix-mineral.settings.network.ipv6-tempaddr">
+            ipv6-tempaddr
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-log-martians' title="nix-mineral.settings.network.log-martians">
+            log-martians
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-max-addresses' title="nix-mineral.settings.network.max-addresses">
+            max-addresses
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-neighbor-solicitations' title="nix-mineral.settings.network.neighbor-solicitations">
+            neighbor-solicitations
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-random-mac' title="nix-mineral.settings.network.random-mac">
+            random-mac
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-rfc1337' title="nix-mineral.settings.network.rfc1337">
+            rfc1337
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-router-advertisements' title="nix-mineral.settings.network.router-advertisements">
+            router-advertisements
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-router-solicitations' title="nix-mineral.settings.network.router-solicitations">
+            router-solicitations
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-rp-filter' title="nix-mineral.settings.network.rp-filter">
+            rp-filter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-shared-media' title="nix-mineral.settings.network.shared-media">
+            shared-media
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-source-route' title="nix-mineral.settings.network.source-route">
+            source-route
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-syncookies' title="nix-mineral.settings.network.syncookies">
+            syncookies
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-tcp-sack' title="nix-mineral.settings.network.tcp-sack">
+            tcp-sack
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-network-tcp-timestamps' title="nix-mineral.settings.network.tcp-timestamps">
+            tcp-timestamps
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.debug">
+        <span>nix-mineral.settings.debug</span>
+        <span class="toc-count">9</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug' class="parent-option" title="nix-mineral.settings.debug">
+            nix-mineral.settings.debug
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-coredump' title="nix-mineral.settings.debug.coredump">
+            coredump
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-debugfs' title="nix-mineral.settings.debug.debugfs">
+            debugfs
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-dmesg-restrict' title="nix-mineral.settings.debug.dmesg-restrict">
+            dmesg-restrict
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-efipstore' title="nix-mineral.settings.debug.efipstore">
+            efipstore
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-kptr-restrict' title="nix-mineral.settings.debug.kptr-restrict">
+            kptr-restrict
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-panic-reboot' title="nix-mineral.settings.debug.panic-reboot">
+            panic-reboot
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-quiet-boot' title="nix-mineral.settings.debug.quiet-boot">
+            quiet-boot
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-debug-restrict-printk' title="nix-mineral.settings.debug.restrict-printk">
+            restrict-printk
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.kernel">
+        <span>nix-mineral.settings.kernel</span>
+        <span class="toc-count">33</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel' class="parent-option" title="nix-mineral.settings.kernel">
+            nix-mineral.settings.kernel
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-amd-iommu-force-isolation' title="nix-mineral.settings.kernel.amd-iommu-force-isolation">
+            amd-iommu-force-isolation
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-bdev-write-mount' title="nix-mineral.settings.kernel.bdev-write-mount">
+            bdev-write-mount
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-binfmt-misc' title="nix-mineral.settings.kernel.binfmt-misc">
+            binfmt-misc
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-busmaster-bit' title="nix-mineral.settings.kernel.busmaster-bit">
+            busmaster-bit
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-core-pid' title="nix-mineral.settings.kernel.core-pid">
+            core-pid
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-cpu-mitigations' title="nix-mineral.settings.kernel.cpu-mitigations">
+            cpu-mitigations
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-harden-bpf' title="nix-mineral.settings.kernel.harden-bpf">
+            harden-bpf
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-intel-iommu' title="nix-mineral.settings.kernel.intel-iommu">
+            intel-iommu
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-io-uring' title="nix-mineral.settings.kernel.io-uring">
+            io-uring
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-iommu-passthrough' title="nix-mineral.settings.kernel.iommu-passthrough">
+            iommu-passthrough
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-kcfi' title="nix-mineral.settings.kernel.kcfi">
+            kcfi
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-kexec' title="nix-mineral.settings.kernel.kexec">
+            kexec
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-kfence' title="nix-mineral.settings.kernel.kfence">
+            kfence
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-lockdown' title="nix-mineral.settings.kernel.lockdown">
+            lockdown
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-only-signed-modules' title="nix-mineral.settings.kernel.only-signed-modules">
+            only-signed-modules
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-oops-panic' title="nix-mineral.settings.kernel.oops-panic">
+            oops-panic
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-page-alloc-shuffle' title="nix-mineral.settings.kernel.page-alloc-shuffle">
+            page-alloc-shuffle
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-perf-subsystem-restrict-access' title="nix-mineral.settings.kernel.perf-subsystem.restrict-access">
+            perf-subsystem.restrict-access
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-perf-subsystem-restrict-usage' title="nix-mineral.settings.kernel.perf-subsystem.restrict-usage">
+            perf-subsystem.restrict-usage
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-pti' title="nix-mineral.settings.kernel.pti">
+            pti
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-randomize-kstack-offset' title="nix-mineral.settings.kernel.randomize-kstack-offset">
+            randomize-kstack-offset
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-restrict-bpf' title="nix-mineral.settings.kernel.restrict-bpf">
+            restrict-bpf
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-restrict-line-disciplines' title="nix-mineral.settings.kernel.restrict-line-disciplines">
+            restrict-line-disciplines
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-slab-debug' title="nix-mineral.settings.kernel.slab-debug">
+            slab-debug
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-slab-merging' title="nix-mineral.settings.kernel.slab-merging">
+            slab-merging
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-strict-iommu' title="nix-mineral.settings.kernel.strict-iommu">
+            strict-iommu
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-sysrq' title="nix-mineral.settings.kernel.sysrq">
+            sysrq
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-tiocsti' title="nix-mineral.settings.kernel.tiocsti">
+            tiocsti
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-unprivileged-userfaultfd' title="nix-mineral.settings.kernel.unprivileged-userfaultfd">
+            unprivileged-userfaultfd
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-vdso32' title="nix-mineral.settings.kernel.vdso32">
+            vdso32
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-vsyscall' title="nix-mineral.settings.kernel.vsyscall">
+            vsyscall
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-kernel-zero-alloc' title="nix-mineral.settings.kernel.zero-alloc">
+            zero-alloc
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.pam">
+        <span>nix-mineral.settings.pam</span>
+        <span class="toc-count">4</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-pam' class="parent-option" title="nix-mineral.settings.pam">
+            nix-mineral.settings.pam
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-settings-pam-login-faildelay' title="nix-mineral.settings.pam.login-faildelay">
+            login-faildelay
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-pam-shadow-hashing' title="nix-mineral.settings.pam.shadow-hashing">
+            shadow-hashing
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-pam-su-wheel-only' title="nix-mineral.settings.pam.su-wheel-only">
+            su-wheel-only
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.etc">
+        <span>nix-mineral.settings.etc</span>
+        <span class="toc-count">7</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-etc' class="parent-option" title="nix-mineral.settings.etc">
+            nix-mineral.settings.etc
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-settings-etc-generic-machine-id' title="nix-mineral.settings.etc.generic-machine-id">
+            generic-machine-id
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-etc-kicksecure-bluetooth' title="nix-mineral.settings.etc.kicksecure-bluetooth">
+            kicksecure-bluetooth
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-etc-kicksecure-gitconfig' title="nix-mineral.settings.etc.kicksecure-gitconfig">
+            kicksecure-gitconfig
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-etc-kicksecure-issue' title="nix-mineral.settings.etc.kicksecure-issue">
+            kicksecure-issue
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-etc-kicksecure-module-blacklist' title="nix-mineral.settings.etc.kicksecure-module-blacklist">
+            kicksecure-module-blacklist
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-etc-no-root-securetty' title="nix-mineral.settings.etc.no-root-securetty">
+            no-root-securetty
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.entropy">
+        <span>nix-mineral.settings.entropy</span>
+        <span class="toc-count">5</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-entropy' class="parent-option" title="nix-mineral.settings.entropy">
+            nix-mineral.settings.entropy
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-settings-entropy-aslr' title="nix-mineral.settings.entropy.aslr">
+            aslr
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-entropy-aslr-max-bits' title="nix-mineral.settings.entropy.aslr-max-bits">
+            aslr-max-bits
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-entropy-hwrng' title="nix-mineral.settings.entropy.hwrng">
+            hwrng
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-entropy-jitterentropy' title="nix-mineral.settings.entropy.jitterentropy">
+            jitterentropy
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.misc">
+        <span>nix-mineral.settings.misc</span>
+        <span class="toc-count">4</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-misc' class="parent-option" title="nix-mineral.settings.misc">
+            nix-mineral.settings.misc
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-settings-misc-bootloader-editor' title="nix-mineral.settings.misc.bootloader-editor">
+            bootloader-editor
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-misc-dnssec' title="nix-mineral.settings.misc.dnssec">
+            dnssec
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-settings-misc-nix-wheel' title="nix-mineral.settings.misc.nix-wheel">
+            nix-wheel
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.extras.network">
+        <span>nix-mineral.extras.network</span>
+        <span class="toc-count">3</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-network' class="parent-option" title="nix-mineral.extras.network">
+            nix-mineral.extras.network
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-extras-network-bluetooth-kmodules' title="nix-mineral.extras.network.bluetooth-kmodules">
+            bluetooth-kmodules
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-network-tcp-window-scaling' title="nix-mineral.extras.network.tcp-window-scaling">
+            tcp-window-scaling
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.extras.tmpfiles">
+        <span>nix-mineral.extras.tmpfiles</span>
+        <span class="toc-count">3</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-tmpfiles' class="parent-option" title="nix-mineral.extras.tmpfiles">
+            nix-mineral.extras.tmpfiles
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-extras-tmpfiles-etc-nixos' title="nix-mineral.extras.tmpfiles.etc-nixos">
+            etc-nixos
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-tmpfiles-home' title="nix-mineral.extras.tmpfiles.home">
+            home
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.extras.kernel">
+        <span>nix-mineral.extras.kernel</span>
+        <span class="toc-count">4</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-kernel' class="parent-option" title="nix-mineral.extras.kernel">
+            nix-mineral.extras.kernel
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-extras-kernel-intelme-kmodules' title="nix-mineral.extras.kernel.intelme-kmodules">
+            intelme-kmodules
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-kernel-load-kernel-modules' title="nix-mineral.extras.kernel.load-kernel-modules">
+            load-kernel-modules
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-kernel-warn-panic' title="nix-mineral.extras.kernel.warn-panic">
+            warn-panic
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.extras.misc">
+        <span>nix-mineral.extras.misc</span>
+        <span class="toc-count">8</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc' class="parent-option" title="nix-mineral.extras.misc">
+            nix-mineral.extras.misc
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc-apparmor' title="nix-mineral.extras.misc.apparmor">
+            apparmor
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc-doas-sudo-wrapper' title="nix-mineral.extras.misc.doas-sudo-wrapper">
+            doas-sudo-wrapper
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc-replace-sudo-with-doas' title="nix-mineral.extras.misc.replace-sudo-with-doas">
+            replace-sudo-with-doas
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc-ssh-hardening' title="nix-mineral.extras.misc.ssh-hardening">
+            ssh-hardening
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc-usbguard-enable' title="nix-mineral.extras.misc.usbguard.enable">
+            usbguard.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc-usbguard-gnome-integration' title="nix-mineral.extras.misc.usbguard.gnome-integration">
+            usbguard.gnome-integration
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-misc-usbguard-whitelist-at-boot' title="nix-mineral.extras.misc.usbguard.whitelist-at-boot">
+            usbguard.whitelist-at-boot
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.extras.system">
+        <span>nix-mineral.extras.system</span>
+        <span class="toc-count">7</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-system' class="parent-option" title="nix-mineral.extras.system">
+            nix-mineral.extras.system
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-extras-system-hardened-malloc' title="nix-mineral.extras.system.hardened-malloc">
+            hardened-malloc
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-system-lock-root' title="nix-mineral.extras.system.lock-root">
+            lock-root
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-system-minimize-swapping' title="nix-mineral.extras.system.minimize-swapping">
+            minimize-swapping
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-system-secure-chrony' title="nix-mineral.extras.system.secure-chrony">
+            secure-chrony
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-system-unprivileged-userns' title="nix-mineral.extras.system.unprivileged-userns">
+            unprivileged-userns
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-system-zram' title="nix-mineral.extras.system.zram">
+            zram
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.extras.entropy">
+        <span>nix-mineral.extras.entropy</span>
+        <span class="toc-count">2</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral-extras-entropy' class="parent-option" title="nix-mineral.extras.entropy">
+            nix-mineral.extras.entropy
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral-extras-entropy-extra-latent-entropy' title="nix-mineral.extras.entropy.extra-latent-entropy">
+            extra-latent-entropy
             
             
           </a>
