@@ -55,7 +55,6 @@
             {
               docs = docs.docs;
               docs-server = docs.server;
-              docs-html = docs.html;
               docs-nix-mineral = docs.nix-mineral-prefix;
             };
         };

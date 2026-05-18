@@ -285,21 +285,6 @@ rec {
       ''
   ) { };
 
-  html =
-    pkgs.runCommand "nix-mineral-docs-html"
-      {
-        nativeBuildInputs = [ docs ];
-      }
-      ''
-        mkdir -p $out/bin
-
-        cp ${pkgs.writeShellScript "nix-mineral-docs-html" ''
-          cp -r ${docs}/share/doc ./nix-mineral-docs
-          chown -R $(whoami) ./nix-mineral-docs
-          chmod -R u+w ./nix-mineral-docs
-        ''} $out/bin/nix-mineral-docs-html
-      '';
-
   nix-mineral-prefix = docs.override {
     urlPrefix = "nix-mineral";
   };
