@@ -21,25 +21,39 @@
   ...
 }:
 
+let
+  # Only enable if `networking.wireless.iwd.enable` exists (avoid failing tests) and is enabled, since iwd uses AF_ALG.
+  iwdEnabled =
+    config ? networking
+    && config.networking ? wireless
+    && config.networking.wireless ? iwd
+    && config.networking.wireless.iwd ? enable
+    && config.networking.wireless.iwd.enable;
+in
 {
   options = {
-    algif-kmodules = l.mkBoolOption ''
-      Algif related kernel modules.
+    algif-kmodules =
+      l.mkBoolOption ''
+        Algif related kernel modules.
 
-      The existence of AF_ALG has been criticized for a long time,
-      and has been the source of multiple vulnerabilities such as [CVE-2026-31431](https://github.com/advisories/GHSA-2274-3hgr-wxv6).
+        The existence of AF_ALG has been criticized for a long time,
+        and has been the source of multiple vulnerabilities such as [CVE-2026-31431](https://github.com/advisories/GHSA-2274-3hgr-wxv6).
 
-      AF_ALG is practically only used in some unspecified rare and bespoke applications,
-      so normally you can disable this without any consequences.
+        AF_ALG is practically only used in some unspecified rare and bespoke applications,
+        so normally you can disable this without any consequences.
 
-      ::: {.note}
-      Read more:
-      - https://lore.kernel.org/all/20260430021042.GA51782@sol/
-      - https://www.chronox.de/libkcapi/html/ch01s02.html
-      - https://lore.kernel.org/all/CAMj1kXGxxRs6Rkhevm9NSY6TaJUsOmF3UqdHUo=NRg9kQKtSBA@mail.gmail.com/
-      - https://news.ycombinator.com/item?id=47956312
-      :::
-    '' config.networking.wireless.iwd.enable;
+        ::: {.note}
+        Read more:
+        - https://lore.kernel.org/all/20260430021042.GA51782@sol/
+        - https://www.chronox.de/libkcapi/html/ch01s02.html
+        - https://lore.kernel.org/all/CAMj1kXGxxRs6Rkhevm9NSY6TaJUsOmF3UqdHUo=NRg9kQKtSBA@mail.gmail.com/
+        - https://news.ycombinator.com/item?id=47956312
+        :::
+      '' iwdEnabled
+      // {
+        # Make it clear in the documentation that this option is enabled if `networking.wireless.iwd.enable` is enabled.
+        defaultText = l.literalExpression "networking.wireless.iwd.enable";
+      };
   };
 
   config = l.mkIf (!cfg) {

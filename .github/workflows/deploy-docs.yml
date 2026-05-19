@@ -45,7 +45,7 @@ jobs:
 
       - name: Build HTML documentation
         run: |
-          nix build .#docs -Lv
+          nix build .#docs-nix-mineral -Lv
 
           # Copy the build manual to the public dir
           # which we will serve

@@ -48,14 +48,14 @@
 
           packages =
             let
-              docs = pkgs.callPackage ./docs/package.nix {
+              docs = import ./docs/package.nix {
                 inherit inputs pkgs;
               };
             in
             {
               docs = docs.docs;
               docs-server = docs.server;
-              docs-html = docs.html;
+              docs-nix-mineral = docs.nix-mineral-prefix;
             };
         };
 
