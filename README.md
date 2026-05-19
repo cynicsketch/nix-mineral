@@ -140,10 +140,6 @@ shown below.
 }
 ```
 
-#### Contributing
-Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the [issues tracker](https://github.com/cynicsketch/nix-mineral/issues) and we can talk a solution!
-Contributing guidelines: [CONTRIBUTING.MD](docs/CONTRIBUTING.md)
-
 ### Credits
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
 
