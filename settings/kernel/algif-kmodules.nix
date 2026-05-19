@@ -39,8 +39,12 @@ in
         The existence of AF_ALG has been criticized for a long time,
         and has been the source of multiple vulnerabilities such as [CVE-2026-31431](https://github.com/advisories/GHSA-2274-3hgr-wxv6).
 
-        AF_ALG is practically only used in some unspecified rare and bespoke applications,
-        so normally you can disable this without any consequences.
+        With the exception of iwd, AF_ALG is practically only used in some unspecified rare 
+        and bespoke applications meant for embedded systems, so normally you can disable this
+        without any consequences.
+
+        By default, this will prevent AF_ALG related kernel modules from loading if iwd
+        is not enabled.
 
         ::: {.note}
         Read more:
