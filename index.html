@@ -73,6 +73,7 @@
 <li><a href="CONTRIBUTING.html">1. Contributing</a></li>
 <li><a href="OMITTED.html">2. Omitted Features</a></li>
 <li><a href="ADDITIONAL-RESOURCES.html">3. Additional Resources</a></li>
+<li><a href="SCOPE.html">4. Scope</a></li>
 <li><a href="search.html">Search</a></li>
 
               </ul>
@@ -105,16 +106,9 @@ Rather than be named after a mineral, it's named after the word "mineral".</p>
 <p><code>nix-mineral</code> is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!</p>
 <h2 id="documentation-and-scope">Documentation and scope</h2>
 <p>All documentation and options can be viewed at <a href="https://cynicsketch.github.io/nix-mineral/">https://cynicsketch.github.io/nix-mineral/</a>.</p>
-<p>By default, <code>nix-mineral</code> reduces attack surface by securely configuring existing software.</p>
-<p>It is intended to be used for defense-in-depth purposes only. It is not, and will not ever be intended as a substitute to the implementation of core security practices such as good OPSEC (operations security), sandboxing, zero trust, or any other primary guiding principle or framework.</p>
-<p>For development simplicity, target systems are assumed to be running <code>nixos-unstable.</code> Incompatibility may occur with renamed options,
-which should be manually overridden if necessary.</p>
-<p><code>nix-mineral</code> aims to serve as a drop-in addition to any NixOS system.</p>
-<p>Because of this, complete overhauls of system UX or architecture is infeasible compared to dedicated security focused operating systems with complete executive control over design.</p>
-<p><code>nix-mineral</code>'s threat model assumes non-state adversaries, and anonymity is
-not considered.</p>
 <p>For more information on, refer to the documents below.</p>
 <p>Contributing guidelines: <a href="nix-mineral/CONTRIBUTING">CONTRIBUTING</a> <br>
+Scope: <a href="nix-mineral/SCOPE">SCOPE</a> <br>
 Additional resources: <a href="nix-mineral/ADDITIONAL-RESOURCES">ADDITIONAL-RESOURCES</a> <br>
 Omitted features: <a href="nix-mineral/OMITTED">OMITTED</a></p>
 <h2 id="features">Features</h2>
@@ -150,9 +144,6 @@ of this repository.</p>
 scaling while enabling multilib support and IP forwarding functionality is
 shown below.</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">preset</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">compatibility</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">settings</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;kernel&nbsp;=&nbsp;{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only-signed-modules&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockdown&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;};</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">system</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">multilib</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">network</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">ip-forwarding</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">settings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">network</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">tcp-window-scaling</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
-<h4 id="contributing">Contributing</h4>
-<p>Have any ideas for the project? Want to help improve it by writing code or documentation? Head to the <a href="https://github.com/cynicsketch/nix-mineral/issues">issues tracker</a> and we can talk a solution!
-Contributing guidelines: <a href="nix-mineral/CONTRIBUTING">CONTRIBUTING.MD</a></p>
 <h3 id="credits">Credits</h3>
 <p>Special thanks to all our <a href="https://github.com/cynicsketch/nix-mineral/graphs/contributors">wonderful contributors</a> who have helped make this project possible, as well many other projects, named and unnamed, which <code>nix-mineral</code> has borrowed insight and configuration from:</p>
 <p>Original basis for hardening, of which many of the below have themselves derived from: <br>
