@@ -7,7 +7,7 @@ ever be intended as a substitute to the implementation of core security practice
 as good OPSEC (operations security), sandboxing, zero trust, or any other primary guiding
 principle or framework.
 
-For development simplicity, target systems are assumed to be running `nixos-unstable.`
+For development simplicity, target systems are assumed to be running `nixos-unstable`.
 Incompatibility may occur with renamed options, which should be manually overridden if necessary.
 
 `nix-mineral` aims to serve as a drop-in addition to any NixOS system.
