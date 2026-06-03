@@ -239,7 +239,7 @@ rec {
     # default configuration from: https://github.com/feel-co/ndg/blob/a6bd3c1ce2668d096e4fdaaa03ad7f03ba1fbca8/ndg/README.md?plain=1#L309
     runCommand "nix-mineral-docs"
       {
-        nativeBuildInputs = [ inputs.ndg.packages.${pkgs.hostPlatform.system}.ndg ];
+        nativeBuildInputs = [ pkgs.ndg ];
       }
       ''
         mkdir -p $out/share/doc
