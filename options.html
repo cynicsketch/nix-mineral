@@ -4,14 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nix-mineral - Options</title>
-    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" />
+    <meta name="author" content="cynicsketch" />
     <meta name="description" content="nix-mineral automatic option documentation" />
-    <meta name="author" content="cynicsketch" /> 
+    <meta name="keywords" content="documentation,nix,tutorial,nix-mineral" /> 
+    
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
-        if (localStorage.getItem("sidebar-collapsed") === "true") {
-          document.documentElement.classList.add("sidebar-collapsed");
+        try {
+          if (localStorage.getItem("sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {
+          // localStorage unavailable
         }
       })();
     </script>
@@ -81,7 +86,7 @@
   
   
   <li>
-    <a href='#option-nix-mineral-enable' title="nix-mineral.enable">
+    <a href='#option-nix-mineral.enable' title="nix-mineral.enable">
       nix-mineral.enable
       
       
@@ -89,7 +94,7 @@
   </li>
   
   <li>
-    <a href='#option-nix-mineral-preset' title="nix-mineral.preset">
+    <a href='#option-nix-mineral.preset' title="nix-mineral.preset">
       nix-mineral.preset
       
       
@@ -97,7 +102,7 @@
   </li>
   
   <li>
-    <a href='#option-nix-mineral-settings' title="nix-mineral.settings">
+    <a href='#option-nix-mineral.settings' title="nix-mineral.settings">
       nix-mineral.settings
       
       
@@ -105,7 +110,7 @@
   </li>
   
   <li>
-    <a href='#option-nix-mineral-extras' title="nix-mineral.extras">
+    <a href='#option-nix-mineral.extras' title="nix-mineral.extras">
       nix-mineral.extras
       
       
@@ -124,7 +129,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-filesystems' class="parent-option" title="nix-mineral.filesystems">
+          <a href='#option-nix-mineral.filesystems' class="parent-option" title="nix-mineral.filesystems">
             nix-mineral.filesystems
             
             
@@ -134,7 +139,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-filesystems-enable' title="nix-mineral.filesystems.enable">
+          <a href='#option-nix-mineral.filesystems.enable' title="nix-mineral.filesystems.enable">
             enable
             
             
@@ -142,7 +147,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-normal' title="nix-mineral.filesystems.normal">
+          <a href='#option-nix-mineral.filesystems.normal' title="nix-mineral.filesystems.normal">
             normal
             
             
@@ -150,7 +155,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-normal-&lt;name&gt;-device' title="nix-mineral.filesystems.normal.&lt;name&gt;.device">
+          <a href='#option-nix-mineral.filesystems.normal._name_.device' title="nix-mineral.filesystems.normal.&lt;name&gt;.device">
             normal.&lt;name&gt;.device
             
             
@@ -158,7 +163,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-normal-&lt;name&gt;-enable' title="nix-mineral.filesystems.normal.&lt;name&gt;.enable">
+          <a href='#option-nix-mineral.filesystems.normal._name_.enable' title="nix-mineral.filesystems.normal.&lt;name&gt;.enable">
             normal.&lt;name&gt;.enable
             
             
@@ -166,7 +171,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-normal-&lt;name&gt;-fsType' title="nix-mineral.filesystems.normal.&lt;name&gt;.fsType">
+          <a href='#option-nix-mineral.filesystems.normal._name_.fsType' title="nix-mineral.filesystems.normal.&lt;name&gt;.fsType">
             normal.&lt;name&gt;.fsType
             
             
@@ -174,7 +179,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-normal-&lt;name&gt;-options' title="nix-mineral.filesystems.normal.&lt;name&gt;.options">
+          <a href='#option-nix-mineral.filesystems.normal._name_.options' title="nix-mineral.filesystems.normal.&lt;name&gt;.options">
             normal.&lt;name&gt;.options
             
             
@@ -182,7 +187,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-special' title="nix-mineral.filesystems.special">
+          <a href='#option-nix-mineral.filesystems.special' title="nix-mineral.filesystems.special">
             special
             
             
@@ -190,7 +195,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-special-&lt;name&gt;-device' title="nix-mineral.filesystems.special.&lt;name&gt;.device">
+          <a href='#option-nix-mineral.filesystems.special._name_.device' title="nix-mineral.filesystems.special.&lt;name&gt;.device">
             special.&lt;name&gt;.device
             
             
@@ -198,7 +203,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-special-&lt;name&gt;-enable' title="nix-mineral.filesystems.special.&lt;name&gt;.enable">
+          <a href='#option-nix-mineral.filesystems.special._name_.enable' title="nix-mineral.filesystems.special.&lt;name&gt;.enable">
             special.&lt;name&gt;.enable
             
             
@@ -206,8 +211,222 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-filesystems-special-&lt;name&gt;-options' title="nix-mineral.filesystems.special.&lt;name&gt;.options">
+          <a href='#option-nix-mineral.filesystems.special._name_.options' title="nix-mineral.filesystems.special.&lt;name&gt;.options">
             special.&lt;name&gt;.options
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.network">
+        <span>nix-mineral.settings.network</span>
+        <span class="toc-count">25</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network' class="parent-option" title="nix-mineral.settings.network">
+            nix-mineral.settings.network
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.arp.announce' title="nix-mineral.settings.network.arp.announce">
+            arp.announce
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.arp.drop-gratuitous' title="nix-mineral.settings.network.arp.drop-gratuitous">
+            arp.drop-gratuitous
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.arp.filter' title="nix-mineral.settings.network.arp.filter">
+            arp.filter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.arp.ignore' title="nix-mineral.settings.network.arp.ignore">
+            arp.ignore
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.icmp.cast' title="nix-mineral.settings.network.icmp.cast">
+            icmp.cast
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.icmp.ignore-all' title="nix-mineral.settings.network.icmp.ignore-all">
+            icmp.ignore-all
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.icmp.ignore-bogus' title="nix-mineral.settings.network.icmp.ignore-bogus">
+            icmp.ignore-bogus
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.icmp.redirect' title="nix-mineral.settings.network.icmp.redirect">
+            icmp.redirect
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.icmp.secure-redirect' title="nix-mineral.settings.network.icmp.secure-redirect">
+            icmp.secure-redirect
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.ip-forwarding' title="nix-mineral.settings.network.ip-forwarding">
+            ip-forwarding
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.ipv6-tempaddr' title="nix-mineral.settings.network.ipv6-tempaddr">
+            ipv6-tempaddr
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.log-martians' title="nix-mineral.settings.network.log-martians">
+            log-martians
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.max-addresses' title="nix-mineral.settings.network.max-addresses">
+            max-addresses
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.neighbor-solicitations' title="nix-mineral.settings.network.neighbor-solicitations">
+            neighbor-solicitations
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.random-mac' title="nix-mineral.settings.network.random-mac">
+            random-mac
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.rfc1337' title="nix-mineral.settings.network.rfc1337">
+            rfc1337
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.router-advertisements' title="nix-mineral.settings.network.router-advertisements">
+            router-advertisements
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.router-solicitations' title="nix-mineral.settings.network.router-solicitations">
+            router-solicitations
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.rp-filter' title="nix-mineral.settings.network.rp-filter">
+            rp-filter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.shared-media' title="nix-mineral.settings.network.shared-media">
+            shared-media
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.source-route' title="nix-mineral.settings.network.source-route">
+            source-route
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.syncookies' title="nix-mineral.settings.network.syncookies">
+            syncookies
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.tcp-sack' title="nix-mineral.settings.network.tcp-sack">
+            tcp-sack
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.network.tcp-timestamps' title="nix-mineral.settings.network.tcp-timestamps">
+            tcp-timestamps
             
             
           </a>
@@ -226,7 +445,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-settings-misc' class="parent-option" title="nix-mineral.settings.misc">
+          <a href='#option-nix-mineral.settings.misc' class="parent-option" title="nix-mineral.settings.misc">
             nix-mineral.settings.misc
             
             
@@ -236,7 +455,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-settings-misc-bootloader-editor' title="nix-mineral.settings.misc.bootloader-editor">
+          <a href='#option-nix-mineral.settings.misc.bootloader-editor' title="nix-mineral.settings.misc.bootloader-editor">
             bootloader-editor
             
             
@@ -244,7 +463,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-misc-dnssec' title="nix-mineral.settings.misc.dnssec">
+          <a href='#option-nix-mineral.settings.misc.dnssec' title="nix-mineral.settings.misc.dnssec">
             dnssec
             
             
@@ -252,164 +471,8 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-misc-nix-wheel' title="nix-mineral.settings.misc.nix-wheel">
+          <a href='#option-nix-mineral.settings.misc.nix-wheel' title="nix-mineral.settings.misc.nix-wheel">
             nix-wheel
-            
-            
-          </a>
-        </li>
-        
-      </ul>
-    </details>
-  </li>
-  
-  <li>
-    <details class="toc-category">
-      <summary title="nix-mineral.settings.system">
-        <span>nix-mineral.settings.system</span>
-        <span class="toc-count">7</span>
-      </summary>
-      <ul>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system' class="parent-option" title="nix-mineral.settings.system">
-            nix-mineral.settings.system
-            
-            
-          </a>
-        </li>
-        
-
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system-file-protection' title="nix-mineral.settings.system.file-protection">
-            file-protection
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system-link-protection' title="nix-mineral.settings.system.link-protection">
-            link-protection
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system-lower-address-mmap' title="nix-mineral.settings.system.lower-address-mmap">
-            lower-address-mmap
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system-multilib' title="nix-mineral.settings.system.multilib">
-            multilib
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system-proc-mem-force' title="nix-mineral.settings.system.proc-mem-force">
-            proc-mem-force
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-system-yama' title="nix-mineral.settings.system.yama">
-            yama
-            
-            
-          </a>
-        </li>
-        
-      </ul>
-    </details>
-  </li>
-  
-  <li>
-    <details class="toc-category">
-      <summary title="nix-mineral.settings.debug">
-        <span>nix-mineral.settings.debug</span>
-        <span class="toc-count">9</span>
-      </summary>
-      <ul>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug' class="parent-option" title="nix-mineral.settings.debug">
-            nix-mineral.settings.debug
-            
-            
-          </a>
-        </li>
-        
-
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-coredump' title="nix-mineral.settings.debug.coredump">
-            coredump
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-debugfs' title="nix-mineral.settings.debug.debugfs">
-            debugfs
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-dmesg-restrict' title="nix-mineral.settings.debug.dmesg-restrict">
-            dmesg-restrict
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-efipstore' title="nix-mineral.settings.debug.efipstore">
-            efipstore
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-kptr-restrict' title="nix-mineral.settings.debug.kptr-restrict">
-            kptr-restrict
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-panic-reboot' title="nix-mineral.settings.debug.panic-reboot">
-            panic-reboot
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-quiet-boot' title="nix-mineral.settings.debug.quiet-boot">
-            quiet-boot
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-debug-restrict-printk' title="nix-mineral.settings.debug.restrict-printk">
-            restrict-printk
             
             
           </a>
@@ -428,7 +491,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-settings-entropy' class="parent-option" title="nix-mineral.settings.entropy">
+          <a href='#option-nix-mineral.settings.entropy' class="parent-option" title="nix-mineral.settings.entropy">
             nix-mineral.settings.entropy
             
             
@@ -438,7 +501,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-settings-entropy-aslr' title="nix-mineral.settings.entropy.aslr">
+          <a href='#option-nix-mineral.settings.entropy.aslr' title="nix-mineral.settings.entropy.aslr">
             aslr
             
             
@@ -446,7 +509,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-entropy-aslr-max-bits' title="nix-mineral.settings.entropy.aslr-max-bits">
+          <a href='#option-nix-mineral.settings.entropy.aslr-max-bits' title="nix-mineral.settings.entropy.aslr-max-bits">
             aslr-max-bits
             
             
@@ -454,7 +517,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-entropy-hwrng' title="nix-mineral.settings.entropy.hwrng">
+          <a href='#option-nix-mineral.settings.entropy.hwrng' title="nix-mineral.settings.entropy.hwrng">
             hwrng
             
             
@@ -462,7 +525,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-entropy-jitterentropy' title="nix-mineral.settings.entropy.jitterentropy">
+          <a href='#option-nix-mineral.settings.entropy.jitterentropy' title="nix-mineral.settings.entropy.jitterentropy">
             jitterentropy
             
             
@@ -482,7 +545,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel' class="parent-option" title="nix-mineral.settings.kernel">
+          <a href='#option-nix-mineral.settings.kernel' class="parent-option" title="nix-mineral.settings.kernel">
             nix-mineral.settings.kernel
             
             
@@ -492,7 +555,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-algif-kmodules' title="nix-mineral.settings.kernel.algif-kmodules">
+          <a href='#option-nix-mineral.settings.kernel.algif-kmodules' title="nix-mineral.settings.kernel.algif-kmodules">
             algif-kmodules
             
             
@@ -500,7 +563,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-amd-iommu-force-isolation' title="nix-mineral.settings.kernel.amd-iommu-force-isolation">
+          <a href='#option-nix-mineral.settings.kernel.amd-iommu-force-isolation' title="nix-mineral.settings.kernel.amd-iommu-force-isolation">
             amd-iommu-force-isolation
             
             
@@ -508,7 +571,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-bdev-write-mount' title="nix-mineral.settings.kernel.bdev-write-mount">
+          <a href='#option-nix-mineral.settings.kernel.bdev-write-mount' title="nix-mineral.settings.kernel.bdev-write-mount">
             bdev-write-mount
             
             
@@ -516,7 +579,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-binfmt-misc' title="nix-mineral.settings.kernel.binfmt-misc">
+          <a href='#option-nix-mineral.settings.kernel.binfmt-misc' title="nix-mineral.settings.kernel.binfmt-misc">
             binfmt-misc
             
             
@@ -524,7 +587,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-busmaster-bit' title="nix-mineral.settings.kernel.busmaster-bit">
+          <a href='#option-nix-mineral.settings.kernel.busmaster-bit' title="nix-mineral.settings.kernel.busmaster-bit">
             busmaster-bit
             
             
@@ -532,7 +595,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-core-pid' title="nix-mineral.settings.kernel.core-pid">
+          <a href='#option-nix-mineral.settings.kernel.core-pid' title="nix-mineral.settings.kernel.core-pid">
             core-pid
             
             
@@ -540,7 +603,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-cpu-mitigations' title="nix-mineral.settings.kernel.cpu-mitigations">
+          <a href='#option-nix-mineral.settings.kernel.cpu-mitigations' title="nix-mineral.settings.kernel.cpu-mitigations">
             cpu-mitigations
             
             
@@ -548,7 +611,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-harden-bpf' title="nix-mineral.settings.kernel.harden-bpf">
+          <a href='#option-nix-mineral.settings.kernel.harden-bpf' title="nix-mineral.settings.kernel.harden-bpf">
             harden-bpf
             
             
@@ -556,7 +619,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-intel-iommu' title="nix-mineral.settings.kernel.intel-iommu">
+          <a href='#option-nix-mineral.settings.kernel.intel-iommu' title="nix-mineral.settings.kernel.intel-iommu">
             intel-iommu
             
             
@@ -564,7 +627,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-io-uring' title="nix-mineral.settings.kernel.io-uring">
+          <a href='#option-nix-mineral.settings.kernel.io-uring' title="nix-mineral.settings.kernel.io-uring">
             io-uring
             
             
@@ -572,7 +635,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-iommu-passthrough' title="nix-mineral.settings.kernel.iommu-passthrough">
+          <a href='#option-nix-mineral.settings.kernel.iommu-passthrough' title="nix-mineral.settings.kernel.iommu-passthrough">
             iommu-passthrough
             
             
@@ -580,7 +643,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-kcfi' title="nix-mineral.settings.kernel.kcfi">
+          <a href='#option-nix-mineral.settings.kernel.kcfi' title="nix-mineral.settings.kernel.kcfi">
             kcfi
             
             
@@ -588,7 +651,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-kexec' title="nix-mineral.settings.kernel.kexec">
+          <a href='#option-nix-mineral.settings.kernel.kexec' title="nix-mineral.settings.kernel.kexec">
             kexec
             
             
@@ -596,7 +659,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-kfence' title="nix-mineral.settings.kernel.kfence">
+          <a href='#option-nix-mineral.settings.kernel.kfence' title="nix-mineral.settings.kernel.kfence">
             kfence
             
             
@@ -604,7 +667,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-lockdown' title="nix-mineral.settings.kernel.lockdown">
+          <a href='#option-nix-mineral.settings.kernel.lockdown' title="nix-mineral.settings.kernel.lockdown">
             lockdown
             
             
@@ -612,7 +675,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-only-signed-modules' title="nix-mineral.settings.kernel.only-signed-modules">
+          <a href='#option-nix-mineral.settings.kernel.only-signed-modules' title="nix-mineral.settings.kernel.only-signed-modules">
             only-signed-modules
             
             
@@ -620,7 +683,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-oops-panic' title="nix-mineral.settings.kernel.oops-panic">
+          <a href='#option-nix-mineral.settings.kernel.oops-panic' title="nix-mineral.settings.kernel.oops-panic">
             oops-panic
             
             
@@ -628,7 +691,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-page-alloc-shuffle' title="nix-mineral.settings.kernel.page-alloc-shuffle">
+          <a href='#option-nix-mineral.settings.kernel.page-alloc-shuffle' title="nix-mineral.settings.kernel.page-alloc-shuffle">
             page-alloc-shuffle
             
             
@@ -636,7 +699,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-perf-subsystem-restrict-access' title="nix-mineral.settings.kernel.perf-subsystem.restrict-access">
+          <a href='#option-nix-mineral.settings.kernel.perf-subsystem.restrict-access' title="nix-mineral.settings.kernel.perf-subsystem.restrict-access">
             perf-subsystem.restrict-access
             
             
@@ -644,7 +707,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-perf-subsystem-restrict-usage' title="nix-mineral.settings.kernel.perf-subsystem.restrict-usage">
+          <a href='#option-nix-mineral.settings.kernel.perf-subsystem.restrict-usage' title="nix-mineral.settings.kernel.perf-subsystem.restrict-usage">
             perf-subsystem.restrict-usage
             
             
@@ -652,7 +715,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-pti' title="nix-mineral.settings.kernel.pti">
+          <a href='#option-nix-mineral.settings.kernel.pti' title="nix-mineral.settings.kernel.pti">
             pti
             
             
@@ -660,7 +723,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-randomize-kstack-offset' title="nix-mineral.settings.kernel.randomize-kstack-offset">
+          <a href='#option-nix-mineral.settings.kernel.randomize-kstack-offset' title="nix-mineral.settings.kernel.randomize-kstack-offset">
             randomize-kstack-offset
             
             
@@ -668,7 +731,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-restrict-bpf' title="nix-mineral.settings.kernel.restrict-bpf">
+          <a href='#option-nix-mineral.settings.kernel.restrict-bpf' title="nix-mineral.settings.kernel.restrict-bpf">
             restrict-bpf
             
             
@@ -676,7 +739,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-restrict-line-disciplines' title="nix-mineral.settings.kernel.restrict-line-disciplines">
+          <a href='#option-nix-mineral.settings.kernel.restrict-line-disciplines' title="nix-mineral.settings.kernel.restrict-line-disciplines">
             restrict-line-disciplines
             
             
@@ -684,7 +747,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-slab-debug' title="nix-mineral.settings.kernel.slab-debug">
+          <a href='#option-nix-mineral.settings.kernel.slab-debug' title="nix-mineral.settings.kernel.slab-debug">
             slab-debug
             
             
@@ -692,7 +755,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-slab-merging' title="nix-mineral.settings.kernel.slab-merging">
+          <a href='#option-nix-mineral.settings.kernel.slab-merging' title="nix-mineral.settings.kernel.slab-merging">
             slab-merging
             
             
@@ -700,7 +763,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-strict-iommu' title="nix-mineral.settings.kernel.strict-iommu">
+          <a href='#option-nix-mineral.settings.kernel.strict-iommu' title="nix-mineral.settings.kernel.strict-iommu">
             strict-iommu
             
             
@@ -708,7 +771,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-sysrq' title="nix-mineral.settings.kernel.sysrq">
+          <a href='#option-nix-mineral.settings.kernel.sysrq' title="nix-mineral.settings.kernel.sysrq">
             sysrq
             
             
@@ -716,7 +779,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-tiocsti' title="nix-mineral.settings.kernel.tiocsti">
+          <a href='#option-nix-mineral.settings.kernel.tiocsti' title="nix-mineral.settings.kernel.tiocsti">
             tiocsti
             
             
@@ -724,7 +787,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-unprivileged-userfaultfd' title="nix-mineral.settings.kernel.unprivileged-userfaultfd">
+          <a href='#option-nix-mineral.settings.kernel.unprivileged-userfaultfd' title="nix-mineral.settings.kernel.unprivileged-userfaultfd">
             unprivileged-userfaultfd
             
             
@@ -732,7 +795,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-vdso32' title="nix-mineral.settings.kernel.vdso32">
+          <a href='#option-nix-mineral.settings.kernel.vdso32' title="nix-mineral.settings.kernel.vdso32">
             vdso32
             
             
@@ -740,7 +803,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-vsyscall' title="nix-mineral.settings.kernel.vsyscall">
+          <a href='#option-nix-mineral.settings.kernel.vsyscall' title="nix-mineral.settings.kernel.vsyscall">
             vsyscall
             
             
@@ -748,7 +811,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-kernel-zero-alloc' title="nix-mineral.settings.kernel.zero-alloc">
+          <a href='#option-nix-mineral.settings.kernel.zero-alloc' title="nix-mineral.settings.kernel.zero-alloc">
             zero-alloc
             
             
@@ -768,7 +831,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-settings-pam' class="parent-option" title="nix-mineral.settings.pam">
+          <a href='#option-nix-mineral.settings.pam' class="parent-option" title="nix-mineral.settings.pam">
             nix-mineral.settings.pam
             
             
@@ -778,7 +841,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-settings-pam-login-faildelay' title="nix-mineral.settings.pam.login-faildelay">
+          <a href='#option-nix-mineral.settings.pam.login-faildelay' title="nix-mineral.settings.pam.login-faildelay">
             login-faildelay
             
             
@@ -786,7 +849,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-pam-shadow-hashing' title="nix-mineral.settings.pam.shadow-hashing">
+          <a href='#option-nix-mineral.settings.pam.shadow-hashing' title="nix-mineral.settings.pam.shadow-hashing">
             shadow-hashing
             
             
@@ -794,8 +857,164 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-pam-su-wheel-only' title="nix-mineral.settings.pam.su-wheel-only">
+          <a href='#option-nix-mineral.settings.pam.su-wheel-only' title="nix-mineral.settings.pam.su-wheel-only">
             su-wheel-only
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.debug">
+        <span>nix-mineral.settings.debug</span>
+        <span class="toc-count">9</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug' class="parent-option" title="nix-mineral.settings.debug">
+            nix-mineral.settings.debug
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.coredump' title="nix-mineral.settings.debug.coredump">
+            coredump
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.debugfs' title="nix-mineral.settings.debug.debugfs">
+            debugfs
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.dmesg-restrict' title="nix-mineral.settings.debug.dmesg-restrict">
+            dmesg-restrict
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.efipstore' title="nix-mineral.settings.debug.efipstore">
+            efipstore
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.kptr-restrict' title="nix-mineral.settings.debug.kptr-restrict">
+            kptr-restrict
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.panic-reboot' title="nix-mineral.settings.debug.panic-reboot">
+            panic-reboot
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.quiet-boot' title="nix-mineral.settings.debug.quiet-boot">
+            quiet-boot
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.debug.restrict-printk' title="nix-mineral.settings.debug.restrict-printk">
+            restrict-printk
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.settings.system">
+        <span>nix-mineral.settings.system</span>
+        <span class="toc-count">7</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.system' class="parent-option" title="nix-mineral.settings.system">
+            nix-mineral.settings.system
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral.settings.system.file-protection' title="nix-mineral.settings.system.file-protection">
+            file-protection
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.system.link-protection' title="nix-mineral.settings.system.link-protection">
+            link-protection
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.system.lower-address-mmap' title="nix-mineral.settings.system.lower-address-mmap">
+            lower-address-mmap
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.system.multilib' title="nix-mineral.settings.system.multilib">
+            multilib
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.system.proc-mem-force' title="nix-mineral.settings.system.proc-mem-force">
+            proc-mem-force
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.settings.system.yama' title="nix-mineral.settings.system.yama">
+            yama
             
             
           </a>
@@ -814,7 +1033,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-settings-etc' class="parent-option" title="nix-mineral.settings.etc">
+          <a href='#option-nix-mineral.settings.etc' class="parent-option" title="nix-mineral.settings.etc">
             nix-mineral.settings.etc
             
             
@@ -824,7 +1043,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-settings-etc-generic-machine-id' title="nix-mineral.settings.etc.generic-machine-id">
+          <a href='#option-nix-mineral.settings.etc.generic-machine-id' title="nix-mineral.settings.etc.generic-machine-id">
             generic-machine-id
             
             
@@ -832,7 +1051,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-bluetooth' title="nix-mineral.settings.etc.kicksecure-bluetooth">
+          <a href='#option-nix-mineral.settings.etc.kicksecure-bluetooth' title="nix-mineral.settings.etc.kicksecure-bluetooth">
             kicksecure-bluetooth
             
             
@@ -840,7 +1059,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-gitconfig' title="nix-mineral.settings.etc.kicksecure-gitconfig">
+          <a href='#option-nix-mineral.settings.etc.kicksecure-gitconfig' title="nix-mineral.settings.etc.kicksecure-gitconfig">
             kicksecure-gitconfig
             
             
@@ -848,7 +1067,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-issue' title="nix-mineral.settings.etc.kicksecure-issue">
+          <a href='#option-nix-mineral.settings.etc.kicksecure-issue' title="nix-mineral.settings.etc.kicksecure-issue">
             kicksecure-issue
             
             
@@ -856,7 +1075,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-etc-kicksecure-module-blacklist' title="nix-mineral.settings.etc.kicksecure-module-blacklist">
+          <a href='#option-nix-mineral.settings.etc.kicksecure-module-blacklist' title="nix-mineral.settings.etc.kicksecure-module-blacklist">
             kicksecure-module-blacklist
             
             
@@ -864,7 +1083,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-etc-no-root-securetty' title="nix-mineral.settings.etc.no-root-securetty">
+          <a href='#option-nix-mineral.settings.etc.no-root-securetty' title="nix-mineral.settings.etc.no-root-securetty">
             no-root-securetty
             
             
@@ -877,15 +1096,15 @@
   
   <li>
     <details class="toc-category">
-      <summary title="nix-mineral.settings.network">
-        <span>nix-mineral.settings.network</span>
-        <span class="toc-count">25</span>
+      <summary title="nix-mineral.extras.tmpfiles">
+        <span>nix-mineral.extras.tmpfiles</span>
+        <span class="toc-count">3</span>
       </summary>
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-settings-network' class="parent-option" title="nix-mineral.settings.network">
-            nix-mineral.settings.network
+          <a href='#option-nix-mineral.extras.tmpfiles' class="parent-option" title="nix-mineral.extras.tmpfiles">
+            nix-mineral.extras.tmpfiles
             
             
           </a>
@@ -894,192 +1113,16 @@
 
         
         <li>
-          <a href='#option-nix-mineral-settings-network-arp-announce' title="nix-mineral.settings.network.arp.announce">
-            arp.announce
+          <a href='#option-nix-mineral.extras.tmpfiles.etc-nixos' title="nix-mineral.extras.tmpfiles.etc-nixos">
+            etc-nixos
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-nix-mineral-settings-network-arp-drop-gratuitous' title="nix-mineral.settings.network.arp.drop-gratuitous">
-            arp.drop-gratuitous
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-arp-filter' title="nix-mineral.settings.network.arp.filter">
-            arp.filter
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-arp-ignore' title="nix-mineral.settings.network.arp.ignore">
-            arp.ignore
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-cast' title="nix-mineral.settings.network.icmp.cast">
-            icmp.cast
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-ignore-all' title="nix-mineral.settings.network.icmp.ignore-all">
-            icmp.ignore-all
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-ignore-bogus' title="nix-mineral.settings.network.icmp.ignore-bogus">
-            icmp.ignore-bogus
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-redirect' title="nix-mineral.settings.network.icmp.redirect">
-            icmp.redirect
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-icmp-secure-redirect' title="nix-mineral.settings.network.icmp.secure-redirect">
-            icmp.secure-redirect
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-ip-forwarding' title="nix-mineral.settings.network.ip-forwarding">
-            ip-forwarding
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-ipv6-tempaddr' title="nix-mineral.settings.network.ipv6-tempaddr">
-            ipv6-tempaddr
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-log-martians' title="nix-mineral.settings.network.log-martians">
-            log-martians
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-max-addresses' title="nix-mineral.settings.network.max-addresses">
-            max-addresses
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-neighbor-solicitations' title="nix-mineral.settings.network.neighbor-solicitations">
-            neighbor-solicitations
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-random-mac' title="nix-mineral.settings.network.random-mac">
-            random-mac
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-rfc1337' title="nix-mineral.settings.network.rfc1337">
-            rfc1337
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-router-advertisements' title="nix-mineral.settings.network.router-advertisements">
-            router-advertisements
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-router-solicitations' title="nix-mineral.settings.network.router-solicitations">
-            router-solicitations
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-rp-filter' title="nix-mineral.settings.network.rp-filter">
-            rp-filter
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-shared-media' title="nix-mineral.settings.network.shared-media">
-            shared-media
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-source-route' title="nix-mineral.settings.network.source-route">
-            source-route
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-syncookies' title="nix-mineral.settings.network.syncookies">
-            syncookies
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-tcp-sack' title="nix-mineral.settings.network.tcp-sack">
-            tcp-sack
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-settings-network-tcp-timestamps' title="nix-mineral.settings.network.tcp-timestamps">
-            tcp-timestamps
+          <a href='#option-nix-mineral.extras.tmpfiles.home' title="nix-mineral.extras.tmpfiles.home">
+            home
             
             
           </a>
@@ -1091,15 +1134,15 @@
   
   <li>
     <details class="toc-category">
-      <summary title="nix-mineral.extras.kernel">
-        <span>nix-mineral.extras.kernel</span>
-        <span class="toc-count">4</span>
+      <summary title="nix-mineral.extras.system">
+        <span>nix-mineral.extras.system</span>
+        <span class="toc-count">7</span>
       </summary>
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-extras-kernel' class="parent-option" title="nix-mineral.extras.kernel">
-            nix-mineral.extras.kernel
+          <a href='#option-nix-mineral.extras.system' class="parent-option" title="nix-mineral.extras.system">
+            nix-mineral.extras.system
             
             
           </a>
@@ -1108,24 +1151,48 @@
 
         
         <li>
-          <a href='#option-nix-mineral-extras-kernel-intelme-kmodules' title="nix-mineral.extras.kernel.intelme-kmodules">
-            intelme-kmodules
+          <a href='#option-nix-mineral.extras.system.hardened-malloc' title="nix-mineral.extras.system.hardened-malloc">
+            hardened-malloc
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-kernel-load-kernel-modules' title="nix-mineral.extras.kernel.load-kernel-modules">
-            load-kernel-modules
+          <a href='#option-nix-mineral.extras.system.lock-root' title="nix-mineral.extras.system.lock-root">
+            lock-root
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-kernel-warn-panic' title="nix-mineral.extras.kernel.warn-panic">
-            warn-panic
+          <a href='#option-nix-mineral.extras.system.minimize-swapping' title="nix-mineral.extras.system.minimize-swapping">
+            minimize-swapping
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.system.secure-chrony' title="nix-mineral.extras.system.secure-chrony">
+            secure-chrony
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.system.unprivileged-userns' title="nix-mineral.extras.system.unprivileged-userns">
+            unprivileged-userns
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.system.zram' title="nix-mineral.extras.system.zram">
+            zram
             
             
           </a>
@@ -1144,7 +1211,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-extras-network' class="parent-option" title="nix-mineral.extras.network">
+          <a href='#option-nix-mineral.extras.network' class="parent-option" title="nix-mineral.extras.network">
             nix-mineral.extras.network
             
             
@@ -1154,7 +1221,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-extras-network-bluetooth-kmodules' title="nix-mineral.extras.network.bluetooth-kmodules">
+          <a href='#option-nix-mineral.extras.network.bluetooth-kmodules' title="nix-mineral.extras.network.bluetooth-kmodules">
             bluetooth-kmodules
             
             
@@ -1162,8 +1229,54 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-network-tcp-window-scaling' title="nix-mineral.extras.network.tcp-window-scaling">
+          <a href='#option-nix-mineral.extras.network.tcp-window-scaling' title="nix-mineral.extras.network.tcp-window-scaling">
             tcp-window-scaling
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
+      <summary title="nix-mineral.extras.kernel">
+        <span>nix-mineral.extras.kernel</span>
+        <span class="toc-count">4</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.kernel' class="parent-option" title="nix-mineral.extras.kernel">
+            nix-mineral.extras.kernel
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral.extras.kernel.intelme-kmodules' title="nix-mineral.extras.kernel.intelme-kmodules">
+            intelme-kmodules
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.kernel.load-kernel-modules' title="nix-mineral.extras.kernel.load-kernel-modules">
+            load-kernel-modules
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.kernel.warn-panic' title="nix-mineral.extras.kernel.warn-panic">
+            warn-panic
             
             
           </a>
@@ -1182,7 +1295,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-extras-misc' class="parent-option" title="nix-mineral.extras.misc">
+          <a href='#option-nix-mineral.extras.misc' class="parent-option" title="nix-mineral.extras.misc">
             nix-mineral.extras.misc
             
             
@@ -1192,7 +1305,7 @@
 
         
         <li>
-          <a href='#option-nix-mineral-extras-misc-apparmor' title="nix-mineral.extras.misc.apparmor">
+          <a href='#option-nix-mineral.extras.misc.apparmor' title="nix-mineral.extras.misc.apparmor">
             apparmor
             
             
@@ -1200,7 +1313,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-misc-doas-sudo-wrapper' title="nix-mineral.extras.misc.doas-sudo-wrapper">
+          <a href='#option-nix-mineral.extras.misc.doas-sudo-wrapper' title="nix-mineral.extras.misc.doas-sudo-wrapper">
             doas-sudo-wrapper
             
             
@@ -1208,7 +1321,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-misc-replace-sudo-with-doas' title="nix-mineral.extras.misc.replace-sudo-with-doas">
+          <a href='#option-nix-mineral.extras.misc.replace-sudo-with-doas' title="nix-mineral.extras.misc.replace-sudo-with-doas">
             replace-sudo-with-doas
             
             
@@ -1216,7 +1329,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-misc-ssh-hardening' title="nix-mineral.extras.misc.ssh-hardening">
+          <a href='#option-nix-mineral.extras.misc.ssh-hardening' title="nix-mineral.extras.misc.ssh-hardening">
             ssh-hardening
             
             
@@ -1224,7 +1337,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-misc-usbguard-enable' title="nix-mineral.extras.misc.usbguard.enable">
+          <a href='#option-nix-mineral.extras.misc.usbguard.enable' title="nix-mineral.extras.misc.usbguard.enable">
             usbguard.enable
             
             
@@ -1232,7 +1345,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-misc-usbguard-gnome-integration' title="nix-mineral.extras.misc.usbguard.gnome-integration">
+          <a href='#option-nix-mineral.extras.misc.usbguard.gnome-integration' title="nix-mineral.extras.misc.usbguard.gnome-integration">
             usbguard.gnome-integration
             
             
@@ -1240,7 +1353,7 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral-extras-misc-usbguard-whitelist-at-boot' title="nix-mineral.extras.misc.usbguard.whitelist-at-boot">
+          <a href='#option-nix-mineral.extras.misc.usbguard.whitelist-at-boot' title="nix-mineral.extras.misc.usbguard.whitelist-at-boot">
             usbguard.whitelist-at-boot
             
             
@@ -1260,7 +1373,7 @@
       <ul>
         
         <li>
-          <a href='#option-nix-mineral-extras-entropy' class="parent-option" title="nix-mineral.extras.entropy">
+          <a href='#option-nix-mineral.extras.entropy' class="parent-option" title="nix-mineral.extras.entropy">
             nix-mineral.extras.entropy
             
             
@@ -1270,116 +1383,8 @@
 
         
         <li>
-          <a href='#option-nix-mineral-extras-entropy-extra-latent-entropy' title="nix-mineral.extras.entropy.extra-latent-entropy">
+          <a href='#option-nix-mineral.extras.entropy.extra-latent-entropy' title="nix-mineral.extras.entropy.extra-latent-entropy">
             extra-latent-entropy
-            
-            
-          </a>
-        </li>
-        
-      </ul>
-    </details>
-  </li>
-  
-  <li>
-    <details class="toc-category">
-      <summary title="nix-mineral.extras.system">
-        <span>nix-mineral.extras.system</span>
-        <span class="toc-count">7</span>
-      </summary>
-      <ul>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system' class="parent-option" title="nix-mineral.extras.system">
-            nix-mineral.extras.system
-            
-            
-          </a>
-        </li>
-        
-
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-hardened-malloc' title="nix-mineral.extras.system.hardened-malloc">
-            hardened-malloc
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-lock-root' title="nix-mineral.extras.system.lock-root">
-            lock-root
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-minimize-swapping' title="nix-mineral.extras.system.minimize-swapping">
-            minimize-swapping
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-secure-chrony' title="nix-mineral.extras.system.secure-chrony">
-            secure-chrony
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-unprivileged-userns' title="nix-mineral.extras.system.unprivileged-userns">
-            unprivileged-userns
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-system-zram' title="nix-mineral.extras.system.zram">
-            zram
-            
-            
-          </a>
-        </li>
-        
-      </ul>
-    </details>
-  </li>
-  
-  <li>
-    <details class="toc-category">
-      <summary title="nix-mineral.extras.tmpfiles">
-        <span>nix-mineral.extras.tmpfiles</span>
-        <span class="toc-count">3</span>
-      </summary>
-      <ul>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-tmpfiles' class="parent-option" title="nix-mineral.extras.tmpfiles">
-            nix-mineral.extras.tmpfiles
-            
-            
-          </a>
-        </li>
-        
-
-        
-        <li>
-          <a href='#option-nix-mineral-extras-tmpfiles-etc-nixos' title="nix-mineral.extras.tmpfiles.etc-nixos">
-            etc-nixos
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-nix-mineral-extras-tmpfiles-home' title="nix-mineral.extras.tmpfiles.home">
-            home
             
             
           </a>
@@ -1408,9 +1413,9 @@
           </div>
           
 
-          <div class="options-container"><div class="option" id="option-nix-mineral-enable">
+          <div class="options-container"><div class="option" id="option-nix-mineral.enable">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-enable" class="option-anchor">nix-mineral.enable</a>
+    <a href="#option-nix-mineral.enable" class="option-anchor">nix-mineral.enable</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1421,9 +1426,9 @@
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix" target="_blank">&lt;nix-mineral/nix-mineral.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras">
+<div class="option" id="option-nix-mineral.extras">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras" class="option-anchor">nix-mineral.extras</a>
+    <a href="#option-nix-mineral.extras" class="option-anchor">nix-mineral.extras</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1433,9 +1438,9 @@
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix" target="_blank">&lt;nix-mineral/nix-mineral.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-entropy">
+<div class="option" id="option-nix-mineral.extras.entropy">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-entropy" class="option-anchor">nix-mineral.extras.entropy</a>
+    <a href="#option-nix-mineral.extras.entropy" class="option-anchor">nix-mineral.extras.entropy</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1445,9 +1450,9 @@
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/entropy/default.nix" target="_blank">&lt;nix-mineral/extras/entropy/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-entropy-extra-latent-entropy">
+<div class="option" id="option-nix-mineral.extras.entropy.extra-latent-entropy">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-entropy-extra-latent-entropy" class="option-anchor">nix-mineral.extras.entropy.extra-latent-entropy</a>
+    <a href="#option-nix-mineral.extras.entropy.extra-latent-entropy" class="option-anchor">nix-mineral.extras.entropy.extra-latent-entropy</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1465,9 +1470,9 @@ Also slows down boot time by a bit.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/entropy/extra-latent-entropy.nix" target="_blank">&lt;nix-mineral/extras/entropy/extra-latent-entropy.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-kernel">
+<div class="option" id="option-nix-mineral.extras.kernel">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-kernel" class="option-anchor">nix-mineral.extras.kernel</a>
+    <a href="#option-nix-mineral.extras.kernel" class="option-anchor">nix-mineral.extras.kernel</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1477,9 +1482,9 @@ Also slows down boot time by a bit.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/kernel/default.nix" target="_blank">&lt;nix-mineral/extras/kernel/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-kernel-intelme-kmodules">
+<div class="option" id="option-nix-mineral.extras.kernel.intelme-kmodules">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-kernel-intelme-kmodules" class="option-anchor">nix-mineral.extras.kernel.intelme-kmodules</a>
+    <a href="#option-nix-mineral.extras.kernel.intelme-kmodules" class="option-anchor">nix-mineral.extras.kernel.intelme-kmodules</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1508,9 +1513,9 @@ and reduce attack surface.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/kernel/intelme-kmodules.nix" target="_blank">&lt;nix-mineral/extras/kernel/intelme-kmodules.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-kernel-load-kernel-modules">
+<div class="option" id="option-nix-mineral.extras.kernel.load-kernel-modules">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-kernel-load-kernel-modules" class="option-anchor">nix-mineral.extras.kernel.load-kernel-modules</a>
+    <a href="#option-nix-mineral.extras.kernel.load-kernel-modules" class="option-anchor">nix-mineral.extras.kernel.load-kernel-modules</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1526,9 +1531,9 @@ you need and add that to your boot parameters manually.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/kernel/load-kernel-modules.nix" target="_blank">&lt;nix-mineral/extras/kernel/load-kernel-modules.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-kernel-warn-panic">
+<div class="option" id="option-nix-mineral.extras.kernel.warn-panic">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-kernel-warn-panic" class="option-anchor">nix-mineral.extras.kernel.warn-panic</a>
+    <a href="#option-nix-mineral.extras.kernel.warn-panic" class="option-anchor">nix-mineral.extras.kernel.warn-panic</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1545,9 +1550,9 @@ kernel.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/kernel/warn-panic.nix" target="_blank">&lt;nix-mineral/extras/kernel/warn-panic.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc">
+<div class="option" id="option-nix-mineral.extras.misc">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc" class="option-anchor">nix-mineral.extras.misc</a>
+    <a href="#option-nix-mineral.extras.misc" class="option-anchor">nix-mineral.extras.misc</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1558,9 +1563,9 @@ kernel.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/default.nix" target="_blank">&lt;nix-mineral/extras/misc/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc-apparmor">
+<div class="option" id="option-nix-mineral.extras.misc.apparmor">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc-apparmor" class="option-anchor">nix-mineral.extras.misc.apparmor</a>
+    <a href="#option-nix-mineral.extras.misc.apparmor" class="option-anchor">nix-mineral.extras.misc.apparmor</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1578,9 +1583,9 @@ NixOS.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/apparmor.nix" target="_blank">&lt;nix-mineral/extras/misc/apparmor.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc-doas-sudo-wrapper">
+<div class="option" id="option-nix-mineral.extras.misc.doas-sudo-wrapper">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc-doas-sudo-wrapper" class="option-anchor">nix-mineral.extras.misc.doas-sudo-wrapper</a>
+    <a href="#option-nix-mineral.extras.misc.doas-sudo-wrapper" class="option-anchor">nix-mineral.extras.misc.doas-sudo-wrapper</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1592,9 +1597,9 @@ editor for editing as root.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/doas-sudo-wrapper.nix" target="_blank">&lt;nix-mineral/extras/misc/doas-sudo-wrapper.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc-replace-sudo-with-doas">
+<div class="option" id="option-nix-mineral.extras.misc.replace-sudo-with-doas">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc-replace-sudo-with-doas" class="option-anchor">nix-mineral.extras.misc.replace-sudo-with-doas</a>
+    <a href="#option-nix-mineral.extras.misc.replace-sudo-with-doas" class="option-anchor">nix-mineral.extras.misc.replace-sudo-with-doas</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1606,9 +1611,9 @@ editor for editing as root.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/replace-sudo-with-doas.nix" target="_blank">&lt;nix-mineral/extras/misc/replace-sudo-with-doas.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc-ssh-hardening">
+<div class="option" id="option-nix-mineral.extras.misc.ssh-hardening">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc-ssh-hardening" class="option-anchor">nix-mineral.extras.misc.ssh-hardening</a>
+    <a href="#option-nix-mineral.extras.misc.ssh-hardening" class="option-anchor">nix-mineral.extras.misc.ssh-hardening</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1621,9 +1626,9 @@ editor for editing as root.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/ssh-hardening.nix" target="_blank">&lt;nix-mineral/extras/misc/ssh-hardening.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc-usbguard-enable">
+<div class="option" id="option-nix-mineral.extras.misc.usbguard.enable">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc-usbguard-enable" class="option-anchor">nix-mineral.extras.misc.usbguard.enable</a>
+    <a href="#option-nix-mineral.extras.misc.usbguard.enable" class="option-anchor">nix-mineral.extras.misc.usbguard.enable</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1635,9 +1640,9 @@ editor for editing as root.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/usbguard.nix" target="_blank">&lt;nix-mineral/extras/misc/usbguard.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc-usbguard-gnome-integration">
+<div class="option" id="option-nix-mineral.extras.misc.usbguard.gnome-integration">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc-usbguard-gnome-integration" class="option-anchor">nix-mineral.extras.misc.usbguard.gnome-integration</a>
+    <a href="#option-nix-mineral.extras.misc.usbguard.gnome-integration" class="option-anchor">nix-mineral.extras.misc.usbguard.gnome-integration</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1653,9 +1658,9 @@ and is similar behavior to handling USB as ChromeOS and GrapheneOS.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/usbguard.nix" target="_blank">&lt;nix-mineral/extras/misc/usbguard.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-misc-usbguard-whitelist-at-boot">
+<div class="option" id="option-nix-mineral.extras.misc.usbguard.whitelist-at-boot">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-misc-usbguard-whitelist-at-boot" class="option-anchor">nix-mineral.extras.misc.usbguard.whitelist-at-boot</a>
+    <a href="#option-nix-mineral.extras.misc.usbguard.whitelist-at-boot" class="option-anchor">nix-mineral.extras.misc.usbguard.whitelist-at-boot</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1673,9 +1678,9 @@ may solve that.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/usbguard.nix" target="_blank">&lt;nix-mineral/extras/misc/usbguard.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-network">
+<div class="option" id="option-nix-mineral.extras.network">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-network" class="option-anchor">nix-mineral.extras.network</a>
+    <a href="#option-nix-mineral.extras.network" class="option-anchor">nix-mineral.extras.network</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1685,9 +1690,9 @@ may solve that.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/network/default.nix" target="_blank">&lt;nix-mineral/extras/network/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-network-bluetooth-kmodules">
+<div class="option" id="option-nix-mineral.extras.network.bluetooth-kmodules">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-network-bluetooth-kmodules" class="option-anchor">nix-mineral.extras.network.bluetooth-kmodules</a>
+    <a href="#option-nix-mineral.extras.network.bluetooth-kmodules" class="option-anchor">nix-mineral.extras.network.bluetooth-kmodules</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1698,9 +1703,9 @@ may solve that.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/network/bluetooth-kmodules.nix" target="_blank">&lt;nix-mineral/extras/network/bluetooth-kmodules.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-network-tcp-window-scaling">
+<div class="option" id="option-nix-mineral.extras.network.tcp-window-scaling">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-network-tcp-window-scaling" class="option-anchor">nix-mineral.extras.network.tcp-window-scaling</a>
+    <a href="#option-nix-mineral.extras.network.tcp-window-scaling" class="option-anchor">nix-mineral.extras.network.tcp-window-scaling</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1716,9 +1721,9 @@ may also harm network performance when at high latencies.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/network/tcp-window-scaling.nix" target="_blank">&lt;nix-mineral/extras/network/tcp-window-scaling.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-system">
+<div class="option" id="option-nix-mineral.extras.system">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-system" class="option-anchor">nix-mineral.extras.system</a>
+    <a href="#option-nix-mineral.extras.system" class="option-anchor">nix-mineral.extras.system</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1728,9 +1733,9 @@ may also harm network performance when at high latencies.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/default.nix" target="_blank">&lt;nix-mineral/extras/system/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-system-hardened-malloc">
+<div class="option" id="option-nix-mineral.extras.system.hardened-malloc">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-system-hardened-malloc" class="option-anchor">nix-mineral.extras.system.hardened-malloc</a>
+    <a href="#option-nix-mineral.extras.system.hardened-malloc" class="option-anchor">nix-mineral.extras.system.hardened-malloc</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1745,9 +1750,9 @@ may also harm network performance when at high latencies.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/hardened-malloc.nix" target="_blank">&lt;nix-mineral/extras/system/hardened-malloc.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-system-lock-root">
+<div class="option" id="option-nix-mineral.extras.system.lock-root">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-system-lock-root" class="option-anchor">nix-mineral.extras.system.lock-root</a>
+    <a href="#option-nix-mineral.extras.system.lock-root" class="option-anchor">nix-mineral.extras.system.lock-root</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1763,9 +1768,9 @@ sudo or doas, and declarative accounts to work properly.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/lock-root.nix" target="_blank">&lt;nix-mineral/extras/system/lock-root.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-system-minimize-swapping">
+<div class="option" id="option-nix-mineral.extras.system.minimize-swapping">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-system-minimize-swapping" class="option-anchor">nix-mineral.extras.system.minimize-swapping</a>
+    <a href="#option-nix-mineral.extras.system.minimize-swapping" class="option-anchor">nix-mineral.extras.system.minimize-swapping</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1779,9 +1784,9 @@ not even use a swap file/partition, i.e zram only setup.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/minimize-swapping.nix" target="_blank">&lt;nix-mineral/extras/system/minimize-swapping.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-system-secure-chrony">
+<div class="option" id="option-nix-mineral.extras.system.secure-chrony">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-system-secure-chrony" class="option-anchor">nix-mineral.extras.system.secure-chrony</a>
+    <a href="#option-nix-mineral.extras.system.secure-chrony" class="option-anchor">nix-mineral.extras.system.secure-chrony</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1793,9 +1798,9 @@ and to use the seccomp filter for security.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/secure-chrony.nix" target="_blank">&lt;nix-mineral/extras/system/secure-chrony.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-system-unprivileged-userns">
+<div class="option" id="option-nix-mineral.extras.system.unprivileged-userns">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-system-unprivileged-userns" class="option-anchor">nix-mineral.extras.system.unprivileged-userns</a>
+    <a href="#option-nix-mineral.extras.system.unprivileged-userns" class="option-anchor">nix-mineral.extras.system.unprivileged-userns</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1816,9 +1821,9 @@ the increased maturity of unprivileged namespaces as of Oct 2025.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/unprivileged-userns.nix" target="_blank">&lt;nix-mineral/extras/system/unprivileged-userns.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-system-zram">
+<div class="option" id="option-nix-mineral.extras.system.zram">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-system-zram" class="option-anchor">nix-mineral.extras.system.zram</a>
+    <a href="#option-nix-mineral.extras.system.zram" class="option-anchor">nix-mineral.extras.system.zram</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1838,9 +1843,9 @@ individual swapping setup which can't be reliably inferred.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/zram.nix" target="_blank">&lt;nix-mineral/extras/system/zram.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-tmpfiles">
+<div class="option" id="option-nix-mineral.extras.tmpfiles">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-tmpfiles" class="option-anchor">nix-mineral.extras.tmpfiles</a>
+    <a href="#option-nix-mineral.extras.tmpfiles" class="option-anchor">nix-mineral.extras.tmpfiles</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1850,9 +1855,9 @@ individual swapping setup which can't be reliably inferred.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/tmpfiles/default.nix" target="_blank">&lt;nix-mineral/extras/tmpfiles/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-tmpfiles-etc-nixos">
+<div class="option" id="option-nix-mineral.extras.tmpfiles.etc-nixos">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-tmpfiles-etc-nixos" class="option-anchor">nix-mineral.extras.tmpfiles.etc-nixos</a>
+    <a href="#option-nix-mineral.extras.tmpfiles.etc-nixos" class="option-anchor">nix-mineral.extras.tmpfiles.etc-nixos</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1872,9 +1877,9 @@ stored in <code>/etc/nixos</code>, and is therefore no longer enabled by default
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/tmpfiles/etc-nixos.nix" target="_blank">&lt;nix-mineral/extras/tmpfiles/etc-nixos.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-extras-tmpfiles-home">
+<div class="option" id="option-nix-mineral.extras.tmpfiles.home">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-extras-tmpfiles-home" class="option-anchor">nix-mineral.extras.tmpfiles.home</a>
+    <a href="#option-nix-mineral.extras.tmpfiles.home" class="option-anchor">nix-mineral.extras.tmpfiles.home</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1910,9 +1915,9 @@ See:</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/tmpfiles/home.nix" target="_blank">&lt;nix-mineral/extras/tmpfiles/home.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems">
+<div class="option" id="option-nix-mineral.filesystems">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems" class="option-anchor">nix-mineral.filesystems</a>
+    <a href="#option-nix-mineral.filesystems" class="option-anchor">nix-mineral.filesystems</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1922,9 +1927,9 @@ See:</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix" target="_blank">&lt;nix-mineral/nix-mineral.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-enable">
+<div class="option" id="option-nix-mineral.filesystems.enable">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-enable" class="option-anchor">nix-mineral.filesystems.enable</a>
+    <a href="#option-nix-mineral.filesystems.enable" class="option-anchor">nix-mineral.filesystems.enable</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1935,9 +1940,9 @@ See:</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix" target="_blank">&lt;nix-mineral/nix-mineral.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-normal">
+<div class="option" id="option-nix-mineral.filesystems.normal">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-normal" class="option-anchor">nix-mineral.filesystems.normal</a>
+    <a href="#option-nix-mineral.filesystems.normal" class="option-anchor">nix-mineral.filesystems.normal</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1965,9 +1970,9 @@ the stage 2 activation due to mounts not working as intended.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix" target="_blank">&lt;nix-mineral/filesystems/normal.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-normal-&lt;name&gt;-device">
+<div class="option" id="option-nix-mineral.filesystems.normal._name_.device">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-normal-&lt;name&gt;-device" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.device</a>
+    <a href="#option-nix-mineral.filesystems.normal._name_.device" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.device</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1978,9 +1983,9 @@ the stage 2 activation due to mounts not working as intended.</p>
   <div class="option-example">Example: <code>"/dev/sda"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix" target="_blank">&lt;nix-mineral/filesystems/normal.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-normal-&lt;name&gt;-enable">
+<div class="option" id="option-nix-mineral.filesystems.normal._name_.enable">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-normal-&lt;name&gt;-enable" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.enable</a>
+    <a href="#option-nix-mineral.filesystems.normal._name_.enable" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.enable</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -1991,9 +1996,9 @@ the stage 2 activation due to mounts not working as intended.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix" target="_blank">&lt;nix-mineral/filesystems/normal.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-normal-&lt;name&gt;-fsType">
+<div class="option" id="option-nix-mineral.filesystems.normal._name_.fsType">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-normal-&lt;name&gt;-fsType" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.fsType</a>
+    <a href="#option-nix-mineral.filesystems.normal._name_.fsType" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.fsType</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2005,9 +2010,9 @@ be null.</p>
   <div class="option-example">Example: <code>"ext4"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix" target="_blank">&lt;nix-mineral/filesystems/normal.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-normal-&lt;name&gt;-options">
+<div class="option" id="option-nix-mineral.filesystems.normal._name_.options">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-normal-&lt;name&gt;-options" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.options</a>
+    <a href="#option-nix-mineral.filesystems.normal._name_.options" class="option-anchor">nix-mineral.filesystems.normal.&lt;name&gt;.options</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2030,9 +2035,9 @@ be null.</p>
 }</code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix" target="_blank">&lt;nix-mineral/filesystems/normal.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-special">
+<div class="option" id="option-nix-mineral.filesystems.special">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-special" class="option-anchor">nix-mineral.filesystems.special</a>
+    <a href="#option-nix-mineral.filesystems.special" class="option-anchor">nix-mineral.filesystems.special</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2043,9 +2048,9 @@ be null.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/special.nix" target="_blank">&lt;nix-mineral/filesystems/special.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-special-&lt;name&gt;-device">
+<div class="option" id="option-nix-mineral.filesystems.special._name_.device">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-special-&lt;name&gt;-device" class="option-anchor">nix-mineral.filesystems.special.&lt;name&gt;.device</a>
+    <a href="#option-nix-mineral.filesystems.special._name_.device" class="option-anchor">nix-mineral.filesystems.special.&lt;name&gt;.device</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2056,9 +2061,9 @@ be null.</p>
   <div class="option-example">Example: <code>"/dev/sda"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/special.nix" target="_blank">&lt;nix-mineral/filesystems/special.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-special-&lt;name&gt;-enable">
+<div class="option" id="option-nix-mineral.filesystems.special._name_.enable">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-special-&lt;name&gt;-enable" class="option-anchor">nix-mineral.filesystems.special.&lt;name&gt;.enable</a>
+    <a href="#option-nix-mineral.filesystems.special._name_.enable" class="option-anchor">nix-mineral.filesystems.special.&lt;name&gt;.enable</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2069,9 +2074,9 @@ be null.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/special.nix" target="_blank">&lt;nix-mineral/filesystems/special.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-filesystems-special-&lt;name&gt;-options">
+<div class="option" id="option-nix-mineral.filesystems.special._name_.options">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-filesystems-special-&lt;name&gt;-options" class="option-anchor">nix-mineral.filesystems.special.&lt;name&gt;.options</a>
+    <a href="#option-nix-mineral.filesystems.special._name_.options" class="option-anchor">nix-mineral.filesystems.special.&lt;name&gt;.options</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2089,9 +2094,9 @@ be null.</p>
 }</code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/special.nix" target="_blank">&lt;nix-mineral/filesystems/special.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-preset">
+<div class="option" id="option-nix-mineral.preset">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-preset" class="option-anchor">nix-mineral.preset</a>
+    <a href="#option-nix-mineral.preset" class="option-anchor">nix-mineral.preset</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2114,9 +2119,9 @@ The order of presets matters, the top ones will have more priority.</p>
 ]</code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/presets/default.nix" target="_blank">&lt;nix-mineral/presets/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings">
+<div class="option" id="option-nix-mineral.settings">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings" class="option-anchor">nix-mineral.settings</a>
+    <a href="#option-nix-mineral.settings" class="option-anchor">nix-mineral.settings</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2126,9 +2131,9 @@ The order of presets matters, the top ones will have more priority.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix" target="_blank">&lt;nix-mineral/nix-mineral.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug">
+<div class="option" id="option-nix-mineral.settings.debug">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug" class="option-anchor">nix-mineral.settings.debug</a>
+    <a href="#option-nix-mineral.settings.debug" class="option-anchor">nix-mineral.settings.debug</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2139,9 +2144,9 @@ potential attackers.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/default.nix" target="_blank">&lt;nix-mineral/settings/debug/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-coredump">
+<div class="option" id="option-nix-mineral.settings.debug.coredump">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-coredump" class="option-anchor">nix-mineral.settings.debug.coredump</a>
+    <a href="#option-nix-mineral.settings.debug.coredump" class="option-anchor">nix-mineral.settings.debug.coredump</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2163,9 +2168,9 @@ any individual one of these might otherwise make available a bypass.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/coredump.nix" target="_blank">&lt;nix-mineral/settings/debug/coredump.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-debugfs">
+<div class="option" id="option-nix-mineral.settings.debug.debugfs">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-debugfs" class="option-anchor">nix-mineral.settings.debug.debugfs</a>
+    <a href="#option-nix-mineral.settings.debug.debugfs" class="option-anchor">nix-mineral.settings.debug.debugfs</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2177,9 +2182,9 @@ sensitive information.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/debugfs.nix" target="_blank">&lt;nix-mineral/settings/debug/debugfs.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-dmesg-restrict">
+<div class="option" id="option-nix-mineral.settings.debug.dmesg-restrict">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-dmesg-restrict" class="option-anchor">nix-mineral.settings.debug.dmesg-restrict</a>
+    <a href="#option-nix-mineral.settings.debug.dmesg-restrict" class="option-anchor">nix-mineral.settings.debug.dmesg-restrict</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2190,9 +2195,9 @@ sensitive information.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/dmesg-restrict.nix" target="_blank">&lt;nix-mineral/settings/debug/dmesg-restrict.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-efipstore">
+<div class="option" id="option-nix-mineral.settings.debug.efipstore">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-efipstore" class="option-anchor">nix-mineral.settings.debug.efipstore</a>
+    <a href="#option-nix-mineral.settings.debug.efipstore" class="option-anchor">nix-mineral.settings.debug.efipstore</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2215,9 +2220,9 @@ other persistent data to the storage backend.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/efipstore.nix" target="_blank">&lt;nix-mineral/settings/debug/efipstore.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-kptr-restrict">
+<div class="option" id="option-nix-mineral.settings.debug.kptr-restrict">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-kptr-restrict" class="option-anchor">nix-mineral.settings.debug.kptr-restrict</a>
+    <a href="#option-nix-mineral.settings.debug.kptr-restrict" class="option-anchor">nix-mineral.settings.debug.kptr-restrict</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2230,9 +2235,9 @@ printed.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/kptr-restrict.nix" target="_blank">&lt;nix-mineral/settings/debug/kptr-restrict.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-panic-reboot">
+<div class="option" id="option-nix-mineral.settings.debug.panic-reboot">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-panic-reboot" class="option-anchor">nix-mineral.settings.debug.panic-reboot</a>
+    <a href="#option-nix-mineral.settings.debug.panic-reboot" class="option-anchor">nix-mineral.settings.debug.panic-reboot</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2249,9 +2254,9 @@ prevents immediate analysis of error messages which may be displayed.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/panic-reboot.nix" target="_blank">&lt;nix-mineral/settings/debug/panic-reboot.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-quiet-boot">
+<div class="option" id="option-nix-mineral.settings.debug.quiet-boot">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-quiet-boot" class="option-anchor">nix-mineral.settings.debug.quiet-boot</a>
+    <a href="#option-nix-mineral.settings.debug.quiet-boot" class="option-anchor">nix-mineral.settings.debug.quiet-boot</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2263,9 +2268,9 @@ information available to an attacker.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/quiet-boot.nix" target="_blank">&lt;nix-mineral/settings/debug/quiet-boot.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-debug-restrict-printk">
+<div class="option" id="option-nix-mineral.settings.debug.restrict-printk">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-debug-restrict-printk" class="option-anchor">nix-mineral.settings.debug.restrict-printk</a>
+    <a href="#option-nix-mineral.settings.debug.restrict-printk" class="option-anchor">nix-mineral.settings.debug.restrict-printk</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2278,9 +2283,9 @@ messages or higher, e.g, more severe warnings.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/debug/restrict-printk.nix" target="_blank">&lt;nix-mineral/settings/debug/restrict-printk.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-entropy">
+<div class="option" id="option-nix-mineral.settings.entropy">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-entropy" class="option-anchor">nix-mineral.settings.entropy</a>
+    <a href="#option-nix-mineral.settings.entropy" class="option-anchor">nix-mineral.settings.entropy</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2290,9 +2295,9 @@ messages or higher, e.g, more severe warnings.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/entropy/default.nix" target="_blank">&lt;nix-mineral/settings/entropy/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-entropy-aslr">
+<div class="option" id="option-nix-mineral.settings.entropy.aslr">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-entropy-aslr" class="option-anchor">nix-mineral.settings.entropy.aslr</a>
+    <a href="#option-nix-mineral.settings.entropy.aslr" class="option-anchor">nix-mineral.settings.entropy.aslr</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2303,9 +2308,9 @@ messages or higher, e.g, more severe warnings.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/entropy/aslr.nix" target="_blank">&lt;nix-mineral/settings/entropy/aslr.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-entropy-aslr-max-bits">
+<div class="option" id="option-nix-mineral.settings.entropy.aslr-max-bits">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-entropy-aslr-max-bits" class="option-anchor">nix-mineral.settings.entropy.aslr-max-bits</a>
+    <a href="#option-nix-mineral.settings.entropy.aslr-max-bits" class="option-anchor">nix-mineral.settings.entropy.aslr-max-bits</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2333,9 +2338,9 @@ upstream documentation as necessary.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/entropy/aslr-max-bits.nix" target="_blank">&lt;nix-mineral/settings/entropy/aslr-max-bits.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-entropy-hwrng">
+<div class="option" id="option-nix-mineral.settings.entropy.hwrng">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-entropy-hwrng" class="option-anchor">nix-mineral.settings.entropy.hwrng</a>
+    <a href="#option-nix-mineral.settings.entropy.hwrng" class="option-anchor">nix-mineral.settings.entropy.hwrng</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2348,9 +2353,9 @@ number generation could be flawed.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/entropy/hwrng.nix" target="_blank">&lt;nix-mineral/settings/entropy/hwrng.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-entropy-jitterentropy">
+<div class="option" id="option-nix-mineral.settings.entropy.jitterentropy">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-entropy-jitterentropy" class="option-anchor">nix-mineral.settings.entropy.jitterentropy</a>
+    <a href="#option-nix-mineral.settings.entropy.jitterentropy" class="option-anchor">nix-mineral.settings.entropy.jitterentropy</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2372,9 +2377,9 @@ entropy sources.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/entropy/jitterentropy.nix" target="_blank">&lt;nix-mineral/settings/entropy/jitterentropy.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-etc">
+<div class="option" id="option-nix-mineral.settings.etc">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-etc" class="option-anchor">nix-mineral.settings.etc</a>
+    <a href="#option-nix-mineral.settings.etc" class="option-anchor">nix-mineral.settings.etc</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2384,9 +2389,9 @@ entropy sources.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/default.nix" target="_blank">&lt;nix-mineral/settings/etc/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-etc-generic-machine-id">
+<div class="option" id="option-nix-mineral.settings.etc.generic-machine-id">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-etc-generic-machine-id" class="option-anchor">nix-mineral.settings.etc.generic-machine-id</a>
+    <a href="#option-nix-mineral.settings.etc.generic-machine-id" class="option-anchor">nix-mineral.settings.etc.generic-machine-id</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2402,9 +2407,9 @@ e.g for log collection or VM management.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/generic-machine-id.nix" target="_blank">&lt;nix-mineral/settings/etc/generic-machine-id.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-etc-kicksecure-bluetooth">
+<div class="option" id="option-nix-mineral.settings.etc.kicksecure-bluetooth">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-etc-kicksecure-bluetooth" class="option-anchor">nix-mineral.settings.etc.kicksecure-bluetooth</a>
+    <a href="#option-nix-mineral.settings.etc.kicksecure-bluetooth" class="option-anchor">nix-mineral.settings.etc.kicksecure-bluetooth</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2417,9 +2422,9 @@ and security.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/kicksecure-bluetooth.nix" target="_blank">&lt;nix-mineral/settings/etc/kicksecure-bluetooth.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-etc-kicksecure-gitconfig">
+<div class="option" id="option-nix-mineral.settings.etc.kicksecure-gitconfig">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-etc-kicksecure-gitconfig" class="option-anchor">nix-mineral.settings.etc.kicksecure-gitconfig</a>
+    <a href="#option-nix-mineral.settings.etc.kicksecure-gitconfig" class="option-anchor">nix-mineral.settings.etc.kicksecure-gitconfig</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2431,9 +2436,9 @@ by default for better git security.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/kicksecure-gitconfig.nix" target="_blank">&lt;nix-mineral/settings/etc/kicksecure-gitconfig.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-etc-kicksecure-issue">
+<div class="option" id="option-nix-mineral.settings.etc.kicksecure-issue">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-etc-kicksecure-issue" class="option-anchor">nix-mineral.settings.etc.kicksecure-issue</a>
+    <a href="#option-nix-mineral.settings.etc.kicksecure-issue" class="option-anchor">nix-mineral.settings.etc.kicksecure-issue</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2447,9 +2452,9 @@ unauthorized access and to comply with Lynis.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/kicksecure-issue.nix" target="_blank">&lt;nix-mineral/settings/etc/kicksecure-issue.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-etc-kicksecure-module-blacklist">
+<div class="option" id="option-nix-mineral.settings.etc.kicksecure-module-blacklist">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-etc-kicksecure-module-blacklist" class="option-anchor">nix-mineral.settings.etc.kicksecure-module-blacklist</a>
+    <a href="#option-nix-mineral.settings.etc.kicksecure-module-blacklist" class="option-anchor">nix-mineral.settings.etc.kicksecure-module-blacklist</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2471,9 +2476,9 @@ and may cause breakage.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/kicksecure-module-blacklist.nix" target="_blank">&lt;nix-mineral/settings/etc/kicksecure-module-blacklist.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-etc-no-root-securetty">
+<div class="option" id="option-nix-mineral.settings.etc.no-root-securetty">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-etc-no-root-securetty" class="option-anchor">nix-mineral.settings.etc.no-root-securetty</a>
+    <a href="#option-nix-mineral.settings.etc.no-root-securetty" class="option-anchor">nix-mineral.settings.etc.no-root-securetty</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2489,9 +2494,9 @@ and may cause breakage.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/no-root-securetty.nix" target="_blank">&lt;nix-mineral/settings/etc/no-root-securetty.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel">
+<div class="option" id="option-nix-mineral.settings.kernel">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel" class="option-anchor">nix-mineral.settings.kernel</a>
+    <a href="#option-nix-mineral.settings.kernel" class="option-anchor">nix-mineral.settings.kernel</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2501,9 +2506,9 @@ and may cause breakage.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/default.nix" target="_blank">&lt;nix-mineral/settings/kernel/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-algif-kmodules">
+<div class="option" id="option-nix-mineral.settings.kernel.algif-kmodules">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-algif-kmodules" class="option-anchor">nix-mineral.settings.kernel.algif-kmodules</a>
+    <a href="#option-nix-mineral.settings.kernel.algif-kmodules" class="option-anchor">nix-mineral.settings.kernel.algif-kmodules</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2531,9 +2536,9 @@ is not enabled.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/algif-kmodules.nix" target="_blank">&lt;nix-mineral/settings/kernel/algif-kmodules.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-amd-iommu-force-isolation">
+<div class="option" id="option-nix-mineral.settings.kernel.amd-iommu-force-isolation">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-amd-iommu-force-isolation" class="option-anchor">nix-mineral.settings.kernel.amd-iommu-force-isolation</a>
+    <a href="#option-nix-mineral.settings.kernel.amd-iommu-force-isolation" class="option-anchor">nix-mineral.settings.kernel.amd-iommu-force-isolation</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2551,9 +2556,9 @@ issue on Linux kernel 6.13.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/amd-iommu-force-isolation.nix" target="_blank">&lt;nix-mineral/settings/kernel/amd-iommu-force-isolation.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-bdev-write-mount">
+<div class="option" id="option-nix-mineral.settings.kernel.bdev-write-mount">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-bdev-write-mount" class="option-anchor">nix-mineral.settings.kernel.bdev-write-mount</a>
+    <a href="#option-nix-mineral.settings.kernel.bdev-write-mount" class="option-anchor">nix-mineral.settings.kernel.bdev-write-mount</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2574,9 +2579,9 @@ filesystem corruption and kernel crashes.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/bdev-write-mount.nix" target="_blank">&lt;nix-mineral/settings/kernel/bdev-write-mount.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-binfmt-misc">
+<div class="option" id="option-nix-mineral.settings.kernel.binfmt-misc">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-binfmt-misc" class="option-anchor">nix-mineral.settings.kernel.binfmt-misc</a>
+    <a href="#option-nix-mineral.settings.kernel.binfmt-misc" class="option-anchor">nix-mineral.settings.kernel.binfmt-misc</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2591,9 +2596,9 @@ filesystem corruption and kernel crashes.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/binfmt-misc.nix" target="_blank">&lt;nix-mineral/settings/kernel/binfmt-misc.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-busmaster-bit">
+<div class="option" id="option-nix-mineral.settings.kernel.busmaster-bit">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-busmaster-bit" class="option-anchor">nix-mineral.settings.kernel.busmaster-bit</a>
+    <a href="#option-nix-mineral.settings.kernel.busmaster-bit" class="option-anchor">nix-mineral.settings.kernel.busmaster-bit</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2611,9 +2616,9 @@ firmware configurations from booting.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/busmaster-bit.nix" target="_blank">&lt;nix-mineral/settings/kernel/busmaster-bit.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-core-pid">
+<div class="option" id="option-nix-mineral.settings.kernel.core-pid">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-core-pid" class="option-anchor">nix-mineral.settings.kernel.core-pid</a>
+    <a href="#option-nix-mineral.settings.kernel.core-pid" class="option-anchor">nix-mineral.settings.kernel.core-pid</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2637,9 +2642,9 @@ so that sources of core dumps are more obvious.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/core-pid.nix" target="_blank">&lt;nix-mineral/settings/kernel/core-pid.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-cpu-mitigations">
+<div class="option" id="option-nix-mineral.settings.kernel.cpu-mitigations">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-cpu-mitigations" class="option-anchor">nix-mineral.settings.kernel.cpu-mitigations</a>
+    <a href="#option-nix-mineral.settings.kernel.cpu-mitigations" class="option-anchor">nix-mineral.settings.kernel.cpu-mitigations</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2660,9 +2665,9 @@ One web page is all it takes for all your keys to be someone else's: <a href="ht
   <div class="option-default">Default: <code>"smt-off"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/cpu-mitigations.nix" target="_blank">&lt;nix-mineral/settings/kernel/cpu-mitigations.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-harden-bpf">
+<div class="option" id="option-nix-mineral.settings.kernel.harden-bpf">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-harden-bpf" class="option-anchor">nix-mineral.settings.kernel.harden-bpf</a>
+    <a href="#option-nix-mineral.settings.kernel.harden-bpf" class="option-anchor">nix-mineral.settings.kernel.harden-bpf</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2681,9 +2686,9 @@ because eBPF allows executing potentially dangerous code in the kernel.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/harden-bpf.nix" target="_blank">&lt;nix-mineral/settings/kernel/harden-bpf.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-intel-iommu">
+<div class="option" id="option-nix-mineral.settings.kernel.intel-iommu">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-intel-iommu" class="option-anchor">nix-mineral.settings.kernel.intel-iommu</a>
+    <a href="#option-nix-mineral.settings.kernel.intel-iommu" class="option-anchor">nix-mineral.settings.kernel.intel-iommu</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2699,9 +2704,9 @@ memory abuse.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/intel-iommu.nix" target="_blank">&lt;nix-mineral/settings/kernel/intel-iommu.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-io-uring">
+<div class="option" id="option-nix-mineral.settings.kernel.io-uring">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-io-uring" class="option-anchor">nix-mineral.settings.kernel.io-uring</a>
+    <a href="#option-nix-mineral.settings.kernel.io-uring" class="option-anchor">nix-mineral.settings.kernel.io-uring</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2714,9 +2719,9 @@ and is disabled on Android + ChromeOS.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/io-uring.nix" target="_blank">&lt;nix-mineral/settings/kernel/io-uring.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-iommu-passthrough">
+<div class="option" id="option-nix-mineral.settings.kernel.iommu-passthrough">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-iommu-passthrough" class="option-anchor">nix-mineral.settings.kernel.iommu-passthrough</a>
+    <a href="#option-nix-mineral.settings.kernel.iommu-passthrough" class="option-anchor">nix-mineral.settings.kernel.iommu-passthrough</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2729,9 +2734,9 @@ and is disabled on Android + ChromeOS.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/iommu-passthrough.nix" target="_blank">&lt;nix-mineral/settings/kernel/iommu-passthrough.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-kcfi">
+<div class="option" id="option-nix-mineral.settings.kernel.kcfi">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-kcfi" class="option-anchor">nix-mineral.settings.kernel.kcfi</a>
+    <a href="#option-nix-mineral.settings.kernel.kcfi" class="option-anchor">nix-mineral.settings.kernel.kcfi</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2754,9 +2759,9 @@ destinations.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/kcfi.nix" target="_blank">&lt;nix-mineral/settings/kernel/kcfi.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-kexec">
+<div class="option" id="option-nix-mineral.settings.kernel.kexec">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-kexec" class="option-anchor">nix-mineral.settings.kernel.kexec</a>
+    <a href="#option-nix-mineral.settings.kernel.kexec" class="option-anchor">nix-mineral.settings.kernel.kexec</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2777,9 +2782,9 @@ necessary:</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/kexec.nix" target="_blank">&lt;nix-mineral/settings/kernel/kexec.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-kfence">
+<div class="option" id="option-nix-mineral.settings.kernel.kfence">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-kfence" class="option-anchor">nix-mineral.settings.kernel.kfence</a>
+    <a href="#option-nix-mineral.settings.kernel.kfence" class="option-anchor">nix-mineral.settings.kernel.kfence</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2799,9 +2804,9 @@ invalid-free errors.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/kfence.nix" target="_blank">&lt;nix-mineral/settings/kernel/kfence.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-lockdown">
+<div class="option" id="option-nix-mineral.settings.kernel.lockdown">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-lockdown" class="option-anchor">nix-mineral.settings.kernel.lockdown</a>
+    <a href="#option-nix-mineral.settings.kernel.lockdown" class="option-anchor">nix-mineral.settings.kernel.lockdown</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2817,16 +2822,16 @@ change, since adding the corresponding boot parameter anyways is harmless.]</p>
 <p>See:
 <a href="https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830">https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830</a>
 <a href="https://github.com/cynicsketch/nix-mineral/issues/125">https://github.com/cynicsketch/nix-mineral/issues/125</a></p>
-<p>If <code>false</code>, you probably want to disable <a class="option-reference" href="options.html#option-nix-mineral-settings-kernel-only-signed-modules"><code class="nixos-option">nix-mineral.settings.kernel.only-signed-modules</code></a>.</p>
+<p>If <code>false</code>, you probably want to disable <a class="option-reference" href="options.html#option-nix-mineral.settings.kernel.only-signed-modules"><code class="nixos-option">nix-mineral.settings.kernel.only-signed-modules</code></a>.</p>
 </div>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/lockdown.nix" target="_blank">&lt;nix-mineral/settings/kernel/lockdown.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-only-signed-modules">
+<div class="option" id="option-nix-mineral.settings.kernel.only-signed-modules">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-only-signed-modules" class="option-anchor">nix-mineral.settings.kernel.only-signed-modules</a>
+    <a href="#option-nix-mineral.settings.kernel.only-signed-modules" class="option-anchor">nix-mineral.settings.kernel.only-signed-modules</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2842,16 +2847,16 @@ change, since adding the corresponding boot parameter anyways is harmless.</p>
 <p>See:
 <a href="https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830">https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830</a>
 <a href="https://github.com/cynicsketch/nix-mineral/issues/125">https://github.com/cynicsketch/nix-mineral/issues/125</a></p>
-<p>If <code>false</code>, <a class="option-reference" href="options.html#option-nix-mineral-settings-kernel-lockdown"><code class="nixos-option">nix-mineral.settings.kernel.lockdown</code></a> must also be false.</p>
+<p>If <code>false</code>, <a class="option-reference" href="options.html#option-nix-mineral.settings.kernel.lockdown"><code class="nixos-option">nix-mineral.settings.kernel.lockdown</code></a> must also be false.</p>
 </div>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/only-signed-modules.nix" target="_blank">&lt;nix-mineral/settings/kernel/only-signed-modules.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-oops-panic">
+<div class="option" id="option-nix-mineral.settings.kernel.oops-panic">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-oops-panic" class="option-anchor">nix-mineral.settings.kernel.oops-panic</a>
+    <a href="#option-nix-mineral.settings.kernel.oops-panic" class="option-anchor">nix-mineral.settings.kernel.oops-panic</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2869,9 +2874,9 @@ disabling this.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/oops-panic.nix" target="_blank">&lt;nix-mineral/settings/kernel/oops-panic.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-page-alloc-shuffle">
+<div class="option" id="option-nix-mineral.settings.kernel.page-alloc-shuffle">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-page-alloc-shuffle" class="option-anchor">nix-mineral.settings.kernel.page-alloc-shuffle</a>
+    <a href="#option-nix-mineral.settings.kernel.page-alloc-shuffle" class="option-anchor">nix-mineral.settings.kernel.page-alloc-shuffle</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2894,9 +2899,9 @@ effect, and there's usually no reason to disable this.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/page-alloc-shuffle.nix" target="_blank">&lt;nix-mineral/settings/kernel/page-alloc-shuffle.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-perf-subsystem-restrict-access">
+<div class="option" id="option-nix-mineral.settings.kernel.perf-subsystem.restrict-access">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-perf-subsystem-restrict-access" class="option-anchor">nix-mineral.settings.kernel.perf-subsystem.restrict-access</a>
+    <a href="#option-nix-mineral.settings.kernel.perf-subsystem.restrict-access" class="option-anchor">nix-mineral.settings.kernel.perf-subsystem.restrict-access</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2914,9 +2919,9 @@ effect, and there's usually no reason to disable this.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/perf-subsystem.nix" target="_blank">&lt;nix-mineral/settings/kernel/perf-subsystem.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-perf-subsystem-restrict-usage">
+<div class="option" id="option-nix-mineral.settings.kernel.perf-subsystem.restrict-usage">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-perf-subsystem-restrict-usage" class="option-anchor">nix-mineral.settings.kernel.perf-subsystem.restrict-usage</a>
+    <a href="#option-nix-mineral.settings.kernel.perf-subsystem.restrict-usage" class="option-anchor">nix-mineral.settings.kernel.perf-subsystem.restrict-usage</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2932,9 +2937,9 @@ for more information.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/perf-subsystem.nix" target="_blank">&lt;nix-mineral/settings/kernel/perf-subsystem.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-pti">
+<div class="option" id="option-nix-mineral.settings.kernel.pti">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-pti" class="option-anchor">nix-mineral.settings.kernel.pti</a>
+    <a href="#option-nix-mineral.settings.kernel.pti" class="option-anchor">nix-mineral.settings.kernel.pti</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2946,9 +2951,9 @@ the Meltdown CPU vulnerability. It may also tax performance.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/pti.nix" target="_blank">&lt;nix-mineral/settings/kernel/pti.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-randomize-kstack-offset">
+<div class="option" id="option-nix-mineral.settings.kernel.randomize-kstack-offset">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-randomize-kstack-offset" class="option-anchor">nix-mineral.settings.kernel.randomize-kstack-offset</a>
+    <a href="#option-nix-mineral.settings.kernel.randomize-kstack-offset" class="option-anchor">nix-mineral.settings.kernel.randomize-kstack-offset</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2967,9 +2972,9 @@ relying on predicting the location of the kernel's stack more difficult.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/randomize-kstack-offset.nix" target="_blank">&lt;nix-mineral/settings/kernel/randomize-kstack-offset.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-restrict-bpf">
+<div class="option" id="option-nix-mineral.settings.kernel.restrict-bpf">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-restrict-bpf" class="option-anchor">nix-mineral.settings.kernel.restrict-bpf</a>
+    <a href="#option-nix-mineral.settings.kernel.restrict-bpf" class="option-anchor">nix-mineral.settings.kernel.restrict-bpf</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -2987,9 +2992,9 @@ relying on predicting the location of the kernel's stack more difficult.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/restrict-bpf.nix" target="_blank">&lt;nix-mineral/settings/kernel/restrict-bpf.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-restrict-line-disciplines">
+<div class="option" id="option-nix-mineral.settings.kernel.restrict-line-disciplines">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-restrict-line-disciplines" class="option-anchor">nix-mineral.settings.kernel.restrict-line-disciplines</a>
+    <a href="#option-nix-mineral.settings.kernel.restrict-line-disciplines" class="option-anchor">nix-mineral.settings.kernel.restrict-line-disciplines</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3006,9 +3011,9 @@ example exploit.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/restrict-line-disciplines.nix" target="_blank">&lt;nix-mineral/settings/kernel/restrict-line-disciplines.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-slab-debug">
+<div class="option" id="option-nix-mineral.settings.kernel.slab-debug">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-slab-debug" class="option-anchor">nix-mineral.settings.kernel.slab-debug</a>
+    <a href="#option-nix-mineral.settings.kernel.slab-debug" class="option-anchor">nix-mineral.settings.kernel.slab-debug</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3038,9 +3043,9 @@ ignored.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/slab-debug.nix" target="_blank">&lt;nix-mineral/settings/kernel/slab-debug.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-slab-merging">
+<div class="option" id="option-nix-mineral.settings.kernel.slab-merging">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-slab-merging" class="option-anchor">nix-mineral.settings.kernel.slab-merging</a>
+    <a href="#option-nix-mineral.settings.kernel.slab-merging" class="option-anchor">nix-mineral.settings.kernel.slab-merging</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3061,9 +3066,9 @@ attacks by limiting influence to individual caches.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/slab-merging.nix" target="_blank">&lt;nix-mineral/settings/kernel/slab-merging.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-strict-iommu">
+<div class="option" id="option-nix-mineral.settings.kernel.strict-iommu">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-strict-iommu" class="option-anchor">nix-mineral.settings.kernel.strict-iommu</a>
+    <a href="#option-nix-mineral.settings.kernel.strict-iommu" class="option-anchor">nix-mineral.settings.kernel.strict-iommu</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3082,9 +3087,9 @@ and strictly invalidate TLBs to prevent abuse of stale data.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/strict-iommu.nix" target="_blank">&lt;nix-mineral/settings/kernel/strict-iommu.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-sysrq">
+<div class="option" id="option-nix-mineral.settings.kernel.sysrq">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-sysrq" class="option-anchor">nix-mineral.settings.kernel.sysrq</a>
+    <a href="#option-nix-mineral.settings.kernel.sysrq" class="option-anchor">nix-mineral.settings.kernel.sysrq</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3109,9 +3114,9 @@ unless it is completely locked up.</p>
   <div class="option-default">Default: <code>"off"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/sysrq.nix" target="_blank">&lt;nix-mineral/settings/kernel/sysrq.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-tiocsti">
+<div class="option" id="option-nix-mineral.settings.kernel.tiocsti">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-tiocsti" class="option-anchor">nix-mineral.settings.kernel.tiocsti</a>
+    <a href="#option-nix-mineral.settings.kernel.tiocsti" class="option-anchor">nix-mineral.settings.kernel.tiocsti</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3135,9 +3140,9 @@ the compatibility preset.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/tiocsti.nix" target="_blank">&lt;nix-mineral/settings/kernel/tiocsti.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-unprivileged-userfaultfd">
+<div class="option" id="option-nix-mineral.settings.kernel.unprivileged-userfaultfd">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-unprivileged-userfaultfd" class="option-anchor">nix-mineral.settings.kernel.unprivileged-userfaultfd</a>
+    <a href="#option-nix-mineral.settings.kernel.unprivileged-userfaultfd" class="option-anchor">nix-mineral.settings.kernel.unprivileged-userfaultfd</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3159,9 +3164,9 @@ CAP_SYS_PTRACE capability.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/unprivileged-userfaultfd.nix" target="_blank">&lt;nix-mineral/settings/kernel/unprivileged-userfaultfd.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-vdso32">
+<div class="option" id="option-nix-mineral.settings.kernel.vdso32">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-vdso32" class="option-anchor">nix-mineral.settings.kernel.vdso32</a>
+    <a href="#option-nix-mineral.settings.kernel.vdso32" class="option-anchor">nix-mineral.settings.kernel.vdso32</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3181,9 +3186,9 @@ glibc versions.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/vdso32.nix" target="_blank">&lt;nix-mineral/settings/kernel/vdso32.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-vsyscall">
+<div class="option" id="option-nix-mineral.settings.kernel.vsyscall">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-vsyscall" class="option-anchor">nix-mineral.settings.kernel.vsyscall</a>
+    <a href="#option-nix-mineral.settings.kernel.vsyscall" class="option-anchor">nix-mineral.settings.kernel.vsyscall</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3202,9 +3207,9 @@ memory locations that are easy to exploit.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/vsyscall.nix" target="_blank">&lt;nix-mineral/settings/kernel/vsyscall.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-kernel-zero-alloc">
+<div class="option" id="option-nix-mineral.settings.kernel.zero-alloc">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-kernel-zero-alloc" class="option-anchor">nix-mineral.settings.kernel.zero-alloc</a>
+    <a href="#option-nix-mineral.settings.kernel.zero-alloc" class="option-anchor">nix-mineral.settings.kernel.zero-alloc</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3224,9 +3229,9 @@ use-after-free exploits.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/kernel/zero-alloc.nix" target="_blank">&lt;nix-mineral/settings/kernel/zero-alloc.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-misc">
+<div class="option" id="option-nix-mineral.settings.misc">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-misc" class="option-anchor">nix-mineral.settings.misc</a>
+    <a href="#option-nix-mineral.settings.misc" class="option-anchor">nix-mineral.settings.misc</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3236,9 +3241,9 @@ use-after-free exploits.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/misc/default.nix" target="_blank">&lt;nix-mineral/settings/misc/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-misc-bootloader-editor">
+<div class="option" id="option-nix-mineral.settings.misc.bootloader-editor">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-misc-bootloader-editor" class="option-anchor">nix-mineral.settings.misc.bootloader-editor</a>
+    <a href="#option-nix-mineral.settings.misc.bootloader-editor" class="option-anchor">nix-mineral.settings.misc.bootloader-editor</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3257,9 +3262,9 @@ can be added unobtrusively.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/misc/bootloader-editor.nix" target="_blank">&lt;nix-mineral/settings/misc/bootloader-editor.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-misc-dnssec">
+<div class="option" id="option-nix-mineral.settings.misc.dnssec">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-misc-dnssec" class="option-anchor">nix-mineral.settings.misc.dnssec</a>
+    <a href="#option-nix-mineral.settings.misc.dnssec" class="option-anchor">nix-mineral.settings.misc.dnssec</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3277,9 +3282,9 @@ resolving software can be added unobtrusively.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/misc/dnssec.nix" target="_blank">&lt;nix-mineral/settings/misc/dnssec.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-misc-nix-wheel">
+<div class="option" id="option-nix-mineral.settings.misc.nix-wheel">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-misc-nix-wheel" class="option-anchor">nix-mineral.settings.misc.nix-wheel</a>
+    <a href="#option-nix-mineral.settings.misc.nix-wheel" class="option-anchor">nix-mineral.settings.misc.nix-wheel</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3291,9 +3296,9 @@ resolving software can be added unobtrusively.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/misc/nix-wheel.nix" target="_blank">&lt;nix-mineral/settings/misc/nix-wheel.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network">
+<div class="option" id="option-nix-mineral.settings.network">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network" class="option-anchor">nix-mineral.settings.network</a>
+    <a href="#option-nix-mineral.settings.network" class="option-anchor">nix-mineral.settings.network</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3303,9 +3308,9 @@ resolving software can be added unobtrusively.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/default.nix" target="_blank">&lt;nix-mineral/settings/network/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-arp-announce">
+<div class="option" id="option-nix-mineral.settings.network.arp.announce">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-arp-announce" class="option-anchor">nix-mineral.settings.network.arp.announce</a>
+    <a href="#option-nix-mineral.settings.network.arp.announce" class="option-anchor">nix-mineral.settings.network.arp.announce</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3317,9 +3322,9 @@ resolving software can be added unobtrusively.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/arp.nix" target="_blank">&lt;nix-mineral/settings/network/arp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-arp-drop-gratuitous">
+<div class="option" id="option-nix-mineral.settings.network.arp.drop-gratuitous">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-arp-drop-gratuitous" class="option-anchor">nix-mineral.settings.network.arp.drop-gratuitous</a>
+    <a href="#option-nix-mineral.settings.network.arp.drop-gratuitous" class="option-anchor">nix-mineral.settings.network.arp.drop-gratuitous</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3331,9 +3336,9 @@ resolving software can be added unobtrusively.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/arp.nix" target="_blank">&lt;nix-mineral/settings/network/arp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-arp-filter">
+<div class="option" id="option-nix-mineral.settings.network.arp.filter">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-arp-filter" class="option-anchor">nix-mineral.settings.network.arp.filter</a>
+    <a href="#option-nix-mineral.settings.network.arp.filter" class="option-anchor">nix-mineral.settings.network.arp.filter</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3346,9 +3351,9 @@ ARP cache poisoning attacks.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/arp.nix" target="_blank">&lt;nix-mineral/settings/network/arp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-arp-ignore">
+<div class="option" id="option-nix-mineral.settings.network.arp.ignore">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-arp-ignore" class="option-anchor">nix-mineral.settings.network.arp.ignore</a>
+    <a href="#option-nix-mineral.settings.network.arp.ignore" class="option-anchor">nix-mineral.settings.network.arp.ignore</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3381,9 +3386,9 @@ setups which NixOS is not known or advisable to be used for.</p>
   <div class="option-default">Default: <code>"link"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/arp.nix" target="_blank">&lt;nix-mineral/settings/network/arp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-icmp-cast">
+<div class="option" id="option-nix-mineral.settings.network.icmp.cast">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-icmp-cast" class="option-anchor">nix-mineral.settings.network.icmp.cast</a>
+    <a href="#option-nix-mineral.settings.network.icmp.cast" class="option-anchor">nix-mineral.settings.network.icmp.cast</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3392,16 +3397,16 @@ setups which NixOS is not known or advisable to be used for.</p>
 sent to broadcast/multicast/anycast.</p>
 <p>Makes system slightly harder to enumerate on a network.</p>
 <p>::: .{note}
-Redundant with <a class="option-reference" href="options.html#option-nix-mineral-settings-network-icmp-ignore-all"><code class="nixos-option">nix-mineral.settings.network.icmp.ignore-all</code></a> enabled.
+Redundant with <a class="option-reference" href="options.html#option-nix-mineral.settings.network.icmp.ignore-all"><code class="nixos-option">nix-mineral.settings.network.icmp.ignore-all</code></a> enabled.
 :::</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/icmp.nix" target="_blank">&lt;nix-mineral/settings/network/icmp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-icmp-ignore-all">
+<div class="option" id="option-nix-mineral.settings.network.icmp.ignore-all">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-icmp-ignore-all" class="option-anchor">nix-mineral.settings.network.icmp.ignore-all</a>
+    <a href="#option-nix-mineral.settings.network.icmp.ignore-all" class="option-anchor">nix-mineral.settings.network.icmp.ignore-all</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3415,9 +3420,9 @@ enabled.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/icmp.nix" target="_blank">&lt;nix-mineral/settings/network/icmp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-icmp-ignore-bogus">
+<div class="option" id="option-nix-mineral.settings.network.icmp.ignore-bogus">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-icmp-ignore-bogus" class="option-anchor">nix-mineral.settings.network.icmp.ignore-bogus</a>
+    <a href="#option-nix-mineral.settings.network.icmp.ignore-bogus" class="option-anchor">nix-mineral.settings.network.icmp.ignore-bogus</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3429,9 +3434,9 @@ caused by spammed error responses.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/icmp.nix" target="_blank">&lt;nix-mineral/settings/network/icmp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-icmp-redirect">
+<div class="option" id="option-nix-mineral.settings.network.icmp.redirect">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-icmp-redirect" class="option-anchor">nix-mineral.settings.network.icmp.redirect</a>
+    <a href="#option-nix-mineral.settings.network.icmp.redirect" class="option-anchor">nix-mineral.settings.network.icmp.redirect</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3448,9 +3453,9 @@ See:</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/icmp.nix" target="_blank">&lt;nix-mineral/settings/network/icmp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-icmp-secure-redirect">
+<div class="option" id="option-nix-mineral.settings.network.icmp.secure-redirect">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-icmp-secure-redirect" class="option-anchor">nix-mineral.settings.network.icmp.secure-redirect</a>
+    <a href="#option-nix-mineral.settings.network.icmp.secure-redirect" class="option-anchor">nix-mineral.settings.network.icmp.secure-redirect</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3458,7 +3463,7 @@ See:</p>
   <div class="option-description"><html><head></head><body><p>Use secure ICMP redirects by default.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Helpful only if <a class="option-reference" href="options.html#option-nix-mineral-settings-network-icmp-redirect"><code class="nixos-option">nix-mineral.settings.network.icmp.redirect</code></a> is enabled, otherwise this does nothing.
+<p>Helpful only if <a class="option-reference" href="options.html#option-nix-mineral.settings.network.icmp.redirect"><code class="nixos-option">nix-mineral.settings.network.icmp.redirect</code></a> is enabled, otherwise this does nothing.
 Not harmful to leave enabled even if unnecessary.</p>
 </div>
 </body></html></div>
@@ -3466,9 +3471,9 @@ Not harmful to leave enabled even if unnecessary.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/icmp.nix" target="_blank">&lt;nix-mineral/settings/network/icmp.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-ip-forwarding">
+<div class="option" id="option-nix-mineral.settings.network.ip-forwarding">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-ip-forwarding" class="option-anchor">nix-mineral.settings.network.ip-forwarding</a>
+    <a href="#option-nix-mineral.settings.network.ip-forwarding" class="option-anchor">nix-mineral.settings.network.ip-forwarding</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3483,9 +3488,9 @@ and must be true if the system is meant to function as a router.
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/ip-forwarding.nix" target="_blank">&lt;nix-mineral/settings/network/ip-forwarding.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-ipv6-tempaddr">
+<div class="option" id="option-nix-mineral.settings.network.ipv6-tempaddr">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-ipv6-tempaddr" class="option-anchor">nix-mineral.settings.network.ipv6-tempaddr</a>
+    <a href="#option-nix-mineral.settings.network.ipv6-tempaddr" class="option-anchor">nix-mineral.settings.network.ipv6-tempaddr</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3506,9 +3511,9 @@ applicable.
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/ipv6-tempaddr.nix" target="_blank">&lt;nix-mineral/settings/network/ipv6-tempaddr.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-log-martians">
+<div class="option" id="option-nix-mineral.settings.network.log-martians">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-log-martians" class="option-anchor">nix-mineral.settings.network.log-martians</a>
+    <a href="#option-nix-mineral.settings.network.log-martians" class="option-anchor">nix-mineral.settings.network.log-martians</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3522,9 +3527,9 @@ spot a DDOS/DOS by giving extra logs.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/log-martians.nix" target="_blank">&lt;nix-mineral/settings/network/log-martians.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-max-addresses">
+<div class="option" id="option-nix-mineral.settings.network.max-addresses">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-max-addresses" class="option-anchor">nix-mineral.settings.network.max-addresses</a>
+    <a href="#option-nix-mineral.settings.network.max-addresses" class="option-anchor">nix-mineral.settings.network.max-addresses</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3536,9 +3541,9 @@ spot a DDOS/DOS by giving extra logs.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/max-addresses.nix" target="_blank">&lt;nix-mineral/settings/network/max-addresses.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-neighbor-solicitations">
+<div class="option" id="option-nix-mineral.settings.network.neighbor-solicitations">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-neighbor-solicitations" class="option-anchor">nix-mineral.settings.network.neighbor-solicitations</a>
+    <a href="#option-nix-mineral.settings.network.neighbor-solicitations" class="option-anchor">nix-mineral.settings.network.neighbor-solicitations</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3552,9 +3557,9 @@ send out per address.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/neighbor-solicitations.nix" target="_blank">&lt;nix-mineral/settings/network/neighbor-solicitations.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-random-mac">
+<div class="option" id="option-nix-mineral.settings.network.random-mac">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-random-mac" class="option-anchor">nix-mineral.settings.network.random-mac</a>
+    <a href="#option-nix-mineral.settings.network.random-mac" class="option-anchor">nix-mineral.settings.network.random-mac</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3571,9 +3576,9 @@ a PR to add relevant configuration.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/random-mac.nix" target="_blank">&lt;nix-mineral/settings/network/random-mac.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-rfc1337">
+<div class="option" id="option-nix-mineral.settings.network.rfc1337">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-rfc1337" class="option-anchor">nix-mineral.settings.network.rfc1337</a>
+    <a href="#option-nix-mineral.settings.network.rfc1337" class="option-anchor">nix-mineral.settings.network.rfc1337</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3595,9 +3600,9 @@ TCP connections to drop given specific circumstances or crafted packets.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/rfc1337.nix" target="_blank">&lt;nix-mineral/settings/network/rfc1337.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-router-advertisements">
+<div class="option" id="option-nix-mineral.settings.network.router-advertisements">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-router-advertisements" class="option-anchor">nix-mineral.settings.network.router-advertisements</a>
+    <a href="#option-nix-mineral.settings.network.router-advertisements" class="option-anchor">nix-mineral.settings.network.router-advertisements</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3631,9 +3636,9 @@ host discovery.</p>
   <div class="option-default">Default: <code>"restrict"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/router-advertisements.nix" target="_blank">&lt;nix-mineral/settings/network/router-advertisements.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-router-solicitations">
+<div class="option" id="option-nix-mineral.settings.network.router-solicitations">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-router-solicitations" class="option-anchor">nix-mineral.settings.network.router-solicitations</a>
+    <a href="#option-nix-mineral.settings.network.router-solicitations" class="option-anchor">nix-mineral.settings.network.router-solicitations</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3647,16 +3652,16 @@ and reduces the frequecy of IPv6 router advertisements received.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There is no point to setting this number above 0 if
-<a class="option-reference" href="options.html#option-nix-mineral-settings-network-router-advertisements"><code class="nixos-option">nix-mineral.settings.network.router-advertisements</code></a> is set to <code>off</code>.</p>
+<a class="option-reference" href="options.html#option-nix-mineral.settings.network.router-advertisements"><code class="nixos-option">nix-mineral.settings.network.router-advertisements</code></a> is set to <code>off</code>.</p>
 </div>
 </body></html></div>
   <div class="option-default">Default: <code>0</code></div>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/router-solicitations.nix" target="_blank">&lt;nix-mineral/settings/network/router-solicitations.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-rp-filter">
+<div class="option" id="option-nix-mineral.settings.network.rp-filter">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-rp-filter" class="option-anchor">nix-mineral.settings.network.rp-filter</a>
+    <a href="#option-nix-mineral.settings.network.rp-filter" class="option-anchor">nix-mineral.settings.network.rp-filter</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3668,9 +3673,9 @@ IP spoofing.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/rp-filter.nix" target="_blank">&lt;nix-mineral/settings/network/rp-filter.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-shared-media">
+<div class="option" id="option-nix-mineral.settings.network.shared-media">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-shared-media" class="option-anchor">nix-mineral.settings.network.shared-media</a>
+    <a href="#option-nix-mineral.settings.network.shared-media" class="option-anchor">nix-mineral.settings.network.shared-media</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3683,9 +3688,9 @@ IP spoofing.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/shared-media.nix" target="_blank">&lt;nix-mineral/settings/network/shared-media.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-source-route">
+<div class="option" id="option-nix-mineral.settings.network.source-route">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-source-route" class="option-anchor">nix-mineral.settings.network.source-route</a>
+    <a href="#option-nix-mineral.settings.network.source-route" class="option-anchor">nix-mineral.settings.network.source-route</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3704,9 +3709,9 @@ network traffic and potentially creating a man in the middle attack.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/source-route.nix" target="_blank">&lt;nix-mineral/settings/network/source-route.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-syncookies">
+<div class="option" id="option-nix-mineral.settings.network.syncookies">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-syncookies" class="option-anchor">nix-mineral.settings.network.syncookies</a>
+    <a href="#option-nix-mineral.settings.network.syncookies" class="option-anchor">nix-mineral.settings.network.syncookies</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3724,9 +3729,9 @@ network traffic and potentially creating a man in the middle attack.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/syncookies.nix" target="_blank">&lt;nix-mineral/settings/network/syncookies.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-tcp-sack">
+<div class="option" id="option-nix-mineral.settings.network.tcp-sack">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-tcp-sack" class="option-anchor">nix-mineral.settings.network.tcp-sack</a>
+    <a href="#option-nix-mineral.settings.network.tcp-sack" class="option-anchor">nix-mineral.settings.network.tcp-sack</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3748,9 +3753,9 @@ applications.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/tcp-sack.nix" target="_blank">&lt;nix-mineral/settings/network/tcp-sack.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-network-tcp-timestamps">
+<div class="option" id="option-nix-mineral.settings.network.tcp-timestamps">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-network-tcp-timestamps" class="option-anchor">nix-mineral.settings.network.tcp-timestamps</a>
+    <a href="#option-nix-mineral.settings.network.tcp-timestamps" class="option-anchor">nix-mineral.settings.network.tcp-timestamps</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3789,9 +3794,9 @@ distribution entirely.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/network/tcp-timestamps.nix" target="_blank">&lt;nix-mineral/settings/network/tcp-timestamps.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-pam">
+<div class="option" id="option-nix-mineral.settings.pam">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-pam" class="option-anchor">nix-mineral.settings.pam</a>
+    <a href="#option-nix-mineral.settings.pam" class="option-anchor">nix-mineral.settings.pam</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3801,9 +3806,9 @@ distribution entirely.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/pam/default.nix" target="_blank">&lt;nix-mineral/settings/pam/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-pam-login-faildelay">
+<div class="option" id="option-nix-mineral.settings.pam.login-faildelay">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-pam-login-faildelay" class="option-anchor">nix-mineral.settings.pam.login-faildelay</a>
+    <a href="#option-nix-mineral.settings.pam.login-faildelay" class="option-anchor">nix-mineral.settings.pam.login-faildelay</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3815,9 +3820,9 @@ distribution entirely.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/pam/login-faildelay.nix" target="_blank">&lt;nix-mineral/settings/pam/login-faildelay.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-pam-shadow-hashing">
+<div class="option" id="option-nix-mineral.settings.pam.shadow-hashing">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-pam-shadow-hashing" class="option-anchor">nix-mineral.settings.pam.shadow-hashing</a>
+    <a href="#option-nix-mineral.settings.pam.shadow-hashing" class="option-anchor">nix-mineral.settings.pam.shadow-hashing</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3834,9 +3839,9 @@ password cracking.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/pam/shadow-hashing.nix" target="_blank">&lt;nix-mineral/settings/pam/shadow-hashing.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-pam-su-wheel-only">
+<div class="option" id="option-nix-mineral.settings.pam.su-wheel-only">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-pam-su-wheel-only" class="option-anchor">nix-mineral.settings.pam.su-wheel-only</a>
+    <a href="#option-nix-mineral.settings.pam.su-wheel-only" class="option-anchor">nix-mineral.settings.pam.su-wheel-only</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3849,9 +3854,9 @@ maliciously hijacked and used for a shell.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/pam/su-wheel-only.nix" target="_blank">&lt;nix-mineral/settings/pam/su-wheel-only.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-system">
+<div class="option" id="option-nix-mineral.settings.system">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-system" class="option-anchor">nix-mineral.settings.system</a>
+    <a href="#option-nix-mineral.settings.system" class="option-anchor">nix-mineral.settings.system</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3861,9 +3866,9 @@ maliciously hijacked and used for a shell.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/system/default.nix" target="_blank">&lt;nix-mineral/settings/system/default.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-system-file-protection">
+<div class="option" id="option-nix-mineral.settings.system.file-protection">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-system-file-protection" class="option-anchor">nix-mineral.settings.system.file-protection</a>
+    <a href="#option-nix-mineral.settings.system.file-protection" class="option-anchor">nix-mineral.settings.system.file-protection</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3882,9 +3887,9 @@ circumstances to limit spoofing attacks.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/system/file-protection.nix" target="_blank">&lt;nix-mineral/settings/system/file-protection.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-system-link-protection">
+<div class="option" id="option-nix-mineral.settings.system.link-protection">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-system-link-protection" class="option-anchor">nix-mineral.settings.system.link-protection</a>
+    <a href="#option-nix-mineral.settings.system.link-protection" class="option-anchor">nix-mineral.settings.system.link-protection</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3906,9 +3911,9 @@ owner match.</p>
   <div class="option-example">Example: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/system/link-protection.nix" target="_blank">&lt;nix-mineral/settings/system/link-protection.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-system-lower-address-mmap">
+<div class="option" id="option-nix-mineral.settings.system.lower-address-mmap">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-system-lower-address-mmap" class="option-anchor">nix-mineral.settings.system.lower-address-mmap</a>
+    <a href="#option-nix-mineral.settings.system.lower-address-mmap" class="option-anchor">nix-mineral.settings.system.lower-address-mmap</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3929,9 +3934,9 @@ compatibility issues with certain legacy software.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/system/lower-address-mmap.nix" target="_blank">&lt;nix-mineral/settings/system/lower-address-mmap.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-system-multilib">
+<div class="option" id="option-nix-mineral.settings.system.multilib">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-system-multilib" class="option-anchor">nix-mineral.settings.system.multilib</a>
+    <a href="#option-nix-mineral.settings.system.multilib" class="option-anchor">nix-mineral.settings.system.multilib</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3946,9 +3951,9 @@ compatibility issues with certain legacy software.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/system/multilib.nix" target="_blank">&lt;nix-mineral/settings/system/multilib.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-system-proc-mem-force">
+<div class="option" id="option-nix-mineral.settings.system.proc-mem-force">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-system-proc-mem-force" class="option-anchor">nix-mineral.settings.system.proc-mem-force</a>
+    <a href="#option-nix-mineral.settings.system.proc-mem-force" class="option-anchor">nix-mineral.settings.system.proc-mem-force</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3964,9 +3969,9 @@ not, which could be used for some exploits.</p>
   <div class="option-default">Default: <code>"ptrace"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/system/proc-mem-force.nix" target="_blank">&lt;nix-mineral/settings/system/proc-mem-force.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral-settings-system-yama">
+<div class="option" id="option-nix-mineral.settings.system.yama">
   <h3 class="option-name">
-    <a href="#option-nix-mineral-settings-system-yama" class="option-anchor">nix-mineral.settings.system.yama</a>
+    <a href="#option-nix-mineral.settings.system.yama" class="option-anchor">nix-mineral.settings.system.yama</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
