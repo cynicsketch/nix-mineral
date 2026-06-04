@@ -251,7 +251,7 @@ rec {
         chmod -R u+w ./inputs
         cp -f ${../README.md} ./inputs/index.md
 
-        # Fix links in the index.md file to be relative to the root of the documentation and remove .md extensions
+        # Fix links in the index.md file to be relative to the root of the documentation
         ${
           let
             mapMdFiles =
@@ -264,13 +264,14 @@ rec {
                 )
               );
           in
-          (mapMdFiles (
-            fileName:
-            "sed -i 's/](docs\\/${fileName})/](${lib.removeSuffix ".md" fileName})/g' ./inputs/index.md"
-          ))
+          (mapMdFiles (fileName: ''
+            substituteInPlace ./inputs/index.md --replace \
+              '](docs/${fileName})' \
+              '](${fileName})'
+          ''))
         }
 
-        # Create NDG json config file
+        # Create NDG config file
         cp ${pkgs.writers.writeJSON "ndg-config.json" ndgConfig} $out/share/doc/ndg-config.json
 
         ndg --config-file $out/share/doc/ndg-config.json \
