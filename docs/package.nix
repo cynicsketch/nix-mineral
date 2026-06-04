@@ -49,19 +49,24 @@ let
           position = 1;
         }
         {
+          path = "SCOPE.md";
+          new_title = "Scope";
+          position = 2;
+        }
+        {
           path = "CONTRIBUTING.md";
           new_title = "Contributing";
-          position = 2;
+          position = 3;
         }
         {
           path = "OMITTED.md";
           new_title = "Omitted Features";
-          position = 3;
+          position = 4;
         }
         {
           path = "ADDITIONAL-RESOURCES.md";
           new_title = "Additional Resources";
-          position = 4;
+          position = 5;
         }
       ];
 
