@@ -24,8 +24,16 @@
   options = {
     hwrng = l.mkBoolOption ''
       Disable trusting both the CPU's hardware random number generator and any
-      entropy seed passed to the bootloader. We assume the hardware random
-      number generation could be flawed.
+      entropy seed passed to the bootloader.
+
+      We assume the hardware random number generation could be flawed or buggy,
+      but that the firmware is not actively malicious, since that is outside
+      scope and you'd have bigger problems at that point.
+
+      See:
+      https://privsec.dev/posts/linux/desktop-linux-hardening/#entropy-generation
+      https://madaidans-insecurities.github.io/guides/linux-hardening.html#rdrand
+      https://github.com/NixOS/nixpkgs/pull/165355
     '' false;
   };
 
