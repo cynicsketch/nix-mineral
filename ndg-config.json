@@ -19,19 +19,24 @@
         "position": 1
       },
       {
+        "new_title": "Scope",
+        "path": "SCOPE.md",
+        "position": 2
+      },
+      {
         "new_title": "Contributing",
         "path": "CONTRIBUTING.md",
-        "position": 2
+        "position": 3
       },
       {
         "new_title": "Omitted Features",
         "path": "OMITTED.md",
-        "position": 3
+        "position": 4
       },
       {
         "new_title": "Additional Resources",
         "path": "ADDITIONAL-RESOURCES.md",
-        "position": 4
+        "position": 5
       }
     ],
     "number_special_files": false,

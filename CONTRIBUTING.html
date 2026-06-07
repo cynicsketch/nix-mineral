@@ -75,10 +75,10 @@
             <div class="sidebar-section-content">
               <ul>
                 <li><a href="index.html">Nix Mineral</a></li>
-<li><a href="CONTRIBUTING.html">1. Contributing</a></li>
-<li><a href="OMITTED.html">2. Omitted Features</a></li>
-<li><a href="ADDITIONAL-RESOURCES.html">3. Additional Resources</a></li>
-<li><a href="SCOPE.html">4. Scope</a></li>
+<li><a href="SCOPE.html">1. Scope</a></li>
+<li><a href="CONTRIBUTING.html">2. Contributing</a></li>
+<li><a href="OMITTED.html">3. Omitted Features</a></li>
+<li><a href="ADDITIONAL-RESOURCES.html">4. Additional Resources</a></li>
 <li><a href="search.html">Search</a></li>
 
               </ul>
@@ -126,7 +126,7 @@
 <li>When creating new settings, use names in lowercase and hyphens to separate words, for example: <code>example-feature-x</code>.</li>
 <li>Invert options that are intended to disable something, for example: don't use <code>disable-example-feature-y</code>, use <code>example-feature-y</code> and set the default to <code>false</code>.</li>
 <li>Use the <code>l.mkBoolOption</code> function to create boolean options.</li>
-<li>Do not attempt to add any feature which has been intentionally excluded under <a href="nix-mineral/OMITTED">OMITTED.md</a> or <a href="nix-mineral/ADDITIONAL-RESOURCES">ADDITIONAL-RESOURCES.md</a> without first creating an issue.</li>
+<li>Do not attempt to add any feature which has been intentionally excluded under <a href="OMITTED.html">OMITTED.md</a> or <a href="ADDITIONAL-RESOURCES.html">ADDITIONAL-RESOURCES.md</a> without first creating an issue.</li>
 <li>Issues should be created for most feature changes before attempting a PR. Bug fixes, and minor documentation changes do not require issues, but it is still heavily encouraged.</li>
 <li>Where applicable, update both <a href="https://github.com/cynicsketch/nix-mineral/tree/main/presets">presets</a> and the <a href="https://github.com/cynicsketch/nix-mineral/tree/main/README.md">README</a> to reflect any new options.</li>
 <li>Use <code>l.mkOverride 900</code> over <code>l.mkForce</code> when forcefully overriding NixOS defaults is necessary, to make sure it actually applies.</li>
