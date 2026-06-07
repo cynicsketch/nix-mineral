@@ -49,19 +49,24 @@ let
           position = 1;
         }
         {
+          path = "SCOPE.md";
+          new_title = "Scope";
+          position = 2;
+        }
+        {
           path = "CONTRIBUTING.md";
           new_title = "Contributing";
-          position = 2;
+          position = 3;
         }
         {
           path = "OMITTED.md";
           new_title = "Omitted Features";
-          position = 3;
+          position = 4;
         }
         {
           path = "ADDITIONAL-RESOURCES.md";
           new_title = "Additional Resources";
-          position = 4;
+          position = 5;
         }
       ];
 
@@ -231,9 +236,6 @@ rec {
   docs = pkgs.callPackage (
     {
       runCommand,
-      # Prefix where the web interface should be served,
-      # this will be used to fix the links in the documentation to work correctly when served in a subpath.
-      urlPrefix ? "",
     }:
     # based on: https://github.com/feel-co/hjem/blob/6e144632e3d8cfa7d7cfcc9504e10a032837f22a/docs/package.nix#L116
     # default configuration from: https://github.com/feel-co/ndg/blob/a6bd3c1ce2668d096e4fdaaa03ad7f03ba1fbca8/ndg/README.md?plain=1#L309
@@ -249,7 +251,7 @@ rec {
         chmod -R u+w ./inputs
         cp -f ${../README.md} ./inputs/index.md
 
-        # Fix links in the index.md file to be relative to the root of the documentation and remove .md extensions
+        # Fix links in the index.md file to be relative to the root of the documentation
         ${
           let
             mapMdFiles =
@@ -259,22 +261,17 @@ rec {
                   lib.attrNames (
                     lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".md" name) (builtins.readDir ./.)
                   )
-                  ++ [ "index.md" ] # include index.md which is the copy of README.md
                 )
               );
-            prefix = lib.replaceStrings [ "/" ] [ "\\/" ] (if urlPrefix == "" then "" else "${urlPrefix}/");
           in
-          (mapMdFiles (
-            fileName:
-            "${mapMdFiles (
-              innerFileName:
-              "sed -i 's/](docs\\/${fileName})/](${prefix}${lib.removeSuffix ".md" fileName})/g' ./inputs/${innerFileName}
-                sed -i 's/](${fileName})/](${prefix}${lib.removeSuffix ".md" fileName})/g' ./inputs/${innerFileName}"
-            )}"
-          ))
+          (mapMdFiles (fileName: ''
+            substituteInPlace ./inputs/index.md --replace \
+              '](docs/${fileName})' \
+              '](${fileName})'
+          ''))
         }
 
-        # Create NDG json config file
+        # Create NDG config file
         cp ${pkgs.writers.writeJSON "ndg-config.json" ndgConfig} $out/share/doc/ndg-config.json
 
         ndg --config-file $out/share/doc/ndg-config.json \
@@ -284,10 +281,6 @@ rec {
           html --module-options ${configJSON}/share/doc/nixos/options.json
       ''
   ) { };
-
-  nix-mineral-prefix = docs.override {
-    urlPrefix = "nix-mineral";
-  };
 
   server =
     pkgs.runCommand "nix-mineral-docs-server"
