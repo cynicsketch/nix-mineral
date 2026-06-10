@@ -151,29 +151,40 @@ shown below.</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">preset</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">compatibility</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">settings</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;kernel&nbsp;=&nbsp;{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only-signed-modules&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockdown&nbsp;=&nbsp;true;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;};</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">system</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">multilib</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">network</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">ip-forwarding</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nix-mineral</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">settings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">network</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">tcp-window-scaling</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <h3 id="credits">Credits</h3>
 <p>Special thanks to all our <a href="https://github.com/cynicsketch/nix-mineral/graphs/contributors">wonderful contributors</a> who have helped make this project possible, as well many other projects, named and unnamed, which <code>nix-mineral</code> has borrowed insight and configuration from:</p>
-<p>Original basis for hardening, of which many of the below have themselves derived from: <br>
+<p>Project: <em>Madaidan's Insecurities</em> <br>
+Influence: Provided the original basis for hardening, which many of the below projects have themselves derived from <br>
 URL: <a href="https://madaidans-insecurities.github.io/guides/linux-hardening.html">https://madaidans-insecurities.github.io/guides/linux-hardening.html</a> <br>
 Archive: <a href="https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html">https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html</a></p>
-<p>Additionally used is privsec's Desktop Linux Hardening: <br>
+<p>Project: <em>privsec's Desktop Linux Hardening</em> <br>
+Influence: Additional information and guidance in hardening <br>
 URL: <a href="https://privsec.dev/posts/linux/desktop-linux-hardening/">https://privsec.dev/posts/linux/desktop-linux-hardening/</a> <br>
 Archive: <a href="https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel">https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel</a></p>
-<p>Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc: <br>
+<p>Project: <em>Kicksecure's security-misc</em> <br>
+Influence: Borrowed Bluetooth configuration and module blacklist, with additional settings inspiration  <br>
 URL: <a href="https://github.com/Kicksecure/security-misc">https://github.com/Kicksecure/security-misc</a></p>
-<p>Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts: <br>
+<p>Project: <em>Tommy's Linux-Setup-Scripts</em> <br>
+Influence: Provided supplement to sysctl hardening <br>
 URL: <a href="https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf">https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf</a></p>
-<p>Optional chrony configuration was borrowed from GrapheneOS server infrastructure: <br>
+<p>Project: <em>GrapheneOS server infrastructure</em>  <br>
+Influence: Providing optional borrowed chrony configuration <br>
 URL: <a href="https://github.com/GrapheneOS/infrastructure">https://github.com/GrapheneOS/infrastructure</a></p>
-<p>Original idea to restrict nix to wheel user from Xe Iaso: <br>
+<p>Blog: <em>Xe Iaso</em> <br>
+Influence: Providing the original idea to restrict nix to the wheel user <br>
 URL: <a href="https://xeiaso.net/blog/paranoid-nixos-2021-07-18/">https://xeiaso.net/blog/paranoid-nixos-2021-07-18/</a></p>
-<p>Various security-relevant sysctl configuration from K4YT3X's sysctl: <br>
+<p>Project: <em>K4YT3X's sysctl</em>
+Influence: Providing supplement for various security-relevant sysctl configuration <br>
 URL: <a href="https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf">https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf</a></p>
-<p>The <code>hardened.nix</code> profile upstream, which inspired this project: <br>
+<p>NixOS Module: <code>hardened.nix</code> profile upstream <br>
+Influence: Inspiration for the creation of <code>nix-mineral</code> <br>
 URL: <a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix">https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix</a></p>
-<p>nix-bitcoin's hardening, which has also inspired this project: <br>
+<p>Project: <em>nix-bitcoin's hardening</em> <br>
+Influence: Inspiration for the creation of <code>nix-mineral</code> <br>
 URL: <a href="https://github.com/fort-nix/nix-bitcoin">https://github.com/fort-nix/nix-bitcoin</a></p>
-<p>hjem, for snippets licensed under the MPL-2.0, used to generate this project's website. <br>
+<p>Project: <em>hjem</em> <br>
+Influence: Snippets used licensed under the MPL-2.0, used to generate <code>nix-mineral</code>'s website <br>
 URL: <a href="https://github.com/feel-co/hjem">https://github.com/feel-co/hjem</a></p>
-<p>hjem-rum, for snippets licensed under the GPL-3.0, used to generate this project's website. <br>
+<p>Project: <em>hjem-rum</em> <br>
+Influence: Snippets used licensed under the GPL-3.0, used to generate <code>nix-mineral</code>'s website <br>
 URL: <a href="https://github.com/snugnug/hjem-rum">https://github.com/snugnug/hjem-rum</a></p>
 </body></html></main>
       </div>
