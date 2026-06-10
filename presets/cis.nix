@@ -325,7 +325,7 @@
 
   # CIS 5.4.4 - default user umask 027 or more restrictive
   # CIS 5.4.5 - default shell timeout 900 seconds or less
-  environment.etc."profile.d/cis-umask-timeout.sh".text = ''
+  environment.interactiveShellInit = ''
     umask 027
     TMOUT=900
     readonly TMOUT
