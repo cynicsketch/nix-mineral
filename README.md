@@ -171,3 +171,10 @@ URL: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardene
 
 nix-bitcoin's hardening, which has also inspired this project: \
 URL: https://github.com/fort-nix/nix-bitcoin
+
+hjem, for snippets licensed under the MPL-2.0, used to generate this project's website. \
+URL: https://github.com/feel-co/hjem
+
+hjem-rum, for snippets licensed under the GPL-3.0, used to generate this project's website. \
+URL: https://github.com/snugnug/hjem-rum
+
