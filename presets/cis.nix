@@ -22,7 +22,7 @@
   # CIS Benchmark Compliance Preset
   #
   # Implements Center for Internet Security (CIS) benchmark requirements.
-  # CIS takes precedence over nix-mineral defaults when they conflict.
+  # Archive: https://ia903101.us.archive.org/view_archive.php?archive=/1/items/cis-benchmarks/CIS_Benchmarks.zip&file=CIS_Benchmarks%2FLinux%2FCIS_Distribution_Independent_Linux_Benchmark_v2.0.0.pdf
 
   assertions = [
     # CIS 1.6.1.1 - Ensure SELinux or AppArmor are installed
