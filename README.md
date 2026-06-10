@@ -143,38 +143,49 @@ shown below.
 ### Credits
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
 
-Original basis for hardening, of which many of the below have themselves derived from: \
+Project: *Madaidan's Insecurities* \
+Influence: Provided the original basis for hardening, which many of the below projects have themselves derived from \
 URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html \
 Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html
 
-Additionally used is privsec's Desktop Linux Hardening: \
+Project: *privsec's Desktop Linux Hardening* \
+Influence: Additional information and guidance in hardening \
 URL: https://privsec.dev/posts/linux/desktop-linux-hardening/ \
 Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
 
-Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc: \
+Project: *Kicksecure's security-misc* \
+Influence: Borrowed Bluetooth configuration and module blacklist, with additional settings inspiration  \
 URL: https://github.com/Kicksecure/security-misc
 
-Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts: \
+Project: *Tommy's Linux-Setup-Scripts* \
+Influence: Provided supplement to sysctl hardening \
 URL: https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf
 
-Optional chrony configuration was borrowed from GrapheneOS server infrastructure: \
+Project: *GrapheneOS server infrastructure*  \
+Influence: Providing optional borrowed chrony configuration \
 URL: https://github.com/GrapheneOS/infrastructure
 
-Original idea to restrict nix to wheel user from Xe Iaso: \
+Blog: *Xe Iaso* \
+Influence: Providing the original idea to restrict nix to the wheel user \
 URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
 
-Various security-relevant sysctl configuration from K4YT3X's sysctl: \
+Project: *K4YT3X's sysctl*
+Influence: Providing supplement for various security-relevant sysctl configuration \
 URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
 
-The `hardened.nix` profile upstream, which inspired this project: \
+NixOS Module: `hardened.nix` profile upstream \
+Influence: Inspiration for the creation of `nix-mineral` \
 URL: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
 
-nix-bitcoin's hardening, which has also inspired this project: \
+Project: *nix-bitcoin's hardening* \
+Influence: Inspiration for the creation of `nix-mineral` \
 URL: https://github.com/fort-nix/nix-bitcoin
 
-hjem, for snippets licensed under the MPL-2.0, used to generate this project's website. \
+Project: *hjem* \
+Influence: Snippets used licensed under the MPL-2.0, used to generate `nix-mineral`'s website \
 URL: https://github.com/feel-co/hjem
 
-hjem-rum, for snippets licensed under the GPL-3.0, used to generate this project's website. \
+Project: *hjem-rum* \
+Influence: Snippets used licensed under the GPL-3.0, used to generate `nix-mineral`'s website \
 URL: https://github.com/snugnug/hjem-rum
 
