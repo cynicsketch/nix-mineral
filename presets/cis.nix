@@ -17,8 +17,7 @@
   config,
   mkPresets,
   ...
-}:
-{
+}: {
   # CIS Benchmark Compliance Preset
   #
   # Implements Center for Internet Security (CIS) benchmark requirements.
@@ -216,6 +215,7 @@
     '';
   };
 
+  # TODO: Determine if instead we should only assert that these services are enabled.
   # CIS 4.1.2, 4.1.3 - install and enable auditd
   security.auditd.enable = true;
 
