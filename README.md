@@ -118,7 +118,12 @@ shown below.
 {
     nix-mineral = {
         enable = true;
-        preset = "compatibility";
+        
+        # Multiple presets can be used. Presets earlier in the list have higher priority.
+        preset = [
+          "compatibility"
+          "performance"
+        ];
 
         settings = {
             # kernel = {
