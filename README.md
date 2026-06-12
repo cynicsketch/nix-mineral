@@ -5,15 +5,12 @@ Rather than be named after a mineral, it's named after the word "mineral".
 ## WARNING
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
 
-## Documentation and scope
-All documentation and options can be viewed at https://cynicsketch.github.io/nix-mineral/.
-
-For more information on, refer to the documents below.
-
-Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md) \
-Scope: [SCOPE](docs/SCOPE.md) \
-Additional resources: [ADDITIONAL-RESOURCES](docs/ADDITIONAL-RESOURCES.md) \
-Omitted features: [OMITTED](docs/OMITTED.md)
+## Documentation
+- **[cynicsketch.github.io/nix-mineral](https://cynicsketch.github.io/nix-mineral/)** - All documentation as well as option information/search is available on the website
+- **[Contributing Guidelines](docs/CONTRIBUTING.md)** - Information for contributors
+- **[Scope](docs/SCOPE.md)** - Details what this project is for
+- **[Additional Resources](docs/ADDITIONAL-RESOURCES.md)** - Other projects and information that may useful but didn't fit elsewhere
+- **[Omitted Features](docs/OMITTED.md)** - Things that have been intentionally omitted
 
 ## Features
 A full rundown of features is best obtained by reading the individual submodules
