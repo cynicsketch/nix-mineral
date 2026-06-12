@@ -15,16 +15,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {
   config,
+  l,
   mkPresets,
   ...
-}:
-{
+}: let
+  toWarnings = l.concatMap (a: l.optional (!a.assertion) a.message);
+in {
   # CIS Benchmark Compliance Preset
   #
   # Implements Center for Internet Security (CIS) benchmark requirements.
   # Archive: https://ia903101.us.archive.org/view_archive.php?archive=/1/items/cis-benchmarks/CIS_Benchmarks.zip&file=CIS_Benchmarks%2FLinux%2FCIS_Distribution_Independent_Linux_Benchmark_v2.0.0.pdf
 
-  assertions = [
+  warnings = toWarnings [
     # CIS 1.6.1.1 - Ensure SELinux or AppArmor are installed
     {
       assertion = config.security.apparmor.enable;
@@ -49,12 +51,12 @@
 
     # CIS 2.2.5 - Ensure DHCP Server is not enabled
     {
-      assertion = !config.services.dhcpd4.enable;
-      message = "CIS 2.2.5: DHCP server (dhcpd4) must not be enabled";
+      assertion = !config.services.kea.dhcp4.enable;
+      message = "CIS 2.2.5: DHCP server (kea.dhcp4) must not be enabled";
     }
     {
-      assertion = !config.services.dhcpd6.enable;
-      message = "CIS 2.2.5: DHCP server (dhcpd6) must not be enabled";
+      assertion = !config.services.kea.dhcp6.enable;
+      message = "CIS 2.2.5: DHCP server (kea.dhcp6) must not be enabled";
     }
 
     # CIS 2.2.8 - Ensure DNS Server is not enabled
