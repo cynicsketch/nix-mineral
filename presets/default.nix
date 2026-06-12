@@ -54,8 +54,8 @@ in
         '';
         default = "default";
         example = [
-          "performance"
           "compatibility"
+          "performance"
         ];
         # Convert strings to single-element lists for easier processing later
         apply = value: if l.typeOf value == "string" then [ value ] else value;
