@@ -17,7 +17,8 @@
   config,
   mkPresets,
   ...
-}: {
+}:
+{
   # CIS Benchmark Compliance Preset
   #
   # Implements Center for Internet Security (CIS) benchmark requirements.
@@ -215,7 +216,6 @@
     '';
   };
 
-  # TODO: Determine if instead we should only assert that these services are enabled.
   # CIS 4.1.2, 4.1.3 - install and enable auditd
   security.auditd.enable = true;
 
@@ -325,7 +325,7 @@
 
   # CIS 5.4.4 - default user umask 027 or more restrictive
   # CIS 5.4.5 - default shell timeout 900 seconds or less
-  environment.interactiveShellInit = ''
+  environment.shellInit = ''
     umask 027
     TMOUT=900
     readonly TMOUT
