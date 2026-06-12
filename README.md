@@ -119,7 +119,15 @@ shown below.
     nix-mineral = {
         enable = true;
         
-        # Multiple presets can be used. Presets earlier in the list have higher priority.
+        # Multiple presets can be used.
+        # The order of presets matters, the top ones will receive higher
+        # priority values, meaning that presets LOWER in the list are prioritized.
+
+        # In this example, all settings from the "compatibility" preset have
+        # an override priority of 800, while settings from the "performance"
+        # preset will have an override priority of 799.
+
+        # See: https://nixos.org/manual/nixos/stable/#sec-option-definitions-setting-priorities
         preset = [
           "compatibility"
           "performance"
