@@ -192,10 +192,10 @@ Influence: Inspiration for the creation of `nix-mineral` \
 URL: https://github.com/fort-nix/nix-bitcoin
 
 Project: *hjem* \
-Influence: Snippets used licensed under the MPL-2.0, used to generate `nix-mineral`'s website \
+Influence: Snippets for ndg licensed under the MPL-2.0, used to generate `nix-mineral`'s website \
 URL: https://github.com/feel-co/hjem
 
 Project: *hjem-rum* \
-Influence: Snippets used licensed under the GPL-3.0, used to generate `nix-mineral`'s website \
+Influence: Snippets for ndg licensed under the GPL-3.0, used to generate `nix-mineral`'s website \
 URL: https://github.com/snugnug/hjem-rum
 
