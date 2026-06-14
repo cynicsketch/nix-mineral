@@ -181,159 +181,39 @@ in {
     };
 
     extras = {
+      etc = {
+        cis-banners = true; # CIS 1.7.1.1, 1.7.1.3 - login warning banners
+      };
+
       misc = {
         apparmor = true; # CIS 1.6.1.1 - enable AppArmor
+        auditd = true; # CIS 4.1.x - enable auditd with CIS rules
+        harden-openssh = true; # CIS 5.2.x - harden OpenSSH
+      };
+
+      system = {
+        mutable-users = true; # CIS 6.2.x - declarative user management
+        shell-init = true; # CIS 5.4.4, 5.4.5 - umask and shell timeout
       };
     };
   };
 
-  environment.etc = {
-    # CIS 1.7.1.1 - message of the day
-    "motd".text = ''
-      Authorized uses only. All activity may be monitored and reported.
-    '';
+  # CIS 3.4.1-3.4.4 - disable uncommon network protocols
+  environment.etc."modprobe.d/cis-uncommon-protocols.conf".text = ''
+    # CIS 3.4.1 - disable DCCP
+    install dccp /bin/false
+    blacklist dccp
 
-    # CIS 1.7.1.3 - remote login warning banner
-    "issue.net".text = ''
-      Authorized uses only. All activity may be monitored and reported.
-    '';
+    # CIS 3.4.2 - disable SCTP
+    install sctp /bin/false
+    blacklist sctp
 
-    # CIS 3.4.1-3.4.4 - disable uncommon network protocols
-    "modprobe.d/cis-uncommon-protocols.conf".text = ''
-      # CIS 3.4.1 - disable DCCP
-      install dccp /bin/false
-      blacklist dccp
+    # CIS 3.4.3 - disable RDS
+    install rds /bin/false
+    blacklist rds
 
-      # CIS 3.4.2 - disable SCTP
-      install sctp /bin/false
-      blacklist sctp
-
-      # CIS 3.4.3 - disable RDS
-      install rds /bin/false
-      blacklist rds
-
-      # CIS 3.4.4 - disable TIPC
-      install tipc /bin/false
-      blacklist tipc
-    '';
-  };
-
-  # CIS 4.1.2, 4.1.3 - install and enable auditd
-  security.auditd.enable = true;
-
-  security.audit = {
-    enable = true;
-    rules = [
-      # CIS 4.1.5 - collect date/time modification events
-      "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change"
-      "-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change"
-      "-a always,exit -F arch=b64 -S clock_settime -k time-change"
-      "-a always,exit -F arch=b32 -S clock_settime -k time-change"
-      "-w /etc/localtime -p wa -k time-change"
-
-      # CIS 4.1.6 - collect user/group modification events
-      "-w /etc/group -p wa -k identity"
-      "-w /etc/passwd -p wa -k identity"
-      "-w /etc/gshadow -p wa -k identity"
-      "-w /etc/shadow -p wa -k identity"
-      "-w /etc/security/opasswd -p wa -k identity"
-
-      # CIS 4.1.7 - collect network environment modification events
-      "-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale"
-      "-a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale"
-      "-w /etc/issue -p wa -k system-locale"
-      "-w /etc/issue.net -p wa -k system-locale"
-      "-w /etc/hosts -p wa -k system-locale"
-      "-w /etc/hostname -p wa -k system-locale"
-
-      # CIS 4.1.8 - collect MAC modification events
-      "-w /etc/apparmor/ -p wa -k MAC-policy"
-      "-w /etc/apparmor.d/ -p wa -k MAC-policy"
-
-      # CIS 4.1.9 - collect login/logout events
-      "-w /var/log/faillog -p wa -k logins"
-      "-w /var/log/lastlog -p wa -k logins"
-      "-w /var/log/tallylog -p wa -k logins"
-
-      # CIS 4.1.10 - collect session initiation events
-      "-w /var/run/utmp -p wa -k session"
-      "-w /var/log/wtmp -p wa -k logins"
-      "-w /var/log/btmp -p wa -k logins"
-
-      # CIS 4.1.11 - collect DAC permission modification events
-      "-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod"
-      "-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod"
-      "-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod"
-      "-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod"
-      "-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod"
-      "-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod"
-
-      # CIS 4.1.12 - collect unauthorized file access attempts
-      "-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access"
-      "-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access"
-      "-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access"
-      "-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access"
-
-      # CIS 4.1.14 - collect successful file system mount events
-      "-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts"
-      "-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts"
-
-      # CIS 4.1.15 - collect file deletion events
-      "-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete"
-      "-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete"
-
-      # CIS 4.1.16 - collect sudoers modification events
-      "-w /etc/sudoers -p wa -k scope"
-      "-w /etc/sudoers.d/ -p wa -k scope"
-
-      # CIS 4.1.17 - collect sudo command execution
-      "-w /var/log/sudo.log -p wa -k actions"
-
-      # CIS 4.1.18 - collect kernel module loading events
-      "-w /sbin/insmod -p x -k modules"
-      "-w /sbin/rmmod -p x -k modules"
-      "-w /sbin/modprobe -p x -k modules"
-      "-a always,exit -F arch=b64 -S init_module -S delete_module -k modules"
-      "-a always,exit -F arch=b32 -S init_module -S delete_module -k modules"
-
-      # CIS 4.1.19 - make audit configuration immutable
-      "-e 2"
-    ];
-  };
-
-  services.openssh.settings = {
-    LogLevel = "INFO"; # CIS 5.2.5 - appropriate log level
-    X11Forwarding = false; # CIS 5.2.6 - disable X11 forwarding
-    MaxAuthTries = 4; # CIS 5.2.7 - limit authentication attempts
-    IgnoreRhosts = true; # CIS 5.2.8 - ignore rhosts
-    HostbasedAuthentication = false; # CIS 5.2.9 - disable host-based auth
-    PermitRootLogin = "no"; # CIS 5.2.10 - disable root login
-    PermitEmptyPasswords = false; # CIS 5.2.11 - reject empty passwords
-    PermitUserEnvironment = false; # CIS 5.2.12 - reject user environment
-    ClientAliveInterval = 300; # CIS 5.2.16 - idle timeout interval
-    ClientAliveCountMax = 3; # CIS 5.2.16 - idle timeout count
-    LoginGraceTime = 60; # CIS 5.2.17 - login grace time
-    UsePAM = true; # CIS 5.2.20 - enable PAM
-    MaxSessions = 4; # CIS 5.2.23 - limit sessions
-  };
-
-  services.openssh.extraConfig = ''
-    # CIS 5.2.21 - disable TCP forwarding
-    AllowTcpForwarding no
-
-    # CIS 5.2.22 - configure max startups
-    MaxStartups 10:30:60
+    # CIS 3.4.4 - disable TIPC
+    install tipc /bin/false
+    blacklist tipc
   '';
-
-  # CIS 5.4.4 - default user umask 027 or more restrictive
-  # CIS 5.4.5 - default shell timeout 900 seconds or less
-  environment.shellInit = ''
-    umask 027
-    TMOUT=900
-    readonly TMOUT
-    export TMOUT
-  '';
-
-  # CIS 6.2.x - declarative user management
-  users.mutableUsers = false;
 }
