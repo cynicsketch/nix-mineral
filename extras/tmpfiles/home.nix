@@ -27,7 +27,7 @@
       only the owner of the directory can access it (the user).
 
       ::: {.note}
-      Existing user masks are left untouched. The "~" option means provides
+      Existing user masks are left untouched. The "~" option provides bitwise
       masking, so that the permissions are only changed if it the existing value
       is greater than the masked value.
 
