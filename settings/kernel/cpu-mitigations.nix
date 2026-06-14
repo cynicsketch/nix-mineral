@@ -28,33 +28,44 @@
 
         - `smt-off`: Enable CPU mitigations and disables symmetric multithreading.
         - `smt-on`: Enable symmetric multithreading and just use default CPU mitigations, to potentially improve performance.
-        - `off`: Disables all CPU mitigations. May improve performance further, but is even more dangerous!
+        - `unspecified`: Do nothing and use NixOS defaults.
 
         ::: {.warning}
         Turning all CPU mitigations off completely is a TERRIBLE idea. Even the most robustly sandboxed
         and restricted code in the world can instantly rootkit your computer.
         One web page is all it takes for all your keys to be someone else's: https://leaky.page/
+
+        The "off" option is deprecated and instead has the same effect has "unspecified,"
+        and is scheduled to be removed in a later release.
         :::
       '';
       default = "smt-off";
       type = l.types.enum [
         "smt-off"
         "smt-on"
+        "unspecified"
         "off"
       ];
     };
   };
 
   config = {
-    boot.kernelParams = [
-      "${
-        if (cfg == "smt-off") then
-          "mitigations=auto,nosmt"
-        else if (cfg == "smt-on") then
-          "mitigations=auto"
-        else
-          "mitigations=off"
-      }"
-    ];
+    warnings = l.optional (cfg == "off") ''
+      The option `nix-mineral.settings.kernel.cpu-mitigations = "off"` is deprecated
+      because it results in a marked decrease in security that is unmitigatable
+      by any other means, and does not align with the project's vision.
+
+      See: https://github.com/cynicsketch/nix-mineral/issues/140
+
+      This option is now equivalent to "unspecified" which inherits the NixOS
+      defaults instead.
+    '';
+    boot.kernelParams =
+      if cfg == "smt-off" then
+        [ "mitigations=auto,nosmt" ]
+      else if cfg == "smt-on" then
+        [ "mitigations=auto" ]
+      else
+        [ ];
   };
 }
