@@ -13,50 +13,27 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
-}:
-
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./apparmor.nix
-        ./auditd.nix
-        ./doas-sudo-wrapper.nix
-        ./harden-openssh.nix
-        ./replace-sudo-with-doas.nix
-        ./ssh-hardening.nix
-        ./usbguard.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
-{
+}: {
   options = {
-    misc = l.mkOption {
-      description = ''
-        Extra misc settings.
+    shell-init =
+      l.mkBoolOption ''
+        Set restrictive shell defaults for umask and idle timeout.
 
-        Most of those are relatively opinionated additional software.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+        Sets umask to 027 and shell timeout to 900 seconds.
+      ''
+      false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    environment.shellInit = ''
+      umask 027
+      TMOUT=900
+      readonly TMOUT
+      export TMOUT
+    '';
+  };
 }

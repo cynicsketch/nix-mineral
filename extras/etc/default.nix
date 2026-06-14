@@ -13,7 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 {
   options,
   config,
@@ -22,38 +21,27 @@
   l,
   cfg,
   ...
-}:
-
-let
+}: let
   categoryModules =
     l.mkCategoryModules cfg
-      [
-        ./apparmor.nix
-        ./auditd.nix
-        ./doas-sudo-wrapper.nix
-        ./harden-openssh.nix
-        ./replace-sudo-with-doas.nix
-        ./ssh-hardening.nix
-        ./usbguard.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
-{
+    [
+      ./cis-banners.nix
+    ]
+    {
+      inherit
+        options
+        config
+        pkgs
+        lib
+        ;
+    };
+in {
   options = {
-    misc = l.mkOption {
+    etc = l.mkOption {
       description = ''
-        Extra misc settings.
-
-        Most of those are relatively opinionated additional software.
+        Extra settings for files in `/etc`.
       '';
-      default = { };
+      default = {};
       type = l.mkCategorySubmodule categoryModules;
     };
   };

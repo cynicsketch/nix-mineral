@@ -13,50 +13,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
-}:
-
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./apparmor.nix
-        ./auditd.nix
-        ./doas-sudo-wrapper.nix
-        ./harden-openssh.nix
-        ./replace-sudo-with-doas.nix
-        ./ssh-hardening.nix
-        ./usbguard.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
-{
+}: {
   options = {
-    misc = l.mkOption {
-      description = ''
-        Extra misc settings.
-
-        Most of those are relatively opinionated additional software.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+    mutable-users =
+      l.mkBoolOption ''
+        Disable mutable users for declarative user management.
+      ''
+      false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    users.mutableUsers = false;
+  };
 }
