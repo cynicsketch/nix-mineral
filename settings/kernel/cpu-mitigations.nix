@@ -35,6 +35,18 @@
         and restricted code in the world can instantly rootkit your computer.
         One web page is all it takes for all your keys to be someone else's: https://leaky.page/
 
+        ::: {.warning}
+        Simultaneous multithreading has a lesser impact on security compared to disabling
+        all mitigations but still possesses a significant history of vulnerabilities.
+
+        See:
+        https://www.mail-archive.com/source-changes@openbsd.org/msg99141.html
+        https://docs.oracle.com/en/operating-systems/oracle-linux/notice-smt/#notice_description
+        https://github.com/advisories/GHSA-3rjg-j575-7f6p
+        https://github.com/bbbrumley/portsmash
+        :::
+
+        ::: {.warning}
         The "off" option is deprecated and instead has the same effect has "unspecified,"
         and is scheduled to be removed in a later release.
         :::
