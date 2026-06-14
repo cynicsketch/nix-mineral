@@ -29,10 +29,12 @@ let
     l.mkCategoryModules cfg
       [
         ./apparmor.nix
+        ./auditd.nix
         ./doas-sudo-wrapper.nix
+        ./harden-openssh.nix
         ./replace-sudo-with-doas.nix
-        ./usbguard.nix
         ./ssh-hardening.nix
+        ./usbguard.nix
       ]
       {
         inherit
