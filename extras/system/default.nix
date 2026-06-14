@@ -28,10 +28,12 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
+        ./hardened-malloc.nix
         ./lock-root.nix
         ./minimize-swapping.nix
-        ./hardened-malloc.nix
+        ./mutable-users.nix
         ./secure-chrony.nix
+        ./shell-init.nix
         ./unprivileged-userns.nix
         ./zram.nix
       ]
