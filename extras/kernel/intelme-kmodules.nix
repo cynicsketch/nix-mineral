@@ -44,22 +44,20 @@
     '' true;
   };
 
-  config = l.mkIf (!cfg) {
-    environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf" = {
-      text = ''
-        install mei /usr/bin/disabled-intelme-by-security-misc
-        install mei-gsc /usr/bin/disabled-intelme-by-security-misc
-        install mei_gsc_proxy /usr/bin/disabled-intelme-by-security-misc
-        install mei_hdcp /usr/bin/disabled-intelme-by-security-misc
-        install mei-me /usr/bin/disabled-intelme-by-security-misc
-        install mei_phy /usr/bin/disabled-intelme-by-security-misc
-        install mei_pxp /usr/bin/disabled-intelme-by-security-misc
-        install mei-txe /usr/bin/disabled-intelme-by-security-misc
-        install mei-vsc /usr/bin/disabled-intelme-by-security-misc
-        install mei-vsc-hw /usr/bin/disabled-intelme-by-security-misc
-        install mei_wdt /usr/bin/disabled-intelme-by-security-misc
-        install microread_mei /usr/bin/disabled-intelme-by-security-misc
-      '';
+  config = {
+    nix-mineral.settings.kernel.modules = l.mkIf (!cfg) {
+      mei = l.mkDefault false;
+      mei-gsc = l.mkDefault false;
+      mei_gsc_proxy = l.mkDefault false;
+      mei_hdcp = l.mkDefault false;
+      mei-me = l.mkDefault false;
+      mei_phy = l.mkDefault false;
+      mei_pxp = l.mkDefault false;
+      mei-txe = l.mkDefault false;
+      mei-vsc = l.mkDefault false;
+      mei-vsc-hw = l.mkDefault false;
+      mei_wdt = l.mkDefault false;
+      microread_mei = l.mkDefault false;
     };
   };
 }

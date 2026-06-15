@@ -39,7 +39,7 @@ in
         The existence of AF_ALG has been criticized for a long time,
         and has been the source of multiple vulnerabilities such as [CVE-2026-31431](https://github.com/advisories/GHSA-2274-3hgr-wxv6).
 
-        With the exception of iwd, AF_ALG is practically only used in some unspecified rare 
+        With the exception of iwd, AF_ALG is practically only used in some unspecified rare
         and bespoke applications meant for embedded systems, so normally you can disable this
         without any consequences.
 
@@ -60,15 +60,13 @@ in
       };
   };
 
-  config = l.mkIf (!cfg) {
-    environment.etc."modprobe.d/nm-disable-algif-kmodules.conf" = {
-      text = ''
-        install af_alg /bin/false
-        install algif_hash /bin/false
-        install algif_skcipher /bin/false
-        install algif_rng /bin/false
-        install algif_aead /bin/false
-      '';
+  config = {
+    nix-mineral.settings.kernel.modules = l.mkIf (!cfg) {
+      af_alg = l.mkDefault false;
+      algif_hash = l.mkDefault false;
+      algif_skcipher = l.mkDefault false;
+      algif_rng = l.mkDefault false;
+      algif_aead = l.mkDefault false;
     };
   };
 }

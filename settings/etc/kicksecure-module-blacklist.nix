@@ -41,7 +41,7 @@
   };
 
   config = l.mkIf cfg {
-    environment.etc."modprobe.d/nm-module-blacklist.conf".source = (
+    environment.etc."modprobe.d/nm-kicksecure-module-blacklist.conf".source = (
       l.fetchGhFile l.sources.module-blacklist
     );
   };

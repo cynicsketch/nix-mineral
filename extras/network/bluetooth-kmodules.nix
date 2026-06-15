@@ -27,27 +27,25 @@
     '' true;
   };
 
-  config = l.mkIf (!cfg) {
-    environment.etc."modprobe.d/nm-disable-bluetooth.conf" = {
-      text = ''
-        install bluetooth /usr/bin/disabled-bluetooth-by-security-misc
-        install bluetooth_6lowpan  /usr/bin/disabled-bluetooth-by-security-misc
-        install bt3c_cs /usr/bin/disabled-bluetooth-by-security-misc
-        install btbcm /usr/bin/disabled-bluetooth-by-security-misc
-        install btintel /usr/bin/disabled-bluetooth-by-security-misc
-        install btmrvl /usr/bin/disabled-bluetooth-by-security-misc
-        install btmrvl_sdio /usr/bin/disabled-bluetooth-by-security-misc
-        install btmtk /usr/bin/disabled-bluetooth-by-security-misc
-        install btmtksdio /usr/bin/disabled-bluetooth-by-security-misc
-        install btmtkuart /usr/bin/disabled-bluetooth-by-security-misc
-        install btnxpuart /usr/bin/disabled-bluetooth-by-security-misc
-        install btqca /usr/bin/disabled-bluetooth-by-security-misc
-        install btrsi /usr/bin/disabled-bluetooth-by-security-misc
-        install btrtl /usr/bin/disabled-bluetooth-by-security-misc
-        install btsdio /usr/bin/disabled-bluetooth-by-security-misc
-        install btusb /usr/bin/disabled-bluetooth-by-security-misc
-        install virtio_bt /usr/bin/disabled-bluetooth-by-security-misc
-      '';
+  config = {
+    nix-mineral.settings.kernel.modules = l.mkIf (!cfg) {
+      bluetooth = l.mkDefault false;
+      bluetooth_6lowpan = l.mkDefault false;
+      bt3c_cs = l.mkDefault false;
+      btbcm = l.mkDefault false;
+      btintel = l.mkDefault false;
+      btmrvl = l.mkDefault false;
+      btmrvl_sdio = l.mkDefault false;
+      btmtk = l.mkDefault false;
+      btmtksdio = l.mkDefault false;
+      btmtkuart = l.mkDefault false;
+      btnxpuart = l.mkDefault false;
+      btqca = l.mkDefault false;
+      btrsi = l.mkDefault false;
+      btrtl = l.mkDefault false;
+      btsdio = l.mkDefault false;
+      btusb = l.mkDefault false;
+      virtio_bt = l.mkDefault false;
     };
   };
 }
