@@ -60,6 +60,7 @@ let
         ./core-pid.nix
         ./tiocsti.nix
         ./algif-kmodules.nix
+        ./modules.nix
       ]
       {
         inherit
