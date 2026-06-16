@@ -21,27 +21,29 @@
   l,
   cfg,
   ...
-}: let
+}:
+let
   categoryModules =
     l.mkCategoryModules cfg
-    [
-      ./cis-banners.nix
-    ]
-    {
-      inherit
-        options
-        config
-        pkgs
-        lib
-        ;
-    };
-in {
+      [
+        ./cis-banners.nix
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
+in
+{
   options = {
     etc = l.mkOption {
       description = ''
         Extra settings for files in `/etc`.
       '';
-      default = {};
+      default = { };
       type = l.mkCategorySubmodule categoryModules;
     };
   };

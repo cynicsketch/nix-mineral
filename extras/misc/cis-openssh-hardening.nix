@@ -17,13 +17,12 @@
   l,
   cfg,
   ...
-}: {
+}:
+{
   options = {
-    harden-openssh =
-      l.mkBoolOption ''
-        Apply CIS-compliant OpenSSH server settings.
-      ''
-      false;
+    harden-openssh = l.mkBoolOption ''
+      Apply CIS-compliant OpenSSH server settings.
+    '' false;
   };
 
   config = l.mkIf cfg {

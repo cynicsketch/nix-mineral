@@ -13,7 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 {
   options,
   config,
@@ -23,7 +22,6 @@
   cfg,
   ...
 }:
-
 let
   categoryModules =
     l.mkCategoryModules cfg
@@ -31,7 +29,7 @@ let
         ./apparmor.nix
         ./auditd.nix
         ./doas-sudo-wrapper.nix
-        ./harden-openssh.nix
+        ./cis-openssh-hardening.nix
         ./replace-sudo-with-doas.nix
         ./ssh-hardening.nix
         ./usbguard.nix

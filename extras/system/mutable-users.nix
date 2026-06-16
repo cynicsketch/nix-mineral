@@ -17,13 +17,12 @@
   l,
   cfg,
   ...
-}: {
+}:
+{
   options = {
-    mutable-users =
-      l.mkBoolOption ''
-        Disable mutable users for declarative user management.
-      ''
-      false;
+    mutable-users = l.mkBoolOption ''
+      Disable mutable users for declarative user management.
+    '' false;
   };
 
   config = l.mkIf cfg {

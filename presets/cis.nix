@@ -18,9 +18,11 @@
   l,
   mkPresets,
   ...
-}: let
+}:
+let
   toWarnings = l.concatMap (a: l.optional (!a.assertion) a.message);
-in {
+in
+{
   # CIS Benchmark Compliance Preset
   #
   # Implements Center for Internet Security (CIS) benchmark requirements.

@@ -17,16 +17,15 @@
   l,
   cfg,
   ...
-}: {
+}:
+{
   options = {
-    cis-banners =
-      l.mkBoolOption ''
-        Set CIS-compliant login warning banners.
+    cis-banners = l.mkBoolOption ''
+      Set CIS-compliant login warning banners.
 
-        Configures `/etc/motd` (CIS 1.7.1.1) and `/etc/issue.net` (CIS 1.7.1.3)
-        with warnings.
-      ''
-      false;
+      Configures `/etc/motd` (CIS 1.7.1.1) and `/etc/issue.net` (CIS 1.7.1.3)
+      with warnings.
+    '' false;
   };
 
   config = l.mkIf cfg {
