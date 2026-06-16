@@ -18,11 +18,9 @@
   l,
   mkPresets,
   ...
-}:
-let
+}: let
   toWarnings = l.concatMap (a: l.optional (!a.assertion) a.message);
-in
-{
+in {
   # CIS Benchmark Compliance Preset
   #
   # Implements Center for Internet Security (CIS) benchmark requirements.
@@ -195,7 +193,16 @@ in
 
       system = {
         mutable-users = true; # CIS 6.2.x - declarative user management
-        shell-init = true; # CIS 5.4.4, 5.4.5 - umask and shell timeout
+        # CIS 5.4.4 - umask
+        umask = {
+          enable = true;
+          value = "027";
+        };
+        # CIS 5.4.4 - shell tmout
+        tmout = {
+          enable = true;
+          value = 900;
+        };
       };
     };
   };
