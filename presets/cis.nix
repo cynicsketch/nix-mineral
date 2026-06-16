@@ -188,7 +188,7 @@ in {
       misc = {
         apparmor = true; # CIS 1.6.1.1 - enable AppArmor
         auditd = true; # CIS 4.1.x - enable auditd with CIS rules
-        harden-openssh = true; # CIS 5.2.x - harden OpenSSH
+        cis-openssh-hardening = true; # CIS 5.2.x - harden OpenSSH
       };
 
       system = {

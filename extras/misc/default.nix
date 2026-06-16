@@ -21,29 +21,27 @@
   l,
   cfg,
   ...
-}:
-let
+}: let
   categoryModules =
     l.mkCategoryModules cfg
-      [
-        ./apparmor.nix
-        ./auditd.nix
-        ./doas-sudo-wrapper.nix
-        ./cis-openssh-hardening.nix
-        ./replace-sudo-with-doas.nix
-        ./ssh-hardening.nix
-        ./usbguard.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
-{
+    [
+      ./apparmor.nix
+      ./auditd.nix
+      ./doas-sudo-wrapper.nix
+      ./cis-openssh-hardening.nix
+      ./replace-sudo-with-doas.nix
+      ./ssh-hardening.nix
+      ./usbguard.nix
+    ]
+    {
+      inherit
+        options
+        config
+        pkgs
+        lib
+        ;
+    };
+in {
   options = {
     misc = l.mkOption {
       description = ''
@@ -51,7 +49,7 @@ in
 
         Most of those are relatively opinionated additional software.
       '';
-      default = { };
+      default = {};
       type = l.mkCategorySubmodule categoryModules;
     };
   };
