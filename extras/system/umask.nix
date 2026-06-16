@@ -17,23 +17,30 @@
   l,
   cfg,
   ...
-}: {
+}:
+{
   options = {
-    shell-init =
-      l.mkBoolOption ''
-        Set restrictive shell defaults for umask and idle timeout.
+    umask = l.mkOption {
+      description = "Set a restrictive default umask for shells.";
+      default = { };
+      type = l.types.submodule {
+        options = {
+          enable = l.mkEnableOption "restrictive umask";
 
-        Sets umask to 027 and shell timeout to 900 seconds.
-      ''
-      false;
+          value = l.mkOption {
+            type = l.types.str;
+            default = "027";
+            example = "077";
+            description = "The umask value to set.";
+          };
+        };
+      };
+    };
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf cfg.enable {
     environment.shellInit = ''
-      umask 027
-      TMOUT=900
-      readonly TMOUT
-      export TMOUT
+      umask ${cfg.value}
     '';
   };
 }
