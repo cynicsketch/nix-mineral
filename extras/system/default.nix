@@ -13,7 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 {
   options,
   config,
@@ -23,7 +22,6 @@
   cfg,
   ...
 }:
-
 let
   categoryModules =
     l.mkCategoryModules cfg
@@ -33,7 +31,8 @@ let
         ./minimize-swapping.nix
         ./mutable-users.nix
         ./secure-chrony.nix
-        ./shell-init.nix
+        ./tmout.nix
+        ./umask.nix
         ./unprivileged-userns.nix
         ./zram.nix
       ]
