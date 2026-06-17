@@ -48,8 +48,7 @@
         "-w /etc/apparmor.d/ -p wa -k MAC-policy"
 
         # CIS 4.1.9 - collect login/logout events
-        # NixOS uses pam_faillock instead of faillog/tallylog
-        "-w /var/run/faillock/ -p wa -k logins"
+        # NixOS does not use uses pam_faillock/faillog/tallylog by default.
         "-w /var/log/lastlog -p wa -k logins"
 
         # CIS 4.1.10 - collect session initiation events
