@@ -21,34 +21,36 @@
   l,
   cfg,
   ...
-}: let
+}:
+let
   categoryModules =
     l.mkCategoryModules cfg
-    [
-      ./hardened-malloc.nix
-      ./lock-root.nix
-      ./minimize-swapping.nix
-      ./mutable-users.nix
-      ./secure-chrony.nix
-      ./shell-init-hardening.nix
-      ./unprivileged-userns.nix
-      ./zram.nix
-    ]
-    {
-      inherit
-        options
-        config
-        pkgs
-        lib
-        ;
-    };
-in {
+      [
+        ./hardened-malloc.nix
+        ./lock-root.nix
+        ./minimize-swapping.nix
+        ./mutable-users.nix
+        ./secure-chrony.nix
+        ./shell-init-hardening.nix
+        ./unprivileged-userns.nix
+        ./zram.nix
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
+in
+{
   options = {
     system = l.mkOption {
       description = ''
         Extra settings for the system.
       '';
-      default = {};
+      default = { };
       type = l.mkCategorySubmodule categoryModules;
     };
   };

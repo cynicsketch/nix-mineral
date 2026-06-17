@@ -2,18 +2,17 @@
   l,
   cfg,
   ...
-}: {
+}:
+{
   options = {
-    auditd =
-      l.mkBoolOption ''
-        Enable auditd with CIS-compliant audit rules.
+    auditd = l.mkBoolOption ''
+      Enable auditd with CIS-compliant audit rules.
 
-        ::: {.note}
-        The audit configuration is made immutable. A reboot is required to
-        change audit rules after they are loaded.
-        :::
-      ''
-      false;
+      ::: {.note}
+      The audit configuration is made immutable. A reboot is required to
+      change audit rules after they are loaded.
+      :::
+    '' false;
   };
 
   config = l.mkIf cfg {
