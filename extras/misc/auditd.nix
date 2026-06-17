@@ -28,32 +28,31 @@
         "-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change"
         "-a always,exit -F arch=b64 -S clock_settime -k time-change"
         "-a always,exit -F arch=b32 -S clock_settime -k time-change"
-        "-a always,exit -F path=/etc/localtime -F perm=wa -k time-change"
+        "-w /etc/localtime -p wa -k time-change"
 
         # CIS 4.1.6 - collect user/group modification events
         # NixOS manages users declaratively so shadow/gshadow/opasswd do not apply
-        "-a always,exit -F path=/etc/group -F perm=wa -k identity"
-        "-a always,exit -F path=/etc/passwd -F perm=wa -k identity"
+        "-w /etc/group -p wa -k identity"
+        "-w /etc/passwd -p wa -k identity"
 
         # CIS 4.1.7 - collect network environment modification events
         "-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale"
         "-a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale"
-        "-a always,exit -F path=/etc/issue -F perm=wa -k system-locale"
-        "-a always,exit -F path=/etc/issue.net -F perm=wa -k system-locale"
-        "-a always,exit -F path=/etc/hosts -F perm=wa -k system-locale"
-        "-a always,exit -F path=/etc/hostname -F perm=wa -k system-locale"
+        "-w /etc/issue -p wa -k system-locale"
+        "-w /etc/issue.net -p wa -k system-locale"
+        "-w /etc/hosts -p wa -k system-locale"
+        "-w /etc/hostname -p wa -k system-locale"
 
         # CIS 4.1.8 - collect MAC modification events
-        "-a always,exit -F path=/etc/apparmor/ -F perm=wa -k MAC-policy"
-        "-a always,exit -F path=/etc/apparmor.d/ -F perm=wa -k MAC-policy"
+        "-w /etc/apparmor/ -p wa -k MAC-policy"
+        "-w /etc/apparmor.d/ -p wa -k MAC-policy"
 
         # CIS 4.1.9 - collect login/logout events
-        # NixOS does not use lastlog/pam_faillock/faillog/tallylog by default
+        # NixOS does not use uses lastlog/pam_faillock/faillog/tallylog by default.
 
         # CIS 4.1.10 - collect session initiation events
-        # /var/run/utmp is not present at sysinit time (what this service runs as) so cannot be watched
-        "-a always,exit -F path=/var/log/wtmp -F perm=wa -k logins"
-        "-a always,exit -F path=/var/log/btmp -F perm=wa -k logins"
+        "-w /var/log/wtmp -p wa -k logins"
+        "-w /var/log/btmp -p wa -k logins"
 
         # CIS 4.1.11 - collect DAC permission modification events
         "-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod"
@@ -78,8 +77,8 @@
         "-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete"
 
         # CIS 4.1.16 - collect sudoers modification events
-        "-a always,exit -F path=/etc/sudoers -F perm=wa -k scope"
-        "-a always,exit -F path=/etc/sudoers.d/ -F perm=wa -k scope"
+        "-w /etc/sudoers -p wa -k scope"
+        "-w /etc/sudoers.d/ -p wa -k scope"
 
         # CIS 4.1.17 - collect sudo command execution
         # /run/wrappers/bin/sudo does not exist at sysinit time
