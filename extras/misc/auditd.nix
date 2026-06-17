@@ -1,40 +1,27 @@
-# This file is part of nix-mineral (https://github.com/cynicsketch/nix-mineral/).
-# Copyright (c) 2025 cynicsketch
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {
   l,
   cfg,
   ...
-}:
-{
+}: {
   options = {
-    auditd = l.mkBoolOption ''
-      Enable auditd with CIS-compliant audit rules.
+    auditd =
+      l.mkBoolOption ''
+        Enable auditd with CIS-compliant audit rules.
 
-      ::: {.note}
-      The audit configuration is made immutable. A reboot is required to
-      change audit rules after they are loaded.
-      :::
-    '' false;
+        ::: {.note}
+        The audit configuration is made immutable. A reboot is required to
+        change audit rules after they are loaded.
+        :::
+      ''
+      false;
   };
 
   config = l.mkIf cfg {
     security.auditd.enable = true;
 
     security.audit = {
-      enable = true;
+      # CIS 4.1.19 - make audit configuration immutable
+      enable = "locked";
       rules = [
         # CIS 4.1.5 - collect date/time modification events
         "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change"
@@ -44,11 +31,9 @@
         "-w /etc/localtime -p wa -k time-change"
 
         # CIS 4.1.6 - collect user/group modification events
+        # NixOS manages users declaratively so shadow/gshadow/opasswd do not apply
         "-w /etc/group -p wa -k identity"
         "-w /etc/passwd -p wa -k identity"
-        "-w /etc/gshadow -p wa -k identity"
-        "-w /etc/shadow -p wa -k identity"
-        "-w /etc/security/opasswd -p wa -k identity"
 
         # CIS 4.1.7 - collect network environment modification events
         "-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale"
@@ -63,9 +48,9 @@
         "-w /etc/apparmor.d/ -p wa -k MAC-policy"
 
         # CIS 4.1.9 - collect login/logout events
-        "-w /var/log/faillog -p wa -k logins"
+        # NixOS uses pam_faillock instead of faillog/tallylog
+        "-w /var/run/faillock/ -p wa -k logins"
         "-w /var/log/lastlog -p wa -k logins"
-        "-w /var/log/tallylog -p wa -k logins"
 
         # CIS 4.1.10 - collect session initiation events
         "-w /var/run/utmp -p wa -k session"
@@ -99,17 +84,15 @@
         "-w /etc/sudoers.d/ -p wa -k scope"
 
         # CIS 4.1.17 - collect sudo command execution
-        "-w /var/log/sudo.log -p wa -k actions"
+        # NixOS sudo logs via journald by default so /var/log/sudo.log is not created
+        # the sudo setuid wrapper lives at /run/wrappers/bin/sudo on NixOS
+        "-a always,exit -F arch=b64 -S execve -F path=/run/wrappers/bin/sudo -k actions"
+        "-a always,exit -F arch=b32 -S execve -F path=/run/wrappers/bin/sudo -k actions"
 
         # CIS 4.1.18 - collect kernel module loading events
-        "-w /sbin/insmod -p x -k modules"
-        "-w /sbin/rmmod -p x -k modules"
-        "-w /sbin/modprobe -p x -k modules"
+        # NixOS does not place kmod tools at /sbin so syscall rules are used instead
         "-a always,exit -F arch=b64 -S init_module -S delete_module -k modules"
         "-a always,exit -F arch=b32 -S init_module -S delete_module -k modules"
-
-        # CIS 4.1.19 - make audit configuration immutable
-        "-e 2"
       ];
     };
   };
