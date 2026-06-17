@@ -51,9 +51,9 @@
         # NixOS does not use uses lastlog/pam_faillock/faillog/tallylog by default.
 
         # CIS 4.1.10 - collect session initiation events
-        "-w /var/run/utmp -p wa -k session"
-        "-w /var/log/wtmp -p wa -k logins"
-        "-w /var/log/btmp -p wa -k logins"
+        # "-w /var/run/utmp -p wa -k session"
+        # "-w /var/log/wtmp -p wa -k logins"
+        # "-w /var/log/btmp -p wa -k logins"
 
         # CIS 4.1.11 - collect DAC permission modification events
         "-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod"
