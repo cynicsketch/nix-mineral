@@ -51,9 +51,12 @@
         # NixOS does not use uses lastlog/pam_faillock/faillog/tallylog by default.
 
         # CIS 4.1.10 - collect session initiation events
-        # "-w /var/run/utmp -p wa -k session"
-        # "-w /var/log/wtmp -p wa -k logins"
-        # "-w /var/log/btmp -p wa -k logins"
+        "-w /var/log/wtmp -p wa -k logins"
+        "-w /var/log/btmp -p wa -k logins"
+        # /var/run/utmp is not present at sysinit time so cannot be watched
+        # Instead catch syscall changes
+        "-a always,exit -F arch=b64 -S open -S openat -F path=/var/run/utmp -F perm=wa -k session"
+        "-a always,exit -F arch=b32 -S open -S openat -F path=/var/run/utmp -F perm=wa -k session"
 
         # CIS 4.1.11 - collect DAC permission modification events
         "-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod"
@@ -82,10 +85,10 @@
         "-w /etc/sudoers.d/ -p wa -k scope"
 
         # CIS 4.1.17 - collect sudo command execution
-        # NixOS sudo logs via journald by default so /var/log/sudo.log is not created
-        # the sudo setuid wrapper lives at /run/wrappers/bin/sudo on NixOS
-        "-a always,exit -F arch=b64 -S execve -F path=/run/wrappers/bin/sudo -k actions"
-        "-a always,exit -F arch=b32 -S execve -F path=/run/wrappers/bin/sudo -k actions"
+        # /run/wrappers/bin/sudo does not exist at sysinit time
+        # audit all execve by root on behalf of a regular user instead
+        "-a always,exit -F arch=b64 -S execve -F uid=0 -F auid>=1000 -F auid!=4294967295 -k actions"
+        "-a always,exit -F arch=b32 -S execve -F uid=0 -F auid>=1000 -F auid!=4294967295 -k actions"
 
         # CIS 4.1.18 - collect kernel module loading events
         # NixOS does not place kmod tools at /sbin so syscall rules are used instead
