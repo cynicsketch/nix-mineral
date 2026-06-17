@@ -21,7 +21,7 @@
 
     security.audit = {
       # CIS 4.1.19 - make audit configuration immutable
-      enable = "locked";
+      enable = "lock";
       rules = [
         # CIS 4.1.5 - collect date/time modification events
         "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change"
