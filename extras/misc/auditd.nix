@@ -44,8 +44,8 @@
         "-a always,exit -F path=/etc/hostname -F perm=wa -k system-locale"
 
         # CIS 4.1.8 - collect MAC modification events
-        "-a always,exit -F dir=/etc/apparmor/ -F perm=wa -k MAC-policy"
-        "-a always,exit -F dir=/etc/apparmor.d/ -F perm=wa -k MAC-policy"
+        "-a always,exit -F path=/etc/apparmor/ -F perm=wa -k MAC-policy"
+        "-a always,exit -F path=/etc/apparmor.d/ -F perm=wa -k MAC-policy"
 
         # CIS 4.1.9 - collect login/logout events
         # NixOS does not use lastlog/pam_faillock/faillog/tallylog by default
@@ -79,7 +79,7 @@
 
         # CIS 4.1.16 - collect sudoers modification events
         "-a always,exit -F path=/etc/sudoers -F perm=wa -k scope"
-        "-a always,exit -F dir=/etc/sudoers.d/ -F perm=wa -k scope"
+        "-a always,exit -F path=/etc/sudoers.d/ -F perm=wa -k scope"
 
         # CIS 4.1.17 - collect sudo command execution
         # /run/wrappers/bin/sudo does not exist at sysinit time
