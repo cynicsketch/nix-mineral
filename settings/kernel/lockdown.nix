@@ -31,7 +31,7 @@
       enable Linux kernel lockdown as of 16/03/26.
 
       It will remain implemented by default in the event that circumstances
-      change, since adding the corresponding boot parameter anyways is harmless.]
+      change, since adding the corresponding boot parameter anyways is harmless.
 
       See:
       https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
