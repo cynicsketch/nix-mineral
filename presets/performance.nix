@@ -50,7 +50,13 @@
         # it adds significant memory allocation overhead.
         slab-debug = false;
       };
-
+    };
+    extras = {
+      system = {
+        # Enabling zram improves swapping performance and desktop responsiveness.
+        # Aditionally, decreases swapping to disk, improving security and lifespan.
+        zram = true;
+      };
     };
   };
 }
