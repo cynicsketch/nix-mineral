@@ -34,7 +34,7 @@
       task of limiting swapping of sensitive data depends highly on the user's
       individual swapping setup which can't be reliably inferred.
       :::
-    '' true;
+    '' false;
   };
 
   config = l.mkIf cfg {
