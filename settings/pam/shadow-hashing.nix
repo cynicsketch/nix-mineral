@@ -17,6 +17,7 @@
 {
   l,
   cfg,
+  config,
   ...
 }:
 
@@ -29,12 +30,42 @@
         again for this to work.
 
         If you declaratively set passwords with a secret manager, consider
-        using a good number (`65536`) of hashing rounds or more for resilience to
-        password cracking.
+        using a good hashing round count for resilience to password hash cracking.
 
         Set this to `false` to disable this option entirely.
+
+        ::: {.note}
+        By default, this option will set to a value of 8 if yescrypt is used as
+        the hashing algorithm for the passwd service in PAM.
+
+        yescrypt is the default hashing algorithm in NixOS for hashes created
+        by the `passwd` command for `/etc/shadow`.
+
+        This value was chosen to improve the cracking difficulty compared to
+        the default equivalent of 5, while still being conservative in memory
+        usage (128mb) to avoid causing major problems.
+
+        It is recommended that you make this value as close to 11 as possible
+        given the performance allowed by your system, to improve resilience to
+        cracking.
+
+        If yescrypt is not used, this option will do nothing by default and
+        you will have to supply your own value.
+
+        Consult respective documentation if you do not use the default yescrypt
+        as the hashing algorithm and wish to increase cracking difficulty
+        compared to default values.
+
+        See:
+        https://man.archlinux.org/man/chpasswd.8.en
+        https://linux-audit.com/authentication/linux-password-security-hashing-rounds/
+        https://www.openwall.com/lists/yescrypt/2024/03/20/2
+        https://github.com/NixOS/nixpkgs/issues/112371
+        :::
       '';
-      default = 65536;
+      default = (
+        if config.security.pam.services.passwd.rules.password."unix".settings.yescrypt then 8 else false
+      );
       example = false;
       type = l.types.either l.types.bool l.types.int;
     };
