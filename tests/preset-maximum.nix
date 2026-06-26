@@ -7,7 +7,7 @@ pkgs.testers.runNixOSTest {
   name = "mineral-preset-maximum";
 
   nodes.machine = {
-    imports = [nixosModule];
+    imports = [ nixosModule ];
     nix-mineral.enable = true;
     nix-mineral.preset = "maximum";
   };

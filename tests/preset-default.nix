@@ -7,7 +7,7 @@ pkgs.testers.runNixOSTest {
   name = "mineral-preset-default";
 
   nodes.machine = {
-    imports = [nixosModule];
+    imports = [ nixosModule ];
     nix-mineral.enable = true;
   };
 

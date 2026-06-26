@@ -7,7 +7,7 @@ pkgs.testers.runNixOSTest {
   name = "mineral-settings-kernel";
 
   nodes.machine = {
-    imports = [nixosModule];
+    imports = [ nixosModule ];
     nix-mineral.enable = true;
     nix-mineral.settings.kernel = {
       restrict-bpf = true;
