@@ -2,7 +2,7 @@
   pkgs,
   nixosModule,
 }:
-# Ensure that preset loads with maximum preset enabled
+# Ensure that preset loads with default preset enabled
 pkgs.testers.runNixOSTest {
   name = "mineral-preset-default";
 
