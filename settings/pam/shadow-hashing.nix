@@ -21,6 +21,22 @@
   ...
 }:
 
+let
+  # Check that yescrypt is defined in PAM passwd and whether it is enabled or not
+  # Avoid nix flake check failing due to NixOS options not being in scope even
+  # though they're available on an actual system
+  yescryptEnabled =
+    config ? security
+    && config.security ? pam
+    && config.security.pam ? services
+    && config.security.pam.services ? passwd
+    && config.security.pam.services.passwd ? rules
+    && config.security.pam.services.passwd.rules ? password
+    && config.security.pam.services.passwd.rules.password ? "unix"
+    && config.security.pam.services.passwd.rules.password."unix" ? settings
+    && config.security.pam.services.passwd.rules.password."unix".settings ? yescrypt
+    && config.security.pam.services.passwd.rules.password."unix".settings.yescrypt;
+in
 {
   options = {
     shadow-hashing = l.mkOption {
@@ -63,9 +79,7 @@
         https://github.com/NixOS/nixpkgs/issues/112371
         :::
       '';
-      default = (
-        if config.security.pam.services.passwd.rules.password."unix".settings.yescrypt then 8 else false
-      );
+      default = (if yescryptEnabled then 8 else false);
       example = false;
       type = l.types.either l.types.bool l.types.int;
     };
