@@ -26,13 +26,7 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./apparmor.nix
-        ./auditd.nix
-        ./doas-sudo-wrapper.nix
-        ./cis-openssh-hardening.nix
-        ./replace-sudo-with-doas.nix
-        ./ssh-hardening.nix
-        ./usbguard.nix
+        ./cis-banners.nix
       ]
       {
         inherit
@@ -45,11 +39,9 @@ let
 in
 {
   options = {
-    misc = l.mkOption {
+    etc = l.mkOption {
       description = ''
-        Extra misc settings.
-
-        Most of those are relatively opinionated additional software.
+        Extra settings for files in `/etc`.
       '';
       default = { };
       type = l.mkCategorySubmodule categoryModules;

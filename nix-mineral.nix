@@ -52,11 +52,12 @@ let
   extrasModules =
     l.mkCategoryModules cfg.extras
       [
-        ./extras/kernel
-        ./extras/system
-        ./extras/network
         ./extras/entropy
+        ./extras/etc
+        ./extras/kernel
         ./extras/misc
+        ./extras/network
+        ./extras/system
         ./extras/tmpfiles
       ]
       {
