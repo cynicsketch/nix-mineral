@@ -16,13 +16,14 @@
 
 {
   l,
+  parentCfg,
   cfg,
   ...
 }:
 
 {
   options = {
-    only-signed-modules = l.mkBoolOption ''
+    only-signed = l.mkBoolOption ''
       Requires all kernel modules to be signed. This prevents out-of-tree
       kernel modules from working unless signed.
 
@@ -37,12 +38,12 @@
       https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
       https://github.com/cynicsketch/nix-mineral/issues/125
 
-      If `false`, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
+      If `false`, {option}`nix-mineral.kernel-modules.lockdown` must also be false.
       :::
     '' true;
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (parentCfg.enable && !cfg) {
     boot.kernelParams = [
       "module.sig_enforce=1"
     ];
