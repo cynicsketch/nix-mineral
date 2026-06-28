@@ -89,6 +89,7 @@ let
         ./kernel-modules/load.nix
         ./kernel-modules/lockdown.nix
         ./kernel-modules/only-signed.nix
+        ./kernel-modules/disable.nix
       ]
       {
         inherit
