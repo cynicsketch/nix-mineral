@@ -90,6 +90,7 @@ let
         ./kernel-modules/lockdown.nix
         ./kernel-modules/only-signed.nix
         ./kernel-modules/disable.nix
+        ./kernel-modules/blacklist.nix
       ]
       {
         inherit
