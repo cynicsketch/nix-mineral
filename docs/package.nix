@@ -96,17 +96,26 @@ let
             position = 5;
           }
           {
+            name = "nix-mineral.kernel-modules";
+            position = 6;
+          }
+          {
             name.regex = "^nix-mineral\\.filesystems\\..*";
             position = 10;
             depth = 2;
           }
           {
-            name.regex = "^nix-mineral\\.settings\\..*";
+            name.regex = "^nix-mineral\\.kernel-modules\\..*";
             position = 20;
+            depth = 2;
+          }
+          {
+            name.regex = "^nix-mineral\\.settings\\..*";
+            position = 30;
           }
           {
             name.regex = "^nix-mineral\\.extras\\..*";
-            position = 30;
+            position = 40;
           }
         ];
       };

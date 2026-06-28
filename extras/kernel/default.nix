@@ -28,8 +28,6 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./intelme-kmodules.nix
-        ./load-kernel-modules.nix
         ./warn-panic.nix
       ]
       {

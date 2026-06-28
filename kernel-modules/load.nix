@@ -16,13 +16,24 @@
 
 {
   l,
+  parentCfg,
   cfg,
   ...
 }:
 
 {
   options = {
-    load-kernel-modules = l.mkBoolOption ''
+    enable = l.mkBoolOption ''
+      Enable the kernel module hardening utility from nix-mineral.
+
+      ::: {.note}
+      Disabling this option will ignore all options related to kernel modules (under {option}`nix-mineral.kernel-modules`).
+
+      If your goal is to disable kernel module loading, you probably want to disable {option}`nix-mineral.kernel-modules.load` instead.
+      :::
+    '' true;
+
+    load = l.mkBoolOption ''
       Allow loading of kernel modules not only at boot via kernel commandline.
 
       ::: {.warning}
@@ -32,7 +43,7 @@
     '' true;
   };
 
-  config = l.mkIf (!cfg) {
+  config = l.mkIf (parentCfg.enable && !cfg) {
     boot.kernel.sysctl."kernel.modules_disabled" = l.mkForce "1";
   };
 }

@@ -28,8 +28,6 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./only-signed-modules.nix
-        ./lockdown.nix
         ./busmaster-bit.nix
         ./cpu-mitigations.nix
         ./pti.nix
@@ -59,7 +57,6 @@ let
         ./iommu-passthrough.nix
         ./core-pid.nix
         ./tiocsti.nix
-        ./algif-kmodules.nix
       ]
       {
         inherit
