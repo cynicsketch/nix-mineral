@@ -25,10 +25,6 @@ Secure boot on NixOS, which is a highly impactful mitigation of "evil maid" atta
 https://madaidans-insecurities.github.io/security-privacy-advice.html \
 Basic OPSEC. Decent, concise advice. Many will disagree with, or just disregard a lot here, but the "General" advice here is applicable and useful to most people.
 
-https://github.com/arkenfox/user.js \
-https://github.com/dwarfmaster/arkenfox-nixos \
-Most desktop NixOS users use Firefox. Locking it down a bit is commonsense.
-
 https://codeberg.org/celenity/Phoenix \
 An arkenfox alternative featuring a NixOS module. This may make you stand out due to a smaller userbase, though.
 
