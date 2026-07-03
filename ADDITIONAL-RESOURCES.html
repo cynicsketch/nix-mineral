@@ -116,7 +116,9 @@ Secure boot on NixOS, which is a highly impactful mitigation of "evil maid" atta
 <p><a href="https://madaidans-insecurities.github.io/security-privacy-advice.html">https://madaidans-insecurities.github.io/security-privacy-advice.html</a> <br>
 Basic OPSEC. Decent, concise advice. Many will disagree with, or just disregard a lot here, but the "General" advice here is applicable and useful to most people.</p>
 <p><a href="https://codeberg.org/celenity/Phoenix">https://codeberg.org/celenity/Phoenix</a> <br>
-An arkenfox alternative featuring a NixOS module. This may make you stand out due to a smaller userbase, though.</p>
+An arkenfox alternative featuring a NixOS module. This may make you stand out due to a smaller userbase, though. Due to structural considerations, this should not be considered remotely comparable in terms of security in exploit resistance and isolation to Chromium, and should be considered only for "harm mitigation" at best with knowledge of its shortcomings. \</p>
+<p>The developer of Phoenix itself refers to this limitation: <a href="https://codeberg.org/celenity/Phoenix/wiki/Limitations">https://codeberg.org/celenity/Phoenix/wiki/Limitations</a> <br>
+Also see: <a href="https://grapheneos.org/usage#web-browsing">https://grapheneos.org/usage#web-browsing</a></p>
 <p><a href="https://github.com/ryantm/agenix">https://github.com/ryantm/agenix</a> <br>
 <a href="https://github.com/Mic92/sops-nix">https://github.com/Mic92/sops-nix</a> <br>
 Secrets management lets you more safely declaratively set password on NixOS, along with managing other sensitive info. Not included by default because people have different passwords (obviously) and if you imperatively set your password, you don't have to worry about this. There are many, many more implementations than listed.</p>
