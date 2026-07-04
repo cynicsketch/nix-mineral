@@ -41,7 +41,7 @@ https://github.com/Naxdy/nix-bwrapper \
 Bubblewrap is arguably the best sandboxing solution for desktop Linux. There's many projects to make using bubblewrap easier to use for nix, and these are just some examples. Convenient hardening is better than no hardening, though for fine grained control power users can manually sandbox their stuff or use something else. 
 
 https://github.com/e-tho/ucodenix \
-amd-ucode mainly targets server CPUs, NOT consumer CPUs. If your OEM no longer provides updates for your AMD systemz microcode will likely never be updated by a standard Linux hardware. Luckily, someone made a tool to do so automatically. Certain outdated firmware may prevent updating of microcode past a certain point, see the repo linked above for more details.
+amd-ucode mainly targets server CPUs, NOT consumer CPUs. If your OEM no longer provides updates for your consumer grade AMD systems, the microcode will likely never be updated by updates handled by the operating system alone. Luckily, someone made a tool to do so automatically. Certain outdated firmware may prevent updating of microcode past a certain point, see the repo linked above for more details.
 
 Rust replacements, for example: \
 https://github.com/trifectatechfoundation/sudo-rs \
