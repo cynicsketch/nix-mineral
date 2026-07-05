@@ -126,7 +126,7 @@ let
   # https://github.com/feel-co/hjem/blob/8539013044624a257e8da370069107aea148e985/docs/package.nix#L24
   # https://github.com/snugnug/hjem-rum/blob/edac54b7d57ad72cc4b124da2f44e7b2e584f3c6/docs/package.nix#L17
   evalModules = (
-    lib.evalModules {
+    lib.nixosSystem {
       modules = [
         inputs.self.nixosModules.nix-mineral
 
