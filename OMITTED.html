@@ -94,7 +94,7 @@
 <ul><li><a href="#sysctl-omitted-from-k4yt3x-config-that-are-out-of-scope-of-nix-mineral-and-hardening-but-may-be-useful-anyways-to-some--see-their-repo-for-details">sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details:</a>
 <li><a href="#sections-from-madaidan-s-guide-that-are-irrelevant-non-applicable">Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:</a>
 <li><a href="#sections-from-madaidan-s-guide-requiring-manual-user-intervention">Sections from madaidan's guide requiring manual user intervention:</a>
-<li><a href="#sysctl-omitted-due-to-already-being-used-by-default-on-nixos">sysctl omitted due to already being used by default on NixOS:</a>
+<li><a href="#options-omitted-due-to-already-being-used-by-default-on-nixos">Options omitted due to already being used by default on NixOS:</a>
 </li></ul></li>
               </ul>
             </div>
@@ -191,8 +191,10 @@ implemented here) <br>
 21.3.2 (See above) <br>
 21.3.3 (See above) <br>
 21.4 (Non-declarative setup, experimental)</p>
-<h2 id="sysctl-omitted-due-to-already-being-used-by-default-on-nixos">sysctl omitted due to already being used by default on NixOS:</h2>
-<p>"vm.max_map_count=1048576" (Due to its relevance in reducing crashes for memory intensive applications, despite a secondary need to be used in order to have enough guard pages for hardened_malloc)</p>
+<h2 id="options-omitted-due-to-already-being-used-by-default-on-nixos">Options omitted due to already being used by default on NixOS:</h2>
+<p><code>boot.kernel.sysctl."vm.max_map_count" = "1048576"</code> - Used for reducing crashes in memory intensive applications. Also required to allow hardened_malloc to allocate enough guard pages to work as intended.
+<code>networking.firewall.enable = true;</code> - Enabled by default on NixOS. Already widely integrated in various upstream NixOS modules.
+<code>boot.kernel.sysctl."vm.mmap_rnd_bits"</code> and <code>"vm.mmap_rnd_compat_bits"</code> - ASLR entropy is already dynamically maximized using a script that is enabled by default on NixOS. See: <a href="https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1">https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1</a></p>
 </body></html></main>
       </div>
 
@@ -205,7 +207,7 @@ implemented here) <br>
 <ul><li><a href="#sysctl-omitted-from-k4yt3x-config-that-are-out-of-scope-of-nix-mineral-and-hardening-but-may-be-useful-anyways-to-some--see-their-repo-for-details">sysctl omitted from K4YT3X config that are out of scope of nix-mineral and hardening but may be useful anyways to some, see their repo for details:</a>
 <li><a href="#sections-from-madaidan-s-guide-that-are-irrelevant-non-applicable">Sections from madaidan's guide that are IRRELEVANT/NON-APPLICABLE:</a>
 <li><a href="#sections-from-madaidan-s-guide-requiring-manual-user-intervention">Sections from madaidan's guide requiring manual user intervention:</a>
-<li><a href="#sysctl-omitted-due-to-already-being-used-by-default-on-nixos">sysctl omitted due to already being used by default on NixOS:</a>
+<li><a href="#options-omitted-due-to-already-being-used-by-default-on-nixos">Options omitted due to already being used by default on NixOS:</a>
 </li></ul></li>
           </ul>
         </nav>
