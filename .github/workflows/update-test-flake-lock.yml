@@ -1,0 +1,25 @@
+name: "Flake.lock: update Nix dependencies (NixOS stub flake for CI)"
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # runs weekly on Sunday at 00:00
+  workflow_dispatch: # allows manual triggering
+
+jobs:
+  nixos-stub-flake-update:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/update-flake-lock@main
+        with:
+          path-to-flake-dir: 'tests/nixos-stub/' # path to nixos-stub flake
+          pr-title: "Update Nix flake inputs"
+          pr-labels: |
+            dependencies
+            automated
