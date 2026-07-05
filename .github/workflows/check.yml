@@ -1,4 +1,4 @@
-name: Evaluate
+name: Evaluate module on a NixOS flake
 
 on: [push, pull_request, workflow_dispatch]
 
