@@ -192,9 +192,9 @@ implemented here) <br>
 21.3.3 (See above) <br>
 21.4 (Non-declarative setup, experimental)</p>
 <h2 id="options-omitted-due-to-already-being-used-by-default-on-nixos">Options omitted due to already being used by default on NixOS:</h2>
-<p><code>boot.kernel.sysctl."vm.max_map_count" = "1048576"</code> - Used for reducing crashes in memory intensive applications. Also required to allow hardened_malloc to allocate enough guard pages to work as intended.
-<code>networking.firewall.enable = true;</code> - Enabled by default on NixOS. Already widely integrated in various upstream NixOS modules.
-<code>boot.kernel.sysctl."vm.mmap_rnd_bits"</code> and <code>"vm.mmap_rnd_compat_bits"</code> - ASLR entropy is already dynamically maximized using a script that is enabled by default on NixOS. See: <a href="https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1">https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1</a></p>
+<p><code>boot.kernel.sysctl."vm.max_map_count" = "1048576"</code> - Used for reducing crashes in memory intensive applications. Also required to allow hardened_malloc to allocate enough guard pages to work as intended.</p>
+<p><code>networking.firewall.enable = true;</code> - Enabled by default on NixOS. Already widely integrated in various upstream NixOS modules.</p>
+<p><code>boot.kernel.sysctl."vm.mmap_rnd_bits"</code> and <code>"vm.mmap_rnd_compat_bits"</code> - ASLR entropy is already dynamically maximized using a script that is enabled by default on NixOS. See: <a href="https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1">https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1</a></p>
 </body></html></main>
       </div>
 
