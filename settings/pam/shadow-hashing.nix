@@ -63,7 +63,7 @@
         https://github.com/NixOS/nixpkgs/issues/112371
         :::
       '';
-      default = (if yescryptEnabled then 8 else false);
+      default = (if config.security.loginDefs.settings.ENCRYPT_METHOD == "YESCRYPT" then 8 else false);
       example = false;
       type = l.types.either l.types.bool l.types.int;
     };
