@@ -25,12 +25,12 @@ Secure boot on NixOS, which is a highly impactful mitigation of "evil maid" atta
 https://madaidans-insecurities.github.io/security-privacy-advice.html \
 Basic OPSEC. Decent, concise advice. Many will disagree with, or just disregard a lot here, but the "General" advice here is applicable and useful to most people.
 
-https://github.com/arkenfox/user.js \
-https://github.com/dwarfmaster/arkenfox-nixos \
-Most desktop NixOS users use Firefox. Locking it down a bit is commonsense.
-
 https://codeberg.org/celenity/Phoenix \
-An arkenfox alternative featuring a NixOS module. This may make you stand out due to a smaller userbase, though.
+https://codeberg.org/celenity/Phoenix/wiki/Limitations - LIMITATIONS OF FIREFOX \
+https://grapheneos.org/usage#web-browsing - LIMITATIONS OF FIREFOX (2) \
+Phoenix is arkenfox alternative featuring a NixOS module, designed to reduce unsolicited connections among other features. This may make you stand out due to a smaller userbase, though. Due to structural considerations, this should not be considered remotely comparable in terms of security in exploit resistance and isolation to Chromium, and should be considered only for "harm mitigation" at best with knowledge of its shortcomings.
+
+The developer of Phoenix itself refers to this issue (see above) and does not recommend Phoenix nor Firefox for applications in which security is of the highest concern.
 
 https://github.com/ryantm/agenix \
 https://github.com/Mic92/sops-nix \
@@ -41,7 +41,7 @@ https://github.com/Naxdy/nix-bwrapper \
 Bubblewrap is arguably the best sandboxing solution for desktop Linux. There's many projects to make using bubblewrap easier to use for nix, and these are just some examples. Convenient hardening is better than no hardening, though for fine grained control power users can manually sandbox their stuff or use something else. 
 
 https://github.com/e-tho/ucodenix \
-amd-ucode mainly targets server CPUs, NOT consumer CPUs. If your OEM no longer provides updates for your AMD systemz microcode will likely never be updated by a standard Linux hardware. Luckily, someone made a tool to do so automatically. Certain outdated firmware may prevent updating of microcode past a certain point, see the repo linked above for more details.
+amd-ucode mainly targets server CPUs, NOT consumer CPUs. If your OEM no longer provides updates for your consumer grade AMD systems, the microcode will likely never be updated by updates handled by the operating system alone. Luckily, someone made a tool to do so automatically. Certain outdated firmware may prevent updating of microcode past a certain point, see the repo linked above for more details.
 
 Rust replacements, for example: \
 https://github.com/trifectatechfoundation/sudo-rs \

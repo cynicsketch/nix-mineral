@@ -40,7 +40,11 @@ in
           (all presets are applied on top of the default preset)
 
           To select multiple presets, provide a list of preset names.
-          The order of presets matters, the top ones will have more priority.
+
+          The order of presets matters, the top ones will receive higher
+          priority values, meaning that presets LOWER in the list are prioritized.
+
+          See: https://nixos.org/manual/nixos/stable/#sec-option-definitions-setting-priorities
 
           - `default`: only default settings.
           ${l.concatStringsSep "\n" (
@@ -49,8 +53,8 @@ in
         '';
         default = "default";
         example = [
-          "performance"
           "compatibility"
+          "performance"
         ];
         # Convert strings to single-element lists for easier processing later
         apply = value: if l.typeOf value == "string" then [ value ] else value;

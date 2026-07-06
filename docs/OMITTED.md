@@ -72,7 +72,7 @@ which is not default behavior!) \
 10.2 (Up to user to determine timezone, locale, and keymap) \
 10.5.3 (Not packaged) \
 10.6 (Not packaged, inconvenient and not within threat model) \
-11.1 (Manual removal of SUID/SGID is manual) \
+11.1 (Manual removal of SUID/SGID is manual - This should realistically be delegated upstream, see: https://hedgedoc.grimmauld.de/s/P2_wvU0w58) \
 11.2 (No known way to set umask declaratively systemwide, use your shellrc
 or home manager to do so) \
 14 (Rather than enforce password quality with PAM, expect user
@@ -86,5 +86,9 @@ implemented here) \
 21.3.3 (See above) \
 21.4 (Non-declarative setup, experimental)
 
-## sysctl omitted due to already being used by default on NixOS:
-"vm.max_map_count=1048576" (Due to its relevance in reducing crashes for memory intensive applications, despite a secondary need to be used in order to have enough guard pages for hardened_malloc)
+## Options omitted due to already being used by default on NixOS:
+`boot.kernel.sysctl."vm.max_map_count" = "1048576"` - Used for reducing crashes in memory intensive applications. Also required to allow hardened_malloc to allocate enough guard pages to work as intended.
+
+`networking.firewall.enable = true;` - Enabled by default on NixOS. Already widely integrated in various upstream NixOS modules.
+
+`boot.kernel.sysctl."vm.mmap_rnd_bits"` and `"vm.mmap_rnd_compat_bits"` - ASLR entropy is already dynamically maximized using a script that is enabled by default on NixOS. See: https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1

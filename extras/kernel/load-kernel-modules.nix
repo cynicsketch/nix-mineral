@@ -23,7 +23,12 @@
 {
   options = {
     load-kernel-modules = l.mkBoolOption ''
-      Allow loading of kernel modules not only at boot via kernel commandline.
+      Allow loading of kernel modules at runtime (i.e, modules not explicitly defined in boot.kernelModules
+      or on the kernel commandline).
+
+      An alternative implementation is available as the upstream NixOS option `security.lockKernelModules`,
+      which may/may not reduce breakage by altering the exact moment kernel modules are
+      locked in the boot process.
 
       ::: {.warning}
       If `false`, very likely to cause breakage unless you can compile a list of every module

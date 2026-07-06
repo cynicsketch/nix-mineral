@@ -5,15 +5,12 @@ Rather than be named after a mineral, it's named after the word "mineral".
 ## WARNING
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
 
-## Documentation and scope
-All documentation and options can be viewed at https://cynicsketch.github.io/nix-mineral/.
-
-For more information on, refer to the documents below.
-
-Contributing guidelines: [CONTRIBUTING](docs/CONTRIBUTING.md) \
-Scope: [SCOPE](docs/SCOPE.md) \
-Additional resources: [ADDITIONAL-RESOURCES](docs/ADDITIONAL-RESOURCES.md) \
-Omitted features: [OMITTED](docs/OMITTED.md)
+## Documentation
+- **[cynicsketch.github.io/nix-mineral](https://cynicsketch.github.io/nix-mineral/)** - All documentation as well as option information/search is available on the website
+- **[Contributing Guidelines](docs/CONTRIBUTING.md)** - Information for contributors
+- **[Scope](docs/SCOPE.md)** - Details what this project is for
+- **[Additional Resources](docs/ADDITIONAL-RESOURCES.md)** - Other projects and information that may useful but didn't fit elsewhere
+- **[Omitted Features](docs/OMITTED.md)** - Things that have been intentionally omitted
 
 ## Features
 A full rundown of features is best obtained by reading the individual submodules
@@ -121,7 +118,20 @@ shown below.
 {
     nix-mineral = {
         enable = true;
-        preset = "compatibility";
+        
+        # Multiple presets can be used.
+        # The order of presets matters, the top ones will receive higher
+        # priority values, meaning that presets LOWER in the list are prioritized.
+
+        # In this example, all settings from the "compatibility" preset have
+        # an override priority of 800, while settings from the "performance"
+        # preset will have an override priority of 799.
+
+        # See: https://nixos.org/manual/nixos/stable/#sec-option-definitions-setting-priorities
+        preset = [
+          "compatibility"
+          "performance"
+        ];
 
         settings = {
             # kernel = {
@@ -143,38 +153,49 @@ shown below.
 ### Credits
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
 
-Original basis for hardening, of which many of the below have themselves derived from: \
+Project: *Madaidan's Insecurities* \
+Influence: Provided the original basis for hardening, which many of the below projects have themselves derived from \
 URL: https://madaidans-insecurities.github.io/guides/linux-hardening.html \
 Archive: https://web.archive.org/web/20220320000126/https://madaidans-insecurities.github.io/guides/linux-hardening.html
 
-Additionally used is privsec's Desktop Linux Hardening: \
+Project: *privsec's Desktop Linux Hardening* \
+Influence: Additional information and guidance in hardening \
 URL: https://privsec.dev/posts/linux/desktop-linux-hardening/ \
 Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
 
-Bluetooth configuration and module blacklist, with various additional settings inspiration from Kicksecure's security-misc: \
+Project: *Kicksecure's security-misc* \
+Influence: Borrowed Bluetooth configuration and module blacklist, with additional settings inspiration  \
 URL: https://github.com/Kicksecure/security-misc
 
-Supplement to sysctl configuration borrowed from Tommy's Linux-Setup-Scripts: \
+Project: *Tommy's Linux-Setup-Scripts* \
+Influence: Provided supplement to sysctl hardening \
 URL: https://github.com/Metropolis-nexus/Common-Files/blob/main/etc/sysctl.d/99-workstation.conf
 
-Optional chrony configuration was borrowed from GrapheneOS server infrastructure: \
+Project: *GrapheneOS server infrastructure*  \
+Influence: Providing optional borrowed chrony configuration \
 URL: https://github.com/GrapheneOS/infrastructure
 
-Original idea to restrict nix to wheel user from Xe Iaso: \
+Blog: *Xe Iaso* \
+Influence: Providing the original idea to restrict nix to the wheel user \
 URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
 
-Various security-relevant sysctl configuration from K4YT3X's sysctl: \
+Project: *K4YT3X's sysctl*
+Influence: Providing supplement for various security-relevant sysctl configuration \
 URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
 
-The `hardened.nix` profile upstream, which inspired this project: \
+NixOS Module: `hardened.nix` profile upstream \
+Influence: Inspiration for the creation of `nix-mineral` \
 URL: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
 
-nix-bitcoin's hardening, which has also inspired this project: \
+Project: *nix-bitcoin's hardening* \
+Influence: Inspiration for the creation of `nix-mineral` \
 URL: https://github.com/fort-nix/nix-bitcoin
 
-hjem, for snippets licensed under the MPL-2.0, used to generate this project's website. \
+Project: *hjem* \
+Influence: Snippets for ndg licensed under the MPL-2.0, used to generate `nix-mineral`'s website \
 URL: https://github.com/feel-co/hjem
 
-hjem-rum, for snippets licensed under the GPL-3.0, used to generate this project's website. \
+Project: *hjem-rum* \
+Influence: Snippets for ndg licensed under the GPL-3.0, used to generate `nix-mineral`'s website \
 URL: https://github.com/snugnug/hjem-rum
 
