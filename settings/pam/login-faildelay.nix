@@ -36,7 +36,8 @@
 
   config = l.mkIf (l.typeOf cfg == "int") {
     security.pam.services = {
-      system-login.failDelay.delay = l.mkDefault (toString cfg);
+      system-login.failDelay.delay = l.mkDefault cfg;
+      system-login.failDelay.enable = l.mkDefault true;
     };
   };
 }
