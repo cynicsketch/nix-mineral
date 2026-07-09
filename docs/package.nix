@@ -279,7 +279,7 @@ rec {
               );
           in
           (mapMdFiles (fileName: ''
-            substituteInPlace ./inputs/index.md --replace \
+            substituteInPlace ./inputs/index.md --replace-warn \
               '](docs/${fileName})' \
               '](${fileName})'
           ''))
