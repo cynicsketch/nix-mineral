@@ -174,7 +174,12 @@ let
 
   configJSON =
     (pkgs.nixosOptionsDoc {
-      inherit (evalModules) options;
+      # Filter all the NixOS options from appearing in the options search
+      # Due to being pulled in from using lib.nixosSystem to avoid evaluation
+      # errors from NixOS options "not existing" during evaluation
+      options = {
+        nix-mineral = evalModules.options.nix-mineral;
+      };
 
       variablelistId = "nix-mineral-options";
       warningsAreErrors = true;
