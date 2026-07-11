@@ -85,8 +85,8 @@
       })
 
       (l.mkIf (cfg.ignore != "none") {
-        "net.ipv4.conf.default.arp_ignore" = l.mkDefault (if cfg == "local" then "1" else "2");
-        "net.ipv4.conf.all.arp_ignore" = l.mkDefault (if cfg == "local" then "1" else "2");
+        "net.ipv4.conf.default.arp_ignore" = l.mkDefault (if cfg.ignore == "local" then "1" else "2");
+        "net.ipv4.conf.all.arp_ignore" = l.mkDefault (if cfg.ignore == "local" then "1" else "2");
       })
 
       (l.mkIf cfg.drop-gratuitous {
