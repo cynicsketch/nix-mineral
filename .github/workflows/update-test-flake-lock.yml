@@ -19,7 +19,7 @@ jobs:
       - uses: DeterminateSystems/update-flake-lock@main
         with:
           path-to-flake-dir: 'tests/nixos-stub/' # path to nixos-stub flake
-          pr-title: "Update Nix flake inputs"
+          pr-title: "Update Nix flake inputs (NixOS stub)"
           pr-labels: |
             dependencies
             automated
