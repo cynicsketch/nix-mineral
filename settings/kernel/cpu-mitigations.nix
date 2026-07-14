@@ -34,6 +34,7 @@
         Turning all CPU mitigations off completely is a TERRIBLE idea. Even the most robustly sandboxed
         and restricted code in the world can instantly rootkit your computer.
         One web page is all it takes for all your keys to be someone else's: https://leaky.page/
+        :::
 
         ::: {.warning}
         Simultaneous multithreading has a lesser impact on security compared to disabling
