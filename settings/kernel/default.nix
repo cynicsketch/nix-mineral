@@ -57,7 +57,6 @@ let
         ./iommu-passthrough.nix
         ./core-pid.nix
         ./tiocsti.nix
-        ./algif-kmodules.nix
       ]
       {
         inherit
