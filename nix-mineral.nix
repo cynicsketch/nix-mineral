@@ -82,6 +82,20 @@ let
           lib
           ;
       };
+
+  kmodulesModules =
+    l.mkCategoryModules cfg.kernel-modules
+      [
+        ./kernel-modules/load.nix
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
 in
 {
   imports = [
@@ -115,6 +129,14 @@ in
         default = { };
         type = l.mkCategorySubmodule filesystemsModules;
       };
+
+      kernel-modules = l.mkOption {
+        description = ''
+          Options related to kernel module loading, disabling, and blacklisting.
+        '';
+        default = { };
+        type = l.mkCategorySubmodule kmodulesModules;
+      };
     };
   };
 
@@ -123,6 +145,7 @@ in
       (l.mkCategoryConfig settingsModules)
       (l.mkCategoryConfig extrasModules)
       (l.mkCategoryConfig filesystemsModules)
+      (l.mkCategoryConfig kmodulesModules)
     ]
   );
 }
