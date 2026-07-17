@@ -30,10 +30,13 @@
       that rely on user namespaces.
 
       ::: {.note}
-      It is left enabled by default now because the benefits of
+      This is currently left enabled by default because the of benefits of
       rootless sandboxing in Chromium, unprivileged containers,
       and bubblewrap among many other applications, combined with
       the increased maturity of unprivileged namespaces as of Oct 2025.
+
+      In general, the benefits in these usecases generally outweigh the risks
+      associated with the use if SUID and root managed daemons as a replacement.
       :::
     '' true;
   };
