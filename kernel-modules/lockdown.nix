@@ -16,6 +16,7 @@
 
 {
   l,
+  parentCfg,
   cfg,
   ...
 }:
@@ -37,12 +38,12 @@
       https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
       https://github.com/cynicsketch/nix-mineral/issues/125
 
-      If `false`, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
+      If `false`, you probably want to disable {option}`nix-mineral.kernel-modules.only-signed`.
       :::
     '' true;
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (parentCfg.enable && !cfg) {
     boot.kernelParams = [
       "lockdown=confidentiality"
     ];

@@ -28,8 +28,6 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./only-signed-modules.nix
-        ./lockdown.nix
         ./busmaster-bit.nix
         ./cpu-mitigations.nix
         ./pti.nix

@@ -87,6 +87,8 @@ let
     l.mkCategoryModules cfg.kernel-modules
       [
         ./kernel-modules/load.nix
+        ./kernel-modules/lockdown.nix
+        ./kernel-modules/only-signed.nix
       ]
       {
         inherit
