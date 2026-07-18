@@ -104,7 +104,11 @@ in
 {
   imports = [
     (l.importModule ./presets { })
-  ];
+  ]
+  ++ (l.mkCategoryImports settingsModules)
+  ++ (l.mkCategoryImports extrasModules)
+  ++ (l.mkCategoryImports filesystemsModules)
+  ++ (l.mkCategoryImports kmodulesModules);
 
   options = {
     nix-mineral = {
