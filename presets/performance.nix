@@ -39,6 +39,11 @@
         iommu-passthrough = true;
 
         # PTI (Page Table Isolation) may tax performance.
+        # Disabling PTI may, however, make your system more vulnerable to some
+        # KASLR bypasses and/or meltdown if applicable to your device.
+        #
+        # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
+        # https://www.ieee-security.org/TC/SP2013/papers/4977a191.pdf
         pti = false;
 
         # Don't use kcfi as the control flow implementation in the kernel,

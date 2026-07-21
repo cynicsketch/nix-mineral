@@ -25,6 +25,16 @@
     pti = l.mkBoolOption ''
       Enable Page Table Isolation (PTI) to mitigate some KASLR bypasses and
       the Meltdown CPU vulnerability. It may also tax performance.
+
+      ::: {.note}
+      While AMD processors and newer Intel processors are not affected by
+      Meltdown, keeping PTI anyways is still helpful as defense in depth against
+      known and unknown side channel attacks upon KASLR.
+
+      See:
+      - https://en.wikipedia.org/wiki/Kernel_page-table_isolation
+      - https://www.ieee-security.org/TC/SP2013/papers/4977a191.pdf
+      :::
     '' true;
   };
 
