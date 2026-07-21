@@ -48,7 +48,7 @@
 
         # Don't use kcfi as the control flow implementation in the kernel,
         # since it performs worse than FineIBT, which is the current Linux
-        # kenrel (not nix-mineral) default.
+        # kernel (not nix-mineral) default.
         kcfi = false;
 
         # Do not enable red zoning and sanity checking with slab debug, since
