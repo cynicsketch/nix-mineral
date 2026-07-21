@@ -30,10 +30,12 @@
       but that the firmware is not actively malicious, since that is outside
       scope and you'd have bigger problems at that point.
 
+      ::: {.note}
       See:
-      https://privsec.dev/posts/linux/desktop-linux-hardening/#entropy-generation
-      https://madaidans-insecurities.github.io/guides/linux-hardening.html#rdrand
-      https://github.com/NixOS/nixpkgs/pull/165355
+      - https://privsec.dev/posts/linux/desktop-linux-hardening/#entropy-generation
+      - https://madaidans-insecurities.github.io/guides/linux-hardening.html#rdrand
+      - https://github.com/NixOS/nixpkgs/pull/165355
+      :::
     '' false;
   };
 
