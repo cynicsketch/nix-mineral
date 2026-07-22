@@ -37,10 +37,6 @@
         # if false, may prevent low resource systems from booting.
         busmaster-bit = true;
 
-        # Enable loading of unsigned kernel modules and enable hibernation.
-        lockdown = false;
-        only-signed-modules = false;
-
         # Don't crash the system if faulty drivers produce kernel oopses
         oops-panic = false;
       };
@@ -94,6 +90,12 @@
         # Disable access restriction on /proc. Fix Gnome/Wayland.
         "/proc".options.hidepid = false;
       };
+    };
+
+    kernel-modules = {
+      # Enable loading of unsigned kernel modules and enable hibernation.
+      lockdown = false;
+      only-signed = false;
     };
 
     extras = {

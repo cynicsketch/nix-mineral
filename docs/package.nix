@@ -96,17 +96,26 @@ let
             position = 5;
           }
           {
+            name = "nix-mineral.kernel-modules";
+            position = 6;
+          }
+          {
             name.regex = "^nix-mineral\\.filesystems\\..*";
             position = 10;
             depth = 2;
           }
           {
-            name.regex = "^nix-mineral\\.settings\\..*";
+            name.regex = "^nix-mineral\\.kernel-modules\\..*";
             position = 20;
+            depth = 2;
+          }
+          {
+            name.regex = "^nix-mineral\\.settings\\..*";
+            position = 30;
           }
           {
             name.regex = "^nix-mineral\\.extras\\..*";
-            position = 30;
+            position = 40;
           }
         ];
       };
@@ -178,7 +187,7 @@ let
       # Due to being pulled in from using lib.nixosSystem to avoid evaluation
       # errors from NixOS options "not existing" during evaluation
       options = {
-        nix-mineral = evalModules.options.nix-mineral;
+        inherit (evalModules.options) nix-mineral;
       };
 
       variablelistId = "nix-mineral-options";

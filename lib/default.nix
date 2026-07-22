@@ -48,7 +48,7 @@ let
   # import wrapper to pass extra args to a module
   # used to pass the `l` variable to every module, and used in the importCategoryModule function to pass parentCfg and cfg.
   importModule =
-    path: extraArgs: # `extraArgs` is a attrset that can contain any additional arguments to pass to the module
+    module: extraArgs: # `extraArgs` is a attrset that can contain any additional arguments to pass to the module
     (
       {
         lib,
@@ -57,7 +57,7 @@ let
         pkgs,
         ...
       }:
-      ((import path) (
+      ((if lib.typeOf module == "path" then import module else module) (
         {
           inherit
             lib
@@ -76,6 +76,7 @@ let
               mkCategoryModules
               mkCategorySubmodule
               mkCategoryConfig
+              mkCategoryImports
               mkFilesystemOptions
               ;
           };
@@ -154,6 +155,25 @@ let
   # create a config for a list of categoryModules created with `mkCategoryModules`
   # use this to define a `config = ...` attrset
   mkCategoryConfig = modules: (l.mkMerge (l.map (module: module.config) modules));
+
+  # create a list of imports for a list of categoryModules created with `mkCategoryModules
+  # this uses `importModule` to import the modules, so it will pass the `l` variable to every module
+  # use this to define an `imports = ...` attrset
+  mkCategoryImports =
+    modules:
+    l.concatMap (
+      module:
+      if module ? imports then
+        (l.map (
+          moduleImport:
+          if l.typeOf moduleImport == "path" || l.typeOf moduleImport == "lambda" then
+            importModule moduleImport { }
+          else
+            moduleImport
+        ) module.imports)
+      else
+        [ ]
+    ) modules;
 in
 {
   flake.lib = {
