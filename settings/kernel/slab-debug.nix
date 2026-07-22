@@ -49,9 +49,7 @@
         - https://github.com/Kicksecure/security-misc/issues/253
         :::
       '';
-      default = (
-        if l.versionAtLeast config.boot.kernelPackages.kernel.version "6.17" then true else false
-      );
+      default = (l.versionAtLeast config.boot.kernelPackages.kernel.version "6.17");
       example = false;
       type = l.types.bool;
     };
