@@ -44,6 +44,11 @@
         {
           formatter = pkgs.nixfmt-tree;
 
+          checks = import ./tests {
+            inherit pkgs;
+            nixosModule = inputs.self.nixosModules.nix-mineral;
+          };
+
           packages =
             let
               docs = import ./docs/package.nix {
