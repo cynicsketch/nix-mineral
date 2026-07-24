@@ -14,47 +14,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./apparmor.nix
-        ./auditd.nix
-        ./doas-sudo-wrapper.nix
-        ./cis-openssh-hardening.nix
-        ./replace-sudo-with-doas.nix
-        ./ssh-hardening.nix
-        ./usbguard.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
   options = {
-    misc = l.mkOption {
-      description = ''
-        Extra misc settings.
+    cis-banners = l.mkBoolOption ''
+      Set CIS-compliant login warning banners.
 
-        Most of those are relatively opinionated additional software.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
+      Configures `/etc/motd` (CIS 1.7.1.1) and `/etc/issue.net` (CIS 1.7.1.3)
+      with warnings.
+    '' false;
   };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    environment.etc = {
+      # CIS 1.7.1.1 - message of the day
+      "motd".text = ''
+        Authorized uses only. All activity may be monitored and reported.
+      '';
+
+      # CIS 1.7.1.3 - remote login warning banner
+      "issue.net".text = ''
+        Authorized uses only. All activity may be monitored and reported.
+      '';
+    };
+  };
 }
