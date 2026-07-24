@@ -53,10 +53,10 @@
       would only be the case in very early boot) before allowing cryptographic
       operations to occur.
 
-      Injecting even very bad entropy sources isn't supposed to be problematic
-      into an otherwise good pool isn't supposed to be harmful, given that
-      entropy mixing works as expected and there is at least one other "good"
-      source available. There's a reason why `/dev/random` is read-write to world.
+      Injecting even very bad entropy sources into an otherwise good pool isn't
+      supposed to be harmful, given that entropy mixing works as expected and
+      there is at least one other "good" source available. There's a reason why
+      `/dev/random` is read-write to world.
 
       See:
       - https://privsec.dev/posts/linux/desktop-linux-hardening/#entropy-generation
