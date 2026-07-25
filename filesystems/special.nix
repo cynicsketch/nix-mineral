@@ -110,8 +110,8 @@ in
         enable = l.mkDefault true;
         device = l.mkDefault "proc";
         options = {
-          "hidepid" = 2;
-          "gid" = config.users.groups.proc.gid;
+          "hidepid" = l.mkDefault 2;
+          "gid" = l.mkDefault config.users.groups.proc.gid;
         };
       };
     };
