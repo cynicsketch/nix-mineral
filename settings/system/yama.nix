@@ -27,23 +27,39 @@
         Yama restricts ptrace, which allows processes to read and modify the
         memory of other processes. This has obvious security implications.
 
-        ptrace may be required for specific debugging or certain video game
-        anti cheats. Usually, the 'relaxed' option avoids most breakage.
-
         - `none`: Keep the default configuration of your kernel.
         - `relaxed`: Only allow parent processes to ptrace child processes.
+        - `admin-only`: Only allow processes with with `CAP_SYS_PTRACE` capability or root to ptrace.
         - `restricted`: No processes may be traced with ptrace.
+
+        ::: {.note}
+        ptrace may be required for specific debugging or certain video game
+        anti cheats. Usually, the `relaxed` option avoids most breakage.
+
+        Additionally, envfs (https://github.com/Mic92/envfs) will fail
+        with the `restricted` option. Errors regarding hardcoded paths
+        when envfs is enabled should be resolved by setting to `admin-only`
+        or below.
+        :::
       '';
       default = "restricted";
       type = l.types.enum [
         "none"
         "relaxed"
+        "admin-only"
         "restricted"
       ];
     };
   };
 
   config = l.mkIf (cfg != "none") {
-    boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce (if cfg == "relaxed" then "1" else "3");
+    boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce (
+      if cfg == "relaxed" then
+        "1"
+      else if cfg == "admin-only" then
+        "2"
+      else
+        "3"
+    );
   };
 }
