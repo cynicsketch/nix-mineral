@@ -32,18 +32,27 @@
 
         - `none`: Keep the default configuration of your kernel.
         - `relaxed`: Only allow parent processes to ptrace child processes.
+        - `admin-only`: Only allow processes with with `CAP_SYS_PTRACE` capability or root to ptrace.
         - `restricted`: No processes may be traced with ptrace.
       '';
       default = "restricted";
       type = l.types.enum [
         "none"
         "relaxed"
+        "admin-only"
         "restricted"
       ];
     };
   };
 
   config = l.mkIf (cfg != "none") {
-    boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce (if cfg == "relaxed" then "1" else "3");
+    boot.kernel.sysctl."kernel.yama.ptrace_scope" = l.mkForce (
+      if cfg == "relaxed" then
+        "1"
+      else if cfg == "admin-only" then
+        "2"
+      else
+        "3"
+    );
   };
 }
