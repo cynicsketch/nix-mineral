@@ -43,6 +43,7 @@
         - https://www.chronox.de/libkcapi/html/ch01s02.html
         - https://lore.kernel.org/all/CAMj1kXGxxRs6Rkhevm9NSY6TaJUsOmF3UqdHUo=NRg9kQKtSBA@mail.gmail.com/
         - https://news.ycombinator.com/item?id=47956312
+        - https://copy.fail/
         :::
       '' config.networking.wireless.iwd.enable
       // {
