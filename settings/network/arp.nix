@@ -27,6 +27,11 @@
         Always use the best local address for announcing local IP via ARP.
 
         Seems to be most restrictive option.
+
+        ::: {.note}
+        See:
+        - https://docs.kernel.org/networking/ip-sysctl.html
+        :::
       '' true;
 
       ignore = l.mkOption {
@@ -48,6 +53,7 @@
 
           ::: {.note}
           See:
+          - https://docs.kernel.org/networking/ip-sysctl.html
           - https://github.com/Kicksecure/security-misc/pull/279
           - https://github.com/Kicksecure/security-misc/pull/290
           - https://github.com/QubesOS/qubes-issues/issues/9990
@@ -67,12 +73,22 @@
         Drop Gratuitous ARP frames to prevent ARP poisoning.
 
         This can cause issues when ARP proxies are used in the network.
+
+        ::: {.note}
+        See:
+        - https://docs.kernel.org/networking/ip-sysctl.html
+        :::
       '' true;
 
       filter = l.mkBoolOption ''
         Enable ARP filtering in the kernel to prevent the Linux kernel from
         handling the ARP table globally and mitigate some ARP spoofing and
         ARP cache poisoning attacks.
+
+        ::: {.note}
+        See:
+        - https://docs.kernel.org/networking/ip-sysctl.html
+        :::
       '' true;
     };
   };
