@@ -23,10 +23,20 @@
 {
   options = {
     io-uring = l.mkBoolOption ''
-      Enable io_uring, is the cause of many vulnerabilities,
+      Set to false to disable io_uring, as it is the cause of many vulnerabilities,
       and is disabled on Android + ChromeOS.
 
-      This may be desired for specific environments concerning Proxmox.
+      This may be desired for specific environments depending on asynchronous I/O
+      for performance, such as enterprise databases or high performance networking;
+      consult upstream documentation on whether io_uring is necessary for your
+      workload.
+
+      ::: {.note}
+      For more information, see:
+      - https://unixism.net/loti/what_is_io_uring.html
+      - https://security.googleblog.com/2023/06/learnings-from-kctf-vrps-42-linux.html
+      - https://i.blackhat.com/BH-US-23/Presentations/US-23-Lin-bad_io_uring.pdf
+      :::
     '' false;
   };
 
