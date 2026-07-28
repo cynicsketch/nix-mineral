@@ -49,24 +49,34 @@ let
           position = 1;
         }
         {
-          path = "SCOPE.md";
-          new_title = "Scope";
+          path = "FAQ.md";
+          new_title = "Frequently asked questions";
           position = 2;
         }
         {
-          path = "CONTRIBUTING.md";
-          new_title = "Contributing";
+          path = "CAVEATS.md";
+          new_title = "Caveats";
           position = 3;
         }
         {
-          path = "OMITTED.md";
-          new_title = "Omitted Features";
+          path = "SCOPE.md";
+          new_title = "Scope";
           position = 4;
         }
         {
           path = "ADDITIONAL-RESOURCES.md";
-          new_title = "Additional Resources";
+          new_title = "Contributing";
           position = 5;
+        }
+        {
+          path = "OMITTED.md";
+          new_title = "Omitted Features";
+          position = 6;
+        }
+        {
+          path = "CONTRIBUTING.md";
+          new_title = "Additional Resources";
+          position = 7;
         }
       ];
 
