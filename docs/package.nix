@@ -49,24 +49,29 @@ let
           position = 1;
         }
         {
+          path = "FAQ.md";
+          new_title = "Frequently asked questions";
+          position = 2;
+        }
+        {
           path = "SCOPE.md";
           new_title = "Scope";
-          position = 2;
+          position = 3;
         }
         {
           path = "ADDITIONAL-RESOURCES.md";
           new_title = "Contributing";
-          position = 3;
+          position = 4;
         }
         {
           path = "OMITTED.md";
           new_title = "Omitted Features";
-          position = 4;
+          position = 5;
         }
         {
           path = "CONTRIBUTING.md";
           new_title = "Additional Resources";
-          position = 5;
+          position = 6;
         }
       ];
 
