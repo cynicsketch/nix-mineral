@@ -22,7 +22,9 @@
 }:
 
 let
-  # Only enable if `networking.wireless.iwd.enable` exists (avoid failing tests) and is enabled, since iwd uses AF_ALG.
+  # Check if `networking.wireless.iwd.enable` exists (to avoid causing problems
+  # with documentation generation where NixOS option context isn't pulled) and
+  # pass whether iwd is enabled since it depends on AF_ALG
   iwdEnabled =
     config ? networking
     && config.networking ? wireless
