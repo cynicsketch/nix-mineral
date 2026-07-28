@@ -19,24 +19,34 @@
         "position": 1
       },
       {
-        "new_title": "Scope",
-        "path": "SCOPE.md",
+        "new_title": "Frequently asked questions",
+        "path": "FAQ.md",
         "position": 2
       },
       {
-        "new_title": "Contributing",
-        "path": "CONTRIBUTING.md",
+        "new_title": "Caveats",
+        "path": "CAVEATS.md",
         "position": 3
+      },
+      {
+        "new_title": "Scope",
+        "path": "SCOPE.md",
+        "position": 4
+      },
+      {
+        "new_title": "Contributing",
+        "path": "ADDITIONAL-RESOURCES.md",
+        "position": 5
       },
       {
         "new_title": "Omitted Features",
         "path": "OMITTED.md",
-        "position": 4
+        "position": 6
       },
       {
         "new_title": "Additional Resources",
-        "path": "ADDITIONAL-RESOURCES.md",
-        "position": 5
+        "path": "CONTRIBUTING.md",
+        "position": 7
       }
     ],
     "number_special_files": false,
