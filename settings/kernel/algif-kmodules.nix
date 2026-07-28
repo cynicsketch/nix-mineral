@@ -21,6 +21,15 @@
   ...
 }:
 
+let
+  # Only enable if `networking.wireless.iwd.enable` exists (avoid failing tests) and is enabled, since iwd uses AF_ALG.
+  iwdEnabled =
+    config ? networking
+    && config.networking ? wireless
+    && config.networking.wireless ? iwd
+    && config.networking.wireless.iwd ? enable
+    && config.networking.wireless.iwd.enable;
+in
 {
   options = {
     algif-kmodules =
@@ -45,7 +54,7 @@
         - https://news.ycombinator.com/item?id=47956312
         - https://copy.fail/
         :::
-      '' config.networking.wireless.iwd.enable
+      '' iwdEnabled
       // {
         # Make it clear in the documentation that this option is enabled if `networking.wireless.iwd.enable` is enabled.
         defaultText = l.literalExpression "networking.wireless.iwd.enable";
