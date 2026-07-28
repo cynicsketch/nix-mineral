@@ -23,14 +23,22 @@
 {
   options = {
     busmaster-bit = l.mkBoolOption ''
-      Enable busmaster bit at boot, which may prevent some DMA attacks.
+      Enable busmaster bit at boot, which may prevent some DMA attacks in
+      the period where there the firmware IOMMU is no longer active and
+      the kernel IOMMU has not yet fully initialized.
 
       ::: {.warning}
       If `false`, this may prevent systems with low resource OR specific
       firmware configurations from booting.
 
       May worsen performance as a side effect.
-      https://en.wikipedia.org/wiki/Bus_mastering
+
+      See:
+      - https://kspp.github.io/Recommended_Settings
+      - https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
+      - https://en.wikipedia.org/wiki/Bus_mastering
+      - https://cateee.net/lkddb/web-lkddb/EFI_DISABLE_PCI_DMA.html
+      - https://github.com/FrameworkComputer/SoftwareFirmwareIssueTracker/issues/8
       :::
     '' false;
   };
