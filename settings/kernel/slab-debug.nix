@@ -21,6 +21,17 @@
   ...
 }:
 
+let
+  # Check if `boot.kernelPackages.kernel.version` exists (to avoid causing
+  # problems with documentation generation where NixOS option context isn't
+  # pulled) before passing string
+  kernelVersion = l.optionalString (
+    config ? boot
+    && config.boot ? kernelPackages
+    && config.boot.kernelPackages ? kernel
+    && config.boot.kernelPackages.kernel ? version
+  ) config.boot.kernelPackages.kernel.version;
+in
 {
   options = {
     slab-debug = l.mkOption {
@@ -49,7 +60,8 @@
         - https://github.com/Kicksecure/security-misc/issues/253
         :::
       '';
-      default = (l.versionAtLeast config.boot.kernelPackages.kernel.version "6.17");
+      default = (l.versionAtLeast kernelVersion "6.17");
+      defaultText = l.literalExpression ''l.versionAtLeast config.boot.kernelPackages.kernel.version "6.17"'';
       example = false;
       type = l.types.bool;
     };

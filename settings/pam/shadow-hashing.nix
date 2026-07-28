@@ -21,6 +21,17 @@
   ...
 }:
 
+let
+  # Check if `security.loginDefs.settings.ENCRYPT_METHOD;` exists (to avoid
+  # causing problems with documentation generation where NixOS option context
+  # isn't pulled) before passing string
+  encryptMethod = l.optionalString (
+    config ? security
+    && config.security ? loginDefs
+    && config.security.loginDefs ? settings
+    && config.security.loginDefs.settings ? ENCRYPT_METHOD
+  ) config.security.loginDefs.settings.ENCRYPT_METHOD;
+in
 {
   options = {
     shadow-hashing = l.mkOption {
@@ -63,7 +74,8 @@
         https://github.com/NixOS/nixpkgs/issues/112371
         :::
       '';
-      default = (if config.security.loginDefs.settings.ENCRYPT_METHOD == "YESCRYPT" then 8 else false);
+      default = (if encryptMethod == "YESCRYPT" then 8 else false);
+      defaultText = l.literalExpression ''if config.security.loginDefs.settings.ENCRYPT_METHOD == "YESCRYPT" then 8 else false'';
       example = false;
       type = l.types.either l.types.bool l.types.int;
     };
