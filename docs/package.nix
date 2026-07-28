@@ -54,7 +54,7 @@ let
           position = 2;
         }
         {
-          path = "CONTRIBUTING.md";
+          path = "ADDITIONAL-RESOURCES.md";
           new_title = "Contributing";
           position = 3;
         }
@@ -64,7 +64,7 @@ let
           position = 4;
         }
         {
-          path = "ADDITIONAL-RESOURCES.md";
+          path = "CONTRIBUTING.md";
           new_title = "Additional Resources";
           position = 5;
         }
