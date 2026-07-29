@@ -13,7 +13,7 @@ individual nuance of the software running on a user's system and not practical
 to heuristically contain in any meaningful way without foreknowledge of said
 software.
 
-# NixOS's unique problems
+# Unique problems of NixOS
 Normally, MAC policies (though often incomplete) provide at least a theoretical
 means to confine system applications to some degree.
 
