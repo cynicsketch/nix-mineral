@@ -50,5 +50,5 @@ NixOS anyways for its benefits and accept the tradeoffs that entails.
 
 For individuals who want to use Linux but prioritize security more heavily
 and are ambivalent towards the use of the nix programming language, secureblue
-(https://secureblue.dev/) provides significantly better overall security as a
-complete Linux distribution, although still limited by upstream factors.
+(https://secureblue.dev/) provides significantly better overall security,
+although still limited by upstream factors.
