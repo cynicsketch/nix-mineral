@@ -23,13 +23,23 @@
 {
   options = {
     replace-sudo-with-doas = l.mkBoolOption ''
-      Replace `sudo` with `doas`.
+      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+      NEXT RELEASE.
 
-      `doas` has a lower attack surface, but is less audited.
+      This option does not fit the project's current vision. The doas port
+      in NixOS is unmaintained and not recommended for production use.
     '' false;
   };
 
   config = l.mkIf cfg {
+    warnings = l.optional cfg ''
+      The option `nix-mineral.extras.misc.replace-sudo-with-doas` is deprecated due to not
+      aligning with current project scope as well as the doas port being unmaintained,
+      and will be removed in a future release.
+
+      Please use a different tool to get admin privliges.
+    '';
     security.sudo.enable = l.mkDefault false;
     security.doas = {
       enable = l.mkDefault true;

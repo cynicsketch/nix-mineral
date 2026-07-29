@@ -23,6 +23,10 @@
 {
   options = {
     zram = l.mkBoolOption ''
+      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+      NEXT RELEASE.
+
       Enable zram so that memory is more likely to be compressed instead of
       written to disk, which may include sensitive information.
 
@@ -38,6 +42,12 @@
   };
 
   config = l.mkIf cfg {
+    warnings = l.optional cfg ''
+      The option `nix-mineral.extras.system.zram` is deprecated due to not
+      aligning with current project scope and will be removed in a future release.
+
+      Replace with `zramSwap.enable` instead.
+    '';
     zramSwap.enable = true;
   };
 }

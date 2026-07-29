@@ -23,6 +23,14 @@
 {
   options = {
     kcfi = l.mkBoolOption ''
+      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+      NEXT RELEASE.
+
+      This option does nothing on the upstream NixOS kernel because it is
+      not compiled with clang CFI. The benefits of kCFI compared to FineIBT
+      are disputed.
+
       If set to true, switch (back) to using kCFI as the default Control Flow
       Integrity (CFI) implementation as kCFI mandates hash validation at the
       source making it more difficult to bypass.
@@ -35,10 +43,16 @@
       See:
       - https://docs.kernel.org/next/x86/shstk.html
       :::
-    '' true;
+    '' false;
   };
 
   config = l.mkIf cfg {
+    warnings = l.optional cfg ''
+      The option `nix-mineral.settings.kernel.kcfi` is deprecated
+      due to being non-functional and will be removed in a future release.
+
+      Please remove this setting from your NixOS configuration.
+    '';
     boot.kernelParams = [ "cfi=kcfi" ];
   };
 }

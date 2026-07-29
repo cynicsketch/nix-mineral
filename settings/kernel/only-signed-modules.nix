@@ -27,6 +27,10 @@
       kernel modules from working unless signed.
 
       ::: {.note}
+      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+      NEXT RELEASE.
+
       This currently does nothing as the default NixOS kernel config does not
       enable Linux kernel lockdown as of 16/03/26.
 
@@ -39,10 +43,16 @@
 
       If `false`, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
       :::
-    '' true;
+    '' false;
   };
 
   config = l.mkIf cfg {
+    warnings = l.optional cfg ''
+      The option `nix-mineral.settings.kernel.only-signed-modules` is deprecated
+      due to being non-functional and will be removed in a future release.
+
+      Please remove this setting from your NixOS configuration.
+    '';
     boot.kernelParams = [
       "module.sig_enforce=1"
     ];

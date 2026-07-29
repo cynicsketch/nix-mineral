@@ -68,6 +68,10 @@
       because it results in a marked decrease in security that is unmitigatable
       by any other means, and does not align with the project's vision.
 
+      Please change to `nix-mineral.settings.kernel.cpu-mitigations = "unspecified"`
+      in your NixOS config, as the prior behavior will be deprecated in a later
+      release.
+
       See: https://github.com/cynicsketch/nix-mineral/issues/140
 
       This option is now equivalent to "unspecified" which inherits the NixOS
