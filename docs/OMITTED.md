@@ -86,9 +86,15 @@ implemented here) \
 21.3.3 (See above) \
 21.4 (Non-declarative setup, experimental)
 
+## Other options omitted due to requiring upstream support
+`lockdown=confidentiality` and `module.sig_enforce=1` - NixOS does not sign kernel modules nor compile with the lockdown LSM.
+
+`cfi=kcfi` - Disputed utility, and useless except with a custom kernel compiled with clang CFI.
+
 ## Options omitted due to already being used by default on NixOS:
 `boot.kernel.sysctl."vm.max_map_count" = "1048576"` - Used for reducing crashes in memory intensive applications. Also required to allow hardened_malloc to allocate enough guard pages to work as intended.
 
 `networking.firewall.enable = true;` - Enabled by default on NixOS. Already widely integrated in various upstream NixOS modules.
 
 `boot.kernel.sysctl."vm.mmap_rnd_bits"` and `"vm.mmap_rnd_compat_bits"` - ASLR entropy is already dynamically maximized using a script that is enabled by default on NixOS. See: https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1
+
