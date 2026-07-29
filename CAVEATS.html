@@ -103,7 +103,7 @@
 
         <main class="content"><html><head></head><body><h1 id="the-state-of-desktop-linux-security">The state of Desktop Linux Security</h1>
 <p>Excluding ChromeOS and Android, the default Linux security model is very poor.</p>
-<p><a href="https://madaidans-insecurities.github.io/linux.html">https://madaidans-insecurities.github.io/linux.html</a>
+<p><a href="https://madaidans-insecurities.github.io/linux.html">https://madaidans-insecurities.github.io/linux.html</a> <br>
 <a href="https://privsec.dev/posts/linux/linux-insecurities/">https://privsec.dev/posts/linux/linux-insecurities/</a></p>
 <p>A large portion of problems are related to bad privilege separation because all
 processes started by a user always inherit all of said user's privileges, except
@@ -121,13 +121,13 @@ all assume <a href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard"
 compliance. This is a <strong>major</strong> security degradation compared to Linux distributions
 such as Fedora which <a href="https://docs.fedoraproject.org/en-US/quick-docs/selinux-getting-started/">uses SELinux by default</a>
 and confines a large number of applications.</p>
-<p><a href="https://github.com/NixOS/nixpkgs/issues/347490">https://github.com/NixOS/nixpkgs/issues/347490</a>
-<a href="https://github.com/NixOS/nixpkgs/issues/169056">https://github.com/NixOS/nixpkgs/issues/169056</a>
+<p><a href="https://github.com/NixOS/nixpkgs/issues/347490">https://github.com/NixOS/nixpkgs/issues/347490</a> <br>
+<a href="https://github.com/NixOS/nixpkgs/issues/169056">https://github.com/NixOS/nixpkgs/issues/169056</a> <br>
 <a href="https://hedgedoc.grimmauld.de/s/03eJUe0X3#">https://hedgedoc.grimmauld.de/s/03eJUe0X3#</a></p>
 <h1 id="default-deny-is-impossible-to-implement">Default deny is impossible to implement</h1>
 <p>So-called "badness enumeration" is functionally incomplete and inevitably results
 in a huge amount of attack surface left unchecked.</p>
-<p><a href="https://privsec.dev/posts/knowledge/badness-enumeration/">https://privsec.dev/posts/knowledge/badness-enumeration/</a>
+<p><a href="https://privsec.dev/posts/knowledge/badness-enumeration/">https://privsec.dev/posts/knowledge/badness-enumeration/</a> <br>
 <a href="https://www.ranum.com/security/computer_security/editorials/dumb/">https://www.ranum.com/security/computer_security/editorials/dumb/</a></p>
 <p>While implementing a default deny policy for as many things as possible is one
 of the best things one can do to limit attack surface, <code>nix-mineral</code> can't do
