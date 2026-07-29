@@ -39,7 +39,7 @@
 
     extras = {
       kernel = {
-        # Avoid putting trust in the highly privilege ME system,
+        # Avoid putting trust in the highly privileged ME system,
         # Intel users should read more about the issue at the below links:
         # https://www.kernel.org/doc/html/latest/driver-api/mei/mei.html
         # https://en.wikipedia.org/wiki/Intel_Management_Engine#Security_vulnerabilities
@@ -47,6 +47,12 @@
         # https://github.com/Kicksecure/security-misc/pull/236#issuecomment-2229092813
         # https://github.com/Kicksecure/security-misc/issues/239
         intelme-kmodules = false;
+
+        # Do not allow loading kernel modules after sysctl are initialized.
+        load-kernel-modules = false;
+
+        # Panic the kernel upon kernel warnings or above.
+        warn-panic = true;
       };
 
       system = {
