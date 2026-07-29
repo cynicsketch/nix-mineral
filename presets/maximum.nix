@@ -39,7 +39,7 @@
 
     extras = {
       kernel = {
-        # Avoid putting trust in the highly privilege ME system,
+        # Avoid putting trust in the highly privileged ME system,
         # Intel users should read more about the issue at the below links:
         # https://www.kernel.org/doc/html/latest/driver-api/mei/mei.html
         # https://en.wikipedia.org/wiki/Intel_Management_Engine#Security_vulnerabilities
