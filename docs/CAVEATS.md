@@ -48,7 +48,7 @@ For all things security related, risk tolerance must be considered.
 `nix-mineral` is for people who, in spite of everything else, choose to use
 NixOS anyways for its benefits and accept the tradeoffs that entails.
 
-For individuals who prioritize security more heavily and are ambivalent towards
-the use of the nix programming language, secureblue (https://secureblue.dev/)
-provides significantly better overall security as a complete package, although
-still limited by upstream factor.
+For individuals who want to use Linux but prioritize security more heavily
+and are ambivalent towards the use of the nix programming language, secureblue
+(https://secureblue.dev/) provides significantly better overall security as a
+complete Linux distribution, although still limited by upstream factors.
