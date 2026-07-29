@@ -27,8 +27,9 @@
       freezing.
 
       This helps to mitigate denial of service attacks by automatically
-      recovering and preventing the capture of information presented by a
-      kernel panic screen.
+      recovering and also prevents the capture of information presented by a
+      kernel panic screen which may be useful to an attacker due to leaking
+      memory addresses.
 
       This may inhibit debugging kernel panics, since the immediate reboot
       prevents immediate analysis of error messages which may be displayed.
