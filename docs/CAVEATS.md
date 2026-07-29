@@ -22,7 +22,7 @@ framework with policies that work with the nix store, since existing policies
 all assume [Filesystem Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)
 compliance. This is a **major** security degradation compared to Linux distributions
 such as Fedora which [uses SELinux by default](https://docs.fedoraproject.org/en-US/quick-docs/selinux-getting-started/)
-and confines a large number of applications.
+and [confines a large number of applications](https://github.com/fedora-selinux/selinux-policy).
 
 https://github.com/NixOS/nixpkgs/issues/347490 \
 https://github.com/NixOS/nixpkgs/issues/169056 \
