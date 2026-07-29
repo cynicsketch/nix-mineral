@@ -1,7 +1,7 @@
 # The state of Desktop Linux Security
 Excluding ChromeOS and Android, the default Linux security model is very poor.
 
-https://madaidans-insecurities.github.io/linux.html
+https://madaidans-insecurities.github.io/linux.html \
 https://privsec.dev/posts/linux/linux-insecurities/
 
 A large portion of problems are related to bad privilege separation because all
@@ -24,15 +24,15 @@ compliance. This is a **major** security degradation compared to Linux distribut
 such as Fedora which [uses SELinux by default](https://docs.fedoraproject.org/en-US/quick-docs/selinux-getting-started/)
 and confines a large number of applications.
 
-https://github.com/NixOS/nixpkgs/issues/347490
-https://github.com/NixOS/nixpkgs/issues/169056
+https://github.com/NixOS/nixpkgs/issues/347490 \
+https://github.com/NixOS/nixpkgs/issues/169056 \
 https://hedgedoc.grimmauld.de/s/03eJUe0X3#
 
 # Default deny is impossible to implement
 So-called "badness enumeration" is functionally incomplete and inevitably results
 in a huge amount of attack surface left unchecked.
 
-https://privsec.dev/posts/knowledge/badness-enumeration/
+https://privsec.dev/posts/knowledge/badness-enumeration/ \
 https://www.ranum.com/security/computer_security/editorials/dumb/
 
 While implementing a default deny policy for as many things as possible is one
@@ -48,7 +48,7 @@ For all things security related, risk tolerance must be considered.
 `nix-mineral` is for people who, in spite of everything else, choose to use
 NixOS anyways for its benefits and accept the tradeoffs that entails.
 
-For individuals who prioritize security more heavily and are ambivalent towards
-the use of the nix programming language, secureblue (https://secureblue.dev/)
-provides significantly better overall security as a complete package, although
-still limited by upstream factor.
+For individuals who want to use Linux but prioritize security more heavily
+and are ambivalent towards the use of the nix programming language, secureblue
+(https://secureblue.dev/) provides significantly better overall security as a
+complete Linux distribution, although still limited by upstream factors.
