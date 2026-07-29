@@ -93,6 +93,7 @@
               <ul class="toc-list">
                 <ul><li><a href="#why-won-t-my-system-boot">Why won't my system boot?</a>
 <li><a href="#something-isn-t-working">Something isn't working!</a>
+<li><a href="#why-does-my-computer-keep-randomly-rebooting">Why does my computer keep randomly rebooting?</a>
 </li></ul></li>
               </ul>
             </div>
@@ -111,6 +112,15 @@ is not bind mounted.</p>
 <h2 id="something-isn-t-working">Something isn't working!</h2>
 <p>Check <a href="https://github.com/cynicsketch/nix-mineral/blob/main/presets/compatibility.nix">https://github.com/cynicsketch/nix-mineral/blob/main/presets/compatibility.nix</a>
 for any settings that may be relevant to your problem.</p>
+<h2 id="why-does-my-computer-keep-randomly-rebooting">Why does my computer keep randomly rebooting?</h2>
+<p>You are probably experiencing kernel panics. <code>nix-mineral.settings.debug.panic-reboot = true;</code>
+automatically reboots the system on panic to prevent information leaks and attempt
+to recover the system as fast as possible.</p>
+<p>Try setting <code>nix-mineral.settings.kernel.oops-panic = false;</code> to see if that makes it
+stop, <code>nix-mineral.settings.debug.panic-reboot = false;</code> if you'd like to prevent
+the reboot, and disable other options in <code>nix-mineral.settings.debug</code> for debugging purposes.</p>
+<p>If fully disabling <code>nix-mineral</code> doesn't fix it, it is likely to be an upstream
+problem.</p>
 </body></html></main>
       </div>
 
@@ -120,6 +130,7 @@ for any settings that may be relevant to your problem.</p>
           <ul class="page-toc-list">
             <ul><li><a href="#why-won-t-my-system-boot">Why won't my system boot?</a>
 <li><a href="#something-isn-t-working">Something isn't working!</a>
+<li><a href="#why-does-my-computer-keep-randomly-rebooting">Why does my computer keep randomly rebooting?</a>
 </li></ul></li>
           </ul>
         </nav>
