@@ -23,7 +23,21 @@
 {
   options = {
     aslr = l.mkBoolOption ''
-      Turn on protection and randomize stack, vdso page and mmap + randomize brk base address.
+      Ensure ASLR is enabled. This should normally be the default on modern
+      kernel versions but is set directly for explicitness.
+
+      Randomize the locations of the stack, VDSO page, mmap base, as well as
+      randomizing the heap to make it harder to guess the addresses of key
+      locations in memory for the purpose of exploitation.
+
+      Should be unlikely to cause breakage according to upstream documentation,
+      unless using "ancient" applications.
+
+      ::: {.note}
+      Read more about ASLR at the following links:
+      - https://docs.kernel.org/admin-guide/sysctl/kernel.html#randomize-va-space
+      - https://en.wikipedia.org/wiki/Address_space_layout_randomization
+      :::
     '' true;
   };
 
