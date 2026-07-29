@@ -47,6 +47,12 @@
         # https://github.com/Kicksecure/security-misc/pull/236#issuecomment-2229092813
         # https://github.com/Kicksecure/security-misc/issues/239
         intelme-kmodules = false;
+
+        # Do not allow loading kernel modules after sysctl are initialized.
+        load-kernel-modules = false;
+
+        # Panic the kernel upon kernel warnings or above.
+        warn-panic = true;
       };
 
       system = {
