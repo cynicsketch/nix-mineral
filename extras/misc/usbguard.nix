@@ -24,12 +24,20 @@
   options = {
     usbguard = {
       enable = l.mkBoolOption ''
+        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+        NEXT RELEASE.
+
         Enable USBGuard, a tool to restrict USB devices.
 
         disable to avoid hassle with handling USB devices at all.
       '' false;
 
       whitelist-at-boot = l.mkBoolOption ''
+        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+        NEXT RELEASE.
+
         Automatically allow all connected devices at boot in USBGuard.
 
         If `false`, USB devices will be blocked until USBGuard is configured.
@@ -42,6 +50,10 @@
       '' false;
 
       gnome-integration = l.mkBoolOption ''
+        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+        NEXT RELEASE.
+
         Enable USBGuard dbus daemon and add polkit rules to integrate USBGuard with
         GNOME Shell.
 
@@ -54,6 +66,24 @@
   };
 
   config = l.mkIf cfg.enable {
+    warnings = l.optional cfg.enable ''
+      The options in `nix-mineral.extras.misc.usbguard` are deprecated due to not
+      aligning with current project scope and will be removed in a future release.
+
+      Replace:
+      `nix-mineral.extras.misc.usbguard.enable` --> `services.usbguard.enable`
+
+      `nix-mineral.extras.misc.usbguard.whitelist-at-boot = true;` --> `services.usbguard.presentDevicePolicy = "allow";`
+
+      `nix-mineral.extras.misc.usbguard.gnome-integration = true;` --> `services.usbguard.dbus.enable` and
+      `services.usbguard.IPCAllowedUsers` or `services.usbguard.IPCAllowedGroups`
+
+      `services.usbguard.dbus.enable` already integrates with GNOME if your user
+      is allowed access to the IPC.
+
+      See:
+      https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/security/usbguard.nix
+    '';
     services.usbguard = {
       enable = l.mkDefault true;
       presentDevicePolicy = l.mkIf cfg.whitelist-at-boot (l.mkDefault "allow");

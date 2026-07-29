@@ -25,12 +25,23 @@
 {
   options = {
     doas-sudo-wrapper = l.mkBoolOption ''
-      Creates a wrapper for doas to simulate sudo, with nano to utilize rnano as
-      editor for editing as root.
+      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+      NEXT RELEASE.
+
+      This option does not fit the project's current vision. The doas port
+      in NixOS is unmaintained and not recommended for production use.
     '' false;
   };
 
   config = l.mkIf cfg {
+    warnings = l.optional cfg ''
+      The option `nix-mineral.extras.misc.doas-sudo-wrapper` is deprecated due to not
+      aligning with current project scope as well as the doas port being unmaintained,
+      and will be removed in a future release.
+
+      Please use a different tool to get admin privliges.
+    '';
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "sudo" ''
         exec ${config.security.wrapperDir}/doas "$@"

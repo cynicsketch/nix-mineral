@@ -27,11 +27,12 @@
       and breaks hibernation.
 
       ::: {.note}
+      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+      NEXT RELEASE.
+
       This currently does nothing as the default NixOS kernel config does not
       enable Linux kernel lockdown as of 16/03/26.
-
-      It will remain implemented by default in the event that circumstances
-      change, since adding the corresponding boot parameter anyways is harmless.
 
       See:
       https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
@@ -39,10 +40,16 @@
 
       If `false`, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
       :::
-    '' true;
+    '' false;
   };
 
   config = l.mkIf cfg {
+    warnings = l.optional cfg ''
+      The option `nix-mineral.settings.kernel.lockdown` is deprecated
+      due to being non-functional and will be removed in a future release.
+
+      Please remove this setting from your NixOS configuration.
+    '';
     boot.kernelParams = [
       "lockdown=confidentiality"
     ];
