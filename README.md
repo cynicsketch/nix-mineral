@@ -181,7 +181,7 @@ Blog: *Xe Iaso* \
 Influence: Providing the original idea to restrict nix to the wheel user \
 URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
 
-Project: *K4YT3X's sysctl*
+Project: *K4YT3X's sysctl* \
 Influence: Providing supplement for various security-relevant sysctl configuration \
 URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
 
