@@ -22,36 +22,47 @@
 
 {
   options = {
-    lockdown = l.mkBoolOption ''
-      Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
-      and breaks hibernation.
+    lockdown = l.mkOption {
+      description = ''
+        Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
+        and breaks hibernation.
 
-      ::: {.note}
-      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
-      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
-      NEXT RELEASE.
+        ::: {.note}
+        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+        NEXT RELEASE.
 
-      This currently does nothing as the default NixOS kernel config does not
-      enable Linux kernel lockdown as of 16/03/26.
+        This currently does nothing as the default NixOS kernel config does not
+        enable Linux kernel lockdown as of 16/03/26.
 
-      See:
-      https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
-      https://github.com/cynicsketch/nix-mineral/issues/125
+        See:
+        https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
+        https://github.com/cynicsketch/nix-mineral/issues/125
 
-      If `false`, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
-      :::
-    '' false;
+        If `false`, you probably want to disable {option}`nix-mineral.settings.kernel.only-signed-modules`.
+        :::
+      '';
+      default = null;
+      example = false;
+      type = l.types.nullOr l.types.bool;
+    };
   };
 
-  config = l.mkIf cfg {
-    warnings = l.optional cfg ''
-      The option `nix-mineral.settings.kernel.lockdown` is deprecated
-      due to being non-functional and will be removed in a future release.
+  config = l.mkMerge [
+    (l.mkIf (l.typeOf cfg == "bool") {
+      warnings = [
+        ''
+          The option `nix-mineral.settings.kernel.lockdown` is deprecated
+          due to being non-functional and will be removed in a future release.
 
-      Please remove this setting from your NixOS configuration.
-    '';
-    boot.kernelParams = [
-      "lockdown=confidentiality"
-    ];
-  };
+          Please remove this setting from your NixOS configuration.
+        ''
+      ];
+    })
+    (l.mkIf (cfg == true) {
+      boot.kernelParams = [
+        "lockdown=confidentiality"
+      ];
+    })
+  ];
 }

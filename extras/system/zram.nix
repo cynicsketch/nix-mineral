@@ -22,32 +22,43 @@
 
 {
   options = {
-    zram = l.mkBoolOption ''
-      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
-      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
-      NEXT RELEASE.
+    zram = l.mkOption {
+      description = ''
+        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+        NEXT RELEASE.
 
-      Enable zram so that memory is more likely to be compressed instead of
-      written to disk, which may include sensitive information.
+        Enable zram so that memory is more likely to be compressed instead of
+        written to disk, which may include sensitive information.
 
-      Improves storage lifespan and overall performance when swapping as a
-      side effect.
+        Improves storage lifespan and overall performance when swapping as a
+        side effect.
 
-      ::: {.note}
-      Not enabled by default due to interfering with zswap. Additionally, the
-      task of limiting swapping of sensitive data depends highly on the user's
-      individual swapping setup which can't be reliably inferred.
-      :::
-    '' false;
+        ::: {.note}
+        Not enabled by default due to interfering with zswap. Additionally, the
+        task of limiting swapping of sensitive data depends highly on the user's
+        individual swapping setup which can't be reliably inferred.
+        :::
+      '';
+      default = null;
+      example = false;
+      type = l.types.nullOr l.types.bool;
+    };
   };
 
-  config = l.mkIf cfg {
-    warnings = l.optional cfg ''
-      The option `nix-mineral.extras.system.zram` is deprecated due to not
-      aligning with current project scope and will be removed in a future release.
+  config = l.mkMerge [
+    (l.mkIf (l.typeOf cfg == "bool") {
+      warnings = [
+        ''
+          The option `nix-mineral.extras.system.zram` is deprecated due to not
+          aligning with current project scope and will be removed in a future release.
 
-      Replace with `zramSwap.enable` instead.
-    '';
-    zramSwap.enable = true;
-  };
+          Replace with `zramSwap.enable` instead.
+        ''
+      ];
+    })
+    (l.mkIf (cfg == true) {
+      zramSwap.enable = true;
+    })
+  ];
 }
