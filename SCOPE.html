@@ -99,11 +99,12 @@
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="scope">Scope</h1>
-<p>By default, <code>nix-mineral</code> reduces attack surface by securely configuring existing software.</p>
+<p>By default, <code>nix-mineral</code> provides a configuration baseline for existing software
+to reduce attack surface.</p>
 <p>It is intended to be used for defense-in-depth purposes only. It is not, and will not
 ever be intended as a substitute to the implementation of core security practices such
-as good OPSEC (operations security), sandboxing, zero trust, or any other primary guiding
-principle or framework.</p>
+as strong OPSEC (operations security), sandboxing, privilege separation, or any other
+primary guiding principle or framework.</p>
 <p>For development simplicity, target systems are assumed to be running <code>nixos-unstable</code>.
 Incompatibility may occur with renamed options, which should be manually overridden if necessary.</p>
 <p><code>nix-mineral</code> aims to serve as a drop-in addition to any NixOS system.</p>
