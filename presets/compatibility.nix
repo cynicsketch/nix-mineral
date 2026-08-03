@@ -37,10 +37,6 @@
         # if false, may prevent low resource systems from booting.
         busmaster-bit = true;
 
-        # Enable loading of unsigned kernel modules and enable hibernation.
-        lockdown = false;
-        only-signed-modules = false;
-
         # Don't crash the system if faulty drivers produce kernel oopses
         oops-panic = false;
       };
@@ -93,18 +89,6 @@
       special = {
         # Disable access restriction on /proc. Fix Gnome/Wayland.
         "/proc".options.hidepid = false;
-      };
-    };
-
-    extras = {
-      misc = {
-        # (only enables if usbguard.enable is true)
-        usbguard = {
-          # Enables USB device authorization at boot.
-          whitelist-at-boot = true;
-          # Enables integration with GNOME Shell.
-          gnome-integration = true;
-        };
       };
     };
   };

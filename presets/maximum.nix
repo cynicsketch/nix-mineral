@@ -68,9 +68,6 @@
         # Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
         # and to use the seccomp filter for security.
         secure-chrony = true;
-
-        # if false, this may break some applications that rely on user namespaces.
-        unprivileged-userns = false;
       };
 
       network = {
@@ -80,16 +77,6 @@
         # if false, may help mitigate TCP reset DoS attacks, but
         # may also harm network performance when at high latencies.
         tcp-window-scaling = false;
-      };
-
-      misc = {
-        # Replace sudo with doas, doas has a lower attack surface, but is less audited.
-        replace-sudo-with-doas = true;
-        doas-sudo-wrapper = true;
-
-        # Enable USBGuard, a tool to restrict USB devices.
-        # (blocks any USB devices, maybe enable usbguard.whitelist-at-boot)
-        usbguard.enable = true;
       };
     };
   };
