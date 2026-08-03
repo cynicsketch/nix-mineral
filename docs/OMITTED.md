@@ -51,6 +51,8 @@ net.ipv4.tcp_notsent_lowat = 131072
 2.6 (Advice) \
 2.10 (Package is broken) \
 7 (Advice) \
+10.3 (This causes breakage with little benefit due to adjacent information leaks
+https://github.com/secureblue/secureblue/issues/1121)
 10.5.4 (The problem of NTP being unencrypted is fixed by using NTS instead.
 Note that this means using chrony, as in "Software Choice" in the overrides,
 which is not default behavior!) \
