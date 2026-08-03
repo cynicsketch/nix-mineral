@@ -22,25 +22,36 @@
 
 {
   options = {
-    unprivileged-userns = l.mkBoolOption ''
-      THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
-      FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
-      NEXT RELEASE.
+    unprivileged-userns = l.mkOption {
+      description = ''
+        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+        NEXT RELEASE.
 
-      This option DOES NOT work on the upstream NixOS kernel. Setting this
-      does nothing because the requisite sysctl does not exist.
-    '' true;
-  };
-
-  config = l.mkIf (!cfg) {
-    warnings = l.optional (!cfg) ''
-      The option `nix-mineral.extras.system.unprivileged-userns` is deprecated
-      due to being non-functional and will be removed in a future release.
-
-      Please remove this setting from your NixOS configuration.
-    '';
-    boot.kernel.sysctl = {
-      "kernel.unprivileged_userns_clone" = l.mkDefault "0";
+        This option DOES NOT work on the upstream NixOS kernel. Setting this
+        does nothing because the requisite sysctl does not exist.
+      '';
+      default = null;
+      example = false;
+      type = l.types.nullOr l.types.bool;
     };
   };
+
+  config = l.mkMerge [
+    (l.mkIf (l.typeOf cfg == "bool") {
+      warnings = [
+        ''
+          The option `nix-mineral.extras.system.unprivileged-userns` is deprecated
+          due to being non-functional and will be removed in a future release.
+
+          Please remove this setting from your NixOS configuration.
+        ''
+      ];
+    })
+    (l.mkIf (cfg == false) {
+      boot.kernel.sysctl = {
+        "kernel.unprivileged_userns_clone" = l.mkDefault "0";
+      };
+    })
+  ];
 }

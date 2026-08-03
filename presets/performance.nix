@@ -46,11 +46,6 @@
         # https://www.ieee-security.org/TC/SP2013/papers/4977a191.pdf
         pti = false;
 
-        # Don't use kcfi as the control flow implementation in the kernel,
-        # since it performs worse than FineIBT, which is the current Linux
-        # kernel (not nix-mineral) default.
-        kcfi = false;
-
         # Do not enable red zoning and sanity checking with slab debug, since
         # it adds significant memory allocation overhead.
         slab-debug = false;
