@@ -104,25 +104,10 @@ in
 
       "/dev".enable = l.mkDefault true;
 
-      # Hide processes from other users except root, may cause breakage.
-      # change options."hidepid" to false if you want to disable.
       "/proc" = {
         enable = l.mkDefault true;
         device = l.mkDefault "proc";
-        options = {
-          "hidepid" = l.mkDefault 2;
-          "gid" = l.mkDefault config.users.groups.proc.gid;
-        };
       };
     };
-
-    # Add "proc" group to whitelist /proc access and allow systemd-logind to view
-    # /proc in order to unbreak it, as well as to user@ for similar reasons.
-    # See https://github.com/systemd/systemd/issues/12955, and https://github.com/Kicksecure/security-misc/issues/208
-    users.groups.proc.gid = l.mkIf parentCfg.enable (l.mkDefault config.ids.gids.proc);
-    systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = l.mkIf parentCfg.enable [
-      "proc"
-    ];
-    systemd.services."user@".serviceConfig.SupplementaryGroups = l.mkIf parentCfg.enable [ "proc" ];
   };
 }
