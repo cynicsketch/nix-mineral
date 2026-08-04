@@ -214,15 +214,9 @@ let
       };
 in
 {
-  options = {
-    new-category = l.mkOption {
-      description = ''
-        This is a new category example.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  imports = l.mkCategoryImports categoryModules;
+
+  options.new-category = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }
