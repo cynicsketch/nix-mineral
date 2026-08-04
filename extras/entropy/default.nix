@@ -40,15 +40,7 @@ let
       };
 in
 {
-  options = {
-    entropy = l.mkOption {
-      description = ''
-        Modify entropy settings for improved security
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  options.entropy = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

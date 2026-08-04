@@ -92,29 +92,11 @@ in
     nix-mineral = {
       enable = l.mkEnableOption "the nix-mineral module";
 
-      settings = l.mkOption {
-        description = ''
-          nix-mineral settings.
-        '';
-        default = { };
-        type = l.mkCategorySubmodule settingsModules;
-      };
+      settings = l.mkCategoryOptions settingsModules;
 
-      extras = l.mkOption {
-        description = ''
-          Extra options that are not part of the main configuration.
-        '';
-        default = { };
-        type = l.mkCategorySubmodule extrasModules;
-      };
+      extras = l.mkCategoryOptions extrasModules;
 
-      filesystems = l.mkOption {
-        description = ''
-          Utility for hardening filesystems and special filesystems.
-        '';
-        default = { };
-        type = l.mkCategorySubmodule filesystemsModules;
-      };
+      filesystems = l.mkCategoryOptions filesystemsModules;
     };
   };
 

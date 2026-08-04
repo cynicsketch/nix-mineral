@@ -72,17 +72,7 @@ let
       };
 in
 {
-  options = {
-    kernel = l.mkOption {
-      description = ''
-        Settings meant to harden the Linux kernel against attack, as it presents
-        a large, privileged attack surface that may be used to bypass security
-        policies or escape sandboxes.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  options.kernel = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

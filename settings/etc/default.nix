@@ -45,15 +45,7 @@ let
       };
 in
 {
-  options = {
-    etc = l.mkOption {
-      description = ''
-        Modify files in `/etc` to limit attack surface.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  options.etc = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

@@ -41,15 +41,7 @@ let
       };
 in
 {
-  options = {
-    network = l.mkOption {
-      description = ''
-        Extra settings for the network.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  options.network = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

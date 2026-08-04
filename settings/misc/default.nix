@@ -42,15 +42,7 @@ let
       };
 in
 {
-  options = {
-    misc = l.mkOption {
-      description = ''
-        Configure miscellaneous settings, usually additional software.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  options.misc = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }
