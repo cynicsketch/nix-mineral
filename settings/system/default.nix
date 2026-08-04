@@ -45,6 +45,8 @@ let
       };
 in
 {
+  imports = l.mkCategoryImports categoryModules;
+
   options.system = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;

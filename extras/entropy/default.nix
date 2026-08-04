@@ -40,6 +40,8 @@ let
       };
 in
 {
+  imports = l.mkCategoryImports categoryModules;
+
   options.entropy = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;

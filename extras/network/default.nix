@@ -41,6 +41,8 @@ let
       };
 in
 {
+  imports = l.mkCategoryImports categoryModules;
+
   options.network = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;

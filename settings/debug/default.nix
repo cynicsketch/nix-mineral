@@ -47,6 +47,8 @@ let
       };
 in
 {
+  imports = l.mkCategoryImports categoryModules;
+
   options.debug = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;

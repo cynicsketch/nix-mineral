@@ -72,6 +72,8 @@ let
       };
 in
 {
+  imports = l.mkCategoryImports categoryModules;
+
   options.kernel = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
