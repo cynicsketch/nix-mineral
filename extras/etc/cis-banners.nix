@@ -14,40 +14,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {
-  options,
-  config,
-  pkgs,
-  lib,
   l,
   cfg,
   ...
 }:
-let
-  categoryModules =
-    l.mkCategoryModules cfg
-      [
-        ./hardened-malloc.nix
-        ./lock-root.nix
-        ./minimize-swapping.nix
-        ./mutable-users.nix
-        ./secure-chrony.nix
-        ./shell-init-hardening.nix
-        ./unprivileged-userns.nix
-        ./zram.nix
-      ]
-      {
-        inherit
-          options
-          config
-          pkgs
-          lib
-          ;
-      };
-in
 {
-  imports = l.mkCategoryImports categoryModules;
+  options = {
+    cis-banners = l.mkBoolOption ''
+      Set CIS-compliant login warning banners.
 
-  options.system = l.mkCategoryOptions categoryModules;
+      Configures `/etc/motd` (CIS 1.7.1.1) and `/etc/issue.net` (CIS 1.7.1.3)
+      with warnings.
+    '' false;
+  };
 
-  config = l.mkCategoryConfig categoryModules;
+  config = l.mkIf cfg {
+    environment.etc = {
+      # CIS 1.7.1.1 - message of the day
+      "motd".text = ''
+        Authorized uses only. All activity may be monitored and reported.
+      '';
+
+      # CIS 1.7.1.3 - remote login warning banner
+      "issue.net".text = ''
+        Authorized uses only. All activity may be monitored and reported.
+      '';
+    };
+  };
 }
