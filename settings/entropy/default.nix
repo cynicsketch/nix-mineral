@@ -43,15 +43,9 @@ let
       };
 in
 {
-  options = {
-    entropy = l.mkOption {
-      description = ''
-        Settings for entropy sources.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  imports = l.mkCategoryImports categoryModules;
+
+  options.entropy = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

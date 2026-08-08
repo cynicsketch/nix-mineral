@@ -47,16 +47,9 @@ let
       };
 in
 {
-  options = {
-    debug = l.mkOption {
-      description = ''
-        Limit various debugging information to reduce info available to
-        potential attackers.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  imports = l.mkCategoryImports categoryModules;
+
+  options.debug = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }
