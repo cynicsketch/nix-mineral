@@ -4,7 +4,7 @@ Excluding ChromeOS and Android, the default Linux security model is very poor.
 https://madaidans-insecurities.github.io/linux.html \
 https://privsec.dev/posts/linux/linux-insecurities/
 
-A large portion of problems are related to bad privilege separation because all
+In general, conventional Linux systems lack effective privilege separation, as
 processes started by a user always inherit all of said user's privileges, except
 when a policy is explicitly defined against it.
 
