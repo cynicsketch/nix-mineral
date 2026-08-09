@@ -64,6 +64,25 @@ let
             If the value is false, the option is disabled.
 
             If the value is an integer or a string, it is passed as "name=value".
+
+            ::: {.note}
+            The `"noexec"` mount option is trivially bypassable through the use
+            of interpreters, such as `python3` that are located in the filesystem,
+            including in the `/nix/store` which is world readable.
+
+            `"noexec"` should not be relied upon to fully prevent unwanted code
+            execution without assuring that interpreters are made unavailable,
+            such as through the use of a sandbox to prevent unrestricted access
+            to the `/nix/store` and other program directories except where absolutely
+            necessary, and to drop permissions to reduce the potential impact of code
+            execution within said sandbox.
+
+            Where this is not the case, this should only be considered as a highly
+            fragile effort against extremely primitive attacks and accidental damage.
+
+            See:
+            https://www.chromium.org/chromium-os/developer-library/guides/security/noexec-shell-scripts/
+            :::
           '';
           type = l.types.attrsOf (
             l.types.oneOf [
@@ -97,25 +116,6 @@ in
 
         Sets the device option as `<name>`,
         and the options: `"bind", "nosuid", "noexec", "nodev"` by default.
-
-        ::: {.note}
-        The `"noexec"` mount option is trivially bypassable through the use
-        of interpreters, such as `python3` that are located in the filesystem,
-        including in the `/nix/store` which is world readable.
-
-        `"noexec"` should not be relied upon to fully prevent unwanted code
-        execution without assuring that interpreters are made unavailable,
-        such as through the use of a sandbox to prevent unrestricted access
-        to the `/nix/store` and other program directories except where absolutely
-        necessary, and to drop permissions to reduce the potential impact of code
-        execution within said sandbox.
-
-        Where this is not the case, this should only be considered as a highly
-        fragile effort against extremely primitive attacks and accidental damage.
-
-        See:
-        https://www.chromium.org/chromium-os/developer-library/guides/security/noexec-shell-scripts/
-        :::
 
         ::: {.warning}
         The default filesystem hardening settings make necessary assumptions
