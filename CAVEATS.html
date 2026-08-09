@@ -105,7 +105,7 @@
 <p>Excluding ChromeOS and Android, the default Linux security model is very poor.</p>
 <p><a href="https://madaidans-insecurities.github.io/linux.html">https://madaidans-insecurities.github.io/linux.html</a> <br>
 <a href="https://privsec.dev/posts/linux/linux-insecurities/">https://privsec.dev/posts/linux/linux-insecurities/</a></p>
-<p>A large portion of problems are related to bad privilege separation because all
+<p>In general, conventional Linux systems lack effective privilege separation, as
 processes started by a user always inherit all of said user's privileges, except
 when a policy is explicitly defined against it.</p>
 <p><code>nix-mineral</code> can't fix this, because resolving it is entirely dependent on the
