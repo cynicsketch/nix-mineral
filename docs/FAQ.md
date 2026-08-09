@@ -4,7 +4,7 @@ cause boot failure on some hardware.
 
 If you are getting errors about failed mounts, review
 [nix-mineral.filesystems.normal](https://cynicsketch.github.io/nix-mineral/options.html#option-nix-mineral.filesystems.normal)
-and make sure any directory that is dedicated a specific partition of subvolume
+and make sure any directory that is dedicated a specific partition or subvolume
 is not bind mounted.
 
 You can see all the mountpoints that are hardened by default here:
