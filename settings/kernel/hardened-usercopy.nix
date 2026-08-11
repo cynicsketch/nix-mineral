@@ -16,36 +16,28 @@
 
 {
   l,
-  parentCfg,
   cfg,
   ...
 }:
 
 {
   options = {
-    lockdown = l.mkBoolOption ''
-      Enable linux kernel lockdown, this blocks loading of unsigned kernel modules
-      and breaks hibernation.
+    hardened-usercopy = l.mkBoolOption ''
+      Ensure hardened usercopy checking is enabled at boot, to proactively check
+      and protect against exploits involving abuse of the `copy_to_user()` and
+      `copy_from_user()` functions in the kernel to read and write memory beyond
+      intended boundaries.
 
       ::: {.note}
-      This currently does nothing as the default NixOS kernel config does not
-      enable Linux kernel lockdown as of 16/03/26.
-
-      It will remain implemented by default in the event that circumstances
-      change, since adding the corresponding boot parameter anyways is harmless.
-
       See:
-      https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
-      https://github.com/cynicsketch/nix-mineral/issues/125
-
-      If `false`, you probably want to disable {option}`nix-mineral.kernel-modules.only-signed`.
+      - https://www.kernelconfig.io/config_hardened_usercopy
+      - https://kspp.github.io/Recommended_Settings
+      - https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
       :::
     '' true;
   };
 
-  config = l.mkIf (parentCfg.enable && !cfg) {
-    boot.kernelParams = [
-      "lockdown=confidentiality"
-    ];
+  config = l.mkIf cfg {
+    boot.kernelParams = [ "hardened_usercopy=1" ];
   };
 }

@@ -45,15 +45,9 @@ let
       };
 in
 {
-  options = {
-    system = l.mkOption {
-      description = ''
-        Settings for the system.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  imports = l.mkCategoryImports categoryModules;
+
+  options.system = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

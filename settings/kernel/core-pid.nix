@@ -23,11 +23,11 @@
 {
   options = {
     core-pid = l.mkBoolOption ''
-      Including PID in core dumps if those are reenabled, otherwise, this
-      does nothing.
+      Ensure PID is included in core dumps if those are reenabled, otherwise,
+      this does nothing.
 
       If hideproc is enabled, this prevents some substitution attacks designed
-      obtain sensitive information by predicting PIDs and inducing core dumps.
+      to obtain sensitive information by predicting PIDs and inducing core dumps.
 
       Otherwise, this is still nice to have for forensic purposes/log analysis,
       so that sources of core dumps are more obvious.

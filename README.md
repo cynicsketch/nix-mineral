@@ -7,10 +7,12 @@ Rather than be named after a mineral, it's named after the word "mineral".
 
 ## Documentation
 - **[cynicsketch.github.io/nix-mineral](https://cynicsketch.github.io/nix-mineral/)** - All documentation as well as option information/search is available on the website
-- **[Contributing Guidelines](docs/CONTRIBUTING.md)** - Information for contributors
+- **[Frequently asked questions](docs/FAQ.md)** - Solutions to commonly experienced problems with usage
+- **[Caveats](docs/CAVEATS.md)** - Caveats of this project
 - **[Scope](docs/SCOPE.md)** - Details what this project is for
 - **[Additional Resources](docs/ADDITIONAL-RESOURCES.md)** - Other projects and information that may useful but didn't fit elsewhere
 - **[Omitted Features](docs/OMITTED.md)** - Things that have been intentionally omitted
+- **[Contributing Guidelines](docs/CONTRIBUTING.md)** - Information for contributors
 
 ## Features
 A full rundown of features is best obtained by reading the individual submodules
@@ -179,7 +181,7 @@ Blog: *Xe Iaso* \
 Influence: Providing the original idea to restrict nix to the wheel user \
 URL: https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
 
-Project: *K4YT3X's sysctl*
+Project: *K4YT3X's sysctl* \
 Influence: Providing supplement for various security-relevant sysctl configuration \
 URL: https://github.com/k4yt3x/sysctl/blob/master/sysctl.conf
 

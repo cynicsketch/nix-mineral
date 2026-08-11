@@ -28,6 +28,8 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
+        ./only-signed-modules.nix
+        ./lockdown.nix
         ./busmaster-bit.nix
         ./cpu-mitigations.nix
         ./pti.nix
@@ -57,6 +59,7 @@ let
         ./iommu-passthrough.nix
         ./core-pid.nix
         ./tiocsti.nix
+        ./hardened-usercopy.nix
       ]
       {
         inherit
@@ -68,15 +71,9 @@ let
       };
 in
 {
-  options = {
-    kernel = l.mkOption {
-      description = ''
-        Settings meant to harden the linux kernel.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  imports = l.mkCategoryImports categoryModules;
+
+  options.kernel = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

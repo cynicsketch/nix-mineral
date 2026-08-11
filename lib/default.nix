@@ -74,7 +74,7 @@ let
               importModule
               importCategoryModule
               mkCategoryModules
-              mkCategorySubmodule
+              mkCategoryOptions
               mkCategoryConfig
               mkCategoryImports
               mkFilesystemOptions
@@ -142,15 +142,8 @@ let
     categoryConfig: paths: args:
     l.map (path: (importCategoryModule categoryConfig path args)) paths;
 
-  # create a submodule type for a list of categoryModules created with `mkCategoryModules`
-  mkCategorySubmodule =
-    modules:
-    (l.types.submoduleWith {
-      shorthandOnlyDefinesConfig = true;
-      modules = l.map (module: {
-        inherit (module) options;
-      }) modules;
-    });
+  # create an attrset with all options from a list of categoryModules created with `mkCategoryModules`
+  mkCategoryOptions = modules: l.mergeAttrsList (l.map (module: module.options) modules);
 
   # create a config for a list of categoryModules created with `mkCategoryModules`
   # use this to define a `config = ...` attrset
@@ -184,8 +177,9 @@ in
       importModule
       importCategoryModule
       mkCategoryModules
-      mkCategorySubmodule
+      mkCategoryOptions
       mkCategoryConfig
+      mkCategoryImports
       ;
   };
 }

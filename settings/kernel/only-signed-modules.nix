@@ -17,21 +17,33 @@
 {
   l,
   cfg,
-  pkgs,
-  config,
   ...
 }:
 
 {
   options = {
-    doas-sudo-wrapper = l.mkOption {
+    only-signed-modules = l.mkOption {
       description = ''
+        Requires all kernel modules to be signed. This prevents out-of-tree
+        kernel modules from working unless signed.
+
+        ::: {.note}
         THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
         FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
         NEXT RELEASE.
 
-        This option does not fit the project's current vision. The doas port
-        in NixOS is unmaintained and not recommended for production use.
+        This currently does nothing as the default NixOS kernel config does not
+        enable Linux kernel lockdown as of 16/03/26.
+
+        It will remain implemented by default in the event that circumstances
+        change, since adding the corresponding boot parameter anyways is harmless.
+
+        See:
+        https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
+        https://github.com/cynicsketch/nix-mineral/issues/125
+
+        If `false`, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
+        :::
       '';
       default = null;
       example = false;
@@ -43,25 +55,16 @@
     (l.mkIf (l.typeOf cfg == "bool") {
       warnings = [
         ''
-          The option `nix-mineral.extras.misc.doas-sudo-wrapper` is deprecated due to not
-          aligning with current project scope as well as the doas port being unmaintained,
-          and will be removed in a future release.
+          The option `nix-mineral.settings.kernel.only-signed-modules` is deprecated
+          due to being non-functional and will be removed in a future release.
 
-          Please use a different tool to get admin privliges.
+          Please remove this setting from your NixOS configuration.
         ''
       ];
     })
     (l.mkIf (cfg == true) {
-      environment.systemPackages = with pkgs; [
-        (writeShellScriptBin "sudo" ''
-          exec ${config.security.wrapperDir}/doas "$@"
-        '')
-        (writeShellScriptBin "sudoedit" ''
-          exec ${config.security.wrapperDir}/doas ${l.getExe' nano "rnano"} "$@"
-        '')
-        (writeShellScriptBin "doasedit" ''
-          exec ${config.security.wrapperDir}/doas ${l.getExe' nano "rnano"} "$@"
-        '')
+      boot.kernelParams = [
+        "module.sig_enforce=1"
       ];
     })
   ];

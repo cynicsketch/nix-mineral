@@ -44,17 +44,9 @@ let
       };
 in
 {
-  options = {
-    misc = l.mkOption {
-      description = ''
-        Extra misc settings.
+  imports = l.mkCategoryImports categoryModules;
 
-        Most of those are relatively opinionated additional software.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  options.misc = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

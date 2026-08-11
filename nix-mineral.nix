@@ -87,8 +87,6 @@ let
     l.mkCategoryModules cfg.kernel-modules
       [
         ./kernel-modules/load.nix
-        ./kernel-modules/lockdown.nix
-        ./kernel-modules/only-signed.nix
         ./kernel-modules/disable.nix
         ./kernel-modules/blacklist.nix
       ]
@@ -114,37 +112,13 @@ in
     nix-mineral = {
       enable = l.mkEnableOption "the nix-mineral module";
 
-      settings = l.mkOption {
-        description = ''
-          nix-mineral settings.
-        '';
-        default = { };
-        type = l.mkCategorySubmodule settingsModules;
-      };
+      settings = l.mkCategoryOptions settingsModules;
 
-      extras = l.mkOption {
-        description = ''
-          Extra options that are not part of the main configuration.
-        '';
-        default = { };
-        type = l.mkCategorySubmodule extrasModules;
-      };
+      extras = l.mkCategoryOptions extrasModules;
 
-      filesystems = l.mkOption {
-        description = ''
-          Utility for hardening filesystems and special filesystems.
-        '';
-        default = { };
-        type = l.mkCategorySubmodule filesystemsModules;
-      };
+      filesystems = l.mkCategoryOptions filesystemsModules;
 
-      kernel-modules = l.mkOption {
-        description = ''
-          Options related to kernel module loading, disabling, and blacklisting.
-        '';
-        default = { };
-        type = l.mkCategorySubmodule kmodulesModules;
-      };
+      kernel-modules = l.mkCategoryOptions kmodulesModules;
     };
   };
 

@@ -25,8 +25,27 @@
     binfmt-misc = l.mkBoolOption ''
       Enable [binfmt_misc](https://en.wikipedia.org/wiki/Binfmt_misc).
 
+      Set to false to disable binfmt. This option is inert if nothing has
+      registered with binfmt before writing the sysctl.
+
+      If `/proc/sys/fs/binfmt_misc` is an empty directory, that means that
+      nothing is currently using binfmt_misc. If it is not empty, consider
+      checking your system for what may be using it and consider if the
+      requisite functionality is necessary for your usecase.
+
       ::: {.warning}
-      If `false`, breaks Roseta, among other applications.
+      If `false`, breaks applications that register with binfmt, such as
+      Wine, Java, or AppImages if support is enabled.
+
+      See:
+      - https://search.nixos.org/options?channel=unstable&query=binfmt&type=options
+      :::
+
+      ::: {.note}
+      For more information, read more at the following links:
+      - https://docs.kernel.org/admin-guide/binfmt-misc.html
+      - https://dfir.ch/posts/today_i_learned_binfmt_misc/
+      - https://nvd.nist.gov/vuln/detail/CVE-2026-48831 (disputed)
       :::
     '' false;
   };

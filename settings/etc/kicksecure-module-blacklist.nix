@@ -26,7 +26,7 @@
       Borrow Kicksecure module blacklist.
 
       `"install "foobar" /bin/false"` prevents the module from being
-      loaded at all. `"blacklist "foobar""` prevents the module from being
+      loaded at all. `"blacklist "foobar"` prevents the module from being
       loaded automatically at boot, but it can still be loaded afterwards.
 
       Because the `"install /bin/false"` method does not register as a regular

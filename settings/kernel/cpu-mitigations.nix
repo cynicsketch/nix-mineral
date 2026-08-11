@@ -34,6 +34,7 @@
         Turning all CPU mitigations off completely is a TERRIBLE idea. Even the most robustly sandboxed
         and restricted code in the world can instantly rootkit your computer.
         One web page is all it takes for all your keys to be someone else's: https://leaky.page/
+        :::
 
         ::: {.warning}
         Simultaneous multithreading has a lesser impact on security compared to disabling
@@ -66,6 +67,10 @@
       The option `nix-mineral.settings.kernel.cpu-mitigations = "off"` is deprecated
       because it results in a marked decrease in security that is unmitigatable
       by any other means, and does not align with the project's vision.
+
+      Please change to `nix-mineral.settings.kernel.cpu-mitigations = "unspecified"`
+      in your NixOS config, as the prior behavior will be deprecated in a later
+      release.
 
       See: https://github.com/cynicsketch/nix-mineral/issues/140
 

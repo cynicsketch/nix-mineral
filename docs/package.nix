@@ -49,24 +49,34 @@ let
           position = 1;
         }
         {
-          path = "SCOPE.md";
-          new_title = "Scope";
+          path = "FAQ.md";
+          new_title = "Frequently asked questions";
           position = 2;
         }
         {
-          path = "CONTRIBUTING.md";
-          new_title = "Contributing";
+          path = "CAVEATS.md";
+          new_title = "Caveats";
           position = 3;
         }
         {
-          path = "OMITTED.md";
-          new_title = "Omitted Features";
+          path = "SCOPE.md";
+          new_title = "Scope";
           position = 4;
         }
         {
           path = "ADDITIONAL-RESOURCES.md";
-          new_title = "Additional Resources";
+          new_title = "Contributing";
           position = 5;
+        }
+        {
+          path = "OMITTED.md";
+          new_title = "Omitted Features";
+          position = 6;
+        }
+        {
+          path = "CONTRIBUTING.md";
+          new_title = "Additional Resources";
+          position = 7;
         }
       ];
 
@@ -126,7 +136,7 @@ let
   # https://github.com/feel-co/hjem/blob/8539013044624a257e8da370069107aea148e985/docs/package.nix#L24
   # https://github.com/snugnug/hjem-rum/blob/edac54b7d57ad72cc4b124da2f44e7b2e584f3c6/docs/package.nix#L17
   evalModules = (
-    lib.nixosSystem {
+    lib.evalModules {
       modules = [
         inputs.self.nixosModules.nix-mineral
 
@@ -183,12 +193,7 @@ let
 
   configJSON =
     (pkgs.nixosOptionsDoc {
-      # Filter all the NixOS options from appearing in the options search
-      # Due to being pulled in from using lib.nixosSystem to avoid evaluation
-      # errors from NixOS options "not existing" during evaluation
-      options = {
-        inherit (evalModules.options) nix-mineral;
-      };
+      inherit (evalModules) options;
 
       variablelistId = "nix-mineral-options";
       warningsAreErrors = true;

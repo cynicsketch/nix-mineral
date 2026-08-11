@@ -4,40 +4,52 @@
 }:
 
 {
-  algif-related = {
-    # Only enable if `networking.wireless.iwd.enable` exists (avoid failing tests) and is enabled, since iwd uses AF_ALG.
-    default = !config.networking.wireless.iwd.enable;
-    # Make it clear in the documentation that this option is enabled if `networking.wireless.iwd.enable` is disabled.
-    defaultText = l.literalExpression "!networking.wireless.iwd.enable";
-    description = ''
-      Algif related kernel modules.
+  algif-related =
+    let
+      # Check if `networking.wireless.iwd.enable` exists (to avoid causing problems
+      # with documentation generation where NixOS option context isn't pulled) and
+      # pass whether iwd is enabled since it depends on AF_ALG
+      iwdEnabled =
+        config ? networking
+        && config.networking ? wireless
+        && config.networking.wireless ? iwd
+        && config.networking.wireless.iwd ? enable
+        && config.networking.wireless.iwd.enable;
+    in
+    {
+      # Only enable if `networking.wireless.iwd.enable` exists (avoid failing tests) and is enabled, since iwd uses AF_ALG.
+      default = !iwdEnabled;
+      # Make it clear in the documentation that this option is enabled if `networking.wireless.iwd.enable` is disabled.
+      defaultText = l.literalExpression "!networking.wireless.iwd.enable";
+      description = ''
+        Algif related kernel modules.
 
-      The existence of AF_ALG has been criticized for a long time,
-      and has been the source of multiple vulnerabilities such as [CVE-2026-31431](https://github.com/advisories/GHSA-2274-3hgr-wxv6).
+        The existence of AF_ALG has been criticized for a long time,
+        and has been the source of multiple vulnerabilities such as [CVE-2026-31431](https://github.com/advisories/GHSA-2274-3hgr-wxv6).
 
-      With the exception of iwd, AF_ALG is practically only used in some unspecified rare
-      and bespoke applications meant for embedded systems, so normally you can disable this
-      without any consequences.
+        With the exception of iwd, AF_ALG is practically only used in some unspecified rare
+        and bespoke applications meant for embedded systems, so normally you can disable this
+        without any consequences.
 
-      By default, this will prevent AF_ALG related kernel modules from loading if iwd
-      is not enabled.
+        By default, this will prevent AF_ALG related kernel modules from loading if iwd
+        is not enabled.
 
-      ::: {.note}
-      Read more:
-      - https://lore.kernel.org/all/20260430021042.GA51782@sol/
-      - https://www.chronox.de/libkcapi/html/ch01s02.html
-      - https://lore.kernel.org/all/CAMj1kXGxxRs6Rkhevm9NSY6TaJUsOmF3UqdHUo=NRg9kQKtSBA@mail.gmail.com/
-      - https://news.ycombinator.com/item?id=47956312
-      :::
-    '';
-    modules = [
-      "af_alg"
-      "algif_hash"
-      "algif_skcipher"
-      "algif_rng"
-      "algif_aead"
-    ];
-  };
+        ::: {.note}
+        Read more:
+        - https://lore.kernel.org/all/20260430021042.GA51782@sol/
+        - https://www.chronox.de/libkcapi/html/ch01s02.html
+        - https://lore.kernel.org/all/CAMj1kXGxxRs6Rkhevm9NSY6TaJUsOmF3UqdHUo=NRg9kQKtSBA@mail.gmail.com/
+        - https://news.ycombinator.com/item?id=47956312
+        :::
+      '';
+      modules = [
+        "af_alg"
+        "algif_hash"
+        "algif_skcipher"
+        "algif_rng"
+        "algif_aead"
+      ];
+    };
 
   intelme-related = {
     description = ''

@@ -91,23 +91,5 @@
         "/proc".options.hidepid = false;
       };
     };
-
-    kernel-modules = {
-      # Enable loading of unsigned kernel modules and enable hibernation.
-      lockdown = false;
-      only-signed = false;
-    };
-
-    extras = {
-      misc = {
-        # (only enables if usbguard.enable is true)
-        usbguard = {
-          # Enables USB device authorization at boot.
-          whitelist-at-boot = true;
-          # Enables integration with GNOME Shell.
-          gnome-integration = true;
-        };
-      };
-    };
   };
 }

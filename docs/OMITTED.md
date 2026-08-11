@@ -51,6 +51,8 @@ net.ipv4.tcp_notsent_lowat = 131072
 2.6 (Advice) \
 2.10 (Package is broken) \
 7 (Advice) \
+10.3 (This causes breakage with little benefit due to adjacent information leaks
+https://github.com/secureblue/secureblue/issues/1121)
 10.5.4 (The problem of NTP being unencrypted is fixed by using NTS instead.
 Note that this means using chrony, as in "Software Choice" in the overrides,
 which is not default behavior!) \
@@ -61,6 +63,8 @@ which is not default behavior!) \
 22 (Advice)
 
 ## Sections from madaidan's guide requiring manual user intervention:
+2.4 (Excluded due to significant breakage and trivial bypasses during typical usage. See:
+    https://github.com/secureblue/secureblue/issues/101, https://github.com/systemd/systemd/issues/29893)
 2.7 (systemd service hardening must be done manually) \
 2.9 (Paid software) \
 2.11 (Unique for all hardware, inconvenient) \
@@ -86,9 +90,15 @@ implemented here) \
 21.3.3 (See above) \
 21.4 (Non-declarative setup, experimental)
 
+## Other options omitted due to requiring upstream support
+`lockdown=confidentiality` and `module.sig_enforce=1` - NixOS does not sign kernel modules nor compile with the lockdown LSM.
+
+`cfi=kcfi` - Disputed utility, and useless except with a custom kernel compiled with clang CFI.
+
 ## Options omitted due to already being used by default on NixOS:
 `boot.kernel.sysctl."vm.max_map_count" = "1048576"` - Used for reducing crashes in memory intensive applications. Also required to allow hardened_malloc to allocate enough guard pages to work as intended.
 
 `networking.firewall.enable = true;` - Enabled by default on NixOS. Already widely integrated in various upstream NixOS modules.
 
 `boot.kernel.sysctl."vm.mmap_rnd_bits"` and `"vm.mmap_rnd_compat_bits"` - ASLR entropy is already dynamically maximized using a script that is enabled by default on NixOS. See: https://github.com/NixOS/nixpkgs/commit/89f2772cfb4a6dba13c2b26dc4ad74df092b8bc1
+

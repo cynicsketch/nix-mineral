@@ -41,15 +41,9 @@ let
       };
 in
 {
-  options = {
-    tmpfiles = l.mkOption {
-      description = ''
-        Use systemd-tmpfiles to restrict file permissions in various folders.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  imports = l.mkCategoryImports categoryModules;
+
+  options.tmpfiles = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }

@@ -17,32 +17,54 @@
 {
   l,
   cfg,
+  config,
   ...
 }:
 
+let
+  # Check if `boot.kernelPackages.kernel.version` exists (to avoid causing
+  # problems with documentation generation where NixOS option context isn't
+  # pulled) before passing string
+  kernelVersion = l.optionalString (
+    config ? boot
+    && config.boot ? kernelPackages
+    && config.boot.kernelPackages ? kernel
+    && config.boot.kernelPackages.kernel ? version
+  ) config.boot.kernelPackages.kernel.version;
+in
 {
   options = {
-    slab-debug = l.mkBoolOption ''
-      Set to true to modify the "slab_debug" boot parameter to enable red
-      zoning and sanity checks to detect memory corruption.
+    slab-debug = l.mkOption {
+      description = ''
+        Set to true to modify the "slab_debug" boot parameter to enable red
+        zoning and sanity checks to detect memory corruption.
 
-      Adds significant overhead to memory allocation.
+        Adds significant overhead to memory allocation.
 
-      ::: {.warning}
-      Because this is a debugging option, it will disable kernel pointer
-      hashing and leak kernel memory addresses to root unless the
-      "hash_pointers=always" parameter is used, which is only supported on
-      kernel version 6.17 and above. Otherwise, "hash_pointers" is silently
-      ignored.
-      :::
+        This option is automatically enabled if the kernel version defined
+        in boot.kernelPackages is at least 6.17, to ensure that pointer hashing
+        can stay enabled.
 
-      ::: {.note}
-      See:
-      - https://gitlab.tails.boum.org/tails/tails/-/issues/19613
-      - https://kspp.github.io/Recommended_Settings
-      - https://github.com/Kicksecure/security-misc/issues/253
-      :::
-    '' true;
+        ::: {.warning}
+        Because this is a debugging option, it will disable kernel pointer
+        hashing and leak kernel memory addresses to root unless the
+        "hash_pointers=always" parameter is used, which is only supported on
+        kernel version 6.17 and above. Otherwise, "hash_pointers" is silently
+        ignored.
+        :::
+
+        ::: {.note}
+        See:
+        - https://gitlab.tails.boum.org/tails/tails/-/issues/19613
+        - https://kspp.github.io/Recommended_Settings
+        - https://github.com/Kicksecure/security-misc/issues/253
+        :::
+      '';
+      default = (l.versionAtLeast kernelVersion "6.17");
+      defaultText = l.literalExpression ''l.versionAtLeast config.boot.kernelPackages.kernel.version "6.17"'';
+      example = false;
+      type = l.types.bool;
+    };
   };
 
   config = l.mkIf cfg {

@@ -1,11 +1,12 @@
 # Scope
 
-By default, `nix-mineral` reduces attack surface by securely configuring existing software. 
+By default, `nix-mineral` provides a configuration baseline for existing software
+to reduce attack surface.
 
 It is intended to be used for defense-in-depth purposes only. It is not, and will not
 ever be intended as a substitute to the implementation of core security practices such
-as good OPSEC (operations security), sandboxing, zero trust, or any other primary guiding
-principle or framework.
+as strong OPSEC (operations security), sandboxing, privilege separation, or any other
+primary guiding principle or framework.
 
 For development simplicity, target systems are assumed to be running `nixos-unstable`.
 Incompatibility may occur with renamed options, which should be manually overridden if necessary.

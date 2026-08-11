@@ -23,13 +23,14 @@
 {
   options = {
     kfence = l.mkBoolOption ''
-      If set to true, enable the kernel "Electric-Fence" sampling-based memory
-      safety error to detect heap out-of-bounds access, use-after-free, and
-      invalid-free errors.
+      If set to true, ensure the kernel "Electric-Fence" sampling-based memory
+      safety errordetect  is enabled, if available, to detect heap out-of-bounds
+      access, use-after-free, and invalid-free errors.
 
       ::: {.note}
       See:
       - https://docs.kernel.org/dev-tools/kfence.html
+      - https://github.com/NixOS/nixpkgs/blob/fd1462031fdee08f65fd0b4c6b64e22239a77870/pkgs/os-specific/linux/kernel/common-config.nix#L859
       :::
     '' true;
   };

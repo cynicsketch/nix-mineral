@@ -26,12 +26,22 @@
       description = ''
         Control the magic SysRq key functionality of the Linux kernel.
 
-        It is a 'magical' key combo you can hit which the kernel will respond to regardless of whatever else it is doing,
-        unless it is completely locked up.
+        It is a 'magical' key combo you can hit which the kernel will respond to
+        regardless of whatever else it is doing, unless it is completely locked up.
+
+        SysRq has been subjected to several vulnerabilities, and should be
+        disabled if it is not neccessary or used.
 
         - `none`: Keep the default configuration of your kernel.
         - `off`: Disables sysrq completely.
         - `sak`: Enable SAK (Secure Attention Key).
+
+        ::: {.note}
+        Some examples of vulnerabilites are detailed below:
+        - https://nvd.nist.gov/vuln/detail/CVE-2011-4080
+        - https://nvd.nist.gov/vuln/detail/CVE-2016-3707
+        - https://trufflesecurity.com/blog/the-keyboard-button-that-displays-linux-root-memory
+        :::
 
         ::: {.note}
         SAK prevents keylogging, if used correctly. See:

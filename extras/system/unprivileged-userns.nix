@@ -22,25 +22,36 @@
 
 {
   options = {
-    unprivileged-userns = l.mkBoolOption ''
-      Enable or disable unprivileged user namespaces.
+    unprivileged-userns = l.mkOption {
+      description = ''
+        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+        NEXT RELEASE.
 
-      It has been the cause of many privilege escalation vulnerabilities,
-      but can cause breakage. If `false`, this may break some applications
-      that rely on user namespaces.
-
-      ::: {.note}
-      It is left enabled by default now because the benefits of
-      rootless sandboxing in Chromium, unprivileged containers,
-      and bubblewrap among many other applications, combined with
-      the increased maturity of unprivileged namespaces as of Oct 2025.
-      :::
-    '' true;
-  };
-
-  config = l.mkIf (!cfg) {
-    boot.kernel.sysctl = {
-      "kernel.unprivileged_userns_clone" = l.mkDefault "0";
+        This option DOES NOT work on the upstream NixOS kernel. Setting this
+        does nothing because the requisite sysctl does not exist.
+      '';
+      default = null;
+      example = false;
+      type = l.types.nullOr l.types.bool;
     };
   };
+
+  config = l.mkMerge [
+    (l.mkIf (l.typeOf cfg == "bool") {
+      warnings = [
+        ''
+          The option `nix-mineral.extras.system.unprivileged-userns` is deprecated
+          due to being non-functional and will be removed in a future release.
+
+          Please remove this setting from your NixOS configuration.
+        ''
+      ];
+    })
+    (l.mkIf (cfg == false) {
+      boot.kernel.sysctl = {
+        "kernel.unprivileged_userns_clone" = l.mkDefault "0";
+      };
+    })
+  ];
 }

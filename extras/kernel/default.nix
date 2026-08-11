@@ -40,15 +40,9 @@ let
       };
 in
 {
-  options = {
-    kernel = l.mkOption {
-      description = ''
-        Extra settings to harden the linux kernel.
-      '';
-      default = { };
-      type = l.mkCategorySubmodule categoryModules;
-    };
-  };
+  imports = l.mkCategoryImports categoryModules;
+
+  options.kernel = l.mkCategoryOptions categoryModules;
 
   config = l.mkCategoryConfig categoryModules;
 }
