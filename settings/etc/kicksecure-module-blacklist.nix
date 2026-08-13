@@ -21,6 +21,19 @@
 }:
 
 {
+  deprecated = {
+    option = [
+      "nix-mineral"
+      "settings"
+      "etc"
+      "kicksecure-module-blacklist"
+    ];
+    message = ''
+      This option is fully replaced by the `nix-mineral.kernel-modules.disable` option,
+      which provides a more flexible and robust way to disable kernel modules.
+    '';
+  };
+
   options = {
     kicksecure-module-blacklist = l.mkBoolOption ''
       Borrow Kicksecure module blacklist.

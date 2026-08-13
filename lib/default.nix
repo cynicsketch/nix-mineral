@@ -45,6 +45,68 @@ let
       type = l.types.bool;
     };
 
+  # returns a module that adds a deprecation warning if an option is a non-null value.
+  # this is intended to be used the same way as `mkRemovedOptionModule` in nixpkgs,
+  # but it does not create an option, it only adds a warning if the option is set to a non-null value.
+  mkDeprecatedOptionModule =
+    optionPath: message:
+    { config, ... }:
+    {
+      config.warnings = l.optionals ((l.getAttrFromPath optionPath config) != null) [
+        ''
+          The option `${l.showOption optionPath}` is deprecated, and will be removed in a future release.
+          Please remove this setting from your NixOS configuration.
+
+          ${message}
+        ''
+      ];
+    };
+
+  # wraps a module with a deprecation warning using `mkDeprecatedOptionModule`,
+  # replaces default option values with `null`, adds a deprecation warning to the option description,
+  # and adds a condition to the module config to only apply the module if the deprecated option is set to a non-null value.
+  deprecateModule =
+    deprecatedOptions: module:
+    let
+      optionPath = deprecatedOptions.option;
+      message = if deprecatedOptions ? message then deprecatedOptions.message else "";
+      imports = (if module ? imports then module.imports else [ ]) ++ [
+        (mkDeprecatedOptionModule optionPath message)
+        (
+          { config, ... }:
+          {
+            config = l.mkIf ((l.getAttrFromPath optionPath config) != null) (
+              if module ? config then module.config else { }
+            );
+          }
+        )
+      ];
+      options =
+        if module ? options then
+          l.mapAttrs (
+            name: value:
+            value
+            // {
+              description = ''
+                ::: {.warning}
+                THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+                FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+                NEXT RELEASE.
+                :::
+
+                ${if value ? description then value.description else ""}
+              '';
+              default = null;
+              type = l.types.nullOr value.type;
+            }
+          ) module.options
+        else
+          { };
+    in
+    {
+      inherit imports options;
+    };
+
   # import wrapper to pass extra args to a module
   # used to pass the `l` variable to every module, and used in the importCategoryModule function to pass parentCfg and cfg.
   importModule =
@@ -71,6 +133,8 @@ let
               sources
               fetchGhFile
               mkBoolOption
+              mkDeprecatedOptionModule
+              deprecateModule
               importModule
               importCategoryModule
               mkCategoryModules
@@ -112,27 +176,23 @@ let
   # `cfg` is the child of parentCfg that has the base name of the path (without the .nix extension if any)
   importCategoryModule =
     categoryConfig: path: args:
-    (
-      (importModule path (
-        let
-          pathBaseName = l.baseNameOf path;
-        in
-        {
+    let
+      module =
+        (importModule path {
           # pass the category config to the module
           parentCfg = categoryConfig;
           # pass the path base name as a config attribute
           # remove .nix extension if present
-          cfg =
-            categoryConfig."${
-              if (l.hasSuffix ".nix" pathBaseName) then
-                l.substring 0 (l.stringLength pathBaseName - 4) pathBaseName
-              else
-                pathBaseName
-            }";
-        }
-      ))
-      args
-    );
+          cfg = categoryConfig.${l.removeSuffix ".nix" (l.baseNameOf path)};
+        })
+          args;
+    in
+    # if the module has a deprecated option, wrap it with deprecateModule to
+    # remove default values and add the deprecation warning
+    if module ? deprecated && module.deprecated ? option then
+      deprecateModule module.deprecated module
+    else
+      module;
 
   # import many modules with `importCategoryModule` and creates a list with the results
   # `categoryConfig` is the config for the category the module belongs to, ex: config.nix-mineral.settings.kernel
@@ -143,11 +203,14 @@ let
     l.map (path: (importCategoryModule categoryConfig path args)) paths;
 
   # create an attrset with all options from a list of categoryModules created with `mkCategoryModules`
-  mkCategoryOptions = modules: l.mergeAttrsList (l.map (module: module.options) modules);
+  mkCategoryOptions =
+    modules:
+    l.mergeAttrsList (l.map (module: if module ? options then module.options else { }) modules);
 
   # create a config for a list of categoryModules created with `mkCategoryModules`
   # use this to define a `config = ...` attrset
-  mkCategoryConfig = modules: (l.mkMerge (l.map (module: module.config) modules));
+  mkCategoryConfig =
+    modules: (l.mkMerge (l.map (module: if module ? config then module.config else { }) modules));
 
   # create a list of imports for a list of categoryModules created with `mkCategoryModules
   # this uses `importModule` to import the modules, so it will pass the `l` variable to every module
@@ -174,6 +237,8 @@ in
       sources
       fetchGhFile
       mkBoolOption
+      mkDeprecatedOptionModule
+      deprecateModule
       importModule
       importCategoryModule
       mkCategoryModules
