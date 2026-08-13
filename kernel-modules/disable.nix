@@ -50,6 +50,26 @@ let
   modules = combosModules // (l.removeAttrs cfg (l.attrNames moduleCombos));
 in
 {
+  # We use mkChangedOptionModule instead of mkRenamedOptionModule because the
+  # new options have the values inverted (true = disable, false = enable)
+  imports = [
+    (l.mkChangedOptionModule
+      [ "nix-mineral" "settings" "kernel" "algif-kmodules" ]
+      [ "nix-mineral" "kernel-modules" "disable" "algif-related" ]
+      (config: !(l.getAttrFromPath [ "nix-mineral" "settings" "kernel" "algif-kmodules" ] config))
+    )
+    (l.mkChangedOptionModule
+      [ "nix-mineral" "extras" "kernel" "intelme-kmodules" ]
+      [ "nix-mineral" "kernel-modules" "disable" "intelme-related" ]
+      (config: !(l.getAttrFromPath [ "nix-mineral" "extras" "kernel" "intelme-kmodules" ] config))
+    )
+    (l.mkChangedOptionModule
+      [ "nix-mineral" "extras" "network" "bluetooth-kmodules" ]
+      [ "nix-mineral" "kernel-modules" "disable" "bluetooth-related" ]
+      (config: !(l.getAttrFromPath [ "nix-mineral" "extras" "network" "bluetooth-kmodules" ] config))
+    )
+  ];
+
   options = {
     disable = l.mkOption {
       description = ''

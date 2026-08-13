@@ -22,6 +22,13 @@
 }:
 
 {
+  imports = [
+    (l.mkRenamedOptionModule
+      [ "nix-mineral" "extras" "kernel" "load-kernel-modules" ]
+      [ "nix-mineral" "kernel-modules" "load" ]
+    )
+  ];
+
   options = {
     enable = l.mkBoolOption ''
       Enable the kernel module hardening utility from nix-mineral.
