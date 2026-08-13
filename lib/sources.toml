@@ -37,3 +37,11 @@ rev = "1f4d7316b8bd42476fc8e98224f67ce8d150527d"
 file = "etc/chrony.conf"
 sha256 = "sha256:0cfd5dwimiv4sadmknnc4l4zm7y49bmdnjdk7wc8wvnhfri3mick"
 modified = "2025/04/16"
+
+[secureblue-disabled-kernel-modules]
+user = "secureblue"
+repo = "secureblue"
+rev = "895568699c341167a53b106bd08a8ed973734aaa"
+file = "files/system/usr/lib/modprobe.d/secureblue.conf"
+sha256 = "sha256-VXaOYIHDGwJILB6UGmu1cw50UX6zg3cPdH77UULBR9Y="
+modified = "2026/08/12"
