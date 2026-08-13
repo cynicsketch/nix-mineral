@@ -31,8 +31,8 @@ let
           Disable kernel modules related to ${l.trim description}.
 
           ::: {.note}
-          This option disables kernel modules from the secureblue kernel modules list:
-          https://github.com/${ssb.user}/${ssb.repo}/blob/${ssb.rev}/${ssb.file}#L${first}-L${last}
+          This option disables kernel modules from the
+          [secureblue kernel modules list](https://github.com/${ssb.user}/${ssb.repo}/blob/${ssb.rev}/${ssb.file}#L${toString first}-L${toString last}).
           :::
         '';
       modules = mkSBKModulesList first last;
