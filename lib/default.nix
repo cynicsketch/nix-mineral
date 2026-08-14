@@ -112,27 +112,14 @@ let
   # `cfg` is the child of parentCfg that has the base name of the path (without the .nix extension if any)
   importCategoryModule =
     categoryConfig: path: args:
-    (
-      (importModule path (
-        let
-          pathBaseName = l.baseNameOf path;
-        in
-        {
-          # pass the category config to the module
-          parentCfg = categoryConfig;
-          # pass the path base name as a config attribute
-          # remove .nix extension if present
-          cfg =
-            categoryConfig."${
-              if (l.hasSuffix ".nix" pathBaseName) then
-                l.substring 0 (l.stringLength pathBaseName - 4) pathBaseName
-              else
-                pathBaseName
-            }";
-        }
-      ))
-      args
-    );
+    (importModule path {
+      # pass the category config to the module
+      parentCfg = categoryConfig;
+      # pass the path base name as a config attribute
+      # remove .nix extension if present
+      cfg = categoryConfig.${l.removeSuffix ".nix" (l.baseNameOf path)};
+    })
+      args;
 
   # import many modules with `importCategoryModule` and creates a list with the results
   # `categoryConfig` is the config for the category the module belongs to, ex: config.nix-mineral.settings.kernel
