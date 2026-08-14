@@ -130,11 +130,14 @@ let
     l.map (path: (importCategoryModule categoryConfig path args)) paths;
 
   # create an attrset with all options from a list of categoryModules created with `mkCategoryModules`
-  mkCategoryOptions = modules: l.mergeAttrsList (l.map (module: module.options) modules);
+  mkCategoryOptions =
+    modules:
+    l.mergeAttrsList (l.map (module: if module ? options then module.options else { }) modules);
 
   # create a config for a list of categoryModules created with `mkCategoryModules`
   # use this to define a `config = ...` attrset
-  mkCategoryConfig = modules: (l.mkMerge (l.map (module: module.config) modules));
+  mkCategoryConfig =
+    modules: (l.mkMerge (l.map (module: if module ? config then module.config else { }) modules));
 
   # create a list of imports for a list of categoryModules created with `mkCategoryModules
   # this uses `importModule` to import the modules, so it will pass the `l` variable to every module
