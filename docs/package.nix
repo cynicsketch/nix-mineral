@@ -208,30 +208,30 @@ let
             if lib.hasPrefix (toString ../.) (toString decl) then
               let
                 splitedLocation = lib.splitString "." (
-                  lib.head (
-                    lib.splitString ".<" (
-                      if lib.hasSuffix ".enable" opt.name then lib.removeSuffix ".enable" opt.name else opt.name
-                    )
-                  )
+                  lib.head (lib.splitString ".<" (lib.removeSuffix ".enable" opt.name))
                 );
 
                 # nix-mineral repository structure is quite different from a standard module,
                 # so this function transforms the options into valid paths in the nix-mineral repository.
                 fileLocation =
-                  if (lib.length splitedLocation == 1) then
+                  if lib.length splitedLocation == 1 then
                     lib.elemAt splitedLocation 0
-                  else if (lib.length splitedLocation == 2) then
-                    if (lib.elemAt splitedLocation 1 == "preset") then
-                      "presets/default"
-                    else
-                      lib.elemAt splitedLocation 0
+                  else if lib.length splitedLocation == 2 then
+                    if lib.elemAt splitedLocation 1 == "preset" then "presets/default" else lib.elemAt splitedLocation 0
                   else
                     let
                       parts = "${lib.elemAt splitedLocation 1}/${lib.elemAt splitedLocation 2}";
                     in
                     (
-                      if (lib.length splitedLocation == 3) then
-                        if (lib.elemAt splitedLocation 1 == "filesystems") then parts else "${parts}/default"
+                      if lib.length splitedLocation == 3 then
+                        if
+                          lib.elemAt splitedLocation 1 == "filesystems" || lib.elemAt splitedLocation 1 == "kernel-modules"
+                        then
+                          parts
+                        else
+                          "${parts}/default"
+                      else if lib.elemAt splitedLocation 1 == "kernel-modules" then
+                        "${lib.elemAt splitedLocation 1}/combos/${lib.elemAt splitedLocation 2}"
                       else
                         "${parts}/${lib.elemAt splitedLocation 3}"
                     );
