@@ -45,6 +45,42 @@ let
       type = l.types.bool;
     };
 
+  mkDeprecatedOption =
+    attrs:
+    let
+      deprecatedAttrs = attrs // {
+        description = ''
+          ::: {.warning}
+          THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
+          FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
+          NEXT RELEASE.
+          :::
+
+          ${if attrs ? description then attrs.description else ""}
+        '';
+        default = null;
+        type = l.types.nullOr attrs.type;
+      };
+    in
+    if attrs ? _type then deprecatedAttrs else l.mkOption deprecatedAttrs;
+
+  # returns a module that adds a deprecation warning if an option is a non-null value.
+  # this is intended to be used the same way as `mkRemovedOptionModule` in nixpkgs,
+  # but it does not create an option, it only adds a warning if the option is set to a non-null value.
+  mkDeprecatedOptionModule =
+    optionPath: message:
+    { config, ... }:
+    {
+      config.warnings = l.optionals ((l.getAttrFromPath optionPath config) != null) [
+        ''
+          The option `${l.showOption optionPath}` is deprecated, and will be removed in a future release.
+          Please remove this setting from your NixOS configuration.
+
+          ${message}
+        ''
+      ];
+    };
+
   # import wrapper to pass extra args to a module
   # used to pass the `l` variable to every module, and used in the importCategoryModule function to pass parentCfg and cfg.
   importModule =
@@ -71,6 +107,8 @@ let
               sources
               fetchGhFile
               mkBoolOption
+              mkDeprecatedOption
+              mkDeprecatedOptionModule
               importModule
               importCategoryModule
               mkCategoryModules
@@ -164,6 +202,8 @@ in
       sources
       fetchGhFile
       mkBoolOption
+      mkDeprecatedOption
+      mkDeprecatedOptionModule
       importModule
       importCategoryModule
       mkCategoryModules

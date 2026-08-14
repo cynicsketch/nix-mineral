@@ -21,26 +21,35 @@
 }:
 
 {
+  imports = [
+    (l.mkDeprecatedOptionModule [ "nix-mineral" "settings" "etc" "kicksecure-module-blacklist" ] ''
+      This option is fully replaced by the `nix-mineral.kernel-modules.disable` option,
+      which provides a more flexible and robust way to disable kernel modules.
+    '')
+  ];
+
   options = {
-    kicksecure-module-blacklist = l.mkBoolOption ''
-      Borrow Kicksecure module blacklist.
+    kicksecure-module-blacklist = l.mkDeprecatedOption (
+      l.mkBoolOption ''
+        Borrow Kicksecure module blacklist.
 
-      `"install "foobar" /bin/false"` prevents the module from being
-      loaded at all. `"blacklist "foobar"` prevents the module from being
-      loaded automatically at boot, but it can still be loaded afterwards.
+        `"install "foobar" /bin/false"` prevents the module from being
+        loaded at all. `"blacklist "foobar"` prevents the module from being
+        loaded automatically at boot, but it can still be loaded afterwards.
 
-      Because the `"install /bin/false"` method does not register as a regular
-      blacklist, this might cause issues with kernel module auditing e.g
-      using Lynis. If so, you'll need to generate a whitelist.
+        Because the `"install /bin/false"` method does not register as a regular
+        blacklist, this might cause issues with kernel module auditing e.g
+        using Lynis. If so, you'll need to generate a whitelist.
 
-      ::: {.warning}
-      This may have unintended consequences if you require specific drivers,
-      and may cause breakage.
-      :::
-    '' true;
+        ::: {.warning}
+        This may have unintended consequences if you require specific drivers,
+        and may cause breakage.
+        :::
+      '' true
+    );
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (cfg == true) {
     environment.etc."modprobe.d/nm-module-blacklist.conf".source = (
       l.fetchGhFile l.sources.module-blacklist
     );
