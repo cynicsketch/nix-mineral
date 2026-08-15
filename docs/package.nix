@@ -65,7 +65,7 @@ let
         }
         {
           path = "ADDITIONAL-RESOURCES.md";
-          new_title = "Contributing";
+          new_title = "Additional Resources";
           position = 5;
         }
         {
@@ -75,7 +75,7 @@ let
         }
         {
           path = "CONTRIBUTING.md";
-          new_title = "Additional Resources";
+          new_title = "Contributing";
           position = 7;
         }
       ];
