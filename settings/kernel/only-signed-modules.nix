@@ -21,51 +21,33 @@
 }:
 
 {
+  imports = [
+    (l.mkDeprecatedOptionModule [ "nix-mineral" "settings" "kernel" "only-signed-modules" ] ''
+      This option does nothing on the upstream NixOS kernel.
+    '')
+  ];
+
   options = {
-    only-signed-modules = l.mkOption {
-      description = ''
-        Requires all kernel modules to be signed. This prevents out-of-tree
-        kernel modules from working unless signed.
+    only-signed-modules = l.mkDeprecatedOption ''
+      Requires all kernel modules to be signed. This prevents out-of-tree
+      kernel modules from working unless signed.
 
-        ::: {.note}
-        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
-        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
-        NEXT RELEASE.
+      ::: {.note}
+      This currently does nothing as the default NixOS kernel config does not
+      enable Linux kernel lockdown as of 16/03/26.
 
-        This currently does nothing as the default NixOS kernel config does not
-        enable Linux kernel lockdown as of 16/03/26.
+      See:
+      https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
+      https://github.com/cynicsketch/nix-mineral/issues/125
 
-        It will remain implemented by default in the event that circumstances
-        change, since adding the corresponding boot parameter anyways is harmless.
-
-        See:
-        https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
-        https://github.com/cynicsketch/nix-mineral/issues/125
-
-        If `false`, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
-        :::
-      '';
-      default = null;
-      example = false;
-      type = l.types.nullOr l.types.bool;
-    };
+      If `false`, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
+      :::
+    '';
   };
 
-  config = l.mkMerge [
-    (l.mkIf (l.typeOf cfg == "bool") {
-      warnings = [
-        ''
-          The option `nix-mineral.settings.kernel.only-signed-modules` is deprecated
-          due to being non-functional and will be removed in a future release.
-
-          Please remove this setting from your NixOS configuration.
-        ''
-      ];
-    })
-    (l.mkIf (cfg == true) {
-      boot.kernelParams = [
-        "module.sig_enforce=1"
-      ];
-    })
-  ];
+  config = l.mkIf (cfg == true) {
+    boot.kernelParams = [
+      "module.sig_enforce=1"
+    ];
+  };
 }
