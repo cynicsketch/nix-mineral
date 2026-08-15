@@ -45,10 +45,25 @@ let
       type = l.types.bool;
     };
 
+  # constructor to create a deprecated option, forcing the default value to be null.
+  # intended to be used with `mkDeprecatedOptionModule` to add a deprecation warning.
+  # `value` can be any attrset that can be passed to `mkOption`, or a string with the description of the option.
   mkDeprecatedOption =
-    attrs:
+    value:
     let
-      deprecatedAttrs = attrs // {
+      attrs =
+        if l.typeOf value == "string" then
+          {
+            description = value;
+            example = true;
+            type = l.types.bool;
+          }
+        else
+          value;
+    in
+    l.mkOption (
+      attrs
+      // {
         description = ''
           ::: {.warning}
           THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
@@ -60,11 +75,10 @@ let
         '';
         default = null;
         type = l.types.nullOr attrs.type;
-      };
-    in
-    if attrs ? _type then deprecatedAttrs else l.mkOption deprecatedAttrs;
+      }
+    );
 
-  # returns a module that adds a deprecation warning if an option is a non-null value.
+  # returns a module that adds a deprecation warning if the specified option is set to a non-null value.
   # this is intended to be used the same way as `mkRemovedOptionModule` in nixpkgs,
   # but it does not create an option, it only adds a warning if the option is set to a non-null value.
   mkDeprecatedOptionModule =
