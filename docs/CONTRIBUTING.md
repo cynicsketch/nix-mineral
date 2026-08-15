@@ -102,10 +102,10 @@ l.fetchGhFile l.sources.example-file
 
 ---
 
-`l.importModule`: import wrapper to pass extra args to a module, and also pass the lib `l`.
+`l.importModule`: Import wrapper to pass extra args to a module, and also pass the lib `l`.
 
 Takes 2 arguments:
-path, extraArgs
+module, extraArgs
 
 Example:
 
@@ -113,6 +113,9 @@ Example:
 # Imports the module at ./example-module.nix, passing the lib `l` and an extra argument `customArg` with value "value"
 # The imported module is the same as using the nix import function.
 l.importModule ./example-module.nix { customArg = "value"; }
+
+# Imports a module with no extra arguments, just passing the lib `l`
+l.importModule ({...}: { }) { }
 ```
 
 # Creating a module
