@@ -18,23 +18,20 @@ let
     l.map (module: l.trim (l.removeSuffix "/bin/false" (l.removePrefix "install" module))) (
       l.filter (line: l.hasPrefix "install " line) lines
     );
+  ssb = l.sources.secureblue-disabled-kernel-modules;
   # Helper function to create the option with the list of modules, a default value of true,
   # and a description that includes a link to the exact lines in the secureblue kernel modules list.
   mkSBKModulesOption =
     first: last: description: extraOptions:
     {
-      description =
-        let
-          ssb = l.sources.secureblue-disabled-kernel-modules;
-        in
-        ''
-          Disable kernel modules related to ${l.trim description}.
+      description = ''
+        Disable kernel modules related to ${l.trim description}.
 
-          ::: {.note}
-          This option disables kernel modules from the
-          [secureblue kernel modules list](https://github.com/${ssb.user}/${ssb.repo}/blob/${ssb.rev}/${ssb.file}#L${toString first}-L${toString last}).
-          :::
-        '';
+        ::: {.note}
+        This option disables kernel modules from the
+        [secureblue kernel modules list](https://github.com/${ssb.user}/${ssb.repo}/blob/${ssb.rev}/${ssb.file}#L${toString first}-L${toString last}).
+        :::
+      '';
       modules = mkSBKModulesList first last;
       default = true;
     }
@@ -43,7 +40,21 @@ in
 {
   unused-network-protocols = mkSBKModulesOption 1 34 "commonly unused network protocols" { };
 
-  firewire-and-thunderbolt-related = mkSBKModulesOption 36 54 "firewire and thunderbolt" { };
+  firewire-related = {
+    description = ''
+      Disable kernel modules related to firewire.
+
+      ::: {.note}
+      This option disables kernel modules from the
+      [secureblue kernel modules list](https://github.com/${ssb.user}/${ssb.repo}/blob/${ssb.rev}/${ssb.file}#L36-L54).
+      This excludes the modules: `thunderbolt` and `thunderbolt_net`.
+      :::
+    '';
+    modules = mkSBKModulesList 36 54;
+    default = true;
+  };
+
+  thunderbolt-related = mkSBKModulesOption 44 45 "thunderbolt" { };
 
   unused-filesystems = mkSBKModulesOption 56 116 "commonly unused filesystems" { };
 
