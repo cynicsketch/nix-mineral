@@ -11,7 +11,7 @@ One of the main ideas is to be as modular as possible, so don't create modules t
 - [Creating a category](#creating-a-category)
 - [Hardening a filesystem](#hardening-a-filesystem)
 - [Creating a preset](#creating-a-preset)
-- [Disable or blacklist a kernel module](#disabling-or-blacklisting-a-kernel-module)
+- [Disable or blacklist a kernel module](#disable-or-blacklist-a-kernel-module)
 - [Creating a kernel module combo](#creating-a-kernel-module-combo)
 - [Adding functions to the lib](#adding-functions-to-the-lib)
 - [Licensing and copyright](#licensing-and-copyright)
