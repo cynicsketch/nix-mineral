@@ -50,7 +50,7 @@ in
       This excludes the modules: `thunderbolt` and `thunderbolt_net`.
       :::
     '';
-    modules = mkSBKModulesList 36 54;
+    modules = (mkSBKModulesList 36 43) ++ (mkSBKModulesList 46 54);
     default = true;
   };
 
