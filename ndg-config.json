@@ -34,7 +34,7 @@
         "position": 4
       },
       {
-        "new_title": "Contributing",
+        "new_title": "Additional Resources",
         "path": "ADDITIONAL-RESOURCES.md",
         "position": 5
       },
@@ -44,7 +44,7 @@
         "position": 6
       },
       {
-        "new_title": "Additional Resources",
+        "new_title": "Contributing",
         "path": "CONTRIBUTING.md",
         "position": 7
       }
@@ -75,6 +75,10 @@
           "position": 5
         },
         {
+          "name": "nix-mineral.kernel-modules",
+          "position": 6
+        },
+        {
           "depth": 2,
           "name": {
             "regex": "^nix-mineral\\.filesystems\\..*"
@@ -82,16 +86,23 @@
           "position": 10
         },
         {
+          "depth": 2,
           "name": {
-            "regex": "^nix-mineral\\.settings\\..*"
+            "regex": "^nix-mineral\\.kernel-modules\\..*"
           },
           "position": 20
         },
         {
           "name": {
-            "regex": "^nix-mineral\\.extras\\..*"
+            "regex": "^nix-mineral\\.settings\\..*"
           },
           "position": 30
+        },
+        {
+          "name": {
+            "regex": "^nix-mineral\\.extras\\..*"
+          },
+          "position": 40
         }
       ],
       "ordering": "custom"
