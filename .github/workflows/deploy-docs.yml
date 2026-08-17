@@ -9,6 +9,8 @@ concurrency:
 
 jobs:
   check_date:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     name: Check latest commit
     outputs:

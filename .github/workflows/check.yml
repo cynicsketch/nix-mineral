@@ -4,6 +4,8 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   tests:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
 
     steps:
