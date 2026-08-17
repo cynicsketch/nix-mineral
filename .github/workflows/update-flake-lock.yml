@@ -21,7 +21,7 @@ jobs:
         with:
           persist-credentials: true
       - uses: DeterminateSystems/determinate-nix-action@v3
-      - uses: DeterminateSystems/update-flake-lock@main
+      - uses: DeterminateSystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6 # v28
         with:
           pr-title: "Update Nix flake inputs"
           pr-labels: |
