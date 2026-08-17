@@ -20,7 +20,7 @@ jobs:
     outputs:
       should_run: ${{ steps.should_run.outputs.should_run }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Print latest_commit
@@ -37,7 +37,7 @@ jobs:
     if: ${{ needs.check_date.outputs.should_run != 'false' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: true
       - uses: cachix/install-nix-action@v31.9.1
