@@ -29,7 +29,6 @@ let
     l.mkCategoryModules cfg
       [
         ./tcp-window-scaling.nix
-        ./bluetooth-kmodules.nix
       ]
       {
         inherit

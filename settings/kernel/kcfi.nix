@@ -21,49 +21,34 @@
 }:
 
 {
+  imports = [
+    (l.mkDeprecatedOptionModule [ "nix-mineral" "settings" "kernel" "kcfi" ] ''
+      This option does nothing on the upstream NixOS kernel.
+    '')
+  ];
+
   options = {
-    kcfi = l.mkOption {
-      description = ''
-        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
-        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
-        NEXT RELEASE.
+    kcfi = l.mkDeprecatedOption ''
+      This option does nothing on the upstream NixOS kernel because it is
+      not compiled with clang CFI. The benefits of kCFI compared to FineIBT
+      are disputed.
 
-        This option does nothing on the upstream NixOS kernel because it is
-        not compiled with clang CFI. The benefits of kCFI compared to FineIBT
-        are disputed.
+      If set to true, switch (back) to using kCFI as the default Control Flow
+      Integrity (CFI) implementation as kCFI mandates hash validation at the
+      source making it more difficult to bypass.
 
-        If set to true, switch (back) to using kCFI as the default Control Flow
-        Integrity (CFI) implementation as kCFI mandates hash validation at the
-        source making it more difficult to bypass.
+      This is in contrast to FineIBT which was made the default in kernel 6.2
+      due to its performance benefits as it only performs hash checks at the
+      destinations.
 
-        This is in contrast to FineIBT which was made the default in kernel 6.2
-        due to its performance benefits as it only performs hash checks at the
-        destinations.
-
-        ::: {.note}
-        See:
-        - https://docs.kernel.org/next/x86/shstk.html
-        :::
-      '';
-      default = null;
-      example = false;
-      type = l.types.nullOr l.types.bool;
-    };
+      ::: {.note}
+      See:
+      - https://docs.kernel.org/next/x86/shstk.html
+      :::
+    '';
   };
 
-  config = l.mkMerge [
-    (l.mkIf (l.typeOf cfg == "bool") {
-      warnings = [
-        ''
-          The option `nix-mineral.settings.kernel.kcfi` is deprecated
-          due to being non-functional and will be removed in a future release.
-
-          Please remove this setting from your NixOS configuration.
-        ''
-      ];
-    })
-    (l.mkIf (cfg == true) {
-      boot.kernelParams = [ "cfi=kcfi" ];
-    })
-  ];
+  config = l.mkIf (cfg == true) {
+    boot.kernelParams = [ "cfi=kcfi" ];
+  };
 }

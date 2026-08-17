@@ -82,6 +82,22 @@ let
           lib
           ;
       };
+
+  kmodulesModules =
+    l.mkCategoryModules cfg.kernel-modules
+      [
+        ./kernel-modules/load.nix
+        ./kernel-modules/disable.nix
+        ./kernel-modules/blacklist.nix
+      ]
+      {
+        inherit
+          options
+          config
+          pkgs
+          lib
+          ;
+      };
 in
 {
   imports = [
@@ -89,7 +105,8 @@ in
   ]
   ++ (l.mkCategoryImports settingsModules)
   ++ (l.mkCategoryImports extrasModules)
-  ++ (l.mkCategoryImports filesystemsModules);
+  ++ (l.mkCategoryImports filesystemsModules)
+  ++ (l.mkCategoryImports kmodulesModules);
 
   options = {
     nix-mineral = {
@@ -100,6 +117,8 @@ in
       extras = l.mkCategoryOptions extrasModules;
 
       filesystems = l.mkCategoryOptions filesystemsModules;
+
+      kernel-modules = l.mkCategoryOptions kmodulesModules;
     };
   };
 
@@ -108,6 +127,7 @@ in
       (l.mkCategoryConfig settingsModules)
       (l.mkCategoryConfig extrasModules)
       (l.mkCategoryConfig filesystemsModules)
+      (l.mkCategoryConfig kmodulesModules)
     ]
   );
 }

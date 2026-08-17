@@ -37,23 +37,28 @@
       };
     };
 
-    extras = {
-      kernel = {
-        # Avoid putting trust in the highly privileged ME system,
+    kernel-modules = {
+      # Do not allow loading kernel modules after sysctl are initialized.
+      load = false;
+
+      disable = {
+        # Avoid putting trust in the highly privilege ME system,
         # Intel users should read more about the issue at the below links:
         # https://www.kernel.org/doc/html/latest/driver-api/mei/mei.html
         # https://en.wikipedia.org/wiki/Intel_Management_Engine#Security_vulnerabilities
         # https://www.kicksecure.com/wiki/Out-of-band_Management_Technology#Intel_ME_Disabling_Disadvantages
         # https://github.com/Kicksecure/security-misc/pull/236#issuecomment-2229092813
         # https://github.com/Kicksecure/security-misc/issues/239
-        intelme-kmodules = false;
+        intelme-related = true;
 
-        # Do not allow loading kernel modules after sysctl are initialized.
-        load-kernel-modules = false;
-
-        # Panic the kernel upon kernel warnings or above.
-        warn-panic = true;
+        # Disable bluetooth related kernel modules. (breaks bluetooth)
+        bluetooth-related = true;
       };
+    };
+
+    extras = {
+      # Panic the kernel upon kernel warnings or above.
+      kernel.warn-panic = true;
 
       system = {
         # Lock the root account. Requires another method of privilege escalation, i.e
@@ -71,9 +76,6 @@
       };
 
       network = {
-        # Disable bluetooth related kernel modules. (breaks bluetooth)
-        bluetooth-kmodules = false;
-
         # if false, may help mitigate TCP reset DoS attacks, but
         # may also harm network performance when at high latencies.
         tcp-window-scaling = false;

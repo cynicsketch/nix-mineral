@@ -21,44 +21,31 @@
 }:
 
 {
+  imports = [
+    (l.mkDeprecatedOptionModule [ "nix-mineral" "extras" "system" "zram" ] ''
+      This option does not align with the current project scope
+
+      Replace with `zramSwap.enable`.
+    '')
+  ];
+
   options = {
-    zram = l.mkOption {
-      description = ''
-        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
-        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
-        NEXT RELEASE.
+    zram = l.mkDeprecatedOption ''
+      Enable zram so that memory is more likely to be compressed instead of
+      written to disk, which may include sensitive information.
 
-        Enable zram so that memory is more likely to be compressed instead of
-        written to disk, which may include sensitive information.
+      Improves storage lifespan and overall performance when swapping as a
+      side effect.
 
-        Improves storage lifespan and overall performance when swapping as a
-        side effect.
-
-        ::: {.note}
-        Not enabled by default due to interfering with zswap. Additionally, the
-        task of limiting swapping of sensitive data depends highly on the user's
-        individual swapping setup which can't be reliably inferred.
-        :::
-      '';
-      default = null;
-      example = false;
-      type = l.types.nullOr l.types.bool;
-    };
+      ::: {.note}
+      Not enabled by default due to interfering with zswap. Additionally, the
+      task of limiting swapping of sensitive data depends highly on the user's
+      individual swapping setup which can't be reliably inferred.
+      :::
+    '';
   };
 
-  config = l.mkMerge [
-    (l.mkIf (l.typeOf cfg == "bool") {
-      warnings = [
-        ''
-          The option `nix-mineral.extras.system.zram` is deprecated due to not
-          aligning with current project scope and will be removed in a future release.
-
-          Replace with `zramSwap.enable` instead.
-        ''
-      ];
-    })
-    (l.mkIf (cfg == true) {
-      zramSwap.enable = true;
-    })
-  ];
+  config = l.mkIf (cfg == true) {
+    zramSwap.enable = true;
+  };
 }

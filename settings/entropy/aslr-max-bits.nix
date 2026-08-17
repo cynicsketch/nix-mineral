@@ -16,54 +16,39 @@
 
 {
   l,
-  cfg,
   ...
 }:
 
 {
+  imports = [
+    (l.mkDeprecatedOptionModule [ "nix-mineral" "settings" "entropy" "aslr-max-bits" ] ''
+      This option was integrated upstream.
+
+      See: https://github.com/NixOS/nixpkgs/commit/4971c9331a72deeda85ba8d8018a5b07ee6f1635
+
+      This option no longer does anything in order to avoid evaluation
+      conflicts on NixOS unstable as of 4/24/26.
+
+      Use `boot.kernel.sysctl."vm.mmap_rnd_bits"` instead.
+    '')
+  ];
+
   options = {
-    aslr-max-bits = l.mkOption {
-      description = ''
-        Use the maximum number of bits of entropy to address space layout
-        randomization, a widely used mitigation against memory exploits.
+    aslr-max-bits = l.mkDeprecatedOption ''
+      Use the maximum number of bits of entropy to address space layout
+      randomization, a widely used mitigation against memory exploits.
 
-        ::: {.note}
-        THIS OPTION IS NOW DEPRECATED. INFORMATION BELOW IS RETAINED FOR
-        FUTURE REFERENCE, AND THIS OPTION IS SCHEDULED TO BE REMOVED PENDING THE
-        NEXT RELEASE.
+      ::: {.note}
+      The values used here are currently only valid for x86_64.
 
-        The values used here are currently only valid for x86_64.
+      Other CPU architectures may require different numbers here, consult
+      upstream documentation as necessary.
+      :::
 
-        Other CPU architectures may require different numbers here, consult
-        upstream documentation as necessary.
-        :::
-
-        ::: {.note}
-        See:
-        - https://en.wikipedia.org/wiki/Address_space_layout_randomization
-        :::
-      '';
-      default = null;
-      example = false;
-      type = l.types.nullOr l.types.bool;
-    };
+      ::: {.note}
+      See:
+      - https://en.wikipedia.org/wiki/Address_space_layout_randomization
+      :::
+    '';
   };
-
-  config = (
-    l.mkIf (l.typeOf cfg == "bool") {
-      warnings = [
-        ''
-          The option `nix-mineral.settings.entropy.aslr-max-bits` is deprecated
-          due to being integrated upstream and will be removed in a future release.
-
-          See: https://github.com/NixOS/nixpkgs/commit/4971c9331a72deeda85ba8d8018a5b07ee6f1635
-
-          This option no longer does anything in order to avoid evaluation
-          conflicts on NixOS unstable as of 4/24/26.
-
-          Use `boot.kernel.sysctl."vm.mmap_rnd_bits"` instead.
-        ''
-      ];
-    }
-  );
 }

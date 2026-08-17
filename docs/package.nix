@@ -65,7 +65,7 @@ let
         }
         {
           path = "ADDITIONAL-RESOURCES.md";
-          new_title = "Contributing";
+          new_title = "Additional Resources";
           position = 5;
         }
         {
@@ -75,7 +75,7 @@ let
         }
         {
           path = "CONTRIBUTING.md";
-          new_title = "Additional Resources";
+          new_title = "Contributing";
           position = 7;
         }
       ];
@@ -106,17 +106,26 @@ let
             position = 5;
           }
           {
+            name = "nix-mineral.kernel-modules";
+            position = 6;
+          }
+          {
             name.regex = "^nix-mineral\\.filesystems\\..*";
             position = 10;
             depth = 2;
           }
           {
-            name.regex = "^nix-mineral\\.settings\\..*";
+            name.regex = "^nix-mineral\\.kernel-modules\\..*";
             position = 20;
+            depth = 2;
+          }
+          {
+            name.regex = "^nix-mineral\\.settings\\..*";
+            position = 30;
           }
           {
             name.regex = "^nix-mineral\\.extras\\..*";
-            position = 30;
+            position = 40;
           }
         ];
       };
@@ -199,30 +208,30 @@ let
             if lib.hasPrefix (toString ../.) (toString decl) then
               let
                 splitedLocation = lib.splitString "." (
-                  lib.head (
-                    lib.splitString ".<" (
-                      if lib.hasSuffix ".enable" opt.name then lib.removeSuffix ".enable" opt.name else opt.name
-                    )
-                  )
+                  lib.head (lib.splitString ".<" (lib.removeSuffix ".enable" opt.name))
                 );
 
                 # nix-mineral repository structure is quite different from a standard module,
                 # so this function transforms the options into valid paths in the nix-mineral repository.
                 fileLocation =
-                  if (lib.length splitedLocation == 1) then
+                  if lib.length splitedLocation == 1 then
                     lib.elemAt splitedLocation 0
-                  else if (lib.length splitedLocation == 2) then
-                    if (lib.elemAt splitedLocation 1 == "preset") then
-                      "presets/default"
-                    else
-                      lib.elemAt splitedLocation 0
+                  else if lib.length splitedLocation == 2 then
+                    if lib.elemAt splitedLocation 1 == "preset" then "presets/default" else lib.elemAt splitedLocation 0
                   else
                     let
                       parts = "${lib.elemAt splitedLocation 1}/${lib.elemAt splitedLocation 2}";
                     in
                     (
-                      if (lib.length splitedLocation == 3) then
-                        if (lib.elemAt splitedLocation 1 == "filesystems") then parts else "${parts}/default"
+                      if lib.length splitedLocation == 3 then
+                        if
+                          lib.elemAt splitedLocation 1 == "filesystems" || lib.elemAt splitedLocation 1 == "kernel-modules"
+                        then
+                          parts
+                        else
+                          "${parts}/default"
+                      else if lib.elemAt splitedLocation 1 == "kernel-modules" then
+                        "${lib.elemAt splitedLocation 1}/combos/${lib.elemAt splitedLocation 2}"
                       else
                         "${parts}/${lib.elemAt splitedLocation 3}"
                     );
