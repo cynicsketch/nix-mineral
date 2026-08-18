@@ -153,7 +153,13 @@ shown below.
 ```
 
 ### Credits
-Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible, as well many other projects, named and unnamed, which `nix-mineral` has borrowed insight and configuration from:
+Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible.
+
+`nix-mineral` additionally pays thanks to several other projects which it has
+borrowed insight and configuration from, listed below. 
+
+`nix-mineral` is *not* endorsed by any of the projects enumerated unless
+otherwise specified.
 
 Project: *Madaidan's Insecurities* \
 Influence: Provided the original basis for hardening, which many of the below projects have themselves derived from \
@@ -165,8 +171,12 @@ Influence: Additional information and guidance in hardening \
 URL: https://privsec.dev/posts/linux/desktop-linux-hardening/ \
 Archive: https://web.archive.org/web/20240629135847/https://privsec.dev/posts/linux/desktop-linux-hardening/#kernel
 
+Project: *secureblue* \
+Influence: Borrowed kernel module blacklist, kernel parameter hardening inspiration
+URL: https://github.com/secureblue/secureblue
+
 Project: *Kicksecure's security-misc* \
-Influence: Borrowed Bluetooth configuration and module blacklist, with additional settings inspiration  \
+Influence: Borrowed Bluetooth configuration and former default module blacklist, with additional settings inspiration  \
 URL: https://github.com/Kicksecure/security-misc
 
 Project: *Tommy's Linux-Setup-Scripts* \
