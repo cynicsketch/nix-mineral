@@ -13,14 +13,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 {
   config,
   pkgs,
   l,
   ...
 }:
-
 let
   cfg = config.nix-mineral;
 
@@ -28,6 +26,7 @@ let
     maximum = "enables every optional security setting to have maximum protection";
     compatibility = "disables or enables settings to aim at compatibility";
     performance = "disables or enables settings to aim at performance";
+    cis = "CIS benchmark compliance preset";
   };
 
   presetsEnum = l.types.enum ([ "default" ] ++ (l.attrNames presets));

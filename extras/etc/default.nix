@@ -26,14 +26,7 @@ let
   categoryModules =
     l.mkCategoryModules cfg
       [
-        ./hardened-malloc.nix
-        ./lock-root.nix
-        ./minimize-swapping.nix
-        ./mutable-users.nix
-        ./secure-chrony.nix
-        ./shell-init-hardening.nix
-        ./unprivileged-userns.nix
-        ./zram.nix
+        ./cis-banners.nix
       ]
       {
         inherit
@@ -45,9 +38,15 @@ let
       };
 in
 {
-  imports = l.mkCategoryImports categoryModules;
-
-  options.system = l.mkCategoryOptions categoryModules;
+  options = {
+    etc = l.mkOption {
+      description = ''
+        Extra settings for files in `/etc`.
+      '';
+      default = { };
+      type = l.mkCategorySubmodule categoryModules;
+    };
+  };
 
   config = l.mkCategoryConfig categoryModules;
 }
