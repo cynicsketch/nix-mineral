@@ -2232,9 +2232,16 @@ They provide support for Encapsulating Security Payload, part of IPSec.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Disable kernel modules related to firewire.</p>
+  <div class="option-description"><html><head></head><body><p>Disable kernel modules related to firewire, as it uses DMA which could be
+used in a DMA attack.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>See:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DMA_attack">https://en.wikipedia.org/wiki/DMA_attack</a></li>
+<li><a href="https://eclypsium.com/research/direct-memory-access-attacks-a-walk-down-memory-lane/">https://eclypsium.com/research/direct-memory-access-attacks-a-walk-down-memory-lane/</a></li>
+<li><a href="https://emb3d.mitre.org/threats/TID-107.html">https://emb3d.mitre.org/threats/TID-107.html</a></li>
+</ul>
 <p>This option disables kernel modules from the
 <a href="https://github.com/secureblue/secureblue/blob/895568699c341167a53b106bd08a8ed973734aaa/files/system/usr/lib/modprobe.d/secureblue.conf#L36-L54">secureblue kernel modules list</a>.
 This excludes the modules: <code>thunderbolt</code> and <code>thunderbolt_net</code>.</p>
@@ -2507,11 +2514,23 @@ that are not covered by other options.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Disable kernel modules related to thunderbolt.</p>
+  <div class="option-description"><html><head></head><body><p>Disable kernel modules related to thunderbolt, as it uses DMA which
+could be abused in a DMA attack.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This option disables kernel modules from the
-<a href="https://github.com/secureblue/secureblue/blob/895568699c341167a53b106bd08a8ed973734aaa/files/system/usr/lib/modprobe.d/secureblue.conf#L44-L45">secureblue kernel modules list</a>.</p>
+<p>See:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DMA_attack">https://en.wikipedia.org/wiki/DMA_attack</a></li>
+<li><a href="https://eclypsium.com/research/direct-memory-access-attacks-a-walk-down-memory-lane/">https://eclypsium.com/research/direct-memory-access-attacks-a-walk-down-memory-lane/</a></li>
+<li><a href="https://emb3d.mitre.org/threats/TID-107.html">https://emb3d.mitre.org/threats/TID-107.html</a></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Thunderbolt may be necessary for proper suspend function on modern laptops.
+If thunderbolt is not enabled, suspend may consume abnormal amounts of power.</p>
+<p>See:
+<a href="https://github.com/secureblue/secureblue/issues/2437">https://github.com/secureblue/secureblue/issues/2437</a></p>
 </div>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
