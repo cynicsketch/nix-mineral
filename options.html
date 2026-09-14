@@ -462,6 +462,28 @@
   
   <li>
     <details class="toc-category">
+      <summary title="nix-mineral.extras.etc">
+        <span>nix-mineral.extras.etc</span>
+        <span class="toc-count">1</span>
+      </summary>
+      <ul>
+        
+
+        
+        <li>
+          <a href='#option-nix-mineral.extras.etc.cis-banners' title="nix-mineral.extras.etc.cis-banners">
+            cis-banners
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
       <summary title="nix-mineral.extras.kernel">
         <span>nix-mineral.extras.kernel</span>
         <span class="toc-count">1</span>
@@ -486,7 +508,7 @@
     <details class="toc-category">
       <summary title="nix-mineral.extras.misc">
         <span>nix-mineral.extras.misc</span>
-        <span class="toc-count">7</span>
+        <span class="toc-count">9</span>
       </summary>
       <ul>
         
@@ -495,6 +517,22 @@
         <li>
           <a href='#option-nix-mineral.extras.misc.apparmor' title="nix-mineral.extras.misc.apparmor">
             apparmor
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.misc.auditd' title="nix-mineral.extras.misc.auditd">
+            auditd
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.misc.cis-openssh-hardening' title="nix-mineral.extras.misc.cis-openssh-hardening">
+            cis-openssh-hardening
             
             
           </a>
@@ -578,7 +616,7 @@
     <details class="toc-category">
       <summary title="nix-mineral.extras.system">
         <span>nix-mineral.extras.system</span>
-        <span class="toc-count">6</span>
+        <span class="toc-count">9</span>
       </summary>
       <ul>
         
@@ -611,6 +649,30 @@
         <li>
           <a href='#option-nix-mineral.extras.system.secure-chrony' title="nix-mineral.extras.system.secure-chrony">
             secure-chrony
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.system.shell-init-hardening' title="nix-mineral.extras.system.shell-init-hardening">
+            shell-init-hardening
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.system.shell-init-hardening.tmout' title="nix-mineral.extras.system.shell-init-hardening.tmout">
+            shell-init-hardening.tmout
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-nix-mineral.extras.system.shell-init-hardening.umask' title="nix-mineral.extras.system.shell-init-hardening.umask">
+            shell-init-hardening.umask
             
             
           </a>
@@ -1526,6 +1588,21 @@ Also slows down boot time by a bit.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/entropy/extra-latent-entropy.nix" target="_blank">&lt;nix-mineral/extras/entropy/extra-latent-entropy.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-nix-mineral.extras.etc.cis-banners">
+  <h3 class="option-name">
+    <a href="#option-nix-mineral.extras.etc.cis-banners" class="option-anchor">nix-mineral.extras.etc.cis-banners</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Set CIS-compliant login warning banners.
+Configures <code>/etc/motd</code> (CIS 1.7.1.1) and <code>/etc/issue.net</code> (CIS 1.7.1.3)
+with warnings.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/etc/cis-banners.nix" target="_blank">&lt;nix-mineral/extras/etc/cis-banners.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-nix-mineral.extras.kernel.warn-panic">
   <h3 class="option-name">
     <a href="#option-nix-mineral.extras.kernel.warn-panic" class="option-anchor">nix-mineral.extras.kernel.warn-panic</a>
@@ -1564,6 +1641,37 @@ NixOS.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/apparmor.nix" target="_blank">&lt;nix-mineral/extras/misc/apparmor.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-nix-mineral.extras.misc.auditd">
+  <h3 class="option-name">
+    <a href="#option-nix-mineral.extras.misc.auditd" class="option-anchor">nix-mineral.extras.misc.auditd</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Enable auditd with CIS-compliant audit rules.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The audit configuration is made immutable. A reboot is required to
+change audit rules after they are loaded.</p>
+</div>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/auditd.nix" target="_blank">&lt;nix-mineral/extras/misc/auditd.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-nix-mineral.extras.misc.cis-openssh-hardening">
+  <h3 class="option-name">
+    <a href="#option-nix-mineral.extras.misc.cis-openssh-hardening" class="option-anchor">nix-mineral.extras.misc.cis-openssh-hardening</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Apply CIS-compliant OpenSSH server settings.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/misc/cis-openssh-hardening.nix" target="_blank">&lt;nix-mineral/extras/misc/cis-openssh-hardening.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-nix-mineral.extras.misc.doas-sudo-wrapper">
   <h3 class="option-name">
@@ -1776,6 +1884,46 @@ and to use the seccomp filter for security.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/secure-chrony.nix" target="_blank">&lt;nix-mineral/extras/system/secure-chrony.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-nix-mineral.extras.system.shell-init-hardening">
+  <h3 class="option-name">
+    <a href="#option-nix-mineral.extras.system.shell-init-hardening" class="option-anchor">nix-mineral.extras.system.shell-init-hardening</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>submodule</code></div>
+  <div class="option-description"><html><head></head><body><p>Shell initialization hardening settings.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/shell-init-hardening.nix" target="_blank">&lt;nix-mineral/extras/system/shell-init-hardening.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-nix-mineral.extras.system.shell-init-hardening.tmout">
+  <h3 class="option-name">
+    <a href="#option-nix-mineral.extras.system.shell-init-hardening.tmout" class="option-anchor">nix-mineral.extras.system.shell-init-hardening.tmout</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or signed integer</code></div>
+  <div class="option-description"><html><head></head><body><p>Set an idle timeout for interactive shells.
+When set, shells will automatically terminate after the specified
+number of seconds of inactivity.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-example">Example: <code>900</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/shell-init-hardening.nix" target="_blank">&lt;nix-mineral/extras/system/shell-init-hardening.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-nix-mineral.extras.system.shell-init-hardening.umask">
+  <h3 class="option-name">
+    <a href="#option-nix-mineral.extras.system.shell-init-hardening.umask" class="option-anchor">nix-mineral.extras.system.shell-init-hardening.umask</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or string</code></div>
+  <div class="option-description"><html><head></head><body><p>Set a restrictive default umask for shells.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-example">Example: <code>"027"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/extras/system/shell-init-hardening.nix" target="_blank">&lt;nix-mineral/extras/system/shell-init-hardening.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-nix-mineral.extras.system.unprivileged-userns">
   <h3 class="option-name">
@@ -2637,7 +2785,7 @@ you need and add that to your boot parameters manually.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>one of "default", "compatibility", "maximum", "performance" or list of (one of "default", "compatibility", "maximum", "performance")</code></div>
+  <div class="option-type">Type: <code>one of "default", "cis", "compatibility", "maximum", "performance" or list of (one of "default", "cis", "compatibility", "maximum", "performance")</code></div>
   <div class="option-description"><html><head></head><body><p>The preset (or presets) to use for the nix-mineral module.
 (all presets are applied on top of the default preset)</p>
 <p>To select multiple presets, provide a list of preset names.</p>
@@ -2646,6 +2794,7 @@ priority values, meaning that presets LOWER in the list are prioritized.</p>
 <p>See: <a href="https://nixos.org/manual/nixos/stable/#sec-option-definitions-setting-priorities">https://nixos.org/manual/nixos/stable/#sec-option-definitions-setting-priorities</a></p>
 <ul>
 <li><code>default</code>: only default settings.</li>
+<li><code>cis</code>: CIS benchmark compliance preset.</li>
 <li><code>compatibility</code>: disables or enables settings to aim at compatibility.</li>
 <li><code>maximum</code>: enables every optional security setting to have maximum protection.</li>
 <li><code>performance</code>: disables or enables settings to aim at performance.</li>
