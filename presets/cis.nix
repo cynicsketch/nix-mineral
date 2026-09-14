@@ -146,7 +146,6 @@ in
   nix-mineral = mkPresets {
     settings = {
       etc = {
-        kicksecure-module-blacklist = true; # CIS 1.1.1.x - disable unused filesystems
         kicksecure-issue = true; # CIS 1.7.1.2 - local login warning banner
       };
 
@@ -216,5 +215,7 @@ in
         tipc = true;
       };
     };
+
+    kernel-modules.disable.unused-filesystems = true; # CIS 1.1.1.x - disable unused filesystems
   };
 }
