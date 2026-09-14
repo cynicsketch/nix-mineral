@@ -13,9 +13,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 # This is the main module for nix-mineral, containing the default configuration.
-
 {
   options,
   config,
@@ -24,7 +22,6 @@
   l,
   ...
 }:
-
 let
   cfg = config.nix-mineral;
 
@@ -58,6 +55,7 @@ let
         ./extras/entropy
         ./extras/misc
         ./extras/tmpfiles
+        ./extras/etc
       ]
       {
         inherit
