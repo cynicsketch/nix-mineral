@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+    target-branch: main
+    commit-message:
+      prefix: "ci:"
+  - package-ecosystem: "nix"
+    directories:
+      - "/"
+      - "/tests/nixos-stub/"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    commit-message:
+      prefix: "flake:"
