@@ -24,6 +24,7 @@
 
             nix-mineral = {
               enable = true;
+              extras.system.secure-chrony = true;
             };
 
             # Everything below is required to make this configuration "bootable" and
