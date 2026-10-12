@@ -22,14 +22,26 @@
 }:
 
 {
+  imports = [
+    (l.mkDeprecatedOptionModule [ "nix-mineral" "extras" "system" "secure-chrony" ] ''
+      This option does not align with the current project scope and is subject
+      to removal.
+
+      It is recommended that users copy the configuration of this module as well
+      as porting any configuration lines found in the original GrapheneOS
+      infrastructure chrony configuration:
+      https://github.com/GrapheneOS/infrastructure/blob/main/etc/chrony.conf
+    '')
+  ];
+
   options = {
-    secure-chrony = l.mkBoolOption ''
+    secure-chrony = l.mkDeprecatedOption ''
       Replace systemd-timesyncd with chrony for NTP, and configure chrony for NTS
       and to use the seccomp filter for security.
-    '' false;
+    '';
   };
 
-  config = l.mkIf cfg {
+  config = l.mkIf (cfg == true) {
     services.timesyncd = {
       enable = l.mkDefault false;
     };
