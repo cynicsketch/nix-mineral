@@ -17,6 +17,7 @@
 {
   l,
   cfg,
+  config,
   ...
 }:
 
@@ -42,5 +43,9 @@
       fetch.fsckobjects = l.mkDefault true;
       receive.fsckobjects = l.mkDefault true;
     };
+
+    environment.etc.gitconfig.text = l.mkIf (!config.programs.git.enable) (
+      l.concatMapStringsSep "\n" l.generators.toGitINI config.programs.git.config
+    );
   };
 }
