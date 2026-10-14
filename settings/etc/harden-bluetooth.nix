@@ -27,6 +27,8 @@
       and security.
 
       Disables bluetooth automatically when not connected to any device.
+
+      https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/etc/bluetooth/30_security-misc.conf
     '' true;
   };
 

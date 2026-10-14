@@ -26,6 +26,8 @@
     harden-gitconfig = l.mkBoolOption ''
       Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
       by default for better git security.
+
+      https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/etc/gitconfig
     '' true;
   };
 

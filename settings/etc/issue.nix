@@ -30,6 +30,8 @@
       unauthorized access and to comply with Lynis.
 
       There are no assurances that anything stated here is legally valid.
+
+      https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/usr/lib/issue.d/20_security-misc.issue
     '' true;
   };
 
