@@ -17,6 +17,7 @@
 {
   l,
   cfg,
+  pkgs,
   ...
 }:
 
@@ -33,6 +34,9 @@
   };
 
   config = l.mkIf cfg {
-    environment.etc.issue.source = (l.fetchGhFile l.sources.issue);
+    environment.etc.issue.source = pkgs.writeText "issue" ''
+      By continuing, you acknowledge and give consent that the owner of this system has a right to keep a log of all activity.
+      Unauthorized access is strictly prohibited and may result in legal action. Do not proceed!
+		'';
   };
 }
