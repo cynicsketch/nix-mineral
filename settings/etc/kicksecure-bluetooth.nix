@@ -31,6 +31,32 @@
   };
 
   config = l.mkIf cfg {
-    environment.etc."bluetooth/main.conf".source = l.mkForce (l.fetchGhFile l.sources.bluetooth);
+    hardware.bluetooth.settings = {
+      General = {
+        # How long to stay in pairable mode before going back to non-discoverable
+        # The value is in seconds. Default is 0.
+        # 0 = disable timer, i.e. stay pairable forever
+        PairableTimeout = l.mkDefault 30;
+        # How long to stay in discoverable mode before going back to non-discoverable
+        # The value is in seconds. Default is 180, i.e. 3 minutes.
+        # 0 = disable timer, i.e. stay discoverable forever
+        DiscoverableTimeout = l.mkDefault 30;
+        # Maximum number of controllers allowed to be exposed to the system.
+        # Default=0 (unlimited)
+        MaxControllers = l.mkDefault 1;
+        # How long to keep temporary devices around
+        # The value is in seconds. Default is 30.
+        # 0 = disable timer, i.e. never keep temporary devices
+        TemporaryTimeout = l.mkDefault 0;
+        # network/on: A device will only accept advertising packets from peer
+        # devices that contain private addresses. It may not be compatible with some
+        # legacy devices since it requires the use of RPA(s) all the time.
+        Privacy = l.mkDefault "network";
+      };
+      # AutoEnable defines option to enable all controllers when they are found.
+      # This includes adapters present on start as well as adapters that are plugged
+      # in later on. Defaults to 'true'.
+      Policy.AutoEnable = l.mkDefault false;
+    };
   };
 }
