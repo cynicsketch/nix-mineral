@@ -17,26 +17,30 @@
 {
   l,
   cfg,
-  pkgs,
   ...
 }:
 
 {
   options = {
-    kicksecure-issue = l.mkBoolOption ''
-      Borrow Kicksecure banner/issue.
-
-      Provides NO exploit resistance whatsoever, only serves as a deterrent to
-      unauthorized access and to comply with Lynis.
-
-      There are no assurances that anything stated here is legally valid.
+    harden-gitconfig = l.mkBoolOption ''
+      Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
+      by default for better git security.
     '' true;
   };
 
+  imports = [
+    (l.mkRenamedOptionModule
+      [ "nix-mineral" "settings" "etc" "kicksecure-gitconfig" ]
+      [ "nix-mineral" "settings" "etc" "harden-gitconfig" ]
+    )
+  ];
+
   config = l.mkIf cfg {
-    environment.etc.issue.source = pkgs.writeText "issue" ''
-      By continuing, you acknowledge and give consent that the owner of this system has a right to keep a log of all activity.
-      Unauthorized access is strictly prohibited and may result in legal action. Do not proceed!
-		'';
+    programs.git.config = {
+      core.symlinks = l.mkDefault false;
+      transfer.fsckobjects = l.mkDefault true;
+      fetch.fsckobjects = l.mkDefault true;
+      receive.fsckobjects = l.mkDefault true;
+    };
   };
 }

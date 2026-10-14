@@ -22,13 +22,20 @@
 
 {
   options = {
-    kicksecure-bluetooth = l.mkBoolOption ''
+    harden-bluetooth = l.mkBoolOption ''
       Borrow Kicksecure bluetooth configuration for better bluetooth privacy
       and security.
 
       Disables bluetooth automatically when not connected to any device.
     '' true;
   };
+
+  imports = [
+    (l.mkRenamedOptionModule
+      [ "nix-mineral" "settings" "etc" "kicksecure-bluetooth" ]
+      [ "nix-mineral" "settings" "etc" "harden-bluetooth" ]
+    )
+  ];
 
   config = l.mkIf cfg {
     hardware.bluetooth.settings = {
