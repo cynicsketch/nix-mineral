@@ -29,6 +29,11 @@
   };
 
   config = l.mkIf cfg {
-    environment.etc.gitconfig.source = (l.fetchGhFile l.sources.gitconfig);
+    programs.git.config = {
+      core.symlinks = l.mkDefault false;
+      transfer.fsckobjects = l.mkDefault true;
+      fetch.fsckobjects = l.mkDefault true;
+      receive.fsckobjects = l.mkDefault true;
+    };
   };
 }
