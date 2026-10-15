@@ -871,24 +871,24 @@
         </li>
         
         <li>
-          <a href='#option-nix-mineral.settings.etc.kicksecure-bluetooth' title="nix-mineral.settings.etc.kicksecure-bluetooth">
-            kicksecure-bluetooth
+          <a href='#option-nix-mineral.settings.etc.harden-bluetooth' title="nix-mineral.settings.etc.harden-bluetooth">
+            harden-bluetooth
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-nix-mineral.settings.etc.kicksecure-gitconfig' title="nix-mineral.settings.etc.kicksecure-gitconfig">
-            kicksecure-gitconfig
+          <a href='#option-nix-mineral.settings.etc.harden-gitconfig' title="nix-mineral.settings.etc.harden-gitconfig">
+            harden-gitconfig
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-nix-mineral.settings.etc.kicksecure-issue' title="nix-mineral.settings.etc.kicksecure-issue">
-            kicksecure-issue
+          <a href='#option-nix-mineral.settings.etc.issue' title="nix-mineral.settings.etc.issue">
+            issue
             
             
           </a>
@@ -3115,9 +3115,9 @@ e.g for log collection or VM management.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/generic-machine-id.nix" target="_blank">&lt;nix-mineral/settings/etc/generic-machine-id.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral.settings.etc.kicksecure-bluetooth">
+<div class="option" id="option-nix-mineral.settings.etc.harden-bluetooth">
   <h3 class="option-name">
-    <a href="#option-nix-mineral.settings.etc.kicksecure-bluetooth" class="option-anchor">nix-mineral.settings.etc.kicksecure-bluetooth</a>
+    <a href="#option-nix-mineral.settings.etc.harden-bluetooth" class="option-anchor">nix-mineral.settings.etc.harden-bluetooth</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3125,28 +3125,30 @@ e.g for log collection or VM management.</p>
   <div class="option-description"><html><head></head><body><p>Borrow Kicksecure bluetooth configuration for better bluetooth privacy
 and security.</p>
 <p>Disables bluetooth automatically when not connected to any device.</p>
+<p><a href="https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/etc/bluetooth/30_security-misc.conf">https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/etc/bluetooth/30_security-misc.conf</a></p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-example">Example: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/kicksecure-bluetooth.nix" target="_blank">&lt;nix-mineral/settings/etc/kicksecure-bluetooth.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/harden-bluetooth.nix" target="_blank">&lt;nix-mineral/settings/etc/harden-bluetooth.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral.settings.etc.kicksecure-gitconfig">
+<div class="option" id="option-nix-mineral.settings.etc.harden-gitconfig">
   <h3 class="option-name">
-    <a href="#option-nix-mineral.settings.etc.kicksecure-gitconfig" class="option-anchor">nix-mineral.settings.etc.kicksecure-gitconfig</a>
+    <a href="#option-nix-mineral.settings.etc.harden-gitconfig" class="option-anchor">nix-mineral.settings.etc.harden-gitconfig</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
 by default for better git security.</p>
+<p><a href="https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/etc/gitconfig">https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/etc/gitconfig</a></p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-example">Example: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/kicksecure-gitconfig.nix" target="_blank">&lt;nix-mineral/settings/etc/kicksecure-gitconfig.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/harden-gitconfig.nix" target="_blank">&lt;nix-mineral/settings/etc/harden-gitconfig.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-nix-mineral.settings.etc.kicksecure-issue">
+<div class="option" id="option-nix-mineral.settings.etc.issue">
   <h3 class="option-name">
-    <a href="#option-nix-mineral.settings.etc.kicksecure-issue" class="option-anchor">nix-mineral.settings.etc.kicksecure-issue</a>
+    <a href="#option-nix-mineral.settings.etc.issue" class="option-anchor">nix-mineral.settings.etc.issue</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -3155,10 +3157,11 @@ by default for better git security.</p>
 <p>Provides NO exploit resistance whatsoever, only serves as a deterrent to
 unauthorized access and to comply with Lynis.</p>
 <p>There are no assurances that anything stated here is legally valid.</p>
+<p><a href="https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/usr/lib/issue.d/20_security-misc.issue">https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/usr/lib/issue.d/20_security-misc.issue</a></p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-example">Example: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/kicksecure-issue.nix" target="_blank">&lt;nix-mineral/settings/etc/kicksecure-issue.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/cynicsketch/nix-mineral/blob/main/settings/etc/issue.nix" target="_blank">&lt;nix-mineral/settings/etc/issue.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-nix-mineral.settings.etc.kicksecure-module-blacklist">
   <h3 class="option-name">
