@@ -17,20 +17,37 @@
 {
   l,
   cfg,
+  config,
   ...
 }:
 
 {
   options = {
-    kicksecure-bluetooth = l.mkBoolOption ''
-      Borrow Kicksecure bluetooth configuration for better bluetooth privacy
-      and security.
+    harden-gitconfig = l.mkBoolOption ''
+      Borrow Kicksecure gitconfig, disabling git symlinks and enabling fsck
+      by default for better git security.
 
-      Disables bluetooth automatically when not connected to any device.
+      https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/etc/gitconfig
     '' true;
   };
 
+  imports = [
+    (l.mkRenamedOptionModule
+      [ "nix-mineral" "settings" "etc" "kicksecure-gitconfig" ]
+      [ "nix-mineral" "settings" "etc" "harden-gitconfig" ]
+    )
+  ];
+
   config = l.mkIf cfg {
-    environment.etc."bluetooth/main.conf".source = l.mkForce (l.fetchGhFile l.sources.bluetooth);
+    programs.git.config = {
+      core.symlinks = l.mkDefault false;
+      transfer.fsckobjects = l.mkDefault true;
+      fetch.fsckobjects = l.mkDefault true;
+      receive.fsckobjects = l.mkDefault true;
+    };
+
+    environment.etc.gitconfig.text = l.mkIf (!config.programs.git.enable) (
+      l.concatMapStringsSep "\n" l.generators.toGitINI config.programs.git.config
+    );
   };
 }

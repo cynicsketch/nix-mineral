@@ -30,9 +30,9 @@ let
       [
         ./generic-machine-id.nix
         ./no-root-securetty.nix
-        ./kicksecure-issue.nix
-        ./kicksecure-gitconfig.nix
-        ./kicksecure-bluetooth.nix
+        ./issue.nix
+        ./harden-gitconfig.nix
+        ./harden-bluetooth.nix
         ./kicksecure-module-blacklist.nix
       ]
       {

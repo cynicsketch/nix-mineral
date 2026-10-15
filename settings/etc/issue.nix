@@ -17,22 +17,35 @@
 {
   l,
   cfg,
+  pkgs,
   ...
 }:
 
 {
   options = {
-    kicksecure-issue = l.mkBoolOption ''
+    issue = l.mkBoolOption ''
       Borrow Kicksecure banner/issue.
 
       Provides NO exploit resistance whatsoever, only serves as a deterrent to
       unauthorized access and to comply with Lynis.
 
       There are no assurances that anything stated here is legally valid.
+
+      https://github.com/Kicksecure/security-misc/blob/de6f3ea74a5a1408e4351c955ecb7010825364c5/usr/lib/issue.d/20_security-misc.issue
     '' true;
   };
 
+  imports = [
+    (l.mkRenamedOptionModule
+      [ "nix-mineral" "settings" "etc" "kicksecure-issue" ]
+      [ "nix-mineral" "settings" "etc" "issue" ]
+    )
+  ];
+
   config = l.mkIf cfg {
-    environment.etc.issue.source = (l.fetchGhFile l.sources.issue);
+    environment.etc.issue.source = pkgs.writeText "issue" ''
+      By continuing, you acknowledge and give consent that the owner of this system has a right to keep a log of all activity.
+      Unauthorized access is strictly prohibited and may result in legal action. Do not proceed!
+    '';
   };
 }
