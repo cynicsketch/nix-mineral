@@ -146,7 +146,7 @@ in
   nix-mineral = mkPresets {
     settings = {
       etc = {
-        kicksecure-issue = true; # CIS 1.7.1.2 - local login warning banner
+        issue = true; # CIS 1.7.1.2 - local login warning banner
       };
 
       debug = {
