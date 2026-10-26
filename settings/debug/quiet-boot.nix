@@ -16,6 +16,7 @@
 
 {
   l,
+  lib,
   cfg,
   ...
 }:
@@ -28,12 +29,16 @@
     '' true;
   };
 
-  config = l.mkIf cfg {
-    boot.consoleLogLevel = l.mkDefault 0;
-    boot.initrd.verbose = l.mkDefault false;
-    boot.kernelParams = [
-      "quiet"
-      "udev.log_level=3"
-    ];
-  };
+  config = l.mkMerge [
+    (l.mkIf cfg {
+      boot.consoleLogLevel = l.mkDefault 0;
+      boot.kernelParams = [
+        "quiet"
+        "udev.log_level=3"
+      ];
+    })
+    (l.mkIf (cfg && lib.versionOlder lib.trivial.release "26.11") {
+      boot.initrd.verbose = l.mkDefault false;
+    })
+  ];
 }
