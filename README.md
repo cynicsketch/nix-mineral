@@ -120,7 +120,7 @@ shown below.
 {
     nix-mineral = {
         enable = true;
-        
+
         # Multiple presets can be used.
         # The order of presets matters, the top ones will receive higher
         # priority values, meaning that presets LOWER in the list are prioritized.
@@ -156,7 +156,7 @@ shown below.
 Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible.
 
 `nix-mineral` additionally pays thanks to several other projects which it has
-borrowed insight and configuration from, listed below. 
+borrowed insight and configuration from, listed below.
 
 `nix-mineral` is *not* endorsed by any of the projects enumerated unless
 otherwise specified.
@@ -210,4 +210,3 @@ URL: https://github.com/feel-co/hjem
 Project: *hjem-rum* \
 Influence: Snippets for ndg licensed under the GPL-3.0, used to generate `nix-mineral`'s website \
 URL: https://github.com/snugnug/hjem-rum
-
