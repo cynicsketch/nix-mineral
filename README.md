@@ -148,7 +148,7 @@ shown below.
         };
     };
 
-    nix-mineral.settings.network.tcp-window-scaling = false;
+    nix-mineral.extras.network.tcp-window-scaling = false;
 }
 ```
 
