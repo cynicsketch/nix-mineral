@@ -60,6 +60,14 @@
       };
 
       network = {
+        # Reply only if the target IP address is within the local address
+        # range configured on the incoming interface
+        #
+        # Set to "local" instead of "link" to allow networking between
+        # virtualized environments, such as VMs or NixOS containers, to work
+        # properly
+        arp.ignore = "local";
+
         # drop Gratuitous ARP frames to prevent ARP poisoning
         # this can cause issues when ARP proxies are used in the network
         arp.drop-gratuitous = false;
