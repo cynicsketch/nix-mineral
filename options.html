@@ -4158,10 +4158,8 @@ ARP cache poisoning attacks.</p>
 spoofing.</p>
 <p>This may break certain VM networking configurations if set
 to 'link,' which can be fixed by setting to 'local' or 'none.'</p>
-<p>However, such a regression has been intentionally excluded from the
-compatibility preset unless new information or usecases are made
-apparent, given that this issue appears to be isolated to niche
-setups which NixOS is not known or advisable to be used for.</p>
+<p>Setting to <code>local</code> may be necessary for IPv4 internet access in
+NixOS containers when used in conjunction with <code>privateNetwork = true</code></p>
 <ul>
 <li><code>none</code>: Keep the default configuration of your kernel.</li>
 <li><code>local</code>: Reply only if the target IP address is within the local address range configured on the incoming interface</li>
