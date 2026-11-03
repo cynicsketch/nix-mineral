@@ -42,10 +42,8 @@
           This may break certain VM networking configurations if set
           to 'link,' which can be fixed by setting to 'local' or 'none.'
 
-          However, such a regression has been intentionally excluded from the
-          compatibility preset unless new information or usecases are made
-          apparent, given that this issue appears to be isolated to niche
-          setups which NixOS is not known or advisable to be used for.
+          Setting to `local` may be necessary for IPv4 internet access in
+          NixOS containers when used in conjunction with `privateNetwork = true`
 
           - `none`: Keep the default configuration of your kernel.
           - `local`: Reply only if the target IP address is within the local address range configured on the incoming interface
