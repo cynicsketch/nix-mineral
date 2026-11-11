@@ -56,7 +56,7 @@ in
       This excludes the modules: `thunderbolt` and `thunderbolt_net`.
       :::
     '';
-    modules = (mkSBKModulesList 36 43) ++ (mkSBKModulesList 46 54);
+    modules = (mkSBKModulesList 36 43) ++ (mkSBKModulesList 47 55);
     default = true;
   };
 
@@ -80,52 +80,54 @@ in
       https://github.com/secureblue/secureblue/issues/2437
       :::
     '';
-    modules = (mkSBKModulesList 44 45);
+    modules = (mkSBKModulesList 44 46);
     default = true;
   };
 
-  unused-filesystems = mkSBKModulesOption 56 116 "commonly unused filesystems" { };
+  unused-filesystems = mkSBKModulesOption 57 117 "commonly unused filesystems" { };
 
-  gnss-related = mkSBKModulesOption 119 125 "GNSS" { };
+  gnss-related = mkSBKModulesOption 120 126 "GNSS" { };
 
-  cdrom-related = mkSBKModulesOption 139 140 "cdrom" { };
+  cdrom-related = mkSBKModulesOption 139 141 "cdrom" { };
 
-  esp4-and-esp6 = mkSBKModulesOption 146 150 ''
+  esp4-and-esp6 = mkSBKModulesOption 147 151 ''
     esp4 and esp6.
     They provide support for Encapsulating Security Payload, part of IPSec
   '' { };
 
+  ipsec-vti = mkSBKModulesOption 153 157 "IPSEC Virtual Tunnel Interface (VTI)" { };
+
   xfrm-related =
-    mkSBKModulesOption 152 160 "xfrm, another part of IPSec involved in related exploits"
+    mkSBKModulesOption 159 167 "xfrm, another part of IPSec involved in related exploits"
       { };
 
-  ipsec-related = mkSBKModulesOption 162 167 "IPSec" { };
+  ipsec-related = mkSBKModulesOption 169 174 "IPSec" { };
 
-  l2tp-related = mkSBKModulesOption 169 177 "l2tp (depends on IPSec)" { };
+  l2tp-related = mkSBKModulesOption 176 184 "l2tp (depends on IPSec)" { };
 
-  legacy-interfaces = mkSBKModulesOption 182 196 "legacy interfaces" { };
+  legacy-interfaces = mkSBKModulesOption 189 203 "legacy interfaces" { };
 
-  kernel-debugging-related = mkSBKModulesOption 200 252 "kernel debugging/development" { };
+  kernel-debugging-related = mkSBKModulesOption 207 259 "kernel debugging/development" { };
 
-  automotive-related = mkSBKModulesOption 254 294 "automotive/industrial" { };
+  automotive-related = mkSBKModulesOption 261 301 "automotive/industrial" { };
 
-  rdma-related = mkSBKModulesOption 297 312 "[RDMA](https://wiki.debian.org/RDMA)" { };
+  rdma-related = mkSBKModulesOption 304 319 "[RDMA](https://wiki.debian.org/RDMA)" { };
 
-  gpib-related = mkSBKModulesOption 315 338 "[GPIB](https://en.wikipedia.org/wiki/GPIB)" { };
+  gpib-related = mkSBKModulesOption 322 345 "[GPIB](https://en.wikipedia.org/wiki/GPIB)" { };
 
-  dvb-and-tv-receivers = mkSBKModulesOption 341 656 "DVB and TV receivers" { };
+  dvb-and-tv-receivers = mkSBKModulesOption 348 663 "DVB and TV receivers" { };
 
-  joystick-drivers = mkSBKModulesOption 659 725 "joystick drivers" { };
+  joystick-drivers = mkSBKModulesOption 666 732 "joystick drivers" { };
 
-  remote-controls = mkSBKModulesOption 728 902 "remote controls" { };
+  remote-controls = mkSBKModulesOption 735 909 "remote controls" { };
 
-  legacy-digital-cameras = mkSBKModulesOption 905 958 ''
+  legacy-digital-cameras = mkSBKModulesOption 912 965 ''
     legacy digital cameras (pre-2010).
     This often refers to point-and-shoot digital cameras predating USB webcams,
     e.g. Kodak EZ200, Fujifilm FinePix F402, etc.
   '' { };
 
-  radio-tuners = mkSBKModulesOption 961 976 "radio tuners" { };
+  radio-tuners = mkSBKModulesOption 971 986 "radio tuners" { };
 
   secureblue-additional = {
     default = true;

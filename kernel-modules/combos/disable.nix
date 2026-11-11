@@ -109,5 +109,11 @@
       "virtio_bt"
     ];
   };
+
+  nfc = {
+    modules = [
+      "nfc"
+    ];
+  };
 }
 // import ./secureblue-disable.nix { inherit l; }
