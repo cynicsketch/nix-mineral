@@ -104,13 +104,13 @@
 <p>Try setting <code>nix-mineral.settings.kernel.busmaster-bit = false;</code> since it may
 cause boot failure on some hardware.</p>
 <p>If you are getting errors about failed mounts, review
-<a href="https://cynicsketch.github.io/nix-mineral/options.html#option-nix-mineral.filesystems.normal">nix-mineral.filesystems.normal</a>
+<a href="https://nix-community.github.io/nix-mineral/options.html#option-nix-mineral.filesystems.normal">nix-mineral.filesystems.normal</a>
 and make sure any directory that is dedicated a specific partition or subvolume
 is not bind mounted.</p>
 <p>You can see all the mountpoints that are hardened by default here:
-<a href="https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix">https://github.com/cynicsketch/nix-mineral/blob/main/filesystems/normal.nix</a></p>
+<a href="https://github.com/nix-community/nix-mineral/blob/main/filesystems/normal.nix">https://github.com/nix-community/nix-mineral/blob/main/filesystems/normal.nix</a></p>
 <h2 id="something-isn-t-working">Something isn't working!</h2>
-<p>Check <a href="https://github.com/cynicsketch/nix-mineral/blob/main/presets/compatibility.nix">https://github.com/cynicsketch/nix-mineral/blob/main/presets/compatibility.nix</a>
+<p>Check <a href="https://github.com/nix-community/nix-mineral/blob/main/presets/compatibility.nix">https://github.com/nix-community/nix-mineral/blob/main/presets/compatibility.nix</a>
 for any settings that may be relevant to your problem.</p>
 <h2 id="why-does-my-computer-keep-randomly-rebooting">Why does my computer keep randomly rebooting?</h2>
 <p>You are probably experiencing kernel panics. <code>nix-mineral.settings.debug.panic-reboot = true;</code>
