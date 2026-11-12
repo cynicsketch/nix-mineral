@@ -237,7 +237,7 @@ let
                     );
               in
               {
-                url = "https://github.com/cynicsketch/nix-mineral/blob/main/${fileLocation}.nix";
+                url = "https://github.com/nix-community/nix-mineral/blob/main/${fileLocation}.nix";
                 name = "<nix-mineral/${fileLocation}.nix>";
               }
             else if decl == "lib/modules.nix" then

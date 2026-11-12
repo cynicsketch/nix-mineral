@@ -1,4 +1,4 @@
-# This file is part of nix-mineral (https://github.com/cynicsketch/nix-mineral/).
+# This file is part of nix-mineral (https://github.com/nix-community/nix-mineral/).
 # Copyright (c) 2025 cynicsketch
 #
 # This program is free software: you can redistribute it and/or modify
@@ -135,7 +135,7 @@ in
         the stage 2 activation due to mounts not working as intended.
 
         See:
-        https://github.com/cynicsketch/nix-mineral/issues/11
+        https://github.com/nix-community/nix-mineral/issues/11
         :::
       '';
       default = { };

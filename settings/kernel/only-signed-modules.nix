@@ -1,4 +1,4 @@
-# This file is part of nix-mineral (https://github.com/cynicsketch/nix-mineral/).
+# This file is part of nix-mineral (https://github.com/nix-community/nix-mineral/).
 # Copyright (c) 2025 cynicsketch
 #
 # This program is free software: you can redistribute it and/or modify
@@ -38,7 +38,7 @@
 
       See:
       https://github.com/NixOS/nixpkgs/blob/baeac6edff1b03f0ecd063b8fe48e9742d0527e7/pkgs/os-specific/linux/kernel/common-config.nix#L830
-      https://github.com/cynicsketch/nix-mineral/issues/125
+      https://github.com/nix-community/nix-mineral/issues/125
 
       If `false`, {option}`nix-mineral.settings.kernel.lockdown` must also be false.
       :::

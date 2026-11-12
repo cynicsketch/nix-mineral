@@ -6,7 +6,7 @@ Rather than be named after a mineral, it's named after the word "mineral".
 `nix-mineral` is Alpha software! Loss of data or functionality may occur, especially on non-fixed releases, and user cooperation in debugging is expected!
 
 ## Documentation
-- **[cynicsketch.github.io/nix-mineral](https://cynicsketch.github.io/nix-mineral/)** - All documentation as well as option information/search is available on the website
+- **[nix-community.github.io/nix-mineral](https://nix-community.github.io/nix-mineral/)** - All documentation as well as option information/search is available on the website
 - **[Frequently asked questions](docs/FAQ.md)** - Solutions to commonly experienced problems with usage
 - **[Caveats](docs/CAVEATS.md)** - Caveats of this project
 - **[Scope](docs/SCOPE.md)** - Details what this project is for
@@ -36,7 +36,7 @@ Example with fetchgit:
 ```nix
 let
     nix-mineral = builtins.fetchGit {
-      url = "https://github.com/cynicsketch/nix-mineral.git";
+      url = "https://github.com/nix-community/nix-mineral.git";
     };
 in
 {
@@ -62,10 +62,10 @@ Add nix-mineral as an input to your flake:
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    nix-mineral.url = "github:cynicsketch/nix-mineral/"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
+    nix-mineral.url = "github:nix-community/nix-mineral/"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
 
-    # nix-mineral.url = "github:cynicsketch/nix-mineral/v0.5.0-alpha" # Refers to a specific tag and follows that tag until you change it
-    # nix-mineral.url = "github:cynicsketch/nix-mineral/reallylongexamplehashforthecommitandall9" # Refers to a specific commit and follows that until you change it
+    # nix-mineral.url = "github:nix-community/nix-mineral/v0.5.0-alpha" # Refers to a specific tag and follows that tag until you change it
+    # nix-mineral.url = "github:nix-community/nix-mineral/reallylongexamplehashforthecommitandall9" # Refers to a specific commit and follows that until you change it
   };
 
   outputs =
@@ -106,7 +106,7 @@ Import nix-mineral.nix from the input and enable the module:
 It is likely you will need to change some options in order to make your
 individual hardware and software configuration function as intended.
 
-Presets for doing so are available in the [presets directory](https://github.com/cynicsketch/nix-mineral/tree/main/presets)
+Presets for doing so are available in the [presets directory](https://github.com/nix-community/nix-mineral/tree/main/presets)
 of this repository.
 
 Refer to the individual submodules for more information on what each option does.
@@ -151,7 +151,7 @@ shown below.
 ```
 
 ### Credits
-Special thanks to all our [wonderful contributors](https://github.com/cynicsketch/nix-mineral/graphs/contributors) who have helped make this project possible.
+Special thanks to all our [wonderful contributors](https://github.com/nix-community/nix-mineral/graphs/contributors) who have helped make this project possible.
 
 `nix-mineral` additionally pays thanks to several other projects which it has
 borrowed insight and configuration from, listed below.

@@ -1,4 +1,4 @@
-# This file is part of nix-mineral (https://github.com/cynicsketch/nix-mineral/).
+# This file is part of nix-mineral (https://github.com/nix-community/nix-mineral/).
 # Copyright (c) 2025 cynicsketch
 #
 # This program is free software: you can redistribute it and/or modify
@@ -72,7 +72,7 @@
       in your NixOS config, as the prior behavior will be deprecated in a later
       release.
 
-      See: https://github.com/cynicsketch/nix-mineral/issues/140
+      See: https://github.com/nix-community/nix-mineral/issues/140
 
       This option is now equivalent to "unspecified" which inherits the NixOS
       defaults instead.
