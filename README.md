@@ -64,9 +64,7 @@ Add nix-mineral as an input to your flake:
 
     nix-mineral.url = "github:cynicsketch/nix-mineral/"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
 
-    # Note that due to major breaking changes, the below examples are not compatible with commits or releases prior to 0.2.0a!
-
-    # nix-mineral.url = "github:cynicsketch/nix-mineral/v0.2.0-alpha" # Refers to a specific tag and follows that tag until you change it
+    # nix-mineral.url = "github:cynicsketch/nix-mineral/v0.5.0-alpha" # Refers to a specific tag and follows that tag until you change it
     # nix-mineral.url = "github:cynicsketch/nix-mineral/reallylongexamplehashforthecommitandall9" # Refers to a specific commit and follows that until you change it
   };
 
