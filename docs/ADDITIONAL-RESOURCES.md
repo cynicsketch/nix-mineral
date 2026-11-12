@@ -60,4 +60,4 @@ Tangentially related. For some reason, Chromium doesn't use Wayland by default o
 
 https://github.com/lkrg-org/lkrg \
 Supposedly kills several classes of vulnerabilities in the Linux kernel. Excluded due to apparent breakage on NixOS. Pending any additional testing or workarounds, this may be reconsidered.
-See https://github.com/cynicsketch/nix-mineral/issues/48 and https://www.kicksecure.com/wiki/Linux_Kernel_Runtime_Guard_LKRG#Deprecation_in_Kicksecure
+See https://github.com/nix-community/nix-mineral/issues/48 and https://www.kicksecure.com/wiki/Linux_Kernel_Runtime_Guard_LKRG#Deprecation_in_Kicksecure
