@@ -3402,7 +3402,7 @@ so that sources of core dumps are more obvious.</p>
   <div class="option-type">Type: <code>one of "smt-off", "smt-on", "unspecified", "off"</code></div>
   <div class="option-description"><html><head></head><body><p>Apply relevant CPU exploit mitigations, May harm performance.</p>
 <ul>
-<li><code>smt-off</code>: Enable CPU mitigations and disables symmetric multithreading.</li>
+<li><code>smt-off</code>: Enable CPU mitigations and disables symmetric multithreading if necessary for the given CPU.</li>
 <li><code>smt-on</code>: Enable symmetric multithreading and just use default CPU mitigations, to potentially improve performance.</li>
 <li><code>unspecified</code>: Do nothing and use NixOS defaults.</li>
 </ul>
